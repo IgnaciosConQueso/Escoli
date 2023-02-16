@@ -1,7 +1,12 @@
 .fotoperfil{
   border-radius: 50%;
-  width: 45px;
+  width: 100px;
   vertical-align: bottom;
+}
+.nombrePropio{
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-weight: bold;
+  font-size: 15px;
 }
 .tweetBox{
   height: 36px;
