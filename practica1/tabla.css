@@ -1,0 +1,10 @@
+table {
+    width: 25%;
+    border: 3.5px solid #000;
+ }
+ th, td {
+    width: 25%;
+    text-align: center;
+    vertical-align: top;
+    border: 2.5px solid #000;
+ }
