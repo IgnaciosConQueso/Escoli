@@ -7,28 +7,40 @@
     <meta name="keywords" content="aplicaciones web, html" />
     <meta name="description" content="pagina de inicio de la practica 1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link id = "estilo" type="text/css" rel="stylesheet" href="index.css"/>
     <title>Escoli</title>
 </head>
 <body>
-    <!-- Para el header hay que modificar la posicion de los botones con el css -->
+
     <header>
         <h1>Escoli</h1>
     </header>
+    
+    <nav>
+        <ul>
+            <li><button onclick="location.href='bocetos.html'">Bocetos</button></li>
+            <li><button onclick="location.href='contacto.html'">Contacto</button></li>
+            <li><button onclick="location.href='detalles.html'">Detalles</button></li>
+            <li><button onclick="location.href='planificacion.html'">Planificación</button></li>
+            <li><button onclick="location.href='miembros.html'">Miembros</button></li> 
+        </ul>
+    </nav>
 
     <section>
         <article>  
-            <p>La página donde puedes evaluar a tus profesores.</p>
+            <h4>La página donde puedes evaluar a tus profesores.</h4>
+            <p>Se podrá puntuar a profesores en termins de labor docente o valor aportado 
+               y cada asignatura que imparta tendrá una puntuación distinta. Esta valoración puede ser en 
+               forma de comentarios y/o puntuación.</p>
+            <p>Para que los usuarios esten más dispuestos a dejar reseñas se tiene pensado implementar dos sistemas de puntuaciones.</p>
         </article>
     </section>
+
+    <aside>
+        <img class = "logo" src="logo-tmp.png">
+    </aside>
     
     
     
-    <footer> 
-        <button onclick="location.href='bocetos.html'">Bocetos</button>
-        <button onclick="location.href='contacto.html'">Contacto</button>
-        <button onclick="location.href='detalles.html'">Detalles</button>
-        <button onclick="location.href='planificacion.html'">Planificación</button>
-        <button onclick="location.href='miembros.html'">Miembros</button>
-    </footer>  
 </body>
 </html>
