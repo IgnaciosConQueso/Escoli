@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -16,14 +17,14 @@
         <label for="nombre" class="colocar_nombre">Nombre
           <span class="obligatorio">*</span>
         </label>
-        <input type="text" name="nombre" required="obligatorio" placeholder="Escribe tu nombre" value="">
+        <input type="text" name="nombre" placeholder="Escribe tu nombre" value="" required>
       </article>
 
       <article>
         <label for="email" class="colocar_email">Email
           <span class="obligatorio">*</span>
         </label>
-        <input type="email" name="email" required="obligatorio" placeholder="Escribe tu email" value="">
+        <input type="email" name="email" placeholder="Escribe tu email" value="" required>
       </article>
 
       <article>
@@ -31,15 +32,15 @@
           <span class="obligatorio">*</span>
         </label>
         <fieldset>
-          <input type="radio" name="asunto" required="obligatorio" value="Evaluacion"/>Evaluación</label>
-          <input type="radio" name="asunto" required="obligatorio" value="Sugerencia"checked/>Sugerencia
-          <input type="radio" name="asunto" required="obligatorio" value="Crítica"/>Crítica   
+          <input type="radio" name="asunto" value="Pregunta" required/>Pregunta
+          <input type="radio" name="asunto" value="Sugerencia" required/>Sugerencia
+          <input type="radio" name="asunto" value="Crítica" required/>Crítica  
         </fieldset>
       </article>
 
       <article>
         <label for="checkbox" class="aceptar">
-        <input type="checkbox" name="aceptar"  required="obligatorio"/>
+        <input type="checkbox" name="aceptar"  required/>
           Marque esta casilla para verificar que ha leído nuestros términos
             y condiciones del servicio
         <span class="obligatorio">*</span>
@@ -50,7 +51,7 @@
         <label for="mensaje" class="colocar_mensaje">Mensaje
           <span class="obligatorio">*</span>
         </label>
-        <textarea name="mensaje" required="obligatorio" placeholder="Escribe aquí tu comentario..." value=""></textarea>                   
+        <textarea name="mensaje" placeholder="Escribe aquí tu comentario..." value="" required></textarea>                   
       </article>
 
       <button type="submit" name="enviar" value="Enviar formulario"><p>Enviar</p></button>
