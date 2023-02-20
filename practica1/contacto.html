@@ -4,65 +4,56 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link id = "estilo" type="text/css" rel="stylesheet" href="contacto.css"/>
+  <link id = "estilo" type="text/css" rel="stylesheet" href="contacto.css">
   <title>Formulario de contacto</title>
 </head>
-
+<!-- varibale enctype para formateo del mailto -->
 <body>  
   <section>      
   <h1>Formulario de contacto</h1>
-  <h3>Escríbenos y en breve los pondremos en contacto contigo</h3>
+  <h2>Escríbenos y en breve los pondremos en contacto contigo</h2>
     <form action="mailto:ignatiusconqueso@gmail.com" method="post">
-      <article>
-        <label for="nombre" class="colocar_nombre">Nombre
-          <span class="obligatorio">*</span>
-        </label>
-        <input type="text" name="nombre" placeholder="Escribe tu nombre" value="" required>
+      <article class="Nombre">
+        <h3>Nombre<span class="obligatorio">*</span></h3>
+        <label for="nombre"></label>
+        <input id="nombre" type="text" name="nombre" placeholder="Escribe tu nombre" value="" required>
       </article>
 
       <article>
-        <label for="email" class="colocar_email">Email
-          <span class="obligatorio">*</span>
-        </label>
-        <input type="email" name="email" placeholder="Escribe tu email" value="" required>
+        <h3>Email<span class="obligatorio">*</span></h3>
+        <label for="email"></label>
+        <input id="email" type="email" name="email" placeholder="Escribe tu email" value="" required>
       </article>
 
       <article>
-        <label for="asunto" class="elegirAsunto">Asunto
-          <span class="obligatorio">*</span>
-        </label>
+        <h3>Asunto<span class="obligatorio">*</span></h3>
         <fieldset>
-          <input type="radio" name="asunto" value="Pregunta" required/>Pregunta
-          <input type="radio" name="asunto" value="Sugerencia" required/>Sugerencia
-          <input type="radio" name="asunto" value="Crítica" required/>Crítica  
+          <label><input id="asunto" type="radio" name="asunto" value="Pregunta" required>Pregunta</label>
+          <label><input id="asunto2" type="radio" name="asunto" value="Sugerencia" required>Sugerencia</label>
+          <label><input id="asunto3" type="radio" name="asunto" value="Crítica" required>Crítica</label>
         </fieldset>
       </article>
 
       <article>
-        <label for="checkbox" class="aceptar">
-        <input type="checkbox" name="aceptar"  required/>
+        <label for="aceptar"></label>
+        <h3><input id="aceptar" type="checkbox" name="aceptar" required>
           Marque esta casilla para verificar que ha leído nuestros términos
-            y condiciones del servicio
-        <span class="obligatorio">*</span>
-        </label>
+          y condiciones del servicio.
+          <span class="obligatorio">*</span>
+        </h3>
       </article>
 
       <article>
-        <label for="mensaje" class="colocar_mensaje">Mensaje
-          <span class="obligatorio">*</span>
-        </label>
-        <textarea name="mensaje" placeholder="Escribe aquí tu comentario..." value="" required></textarea>                   
+        <h3>Mensaje<span class="obligatorio">*</span></h3>
+        <label for="mensaje"></label>
+        <textarea id="mensaje" name="mensaje" placeholder="Escribe aquí tu comentario..." required></textarea>                   
       </article>
 
-      <button type="submit" name="enviar" value="Enviar formulario"><p>Enviar</p></button>
+      <button type="submit" name="enviar" value="Enviar formulario">Enviar</button>
 
       <footer>
-      <label for=aviso class="aviso">
-        <span class="obligatorio"> * </span>los campos son obligatorios.
-      </label>
-      
-      <p><button onclick="location.href='index.html'">Volver al inicio</button></p>
-      
+      <p><span class="obligatorio"> * </span>los campos son obligatorios.</p>
+      <button onclick="location.href='index.html'">Volver al inicio</button>
       </footer>
       </form>
   </section>
