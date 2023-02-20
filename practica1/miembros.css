@@ -1,8 +1,8 @@
 .fotoperfil{
   border-radius: 50%;
-  width: 100px;
-  vertical-align: bottom;
-}
+  width: 75px;
+  height: 75px;
+ }
 .nombrePropio{
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   font-weight: bold;
