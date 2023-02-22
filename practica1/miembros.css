@@ -2,11 +2,13 @@
   border-radius: 50%;
   width: 75px;
   height: 75px;
+  text-align:bottom;
  }
 .nombrePropio{
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   font-weight: bold;
   font-size: 15px;
+  line-height: 50px;
 }
 .tweetBox{
   height: 36px;
