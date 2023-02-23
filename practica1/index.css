@@ -21,13 +21,13 @@ p {
   margin-right: 10px;
 }
 
-.topnav{
+nav{
   overflow: hidden;
   font-size: medium;
-  background-color: #5e8aa1;
+  background-color: #4a5878;
 }
 
-.topnav a {
+nav a {
   float: left;
   display: block;
   color: #e1e1e1;
@@ -36,8 +36,8 @@ p {
   text-decoration: none;
 }
 
-.topnav a:hover {
-  background-color: #6d8490;
+nav a:hover {
+  background-color: #e1e1e1;
   color: black;
 }
 
@@ -63,7 +63,7 @@ p {
   width: 30%;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 800px) {
   .column.left, .column.right {
     width: 100%;
   }
