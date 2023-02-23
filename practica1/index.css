@@ -6,19 +6,33 @@ body {
   margin: 0;
 }
 
+header {
+  height: 10%;
+  width: 100%;
+}
+
+header a img {
+  height: 100%;
+  width: 100px ;
+  float: left;
+}
+
 h1 {
-  text-align: center;
+  margin-left: 45%;
 }
 
 h4 {
   font-size: x-large;
+  margin-right: 25%;
+  margin-left: 25%;
 }
 
 p {
   font-size: large;
   flex-wrap: wrap;
   hyphens: auto;
-  margin-right: 10px;
+  margin-right: 25%;
+  margin-left: 25%;
 }
 
 nav{
@@ -28,7 +42,7 @@ nav{
 }
 
 nav a {
-  float: left;
+  float:left;
   display: block;
   color: #e1e1e1;
   text-align: center;
@@ -41,33 +55,13 @@ nav a:hover {
   color: black;
 }
 
-.column {
-  float: left;
+.center {
   padding: 10px;
   padding-top: 30px;
-}
 
-
-.column.left {
-  width: 50%;
-}
-
-.column.right {
-  width: 50%;
-}
-
-.center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 30%;
 }
 
 @media screen and (max-width: 800px) {
-  .column.left, .column.right {
-    width: 100%;
-  }
-
   .topnav{
     font-size: small;
   }
