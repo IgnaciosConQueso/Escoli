@@ -28,11 +28,6 @@ section {
   width: 100%;
 }
 
-div.nombreYemail{
-  display: inline-flex;
-  width: 100%;
-}
-
 input {
   background-color: #212327;
   width: 90%;
@@ -122,4 +117,10 @@ label.aceptar {
 
 ::placeholder {
   color: #a8a8a8;
+}
+
+@media screen and (max-width: 500px){
+  form {
+    width: 90%;
+  }
 }
