@@ -7,17 +7,8 @@
     <title>Bocetos</title>
 </head>
 <body>
-    <header>
-        <a href="index.html"><img src="logo.jpg" alt="logo" class="logo" title="Escoli"></a>
-        <h1>Escoli</h1>
-    </header>
-        <nav>
-            <a href="bocetos.html">Bocetos</a>
-            <a href="contacto.html">Contacto</a>
-            <a href="detalles.html">Detalles</a>
-            <a href="planificacion.html">Planificación</a>
-            <a href="miembros.html">Miembros</a>
-        </nav>
+   
+  <?php include 'cabecera.php' ?>
 
     <h4>Pantalla principal</h4>
     <p><img src="bocetos/bocetoescogeruni.png" title="Pantalla principal Escoli" alt="Pantalla principal Escoli"></p>

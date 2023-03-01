@@ -5,25 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="author" content="aluque">
     <meta name="keywords" content="aplicaciones web, html">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="description" content="pagina de inicio de la practica 1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link id="cabecera" type="text/css" rel="stylesheet" href="cabecera.css">
     <link id = "estilo" type="text/css" rel="stylesheet" href="index.css">
     <title>Escoli</title>
 </head>
 <body>
-    <header>
-        <a href="index.html"><img src="logo.jpg" alt="logo" class="logo" title="Escoli"></a>
-        <h1>Escoli</h1>
-    </header>
     
-    <nav>
-        <a href="bocetos.html">Bocetos</a>
-        <a href="contacto.html">Contacto</a>
-        <a href="detalles.html">Detalles</a>
-        <a href="planificacion.html">Planificación</a>
-        <a href="miembros.html">Miembros</a>
-    </nav>
+    <?php include 'cabecera.php' ?> 
 
     <section class = "center">
         <h4>La página donde puedes evaluar a tus profesores.</h4>

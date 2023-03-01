@@ -6,22 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link id="estilo" type="text/css" rel="stylesheet" href="contacto.css">
-  <link id="cabecera" type="text/css" rel="stylesheet" href="cabecera.css">
   <title>Formulario de contacto</title>
 </head>
 
 <body>
-  <header>
-    <a href="index.html" class="logo"><img src="logo.jpg" alt="logo" class="logo" title="Escoli"></a>
-    <h1>Escoli</h1>
-  </header>
-  <nav>
-    <a href="bocetos.html">Bocetos</a>
-    <a href="contacto.html">Contacto</a>
-    <a href="detalles.html">Detalles</a>
-    <a href="planificacion.html">Planificación</a>
-    <a href="miembros.html">Miembros</a>
-  </nav>
+  <?php include 'cabecera.php' ?>
   <main>
     <form action="mailto:ignatiusconqueso@gmail.com" method="post" enctype="text/plain">
       <h2>Formulario de contacto</h2>
