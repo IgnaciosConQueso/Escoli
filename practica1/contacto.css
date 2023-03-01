@@ -37,18 +37,31 @@ input {
   border-width: 1px;
   border-color: #e1e1e1;
   padding-left: 10px;
+  color: #e1e1e1;
+}
+
+input:focus {
+  outline: #4a5878;
+  border: #4a5878 2px solid;
 }
 
 textarea {
   background-color: #212327;
-  width: 93%;
+  box-sizing: border-box;
+  width: 100%;
   height: 150px;
   border-radius: 5px;
-  border-style: solid;
+  border-style: groove;
   border-width: 1px;
   border-color: #e1e1e1;
-  padding-left: 10px;
   padding-top: 10px;
+  padding-left: 10px;
+  color: #e1e1e1;
+}
+
+textarea:focus {
+  outline: #4a5878 2px solid;
+  border: #4a5878 1px solid;
 }
 
 fieldset {
@@ -79,7 +92,8 @@ footer {
   padding-top: 5px;
   padding-bottom: 10px;
   display: block;
-  width: 100%;
+  width: 90%;
+  margin: auto;
   background-color: #212327;
   color: #e1e1e1;
 }
@@ -91,8 +105,8 @@ button {
   background-color: #4a5878;
   border: none;
   border-radius: 10px;
-  width: 97%;
-  margin-right: 5px;
+  width: 100%;
+  padding: 0px;
   cursor: pointer;
 }
 
