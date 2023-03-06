@@ -9,7 +9,7 @@
 </head>
 <body>
    
-  <?php include 'cabecera.php' ?>
+  <?php include 'cabecera.html' ?>
 
 
     <h2>Planificación de tareas</h2>

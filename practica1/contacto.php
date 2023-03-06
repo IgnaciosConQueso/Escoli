@@ -10,7 +10,7 @@
 </head>
 
 <body>
-  <?php include 'cabecera.php' ?>
+  <?php include 'cabecera.html' ?>
   <main>
     <form action="mailto:ignatiusconqueso@gmail.com" method="post" enctype="text/plain">
       <h2>Formulario de contacto</h2>

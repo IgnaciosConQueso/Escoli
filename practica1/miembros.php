@@ -9,7 +9,7 @@
 </head>
 <body>
    
-    <?php include 'cabecera.php' ?>
+    <?php include 'cabecera.html' ?>
   
     <section class = "center">
         <h2> MIEMBROS DEL EQUIPO</h2>

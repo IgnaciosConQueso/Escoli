@@ -12,7 +12,7 @@
 </head>
 <body>
     
-  <?php include 'cabecera.php' ?>
+  <?php include 'cabecera.html' ?>
   
     <h3>¿Qué es Escoli?</h3>
 

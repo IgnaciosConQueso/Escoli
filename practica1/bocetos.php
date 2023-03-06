@@ -8,7 +8,7 @@
 </head>
 <body>
    
-  <?php include 'cabecera.php' ?>
+  <?php include 'cabecera.html' ?>
 
     <h4>Pantalla principal</h4>
     <p><img src="bocetos/bocetoescogeruni.png" title="Pantalla principal Escoli" alt="Pantalla principal Escoli"></p>
