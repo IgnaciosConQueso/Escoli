@@ -1,9 +1,9 @@
 <?php
 
-require_once __DIR__.'/includes/config.php';
+require_once '../includes/config.php';
 
 $tituloPagina = 'Escoli';
-$contenidoPrincipal=Aplicacion :: getInstance()->doInclude('/originales/planificacionContenido.php');
+$contenidoPrincipal=$app->doInclude('/originales/planificacionContenido.php');
 
 
 $params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];

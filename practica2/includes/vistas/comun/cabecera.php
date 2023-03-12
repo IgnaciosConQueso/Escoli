@@ -34,7 +34,7 @@ function resuelveLocal($path = ''){
 ?>
 <link id="cabecera" type="text/css" rel="stylesheet" href="<?= resuelveLocal('/css/cabecera.css');?>">
 <header>
-    <a href="index.php"> <img class="logo" src="<?= resuelveLocal('/imagenes/logo.jpg');?>" alt ="logo" title = "Escoli"></a>
+    <a href= "<?= resuelveLocal('index.php'); ?>"> <img class="logo" src="<?= resuelveLocal('/imagenes/logo.jpg');?>" alt ="logo" title = "Escoli"></a>
     <h1>Escoli</h1>
     <div class="saludo">
         <?= mostrarSaludo(); ?>
@@ -42,7 +42,7 @@ function resuelveLocal($path = ''){
 </header>
     
 <nav>
-    <a href="originales/bocetos.php">Bocetos</a>
+    <a href= <?= resuelveLocal('/originales/bocetos.php'); ?>>Bocetos</a>
     <a href="<?= resuelveLocal('/originales/contacto.php'); ?>">Contacto</a>
     <a href="<?= resuelveLocal('/originales/detalles.php'); ?>">Detalles</a>
     <a href="<?= resuelveLocal('/originales/planificacion.php'); ?>">Planificación</a>

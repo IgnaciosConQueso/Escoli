@@ -44,6 +44,10 @@ class Aplicacion
      */
     private $dirInstalacion;
 
+
+    private $rutaXamp;
+    private $rutaRaizApp;
+
     /**
      * Almacena si la Aplicacion ya ha sido inicializada.
      *
@@ -214,31 +218,25 @@ class Aplicacion
             $path = '/' . $path;
         }
 
-        return $this.rutaXamp.$this->rutaRaizApp . $path;
+        return $this->rutaRaizApp . $path;
     }
-
-    public function eliminarUltimaEntrada($ruta) {
-        // Eliminar cualquier carácter '/' al final de la ruta
-        $ruta = rtrim($ruta, '/');
-    
-        // Obtener la última entrada de la ruta
-        $ultimaEntrada = basename($ruta);
-    
-        // Si la última entrada no es 'practica2', eliminarla de la ruta
-        while ($ultimaEntrada !== 'practica2') {
-            $ruta = dirname($ruta);
-            $ultimaEntrada = basename($ruta);
-        }
-    
-        return $ruta;
-    }
-
 
     public function doInclude($path = '')
     {
         $this->compruebaInstanciaInicializada();
         $params = array();
         $this->doIncludeInterna($path, $params);
+    }
+
+    public function resuelveImagen($path = '')
+    {
+        $this->compruebaInstanciaInicializada();
+        if (mb_strlen($path) > 0 && mb_substr($path, 0, 1) !== '/') {
+            $path = '/' . $path;
+        }
+        $path = "/Imagenes".$path;
+        
+        return $this->resuelve($path, NULL);
     }
 
     private function doIncludeInterna($path, &$params)
