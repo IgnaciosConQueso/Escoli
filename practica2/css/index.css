@@ -1,0 +1,19 @@
+h4 {
+  font-size: x-large;
+  margin-right: 25%;
+  margin-left: 25%;
+}
+
+p {
+  font-size: large;
+  flex-wrap: wrap;
+  hyphens: auto;
+  margin-right: 25%;
+  margin-left: 25%;
+}
+
+.center {
+  padding: 10px;
+  padding-top: 30px;
+
+}

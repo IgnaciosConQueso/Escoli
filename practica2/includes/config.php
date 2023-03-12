@@ -12,8 +12,8 @@ define('BD_PASS', 'aw');
  * Parámetros de configuración utilizados para generar las URLs y las rutas a ficheros en la aplicación
  */
 define('RAIZ_APP', __DIR__);
-define('RUTA_APP', '/Estructura proyecto');
-define('RUTA_IMGS', RUTA_APP.'img/');
+define('RUTA_APP', '/Escoli/Escoli/practica2/');
+define('RUTA_IMGS', RUTA_APP.'imagenes/');
 define('RUTA_CSS', RUTA_APP.'css/');
 define('RUTA_JS', RUTA_APP.'js/');
 
@@ -61,7 +61,7 @@ spl_autoload_register(function ($class) {
 /* Inicialización de la aplicación */
 /* */
 
-define('INSTALADA', false);
+define('INSTALADA', true);
 
 $app = \es\ucm\fdi\aw\Aplicacion::getInstance();
 $app->init(array('host'=>BD_HOST, 'bd'=>BD_NAME, 'user'=>BD_USER, 'pass'=>BD_PASS), RUTA_APP, RAIZ_APP);

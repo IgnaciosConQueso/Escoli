@@ -108,7 +108,8 @@ class Aplicacion
      *
      * @param array $bdDatosConexion datos de configuración de la BD.
      *
-     * @param string $rutaApp (opcional) Ruta donde se encuentra instalada la aplicación.
+     * @param string $rutaApp 
+     * (opcional) Ruta donde se encuentra instalada la aplicación.
      *                            Por ejemplo, si la aplicación está accesible en
      *                            http://localhost/miApp/, este parámetro debería de tomar el
      *                            valor "/miApp".
@@ -116,11 +117,11 @@ class Aplicacion
      *                               aplicación.
      *
      */
-    public function init($bdDatosConexion, $rutaApp = '/', $dirInstalacion = __DIR__)
+    public function init($bdDatosConexion, $rutaApp = '/Escoli/Escoli/practica2', $dirInstalacion = 'D:\programillasUni\XAMP\htdocs\ESCOLI\Escoli\practica2\includes')
     {
         if (!$this->inicializada) {
             $this->bdDatosConexion = $bdDatosConexion;
-
+            $this->rutaXamp = "D:\programillasUni/XAMP\htdocs";
             $this->rutaRaizApp = $rutaApp;
 
             // Eliminamos la última /
@@ -213,8 +214,25 @@ class Aplicacion
             $path = '/' . $path;
         }
 
-        return $this->rutaRaizApp . $path;
+        return $this.rutaXamp.$this->rutaRaizApp . $path;
     }
+
+    public function eliminarUltimaEntrada($ruta) {
+        // Eliminar cualquier carácter '/' al final de la ruta
+        $ruta = rtrim($ruta, '/');
+    
+        // Obtener la última entrada de la ruta
+        $ultimaEntrada = basename($ruta);
+    
+        // Si la última entrada no es 'practica2', eliminarla de la ruta
+        while ($ultimaEntrada !== 'practica2') {
+            $ruta = dirname($ruta);
+            $ultimaEntrada = basename($ruta);
+        }
+    
+        return $ruta;
+    }
+
 
     public function doInclude($path = '')
     {
@@ -231,7 +249,7 @@ class Aplicacion
             $path = '/' . $path;
         }
 
-        include($this->dirInstalacion . $path);
+        include($this->rutaXamp.$this->rutaRaizApp.$path);
     }
 
     public function generaVista(string $rutaVista, &$params)
@@ -242,7 +260,7 @@ class Aplicacion
             $rutaVista = '/' . $rutaVista;
         }
         $rutaVista = "/vistas{$rutaVista}";
-        $this->doIncludeInterna($rutaVista, $params);
+        include($this->dirInstalacion . $rutaVista);
     }
 
     public function login(Usuario $user)
