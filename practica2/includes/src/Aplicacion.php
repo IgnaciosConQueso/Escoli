@@ -121,11 +121,11 @@ class Aplicacion
      *                               aplicación.
      *
      */
-    public function init($bdDatosConexion, $rutaApp = '/Escoli/Escoli/practica2', $dirInstalacion = 'D:\programillasUni\XAMP\htdocs\ESCOLI\Escoli\practica2\includes')
+    public function init($bdDatosConexion, $rutaApp = '/Escoli/Escoli/practica2', $dirInstalacion = '/opt\lampp\htdocs\ESCOLI\Escoli\practica2\includes')
     {
         if (!$this->inicializada) {
             $this->bdDatosConexion = $bdDatosConexion;
-            $this->rutaXamp = "D:\programillasUni/XAMP\htdocs";
+            $this->rutaXamp = "/opt/lampp/htdocs";
             $this->rutaRaizApp = $rutaApp;
 
             // Eliminamos la última /
