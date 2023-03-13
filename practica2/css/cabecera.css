@@ -9,6 +9,8 @@ header {
     height: 100px;
     width: 100%;
     font-size: xx-large;
+    display: inline-flex;
+    justify-content: space-between;
 }
 
 header a img {
@@ -16,10 +18,10 @@ header a img {
     float: left;
 }
 
-h1 {
+h1#headerTitle {
     margin: 0;
-    padding-right: 100px;
     text-align: center;
+    padding-left: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -27,7 +29,14 @@ h1 {
     overflow: hidden;
 }
 
-nav {
+div.saludo {
+    font-size: large;
+    margin: 0px;
+    width: 200px;
+}
+
+
+nav#top {
     text-align: center;
     background-color: #4a5878;
     overflow: hidden;
@@ -36,7 +45,7 @@ nav {
     font-size: medium;
 }
 
-nav a {
+nav#top a {
     color: #e1e1e1;
     text-align: center;
     padding: 14px 16px;
@@ -44,16 +53,12 @@ nav a {
     display: inline-block;
 }
 
-nav a:hover {
+nav#top a:hover {
     background-color: #e1e1e1;
     color: black;
 }
 
 @media screen and (max-width: 400px) {
-    h1 {
-        padding-right: 0px;
-    }
-
     header {
         height: 50px;
         font-size: x-large;
