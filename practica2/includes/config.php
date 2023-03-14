@@ -12,7 +12,7 @@ define('BD_PASS', 'aw');
  * Parámetros de configuración utilizados para generar las URLs y las rutas a ficheros en la aplicación
  */
 define('RAIZ_APP', __DIR__);
-define('RUTA_APP', '/Proyecto/practica2/');
+define('RUTA_APP', '/Escoli/practica2/');
 define('RUTA_XAMPP', 'C:\\xampp\htdocs');
 define('RUTA_IMGS', RUTA_APP.'imagenes/');
 define('RUTA_CSS', RUTA_APP.'css/');
