@@ -13,10 +13,11 @@ define('BD_PASS', 'aw');
  */
 define('RAIZ_APP', __DIR__);
 define('RUTA_APP', '/Escoli/practica2/');
-define('RUTA_XAMPP', 'C:\\xampp\htdocs');
+define('RUTA_XAMPP', '/opt/lampp/htdocs');
 define('RUTA_IMGS', RUTA_APP.'imagenes/');
 define('RUTA_CSS', RUTA_APP.'css/');
 define('RUTA_JS', RUTA_APP.'js/');
+define('INSTALADA', true);
 
 /**
  * Configuración del soporte de UTF-8, localización (idioma y país) y zona horaria
@@ -62,7 +63,6 @@ spl_autoload_register(function ($class) {
 /* Inicialización de la aplicación */
 /* */
 
-define('INSTALADA', true);
 
 $app = \es\ucm\fdi\aw\Aplicacion::getInstance();
 $app->init(array('host'=>BD_HOST, 'bd'=>BD_NAME, 'user'=>BD_USER, 'pass'=>BD_PASS), RUTA_APP, RAIZ_APP, RUTA_XAMPP);
