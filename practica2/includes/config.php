@@ -11,9 +11,9 @@ define('BD_PASS', 'aw');
 /**
  * Parámetros de configuración utilizados para generar las URLs y las rutas a ficheros en la aplicación
  */
-define('RAIZ_APP', __DIR__);
-define('RUTA_APP', '/Proyecto/practica2/');
-define('RUTA_XAMPP', 'C:\\xampp\htdocs');
+define('RAIZ_APP', '/opt/lampp/htdocs/Escoli/Escoli/practica2/includes');
+define('RUTA_APP', '/Escoli/Escoli/practica2');
+define('RUTA_XAMPP', '/opt/lampp/htdocs');
 define('RUTA_IMGS', RUTA_APP.'imagenes/');
 define('RUTA_CSS', RUTA_APP.'css/');
 define('RUTA_JS', RUTA_APP.'js/');

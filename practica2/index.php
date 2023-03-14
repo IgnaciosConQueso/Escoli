@@ -11,6 +11,8 @@ $contenidoPrincipal=<<<EOS
     forma de comentarios y/o puntuación.</p>
 <p>Para que los usuarios esten más dispuestos a dejar reseñas se tiene pensado implementar dos sistemas de puntuaciones.</p>
 </section>
+
+<a href= 'universidad.php'>>Busca tu universidad.....</a>
 EOS;
 
 $params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];

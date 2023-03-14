@@ -8,7 +8,7 @@
 </head>
 
 <body>
-	<?= $params['app']->doInclude('includes/vistas/comun/cabecera.php'); ?>
+	<?= $params['app']->doInclude('/includes/vistas/comun/cabecera.php'); ?>
 	<div id="mainContent">
 		<?= $params['app']->doInclude('includes/vistas/comun/sidebarIzq.php'); ?>
 		<main>

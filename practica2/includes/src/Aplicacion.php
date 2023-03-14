@@ -320,7 +320,7 @@ class Aplicacion
         http_response_code($codigoRespuesta);
 
         $params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => "<h1>{$mensajeError}</h1><p>{$explicacion}</p>"];
-        $this->generaVista('/plantillas/plantilla.php', $params);
+        $this->generaVista('/plantillas/plantillaHDOC.php', $params);
         exit();
     }
 
