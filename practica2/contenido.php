@@ -21,4 +21,4 @@ if ($app->tieneRol(es\ucm\fdi\aw\usuarios\Usuario::USER_ROLE)) {
 }
 
 $params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];
-$app->generaVista('/plantillas/plantillaHDOC.php', $params);
+$app->generaVista('/plantillas/plantilla.php', $params);

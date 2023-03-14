@@ -14,4 +14,4 @@ $contenidoPrincipal=<<<EOS
 EOS;
 
 $params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];
-$app->generaVista('/plantillas/plantillaHDOC.php', $params);
+$app->generaVista('/plantillas/plantilla.php', $params);

@@ -12,8 +12,7 @@ define('BD_PASS', 'aw');
  * Parámetros de configuración utilizados para generar las URLs y las rutas a ficheros en la aplicación
  */
 define('RAIZ_APP', __DIR__);
-define('RUTA_APP', '/Proyecto/practica2/');
-define('RUTA_XAMPP', 'C:\\xampp\htdocs');
+define('RUTA_APP', '/Escoli/Escoli/practica2/');
 define('RUTA_IMGS', RUTA_APP.'imagenes/');
 define('RUTA_CSS', RUTA_APP.'css/');
 define('RUTA_JS', RUTA_APP.'js/');
@@ -65,7 +64,7 @@ spl_autoload_register(function ($class) {
 define('INSTALADA', true);
 
 $app = \es\ucm\fdi\aw\Aplicacion::getInstance();
-$app->init(array('host'=>BD_HOST, 'bd'=>BD_NAME, 'user'=>BD_USER, 'pass'=>BD_PASS), RUTA_APP, RAIZ_APP, RUTA_XAMPP);
+$app->init(array('host'=>BD_HOST, 'bd'=>BD_NAME, 'user'=>BD_USER, 'pass'=>BD_PASS), RUTA_APP, RAIZ_APP);
 
 if (! INSTALADA) {
 	$app->paginaError(502, 'Error', 'Oops', 'La aplicación no está configurada. Tienes que modificar el fichero config.php');

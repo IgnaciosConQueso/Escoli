@@ -14,7 +14,7 @@ h4 {
 }
 
 form {
-  width: 100%;
+  width: 50%;
   height: auto;
   margin: auto;
   padding-top: 10px;
@@ -130,4 +130,10 @@ label.aceptar {
 
 ::placeholder {
   color: #a8a8a8;
+}
+
+@media screen and (max-width: 500px){
+  form {
+    width: 90%;
+  }
 }
