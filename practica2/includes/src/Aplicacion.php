@@ -76,7 +76,7 @@ class Aplicacion
     private function __construct()
     {
         $this->inicializada = false;
-        $this->generandoErro = false;
+        $this->generandoError = false;
     }
 
     /**
@@ -121,11 +121,11 @@ class Aplicacion
      *                               aplicación.
      *
      */
-    public function init($bdDatosConexion, $rutaApp = '/Escoli/Escoli/practica2', $dirInstalacion = '/opt\lampp\htdocs\ESCOLI\Escoli\practica2\includes')
+    public function init($bdDatosConexion, $rutaApp = '', $dirInstalacion = '', $rutaXamp = '')
     {
         if (!$this->inicializada) {
             $this->bdDatosConexion = $bdDatosConexion;
-            $this->rutaXamp = "/opt/lampp/htdocs";
+            $this->rutaXamp = $rutaXamp;
             $this->rutaRaizApp = $rutaApp;
 
             // Eliminamos la última /
@@ -316,7 +316,7 @@ class Aplicacion
 
     public function paginaError($codigoRespuesta, $tituloPagina, $mensajeError, $explicacion = '')
     {
-        $this->generandoPaginaError = true;
+        $this->generandoError = true;
         http_response_code($codigoRespuesta);
 
         $params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => "<h1>{$mensajeError}</h1><p>{$explicacion}</p>"];

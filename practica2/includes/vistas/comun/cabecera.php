@@ -12,7 +12,7 @@ function mostrarSaludo()
 
         $formLogout = new FormularioLogout();
         $htmlLogout = $formLogout->gestiona();
-        $html = "Bienvenido, ${nombreUsuario}. $htmlLogout";
+        $html = "Bienvenido, $nombreUsuario. $htmlLogout";
     } else {
         $loginUrl = $app->resuelve('/login.php');
         $registroUrl = $app->resuelve('/registro.php');
@@ -35,16 +35,16 @@ function resuelveLocal($path = ''){
 <link id="cabecera" type="text/css" rel="stylesheet" href="<?= resuelveLocal('/css/cabecera.css');?>">
 <header>
     <a href= "<?= resuelveLocal('index.php'); ?>"> <img class="logo" src="<?= resuelveLocal('/Imagenes/logo.jpg');?>" alt ="logo" title = "Escoli"></a>
-    <h1>Escoli</h1>
+    <h1 id="headerTitle">Escoli</h1>
     <div class="saludo">
         <?= mostrarSaludo(); ?>
     </div>
 </header>
     
-<nav>
-    <a href= <?= resuelveLocal('/originales/bocetos.php'); ?>>Bocetos</a>
-    <a href="<?= resuelveLocal('/originales/contacto.php'); ?>">Contacto</a>
-    <a href="<?= resuelveLocal('/originales/detalles.php'); ?>">Detalles</a>
-    <a href="<?= resuelveLocal('/originales/planificacion.php'); ?>">Planificación</a>
-    <a href="<?= resuelveLocal('/originales/miembros.php'); ?>">Miembros</a>
+<nav id="top">
+    <a href= <?= resuelveLocal('/bocetos.php'); ?>>Bocetos</a>
+    <a href="<?= resuelveLocal('/contacto.php'); ?>">Contacto</a>
+    <a href="<?= resuelveLocal('/detalles.php'); ?>">Detalles</a>
+    <a href="<?= resuelveLocal('/planificacion.php'); ?>">Planificación</a>
+    <a href="<?= resuelveLocal('/miembros.php'); ?>">Miembros</a>
 </nav>
