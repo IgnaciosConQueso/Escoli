@@ -9,7 +9,7 @@ header {
     height: 100px;
     width: 100%;
     font-size: xx-large;
-    display: inline-flex;
+    display: flex;
     justify-content: center;
 }
 
@@ -25,20 +25,17 @@ h1#headerTitle {
 }
 
 div.saludo {
-    font-size: large;
     margin: 0px;
-    width: 200px;
     position: fixed;
     right: 0;
 }
 
 
 nav {
-    text-align: center;
+    justify-content: center;
     background-color: #4a5878;
-    overflow: hidden;
     font-size: medium;
-    display: flow-root;
+    display: flex;
     font-size: medium;
 }
 
@@ -59,5 +56,8 @@ nav a:hover {
     header {
         height: 50px;
         font-size: x-large;
+    }
+    header a img {
+        height: 50px;
     }
 }

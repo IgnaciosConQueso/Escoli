@@ -2,6 +2,8 @@
 
 main {
 	width: auto;
+	margin-left: 20%;
+	margin-right: 20%;
 }
 
 aside#sideBarleft{
@@ -10,4 +12,23 @@ aside#sideBarleft{
 
 nav#sidebarRight{
 	width: 20%;
+}
+
+footer {
+	width: auto;
+	margin-left: 20%;
+	margin-right: 20%;
+}
+
+@media screen and (max-width: 800px) {
+	main {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	aside#sideBarleft{
+		display: none;
+	}
+	nav#sidebarRight{
+		display: none;
+	}
 }
