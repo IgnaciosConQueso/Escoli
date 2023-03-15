@@ -13,7 +13,7 @@ define('BD_PASS', 'aw');
  */
 define('RAIZ_APP', __DIR__);
 define('RUTA_APP', '/Escoli/practica2/');
-define('RUTA_XAMPP', 'C:\\xampp\htdocs');
+define('RUTA_XAMPP', '/opt/lampp/htdocs');
 define('RUTA_IMGS', RUTA_APP.'imagenes/');
 define('RUTA_CSS', RUTA_APP.'css/');
 define('RUTA_JS', RUTA_APP.'js/');
