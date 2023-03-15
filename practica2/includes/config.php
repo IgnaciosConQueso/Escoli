@@ -4,9 +4,7 @@
 /* */
 
 // Parámetros de configuración generales
-define('RAIZ_APP', __DIR__);
 define('RUTA_APP', '/Escoli/practica2');
-define('RUTA_XAMPP', '/opt/lampp/htdocs');
 define('RUTA_IMGS', RUTA_APP . '/img');
 define('RUTA_CSS', RUTA_APP . '/css');
 define('RUTA_JS', RUTA_APP . '/js');
@@ -14,9 +12,9 @@ define('INSTALADA', false);
 
 // Parámetros de configuración de la BD
 define('BD_HOST', 'localhost');
-define('BD_NAME', 'practica2');
-define('BD_USER', 'practica2');
-define('BD_PASS', 'practica2');
+define('BD_NAME', 'ejercicio02');
+define('BD_USER', 'ejercicio02');
+define('BD_PASS', 'ejercicio02');
 
 /* */
 /* Utilidades básicas de la aplicación */
