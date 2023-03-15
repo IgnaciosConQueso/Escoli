@@ -1,6 +1,7 @@
 <?php
 
 require_once 'includes/config.php';
+require_once 'includes/vistas/comun/layout.php';
 
 $tituloPagina = 'Portada';
 
@@ -9,4 +10,3 @@ $contenidoPrincipal=<<<EOS
 	<p> Aqui se podran elegir las distintas universidades visible para todos los usuarios.</p>
 EOS;
 
-require 'includes/vistas/comun/layout.php';

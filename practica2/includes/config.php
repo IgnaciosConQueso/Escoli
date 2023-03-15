@@ -4,11 +4,13 @@
 /* */
 
 // Parámetros de configuración generales
-define('RUTA_APP', '/Escoli/practica2/');
+define('RAIZ_APP', __DIR__);
+define('RUTA_APP', '/Escoli/practica2');
+define('RUTA_XAMPP', '/opt/lampp/htdocs');
 define('RUTA_IMGS', RUTA_APP . '/img');
 define('RUTA_CSS', RUTA_APP . '/css');
 define('RUTA_JS', RUTA_APP . '/js');
-define('INSTALADA', true);
+define('INSTALADA', false);
 
 // Parámetros de configuración de la BD
 define('BD_HOST', 'localhost');
