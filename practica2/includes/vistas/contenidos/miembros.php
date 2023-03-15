@@ -47,7 +47,7 @@ function getImagen($path = '')
         <a href="https://github.com/Jorbis21"><img class="fotoperfil" src="<?= getImagen('fotosdeperfil/orbispp.jpg') ?>" alt="githubOrbis" title="githubOrbis"><u class="nombrePropio">Javier "jorbis" Orbis:</u></a>
     </dt>
     <dd>
-        <p> Me gusta leer y jugar videojuegos, además soy muy guapo. <mark> jorbis@ucm.es </mark></p>
+        <p> Me gusta leer y jugar videojuegos. <mark> jorbis@ucm.es </mark></p>
     </dd>
     <dt id="pablo">
         <a href="https://github.com/pagarc24"><img class="fotoperfil" src="<?= getImagen('fotosdeperfil/pablopp.jpg') ?>" alt="githubPablo" title="githubPablo"><u class="nombrePropio">Pablo "español" García:</u></a>

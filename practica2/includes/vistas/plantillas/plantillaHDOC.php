@@ -10,11 +10,11 @@
 <body>
 	<?= $params['app']->doInclude('/includes/vistas/comun/cabecera.php'); ?>
 	<div id="mainContent">
-		<?= $params['app']->doInclude('includes/vistas/comun/sidebarIzq.php'); ?>
+		<!--<?= $params['app']->doInclude('includes/vistas/comun/sidebarIzq.php'); ?>-->
 		<main>
             <?= $params['contenidoPrincipal'] ?>
 		</main>
-		<?= $params['app']->doInclude('includes/vistas/comun/sidebarDer.php'); ?>
+		<!--<?= $params['app']->doInclude('includes/vistas/comun/sidebarDer.php'); ?>-->
 	</div>
 	<?= $params['app']->doInclude('includes/vistas/comun/pie.php'); ?>
 </body>
