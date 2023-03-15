@@ -1,9 +1,5 @@
 <?php
 session_start();
-unset($_SESSION['login']);
-unset($_SESSION['nombre']);
-unset($_SESSION['esAdmin']);
-session_destroy();
 ?>
 
 <!DOCTYPE html>
@@ -12,7 +8,7 @@ session_destroy();
 <head>
     <link rel="stylesheet" href="estilo.css">
     <meta content="text/html; charset=utf-8">
-    <title>logout</title>
+    <title>Admin</title>
 </head>
 
 <body>
@@ -24,10 +20,16 @@ session_destroy();
 
         <main>
             <article>
-                <h1>Logout</h1>
-                <p>La sesión ha sido cerrada. Tenga un buen día</p>
+                <?php
+                if (isset($_SESSION["esAdmin"])) {
+                    echo "<h1>Admin Console</h1>";
+                    echo "<p>Herramientas de administrador para la página web.</p>";
+                } else {
+                    echo "<h1>ERROR</h1>";
+                    echo "<p>No tiene permiso.</p>";
+                }
+                ?>
             </article>
-
         </main>
 
         <?php include 'sidebarDer.php' ?>

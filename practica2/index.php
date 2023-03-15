@@ -1,12 +1,31 @@
 <?php
+session_start();
+?>
 
-require_once 'includes/config.php';
-require_once 'includes/vistas/comun/layout.php';
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="estilo.css" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Portada</title>
+</head>
 
-$tituloPagina = 'Portada';
+<body>
 
-$contenidoPrincipal=<<<EOS
-<h1>Universidad:</h1>
-	<p> Aqui se podran elegir las distintas universidades visible para todos los usuarios.</p>
-EOS;
+<div id="contenedor">
 
+	<?php include 'cabecera.php'?>
+
+	<main>	
+		<article>
+			<h1>Página principal</h1>
+			<p> Aquí está el contenido público, visible para todos los usuarios. </p>
+		</article>
+	</main>
+	
+	<?php include 'pie.php'?>
+
+</div> <!-- Fin del contenedor -->
+
+</body>
+</html>

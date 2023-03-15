@@ -1,14 +1,39 @@
 <?php
-require_once 'includes/config.php';
-require_once 'includes/vistas/helpers/login.php';
+session_start();
+?>
+<html lang="es">
 
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="estilo.css">
+    <title>Login</title>
+</head>
 
-$tituloPagina = 'Login';
+<body>
+    <div id = contenedor>
+        <?php include 'cabecera.php' ?>
 
-$htmlFormLogin = buildFormularioLogin();
-$contenidoPrincipal=<<<EOS
-<h1>Acceso al sistema</h1>
-$htmlFormLogin
-EOS;
+        <?php include 'sidebarIzq.php' ?>
+        <main>
+            <article>
+                <h1>Inicio de sesión</h1>
+                <form action="procesaLogin.php" method='post'>
+                    <p>Nombre de usuario</p>
+                    <input type="text" name="username" id="username">
+                    <p>Contraseña</p>
+                    <input type="password" name="password" id="password">
+                    <p></p>
+                    <input type="submit" value="Iniciar sesión">
+                </form>
+            </article>
 
-require 'includes/vistas/comun/layout.php';
+        </main>
+
+        <?php include 'sidebarDer.php' ?>
+
+        <?php include 'pie.php' ?>
+
+    </div> <!-- Fin del contenedor -->
+</body>
+
+</html>
