@@ -10,33 +10,30 @@ header {
     width: 100%;
     font-size: xx-large;
     display: inline-flex;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 header a img {
-    height: 100%;
-    float: left;
+    height: 100px;
+    position: fixed;
+    left: 0;
 }
 
 h1#headerTitle {
     margin: 0;
-    text-align: center;
-    padding-left: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    overflow: hidden;
+    align-self: center;
 }
 
 div.saludo {
     font-size: large;
     margin: 0px;
     width: 200px;
+    position: fixed;
+    right: 0;
 }
 
 
-nav#top {
+nav {
     text-align: center;
     background-color: #4a5878;
     overflow: hidden;
@@ -45,7 +42,7 @@ nav#top {
     font-size: medium;
 }
 
-nav#top a {
+nav a {
     color: #e1e1e1;
     text-align: center;
     padding: 14px 16px;
@@ -53,7 +50,7 @@ nav#top a {
     display: inline-block;
 }
 
-nav#top a:hover {
+nav a:hover {
     background-color: #e1e1e1;
     color: black;
 }

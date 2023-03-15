@@ -1,21 +1,13 @@
 @import url(cabecera.css);
-@import url(miembros.css);
-@import url(contacto.css);
 
-div#mainContent {
-	display: inline-flex;
-	width: 100%;
+main {
+	width: auto;
 }
 
-main{
-	width: 60%;
-}
-
-aside{
+aside#sideBarleft{
 	width: 20%;
 }
 
-nav#sidebarIzq{
+nav#sidebarRight{
 	width: 20%;
-	background-color: #212327;
 }
