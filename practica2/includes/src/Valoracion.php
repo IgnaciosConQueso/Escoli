@@ -1,13 +1,12 @@
-<?
+<?php
 
 //esto es un aparoximacion de lo que puede ser la clase, sientete libre de cambiarlo como quieras.
 //Igual piensa que si quisieramos podríamos reciclar esta clase y hacerla abstracta para poder hacer Valoracions de otras cosas como facultades.
 
-namespace es\ucm\fdi\aw\usuarios;
+namespace es\ucm\fdi\aw;
 
 use es\ucm\fdi\aw\Aplicacion;
 use es\ucm\fdi\aw\MagicProperties;
-
 
 
 class Valoracion
@@ -25,8 +24,6 @@ class Valoracion
     private $comentario;
 
     private $puntuacion;
-
-     //AVISO ESTOY USANDO DATE COMO UN STRING PORQUE ESTOY PROTOTIPANDO !!!!
 
     public static function crea($id, $idUsuario, $idProfesor, $fecha, $comentario, $puntuacion)
     {
@@ -75,6 +72,30 @@ class Valoracion
     //busca todas las valoraciones de profesores pertenecientes a esa facultad
     public static function buscaValoracionPorId($idFacultad){
         
+    }
+
+    public static function buscaUltimasValoraciones($idFacultad, $numPorPagina, $numPagina){
+        $result = false;
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT V.* FROM `valoraciones` V
+            JOIN `asignaturas` A ON V.idProfesor = A.idProfesor
+            WHERE A.idFacultad = %d
+            GROUP BY V.id ORDER BY V.fecha ASC", $idFacultad);
+        $query .= sprintf(" LIMIT %d, %d;", ($numPagina-1)*$numPorPagina, $numPorPagina);
+
+        $rs = $conn->query($query);
+        if ($rs) {
+            $result = array();
+            while ($fila = $rs->fetch_assoc()) {
+                $valoracion = new Valoracion(
+                    $fila['id'], $fila['idUsuario'], $fila['idProfesor'], $fila['fecha'], $fila['comentario'], $fila['puntuacion']);
+                array_push($result, $valoracion);
+            }
+            $rs->free();
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
     }
    
     private static function actualiza($Valoracion){
@@ -159,6 +180,11 @@ class Valoracion
         return $this->idProfesor;
     }
 
+    public function getFecha()
+    {
+        return $this->fecha;
+    }
+
     public function getComentario()
     {
         return $this->comentario;
@@ -170,3 +196,5 @@ class Valoracion
     }
 
 }
+
+?>

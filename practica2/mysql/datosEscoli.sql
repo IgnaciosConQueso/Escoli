@@ -16,15 +16,41 @@ INSERT INTO `Usuarios` (`id`, `nombreUsuario`, `email`, `password`) VALUES
 ('1', 'Escoli', 'ignatiuswithcheese@gmail.com', 'Escoli');
 
 INSERT INTO `Profesores` (`id`, `nombre`) VALUES
-('1', 'Walter White');
+('1', 'Walter White'),
+('2', 'Profesor Bacterio'),
+('3', 'Severus Snape'),
+('4', 'Albus Dumbledore'),
+('5', 'Minerva McGonagall'),
+('6', 'Rubeus Hagrid');
 
 INSERT INTO `Universidades` (`id`, `nombre`) VALUES
-('1', 'Universidad Complutense de Madrid');
+('1', 'Universidad Complutense de Madrid'),
+('2', 'Universidad de Hogwarts'),
+('3', 'Universidad de Narnia'),
+('4', 'Universidad de la Tierra Media'),
+('5', 'Universidad de Oz');
 
 INSERT INTO `Facultades` (`id`, `idUniversidad`, `nombre`) VALUES
 ('1', '1', 'Facultad de Informatica'),
-('2', '1', 'Facultad de Medicina');
+('2', '1', 'Facultad de Medicina'),
+('3', '2', 'Facultad de Magia y Hechicería'),
+('4', '2', 'Facultad de Criaturas Mágicas'),
+('5', '3', 'Facultad de Artes Marciales'),
+('6', '4', 'Facultad de Estudios Aslánicos');
+
+INSERT INTO `Asignaturas` (`id`, `idFacultad`, `idProfesor`, `nombre`) VALUES
+('1', '1', '1', 'Programacion'),
+('2', '1', '1', 'Base de Datos'),
+('3', '2', '1', 'Anatomia'),
+('4', '3', '3', 'Defensa Contra las Artes Oscuras'),
+('5', '3', '4', 'Transformaciones'),
+('6', '4', '5', 'Cuidado de Criaturas Mágicas'),
+('7', '5', '6', 'Herbología');
 
 INSERT INTO `valoraciones` (`id`, `idUsuario`, `idProfesor`, `fecha`, `comentario`, `puntuacion`) VALUES
 ('1', '1', '1', current_timestamp(), 'Es un profesor maravilloso', '4'),
-('2', '1', '1', current_timestamp(), 'Me gusta más que ninguno', '3');
+('2', '1', '2', current_timestamp(), 'Me gusta más que ninguno', '3'),
+('3', '1', '3', current_timestamp(), 'Un profesor excepcional', '5'),
+('4', '1', '4', current_timestamp(), 'Muy sabio y amable', '4'),
+('5', '1', '5', current_timestamp(), 'Tiene un gran conocimiento de las criaturas mágicas', '4'),
+('6', '1', '6', current_timestamp(), 'Sus clases son muy interesantes y divertidas', '5');
