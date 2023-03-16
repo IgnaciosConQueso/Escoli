@@ -98,34 +98,19 @@ class Usuario
     {
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query=sprintf("INSERT INTO Usuarios(nombreUsuario, nombre, password) VALUES ('%s', '%s', '%s')"
-            , $conn->real_escape_string($usuario->nombreUsuario)
-            , $conn->real_escape_string($usuario->nombre)
-            , $conn->real_escape_string($usuario->password)
+        $query=sprintf("INSERT INTO Usuarios(nombreUsuario, nombre, password)
+            VALUES ('%s', '%s', '%s')",
+            $conn->real_escape_string($usuario->nombreUsuario),
+            $conn->real_escape_string($usuario->nombre),
+            $conn->real_escape_string($usuario->password)
         );
         if ( $conn->query($query) ) {
             $usuario->id = $conn->insert_id;
-            $result = self::insertaRoles($usuario);
+            $result = $usuario;
         } else {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
         }
         return $result;
-    }
-   
-    private static function insertaRoles($usuario)
-    {
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        foreach($usuario->roles as $rol) {
-            $query = sprintf("INSERT INTO RolesUsuario(usuario, rol) VALUES (%d, %d)"
-                , $usuario->id
-                , $rol
-            );
-            if ( ! $conn->query($query) ) {
-                error_log("Error BD ({$conn->errno}): {$conn->error}");
-                return false;
-            }
-        }
-        return $usuario;
     }
     
     private static function actualiza($usuario)
@@ -139,10 +124,7 @@ class Usuario
             , $usuario->id
         );
         if ( $conn->query($query) ) {
-            $result = self::borraRoles($usuario);
-            if ($result) {
-                $result = self::insertaRoles($usuario);
-            }
+            $result = $usuario;
         } else {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
         }
