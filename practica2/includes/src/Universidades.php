@@ -42,7 +42,7 @@ class Universidades
     public static function buscaUniversidad($id)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM Universidades U WHERE U.id='%i'", $conn->real_escape_string($id));
+        $query = sprintf("SELECT * FROM universidades WHERE id='%i'", $conn->real_escape_string($id));
         $rs = $conn->query($query);
         $result = false;
         if ($rs) {
