@@ -42,7 +42,7 @@ class Universidades
     public static function buscaUniversidad($id)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM Universidades U WHERE U.id='%i'", $conn->real_escape_string($id));
+        $query = sprintf("SELECT * FROM universidades WHERE id='%i'", $conn->real_escape_string($id));
         $rs = $conn->query($query);
         $result = false;
         if ($rs) {
@@ -79,7 +79,7 @@ class Universidades
     private static function actualiza($universidad)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("UPDATE Universidades U SET U.nombre='%s' WHERE U.id='%i'", $conn->real_escape_string($universidad->nombre), $conn->real_escape_string($universidad->id));
+        $query = sprintf("UPDATE universidades SET nombre='%s' WHERE id='%i'", $conn->real_escape_string($universidad->nombre), $conn->real_escape_string($universidad->id));
         if ($conn->query($query)) {
             return true;
         } else {
@@ -91,7 +91,7 @@ class Universidades
     private static function inserta($universidad)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("INSERT INTO Universidades (id, nombre) VALUES('%i', '%s')", $conn->real_escape_string($universidad->id), $conn->real_escape_string($universidad->nombre));
+        $query = sprintf("INSERT INTO universidades (id, nombre) VALUES('%i', '%s')", $conn->real_escape_string($universidad->id), $conn->real_escape_string($universidad->nombre));
         if ($conn->query($query)) {
             $universidad->id = $conn->insert_id;
             return true;
@@ -104,7 +104,7 @@ class Universidades
     private static function borra($universidad)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("DELETE FROM Universidades U WHERE U.id='%i'", $conn->real_escape_string($universidad->id));
+        $query = sprintf("DELETE FROM universidades WHERE id='%i'", $conn->real_escape_string($universidad->id));
         if ($conn->query($query)) {
             return true;
         } else {
