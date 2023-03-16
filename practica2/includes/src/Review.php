@@ -1,7 +1,7 @@
 <?
 
 //esto es un aparoximacion de lo que puede ser la clase, sientete libre de cambiarlo como quieras.
-//Igual piensa que si quisieramos podríamos reciclar esta clase y hacerla abstracta para poder hacer reviews de otras cosas como facultades.
+//Igual piensa que si quisieramos podríamos reciclar esta clase y hacerla abstracta para poder hacer Valoracions de otras cosas como facultades.
 
 namespace es\ucm\fdi\aw\usuarios;
 
@@ -10,16 +10,29 @@ use es\ucm\fdi\aw\MagicProperties;
 
 
 
-class Review
+class Valoracion
 {
     use MagicProperties;
+
+    private $id;
+
+    private $idUsuario;
+
+    private $idProfesor;
+
+    private $fecha;
+
+    private $comentario;
+
+    private $puntuacion;
 
      //AVISO ESTOY USANDO DATE COMO UN STRING PORQUE ESTOY PROTOTIPANDO !!!!
 
     public static function crea($id, $idUsuario, $idProfesor, $fecha, $comentario, $puntuacion)
     {
-        $review = new Review($id, $idUsuario, $idProfesor, $fecha, $comentario, $puntuacion);
-        return $review->guarda();
+        $valoracion = new Valoracion
+    ($id, $idUsuario, $idProfesor, $fecha, $comentario, $puntuacion);
+        return $valoracion->guarda();
     }
 
 
@@ -40,7 +53,7 @@ class Review
         return false;
     }
 
-    public static function buscaReview($idProfesor)
+    public static function buscaValoracion($idProfesor)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM Valoraciones V WHERE V.idProfesor='%i'", $conn->real_escape_string($idProfesor));
@@ -49,7 +62,8 @@ class Review
         if ($rs) {
             $fila = $rs->fetch_assoc();
             if ($fila) {
-                $result = new Review($fila['id'], $fila['idUsuario'], $fila['idProfesor'], $fila['fecha'], $fila['comentario'], $fila['puntuacion']);
+                $result = new Valoracion
+            ($fila['id'], $fila['idUsuario'], $fila['idProfesor'], $fila['fecha'], $fila['comentario'], $fila['puntuacion']);
             }
             $rs->free();
         } else {
@@ -57,18 +71,21 @@ class Review
         }
         return $result;
     }
+
+    //busca todas las valoraciones de profesores pertenecientes a esa facultad
+    public static function buscaValoracionPorId($idFacultad){
+        
+    }
    
-    private static function actualiza($Review)
-    {
+    private static function actualiza($Valoracion){
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query=sprintf("UPDATE Valoraciones V SET idUsuario = '%i', idProfesor='%i', fecha='%s', comentario = '%s', puntuacion = '%i' WHERE V.id=%d"
-            , $conn->real_escape_string($Review->idUsuario)
-            , $conn->real_escape_string($Review->idProfesor)
-            , $conn->real_escape_string($Review->fecha)
-            , $conn->real_escape_string($Review->comentario)
-            , $conn->real_escape_string($Review->puntuacion)
-            , $Review->id
+        $query=sprintf("UPDATE Valoraciones V SET idUsuario = '%i', idProfesor='%i', comentario = '%s', puntuacion = '%i' WHERE V.id=%d",
+            $conn->real_escape_string($Valoracion->idUsuario),
+            $conn->real_escape_string($Valoracion->idProfesor),
+            $conn->real_escape_string($Valoracion->comentario),
+            $conn->real_escape_string($Valoracion->puntuacion),
+            $Valoracion->id
         );
         if (! $conn->query($query) ) {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
@@ -77,19 +94,18 @@ class Review
     }
 
 
-    private static function inserta($Review)
-    {
+    private static function inserta($Valoracion){
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query=sprintf("INSERT INTO Valoraciones(id, idUsuario, idProfesor, fecha, comentario, puntuacion) VALUES ('%i', '%i', '%i', '%s','%s','%i')"
-        , $Review->id
-        , $conn->real_escape_string($Review->idUsuario)
-        , $conn->real_escape_string($Review->idProfesor)
-        , $conn->real_escape_string($Review->fecha)
-        , $conn->real_escape_string($Review->comentario)
-        , $conn->real_escape_string($Review->puntuacion)
+        $query=sprintf("INSERT INTO Valoraciones(id, idUsuario, idProfesor, comentario, puntuacion) 
+            VALUES ('%i', '%i', '%i', '%s','%i')",
+            $Valoracion->id,
+            $conn->real_escape_string($Valoracion->idUsuario),
+            $conn->real_escape_string($Valoracion->idProfesor),
+            $conn->real_escape_string($Valoracion->comentario),
+            $conn->real_escape_string($Valoracion->puntuacion)
         );
-        if ( ! $conn->query($query) ) {
+        if (!$conn->query($query)) {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
         }
         return $result;
@@ -118,20 +134,6 @@ class Review
         return true;
     }
 
-
-
-    private $id;
-
-    private $idUsuario;
-
-    private $idProfesor;
-
-    private $fecha;
-
-    private $comentario;
-
-    private $puntuacion;
-
     private function __construct($id, $idUsuario, $idProfesor, $fecha, $comentario,$puntuacion )
     {
         $this->id = $id;
@@ -147,22 +149,22 @@ class Review
         return $this->id;
     }
 
-    public function idUsuario()
+    public function getIdUsuario()
     {
         return $this->idUsuario;
     }
 
-    public function idProfesor()
+    public function getIdProfesor()
     {
         return $this->idProfesor;
     }
 
-    public function comentario()
+    public function getComentario()
     {
         return $this->comentario;
     }
 
-    public function puntuacion()
+    public function getPuntuacion()
     {
         return $this->puntuacion;
     }

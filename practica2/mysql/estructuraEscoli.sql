@@ -1,7 +1,6 @@
 /*
   Recuerda que deshabilitar la opción "Enable foreign key checks" para evitar problemas a la hora de importar el script.
 */
-
 DROP TABLE IF EXISTS `Usuarios`;
 DROP TABLE IF EXISTS `Roles`;
 DROP TABLE IF EXISTS `Universidades`;
@@ -11,7 +10,6 @@ DROP TABLE IF EXISTS `Asignaturas`;
 DROP TABLE IF EXISTS `Valoraciones`;
 DROP TABLE IF EXISTS `Encuestas`;
 DROP TABLE IF EXISTS `CamposEncuestas`;
-
 
 CREATE TABLE IF NOT EXISTS `Usuarios` (
     `id` INT NOT NULL AUTO_INCREMENT,
@@ -40,8 +38,7 @@ CREATE TABLE IF NOT EXISTS `Facultades` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `idUniversidad` INT NOT NULL,
     `nombre` VARCHAR(255) NOT NULL,
-    PRIMARY KEY (`id`),
-    UNIQUE (`idUniversidad`)
+    PRIMARY KEY (`id`, `idUniversidad`),
 ) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `Profesores` (
@@ -64,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `Valoraciones` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `idUsuario` INT NOT NULL,
     `idProfesor` INT NOT NULL,
-    `fecha` DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `fecha` DATE NULL DEFAULT CURRENT_TIMESTAMP,
     `comentario` VARCHAR(1000) NULL,
     `puntuacion` DECIMAL(1,0) NOT NULL,
     PRIMARY KEY (`id`),
@@ -102,3 +99,12 @@ ALTER TABLE `Valoraciones` ADD CHECK (puntuacion >= 0 AND puntuacion <= 5);
 ALTER TABLE `Encuestas` ADD CONSTRAINT `Encuestas_idUsuario` FOREIGN KEY (`idUsuario`) REFERENCES `Usuarios`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `CamposEncuestas` ADD CONSTRAINT `CamposEncuestas_idEncuesta` FOREIGN KEY (`idEncuesta`) REFERENCES `Encuestas`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+DELIMITER $$
+CREATE OR REPLACE TRIGGER insertar_rol_despues_de_insertar_usuario
+AFTER INSERT ON usuarios
+FOR EACH ROW
+BEGIN
+    INSERT INTO roles (idUsuario, rol) VALUES (NEW.id, 'user');
+END$$
+DELIMITER ;
