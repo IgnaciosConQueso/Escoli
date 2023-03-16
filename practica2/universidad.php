@@ -4,7 +4,7 @@ require_once __DIR__.'/includes/config.php';
 
 $tituloPagina = 'Escoli';
 $contenidoPrincipal=<<<EOS
-<a href= 'facultad.php'>>Tu universidad</a>
+<h1>Universidad</h1>
 EOS;
 
 $params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];

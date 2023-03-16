@@ -57,6 +57,24 @@ class Universidades
         return $result;
     }
 
+    public static function buscaUniversidades()
+    {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM Universidades U");
+        $rs = $conn->query($query);
+        $result = false;
+        if ($rs) {
+            $fila = $rs->fetch_assoc();
+            if ($fila) {
+                $result = new Universidades($fila['id'], $fila['nombre']);
+            }
+            $rs->free();
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
+    }
+
     //revisar tambien
     private static function actualiza($universidad)
     {

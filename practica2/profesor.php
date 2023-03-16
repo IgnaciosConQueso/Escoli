@@ -6,7 +6,6 @@ $tituloPagina = 'Escoli';
 $contenidoPrincipal=<<<EOS
 <form enctype="text/plain" method = "post">
   <h2>Nombre de profesor</h2>
-  <h3>Esto es un placeholder, Nacho tomate una tila que estresarse tanto es malo para el corazon</h3>
   <section>
     <h4>Reseña</h4>
     <label for="mensaje"></label>
