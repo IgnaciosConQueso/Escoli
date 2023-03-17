@@ -1,9 +1,9 @@
-<?
+<?php
 
-namespace es\ucm\fdi\aw;
+namespace escoli;
 
-use es\ucm\fdi\aw\Aplicacion;
-use es\ucm\fdi\aw\MagicProperties;
+use escoli\Aplicacion;
+use escoli\MagicProperties;
 
 class Facultades{
     use MagicProperties;
@@ -123,3 +123,5 @@ class Facultades{
         return $this->idUniversidad;
     }
 }
+
+?>

@@ -1,5 +1,5 @@
 <?php
-namespace es\ucm\fdi\aw;
+namespace escoli;
 
 /**
  * Añade métodos mágicos para que las propiedades utilicen getters y setters.

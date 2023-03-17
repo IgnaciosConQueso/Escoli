@@ -1,20 +1,13 @@
-<?
+<?php
 
-//esto es un aparoximacion de lo que puede ser la clase, sientete libre de cambiarlo como quieras.
-//Igual piensa que si quisieramos podríamos reciclar esta clase y hacerla abstracta para poder hacer reviews de otras cosas como facultades.
+namespace escoli;
 
-namespace es\ucm\fdi\aw\usuarios;
-
-use es\ucm\fdi\aw\Aplicacion;
-use es\ucm\fdi\aw\MagicProperties;
-
-
+use escoli\Aplicacion;
+use escoli\MagicProperties;
 
 class Universidades
 {
     use MagicProperties;
-
-     //AVISO ESTOY USANDO DATE COMO UN STRING PORQUE ESTOY PROTOTIPANDO !!!!
 
     public static function crea($id, $nombre)
     {
@@ -22,7 +15,7 @@ class Universidades
         return $universidad->guarda();
     }
 
-    public static function guarda()
+    public function guarda()
     {
         if ($this->id !== null) {
             return self::actualiza($this);
@@ -30,7 +23,7 @@ class Universidades
         return self::inserta($this);
     }
 
-    public static function borrate()
+    public function borrate()
     {
         if ($this->id !== null) {
             return self::borra($this);

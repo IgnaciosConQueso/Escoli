@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__.'/includes/config.php';
-use function es\ucm\fdi\aw\listaFacultades;
+require_once __DIR__.'/includes/vistas/helpers/universidad.php';
 
 $tituloPagina = 'Escoli';
 $contenidoPrincipal=listaFacultades();

@@ -1,9 +1,9 @@
 <?php
 
-namespace es\ucm\fdi\aw;
+namespace escoli;
 
 use Exception;
-use es\ucm\fdi\aw\usuarios\Usuario;
+use escoli\Usuarios\Usuario;
 
 /**
  * Clase que mantiene el estado global de la aplicación.

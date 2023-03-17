@@ -1,8 +1,6 @@
 <?php
 
-namespace es\ucm\fdi\aw;
-
-use es\ucm\fdi\aw\Facultades;
+use escoli\Facultades;
 
 function listaFacultades()
 {
@@ -17,7 +15,6 @@ function listaFacultades()
         $html .= '</ul>';
     }
     return $html;
-
 }
 
 function generaHTMLFacultad($data)//TODO
@@ -30,3 +27,5 @@ function generaHTMLFacultad($data)//TODO
     $html .= '</li>';
     return $html;
 }
+
+?>

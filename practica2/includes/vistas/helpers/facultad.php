@@ -1,9 +1,6 @@
 <?php
 
-namespace es\ucm\fdi\aw;
-
-use es\ucm\fdi\aw\Facultades;
-use es\ucm\fdi\aw\Valoracion;
+use escoli\Valoracion;
 
 function listaValoraciones($id = 1, $numPorPag = 10, $pag = 1)
 {

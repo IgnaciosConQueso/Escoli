@@ -1,8 +1,8 @@
 <?php
-namespace es\ucm\fdi\aw\usuarios;
+namespace escoli\Usuarios;
 
-use es\ucm\fdi\aw\Aplicacion;
-use es\ucm\fdi\aw\Formulario;
+use escoli\Aplicacion;
+use escoli\Formulario;
 
 class FormularioRegistro extends Formulario
 {

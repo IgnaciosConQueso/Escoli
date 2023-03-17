@@ -1,12 +1,9 @@
 <?php
 
-//esto es un aparoximacion de lo que puede ser la clase, sientete libre de cambiarlo como quieras.
-//Igual piensa que si quisieramos podríamos reciclar esta clase y hacerla abstracta para poder hacer Valoracions de otras cosas como facultades.
+namespace escoli;
 
-namespace es\ucm\fdi\aw;
-
-use es\ucm\fdi\aw\Aplicacion;
-use es\ucm\fdi\aw\MagicProperties;
+use escoli\Aplicacion;
+use escoli\MagicProperties;
 
 
 class Valoracion
