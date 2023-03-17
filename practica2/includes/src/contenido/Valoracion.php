@@ -22,10 +22,10 @@ class Valoracion
 
     private $puntuacion;
 
-    public static function crea($id, $idUsuario, $idProfesor, $fecha, $comentario, $puntuacion)
+    public static function crea($idUsuario, $idProfesor, $fecha, $comentario, $puntuacion)
     {
         $valoracion = new Valoracion
-        ($id, $idUsuario, $idProfesor, $fecha, $comentario, $puntuacion);
+        ($idUsuario, $idProfesor, $fecha, $comentario, $puntuacion);
         return $valoracion->guarda();
     }
 
@@ -160,7 +160,7 @@ class Valoracion
         return true;
     }
 
-    private function __construct($id, $idUsuario, $idProfesor, $fecha, $comentario, $puntuacion)
+    private function __construct($idUsuario, $idProfesor, $fecha, $comentario, $puntuacion, $id = null)
     {
         $this->id = $id;
         $this->idUsuario = $idUsuario;
