@@ -21,10 +21,9 @@ class Usuario
         return false;
     }
     
-    public static function crea($nombreUsuario, $password, $email, $rol)
+    public static function crea($nombreUsuario, $password, $email)
     {
         $user = new Usuario($nombreUsuario, self::hashPassword($password), $email);
-        $user->añadeRol($rol);
         return $user->guarda();
     }
 
@@ -199,11 +198,6 @@ class Usuario
     public function getEmail()
     {
         return $this->email;
-    }
-
-    public function añadeRol($role)
-    {
-        $this->roles[] = $role;
     }
 
     public function getRoles()
