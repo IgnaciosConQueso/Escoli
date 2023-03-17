@@ -10,7 +10,7 @@ class FormularioUniversidad extends Formulario
 {
     public function __construct()
     {
-        parent::__construct('formUniversidad', ['urlRedireccion' => 'universidades.php']);
+        parent::__construct('formUniversidad', ['urlRedireccion' => 'index.php']);
     }
 
     protected function generaCamposFormulario(&$datos)
