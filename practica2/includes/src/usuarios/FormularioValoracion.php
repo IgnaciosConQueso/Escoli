@@ -2,6 +2,7 @@
 namespace escoli\Usuarios;
 
 use escoli\Aplicacion;
+use escoli\contenido\Valoracion;
 use escoli\Formulario;
 
 class FormularioValoracion extends Formulario
@@ -12,39 +13,24 @@ class FormularioValoracion extends Formulario
     
     protected function generaCamposFormulario(&$datos)
     {
-        $nombreUsuario = $datos['nombreUsuario'] ?? '';
-        $email = $datos['email'] ?? '';
-
-        // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-        $erroresCampos = self::generaErroresCampos(['nombreUsuario', 'email', 'password', 'password2'], $this->errores, 'span', array('class' => 'error'));
+        $erroresCampos = self::generaErroresCampos(['comentario', 'puntuacion'], $this->errores, 'span', array('class' => 'error'));
 
         $html = <<<EOF
         $htmlErroresGlobales
         <fieldset>
-            <legend>Datos para el registro</legend>
+            <legend>Valora a tu profe</legend>
             <div>
-                <label for="nombreUsuario">Nombre de usuario:</label>
-                <input id="nombreUsuario" type="text" name="nombreUsuario" value="$nombreUsuario" />
-                {$erroresCampos['nombreUsuario']}
+                <label for="comentario">Comentario:</label>
+                <input id="comentario" type="text" name="comentario" value="$datos['comentario'] " />
+                {$erroresCampos['comentario']}
             </div>
             <div>
-                <label for="email">Email:</label>
-                <input id="email" type="text" name="email" value="$email" />
-                {$erroresCampos['email']}
-            </div>
+                <label for="puntuacion">Puntuación:</label>
+                <input id="puntuacion" type="text" name="puntuacion" value="$datos['puntuacion']" />
+                {$erroresCampos['puntuacion']}
             <div>
-                <label for="password">Password:</label>
-                <input id="password" type="password" name="password" />
-                {$erroresCampos['password']}
-            </div>
-            <div>
-                <label for="password2">Reintroduce el password:</label>
-                <input id="password2" type="password" name="password2" />
-                {$erroresCampos['password2']}
-            </div>
-            <div>
-                <button type="submit" name="registro">Registrar</button>
+                <button type="submit" name="registro">Publicar</button>
             </div>
         </fieldset>
         EOF;
@@ -60,7 +46,14 @@ class FormularioValoracion extends Formulario
         $puntuacion=$datos['puntuacion'];
         $comentario=$datos['comentario'];
 
-        
+        if($puntuacion>5 || $puntuacion<0){
+            $this->errores[] = "La puntuación debe estar entre 0 y 5";
+        }
+        if(!$comentario){
+            $this->errores[] = "El comentario no puede estar vacío";
+        }
+        $fecha = date("Y-m-d");
+        $valoracion=Valoracion::crea($idUsuario, $idProfesor, $fecha, $puntuacion,$comentario);
     }
 }
 
