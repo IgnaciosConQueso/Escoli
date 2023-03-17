@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `CamposEncuestas` (
 
 
 
-ALTER TABLE `facultades` ADD CONSTRAINT `Facultades_idUniversidad` FOREIGN KEY (`idUniversidad`) REFERENCES `universidades`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `Facultades` ADD CONSTRAINT `Facultades_idUniversidad` FOREIGN KEY (`idUniversidad`) REFERENCES `Universidades`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `Asignaturas` ADD CONSTRAINT `Asignaturas_idFacultad` FOREIGN KEY (`idFacultad`) REFERENCES `Facultades`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `Asignaturas` ADD CONSTRAINT `Asignaturas_idProfesor` FOREIGN KEY (`idProfesor`) REFERENCES `Profesores`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
@@ -97,7 +97,7 @@ ALTER TABLE `CamposEncuestas` ADD CONSTRAINT `CamposEncuestas_idEncuesta` FOREIG
 
 DELIMITER $$
 CREATE OR REPLACE TRIGGER insertar_rol_despues_de_insertar_usuario
-AFTER INSERT ON usuarios
+AFTER INSERT ON Usuarios
 FOR EACH ROW
 BEGIN
     INSERT INTO RolesUsuario (idUsuario, rol) VALUES (NEW.id, 'user');
