@@ -43,6 +43,24 @@ class Facultades{
         }
         return $result;
     }
+
+    public static function buscaFacultades()
+    {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM Facultades");
+        $rs = $conn->query($query);
+        $result = false;
+        if ($rs) {
+            $fila = $rs->fetch_assoc();
+            if ($fila) {
+                $result = new Facultades($fila['id'], $fila['nombre'], $fila['idUniversidad']);
+            }
+            $rs->free();
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
+    }
     //revisar
     private static function actualiza($facultad){
         $result = false;
