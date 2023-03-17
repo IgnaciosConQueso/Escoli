@@ -1,3 +1,3 @@
 <footer>
-	<a href="https://github.com/IgnaciosConQueso/Escoli">Source Code</a>
+	<p><a href="https://github.com/IgnaciosConQueso/Escoli">Source Code</a></p>
 </footer>
