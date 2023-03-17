@@ -9,9 +9,9 @@ class Facultad
 {
     use MagicProperties;
 
-    public static function crea($id, $nombre, $idUniversidad)
+    public static function crea($nombre, $idUniversidad)
     {
-        $facultad = new Facultad($id, $nombre, $idUniversidad);
+        $facultad = new Facultad($nombre, $idUniversidad);
         return $facultad->guarda();
     }
 
@@ -42,7 +42,7 @@ class Facultad
         if ($rs) {
             $result = array();
             while ($fila = $rs->fetch_assoc()) {
-                $facultad = new Facultad($fila['id'], $fila['nombre'], $fila['idUniversidad']);
+                $facultad = new Facultad($fila['nombre'], $fila['idUniversidad'], $fila['id']);
                 array_push($result, $facultad);
             }
             $rs->free();
@@ -51,6 +51,25 @@ class Facultad
         }
         return $result;
     }
+
+    public static function buscaPorNombre($nombre)
+    {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM Facultades WHERE nombre='%s'", $conn->real_escape_string($nombre));
+        $rs = $conn->query($query);
+        $result = false;
+        if ($rs) {
+            $fila = $rs->fetch_assoc();
+            if ($fila) {
+                $result = new Facultad($fila['nombre'], $fila['idUniversidad'], $fila['id']);
+            }
+            $rs->free();
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
+    }
+
     //revisar
     private static function actualiza($facultad)
     {
@@ -104,7 +123,7 @@ class Facultad
 
     private $idUniversidad;
 
-    private function __construct($id, $nombre, $idUniversidad)
+    private function __construct($nombre, $idUniversidad, $id = null)
     {
         $this->id = $id;
         $this->nombre = $nombre;

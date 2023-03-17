@@ -57,7 +57,7 @@ class Valoracion
             $fila = $rs->fetch_assoc();
             if ($fila) {
                 $result = new Valoracion
-                ($fila['id'], $fila['idUsuario'], $fila['idProfesor'], $fila['fecha'], $fila['comentario'], $fila['puntuacion']);
+                ($fila['idUsuario'], $fila['idProfesor'], $fila['fecha'], $fila['comentario'], $fila['puntuacion'], $fila['id']);
             }
             $rs->free();
         } else {
@@ -87,7 +87,7 @@ class Valoracion
             $result = array();
             while ($fila = $rs->fetch_assoc()) {
                 $valoracion = new Valoracion(
-                    $fila['id'], $fila['idUsuario'], $fila['idProfesor'], $fila['fecha'], $fila['comentario'], $fila['puntuacion']
+                    $fila['idUsuario'], $fila['idProfesor'], $fila['fecha'], $fila['comentario'], $fila['puntuacion'], $fila['id']
                 );
                 array_push($result, $valoracion);
             }

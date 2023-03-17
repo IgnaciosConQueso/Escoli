@@ -35,7 +35,7 @@ class Universidad
     public static function buscaPorNombre($nombre)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM universidades WHERE nombre='%i'", $conn->real_escape_string($nombre));
+        $query = sprintf("SELECT * FROM universidades WHERE nombre='%s'", $conn->real_escape_string($nombre));
         $rs = $conn->query($query);
         $result = false;
         if ($rs) {

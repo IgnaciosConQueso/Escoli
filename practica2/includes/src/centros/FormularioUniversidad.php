@@ -28,8 +28,9 @@ class FormularioUniversidad extends Formulario
             <div>
                 <label for="nombre">Nombre:</label>
                 <input id="nombre" type="text" name="nombre" value="$nombre" />
+                {$erroresCampos['nombre']}
             </div>
-            <div class="grupo-control"><button type="submit" name="registro">Registrar</button></div>
+            <div><button type="submit" name="registro">Registrar</button></div>
         </fieldset>
         EOF;
         return $html;
@@ -42,7 +43,7 @@ class FormularioUniversidad extends Formulario
         $nombre = trim($datos['nombre'] ?? '');
         $nombre = filter_var($nombre, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if (!$nombre || mb_strlen($nombre) < 5) {
-            $this->errores[] = "El nombre de la universidad tiene que tener una longitud de al menos 5 caracteres.";
+            $this->errores['nombre'] = "El nombre de la universidad tiene que tener una longitud de al menos 5 caracteres.";
         }
 
         if (count($this->errores) === 0) {

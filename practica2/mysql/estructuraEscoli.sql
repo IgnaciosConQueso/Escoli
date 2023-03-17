@@ -38,7 +38,8 @@ CREATE TABLE IF NOT EXISTS `Facultades` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `idUniversidad` INT NOT NULL,
     `nombre` VARCHAR(255) NOT NULL,
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    UNIQUE (`nombre`)
 ) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `Profesores` (
