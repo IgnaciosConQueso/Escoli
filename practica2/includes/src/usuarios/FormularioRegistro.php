@@ -64,7 +64,7 @@ class FormularioRegistro extends Formulario
 
         $email = trim($datos['email'] ?? '');
         $email = filter_var($email, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if ( ! $email || self::matchEmail($email)) {
+        if ( ! $email || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $this->errores['email'] = 'Introduce un email válido.';
         }
 
@@ -91,12 +91,6 @@ class FormularioRegistro extends Formulario
                 $app->login($usuario);
             }
         }
-    }
-
-    private function matchEmail($email)
-    {
-        $pattern = '/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/';
-        return preg_match($pattern, $email);
     }
 }
 

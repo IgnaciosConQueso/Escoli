@@ -73,7 +73,7 @@ class Usuario
         $roles=[];
             
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT RU.rol FROM RolesUsuario RU WHERE RU.id=%d", $usuario->id);
+        $query = sprintf("SELECT RU.rol FROM RolesUsuario RU WHERE RU.idUsuario=%d", $usuario->id);
         $rs = $conn->query($query);
         if ($rs) {
             $roles = $rs->fetch_all(MYSQLI_ASSOC);

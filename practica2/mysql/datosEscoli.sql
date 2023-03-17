@@ -12,9 +12,6 @@ TRUNCATE TABLE `Encuestas`;
 TRUNCATE TABLE `CamposEncuestas`;
 
 
-INSERT INTO `Usuarios` (`id`, `nombreUsuario`, `email`, `password`) VALUES
-('1', 'Escoli', 'ignatiuswithcheese@gmail.com', 'Escoli');
-
 INSERT INTO `Profesores` (`id`, `nombre`) VALUES
 ('1', 'Walter White'),
 ('2', 'Profesor Bacterio'),
