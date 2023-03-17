@@ -77,8 +77,8 @@ class FormularioFacultad extends Formulario
         $html = '';
         $universidades = Universidad::buscaUniversidades();
         foreach ($universidades as $universidad) {
-            $selected = $iduniversidad == $universidad->id() ? 'selected' : '';
-            $html .= '<option value="' . $universidad->id() . '" ' . $selected . '>' . $universidad->nombre() . '</option>';
+            $selected = $iduniversidad == $universidad->id ? 'selected' : '';
+            $html .= '<option value="' . $universidad->id . '" ' . $selected . '>' . $universidad->nombre . '</option>';
         }
         return $html;
     }

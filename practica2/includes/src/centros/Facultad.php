@@ -91,10 +91,9 @@ class Facultad
     {
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf(
-            "INSERT INTO Facultades(nombre, idUniversidad) VALUES('%s', '%i')"
-            , $conn->real_escape_string($facultad->nombre)
-            , $conn->real_escape_string($facultad->idUniversidad)
+        $query = sprintf("INSERT INTO Facultades (nombre, idUniversidad) VALUES('%s', '%d')",
+            $conn->real_escape_string($facultad->nombre),
+            filter_var($facultad->idUniversidad, FILTER_SANITIZE_NUMBER_INT)
         );
         if (!$conn->query($query)) {
             error_log("Error al insertar la facultad: {$conn->errno} {$conn->error}");
