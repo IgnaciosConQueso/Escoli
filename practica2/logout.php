@@ -1,5 +1,6 @@
 <?php
-require_once __DIR__.'/includes/config.php';
+
+require_once __DIR__ . '/includes/config.php';
 
 
 if (strtoupper($_SERVER['REQUEST_METHOD']) !== 'POST') {
@@ -8,3 +9,5 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) !== 'POST') {
 
 $formLogout = new \escoli\Usuarios\FormularioLogout();
 $formLogout->gestiona();
+
+?>

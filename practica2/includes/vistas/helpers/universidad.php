@@ -4,7 +4,7 @@ use escoli\centros\Facultad;
 
 function listaFacultades($idFacultad)
 {
-//recibe todas las facultades de una universidad
+    //recibe todas las facultades de una universidad
     $arrayFacultades = Facultad::buscaFacultades($idFacultad);
     $html = '';
     if ($arrayFacultades) {
@@ -17,7 +17,7 @@ function listaFacultades($idFacultad)
     return $html;
 }
 
-function generaHTMLFacultad($data)//TODO
+function generaHTMLFacultad($data) //TODO
 {
     $url = 'facultad.php?id=' . $data->id;
     $html = '<li>';

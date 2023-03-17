@@ -29,3 +29,5 @@ function generaHTMLValoracion($valoracion)
     $html .= '</li>';
     return $html;
 }
+
+?>

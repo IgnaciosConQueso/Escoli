@@ -5,23 +5,27 @@ namespace escoli\centros;
 use escoli\Aplicacion;
 use escoli\MagicProperties;
 
-class Facultad{
+class Facultad
+{
     use MagicProperties;
 
-    public static function crea($id, $nombre, $idUniversidad){
+    public static function crea($id, $nombre, $idUniversidad)
+    {
         $facultad = new Facultad($id, $nombre, $idUniversidad);
         return $facultad->guarda();
     }
 
-    public function guarda(){
-        if($this->id !== null){
+    public function guarda()
+    {
+        if ($this->id !== null) {
             return self::actualiza($this);
         }
         return self::inserta($this);
     }
 
-    public function borrate(){
-        if($this->id !== null){
+    public function borrate()
+    {
+        if ($this->id !== null) {
             return self::borra($this);
         }
         return false;
@@ -32,12 +36,12 @@ class Facultad{
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM Facultades F WHERE F.idUniversidad='%d'", filter_var($idFacultad, FILTER_SANITIZE_NUMBER_INT));
-        
+
         $rs = $conn->query($query);
-        
-        if ($rs){
+
+        if ($rs) {
             $result = array();
-            while ($fila = $rs->fetch_assoc()){
+            while ($fila = $rs->fetch_assoc()) {
                 $facultad = new Facultad($fila['id'], $fila['nombre'], $fila['idUniversidad']);
                 array_push($result, $facultad);
             }
@@ -48,38 +52,47 @@ class Facultad{
         return $result;
     }
     //revisar
-    private static function actualiza($facultad){
+    private static function actualiza($facultad)
+    {
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query=sprintf("UPDATE Facultades F SET F.nombre='%s', F.idUniversidad='%i' WHERE F.id='%i'"
+        $query = sprintf(
+            "UPDATE Facultades F SET F.nombre='%s', F.idUniversidad='%i' WHERE F.id='%i'"
             , $conn->real_escape_string($facultad->nombre)
             , $conn->real_escape_string($facultad->idUniversidad)
-            , $conn->real_escape_string($facultad->id));
-        if ( !$conn->query($query) ) {
+            , $conn->real_escape_string($facultad->id)
+        );
+        if (!$conn->query($query)) {
             error_log("Error al actualizar la facultad: {$conn->errno} {$conn->error}");
-        } 
+        }
         return $result;
     }
     //revisar
-    private static function inserta($facultad){
+    private static function inserta($facultad)
+    {
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query=sprintf("INSERT INTO Facultades(nombre, idUniversidad) VALUES('%s', '%i')"
+        $query = sprintf(
+            "INSERT INTO Facultades(nombre, idUniversidad) VALUES('%s', '%i')"
             , $conn->real_escape_string($facultad->nombre)
-            , $conn->real_escape_string($facultad->idUniversidad));
-        if ( !$conn->query($query) ) {
+            , $conn->real_escape_string($facultad->idUniversidad)
+        );
+        if (!$conn->query($query)) {
             error_log("Error al insertar la facultad: {$conn->errno} {$conn->error}");
         }
         return $result;
 
     }
     //revisar
-    private static function borra($facultad){
+    private static function borra($facultad)
+    {
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query=sprintf("DELETE FROM Facultades F WHERE F.id='%i'"
-            , $conn->real_escape_string($facultad->id));
-        if ( !$conn->query($query) ) {
+        $query = sprintf(
+            "DELETE FROM Facultades F WHERE F.id='%i'"
+            , $conn->real_escape_string($facultad->id)
+        );
+        if (!$conn->query($query)) {
             error_log("Error al borrar la facultad: {$conn->errno} {$conn->error}");
         }
         return $result;
@@ -91,21 +104,25 @@ class Facultad{
 
     private $idUniversidad;
 
-    private function __construct($id, $nombre, $idUniversidad){
+    private function __construct($id, $nombre, $idUniversidad)
+    {
         $this->id = $id;
         $this->nombre = $nombre;
         $this->idUniversidad = $idUniversidad;
     }
 
-    public function getId(){
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function getNombre(){
+    public function getNombre()
+    {
         return $this->nombre;
     }
 
-    public function getIdUniversidad(){
+    public function getIdUniversidad()
+    {
         return $this->idUniversidad;
     }
 }

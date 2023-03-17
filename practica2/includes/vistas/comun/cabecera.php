@@ -34,7 +34,8 @@ function resuelveLocal($path = '')
 
 ?>
 <header>
-    <a href="<?= resuelveLocal('index.php'); ?>"> <img class="logo" src="<?= resuelveLocal('/Imagenes/logo.jpg'); ?>" alt="logo" title="Escoli"></a>
+    <a href="<?= resuelveLocal('index.php'); ?>"> <img class="logo" src="<?= resuelveLocal('/Imagenes/logo.jpg'); ?>"
+            alt="logo" title="Escoli"></a>
     <h1 id="headerTitle">Escoli</h1>
     <div id="saludo">
         <?= mostrarSaludo(); ?>

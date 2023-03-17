@@ -111,7 +111,7 @@ class Universidad
 
     private $nombre;
 
-    private function __construct($nombre, $id=null)
+    private function __construct($nombre, $id = null)
     {
         $this->id = $id;
         $this->nombre = $nombre;
@@ -127,3 +127,5 @@ class Universidad
         return $this->nombre;
     }
 }
+
+?>

@@ -3,7 +3,7 @@
 require_once 'includes/config.php';
 
 $tituloPagina = 'Escoli';
-$contenidoPrincipal=<<<EOS
+$contenidoPrincipal = <<<EOS
 <form enctype="text/plain" method = "post">
   <h2>Nombre de profesor</h2>
   <section>
@@ -18,3 +18,5 @@ EOS;
 
 $params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];
 $app->generaVista('/plantillas/plantillaPrincipal.php', $params);
+
+?>

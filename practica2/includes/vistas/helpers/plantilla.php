@@ -10,9 +10,9 @@ function mensajesPeticionAnterior()
     if ($mensajes) {
         $html = '<div class="mensajes">';
         $contador = 0;
-        foreach($mensajes as $mensaje) {
+        foreach ($mensajes as $mensaje) {
             $contador++;
-            $idMensaje = "mensaje{$contador}"; 
+            $idMensaje = "mensaje{$contador}";
             $html .= <<<EOS
             <input id="$idMensaje" type="checkbox">
             <div class="mensaje">
@@ -26,3 +26,5 @@ function mensajesPeticionAnterior()
 
     return $html;
 }
+
+?>

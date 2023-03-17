@@ -130,7 +130,7 @@ class Aplicacion
 
             // Eliminamos la última /
             $tamRutaRaizApp = mb_strlen($this->rutaRaizApp);
-            if ($tamRutaRaizApp > 0 && mb_substr($this->rutaRaizApp, $tamRutaRaizApp-1, 1) === '/') {
+            if ($tamRutaRaizApp > 0 && mb_substr($this->rutaRaizApp, $tamRutaRaizApp - 1, 1) === '/') {
                 $this->rutaRaizApp = mb_substr($this->rutaRaizApp, 0, $tamRutaRaizApp - 1);
             }
 
@@ -138,7 +138,7 @@ class Aplicacion
             $this->dirInstalacion = $dirInstalacion;
             $tamDirInstalacion = mb_strlen($this->dirInstalacion);
             if ($tamDirInstalacion > 0) {
-                $ultimoChar = mb_substr($this->dirInstalacion, $tamDirInstalacion-1, 1);
+                $ultimoChar = mb_substr($this->dirInstalacion, $tamDirInstalacion - 1, 1);
                 if ($ultimoChar === DIRECTORY_SEPARATOR || $ultimoChar === '/') {
                     $this->dirInstalacion = mb_substr($this->dirInstalacion, 0, $tamDirInstalacion - 1);
                 }
@@ -148,8 +148,8 @@ class Aplicacion
             session_start();
 
             /* Se inicializa los atributos asociados a la petición en base a la sesión y se eliminan para que
-        * no estén disponibles después de la gestión de esta petición.
-        */
+             * no estén disponibles después de la gestión de esta petición.
+             */
             $this->atributosPeticion = $_SESSION[self::ATRIBUTOS_PETICION] ?? [];
             unset($_SESSION[self::ATRIBUTOS_PETICION]);
 
@@ -234,8 +234,8 @@ class Aplicacion
         if (mb_strlen($path) > 0 && mb_substr($path, 0, 1) !== '/') {
             $path = '/' . $path;
         }
-        $path = "/Imagenes".$path;
-        
+        $path = "/Imagenes" . $path;
+
         return $this->resuelve($path, NULL);
     }
 
@@ -247,7 +247,7 @@ class Aplicacion
             $path = '/' . $path;
         }
 
-        include($this->rutaXamp.$this->rutaRaizApp.$path);
+        include($this->rutaXamp . $this->rutaRaizApp . $path);
     }
 
     public function generaVista(string $rutaVista, &$params)
@@ -401,3 +401,5 @@ class Aplicacion
         return $query;
     }
 }
+
+?>

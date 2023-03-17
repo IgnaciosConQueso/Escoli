@@ -47,7 +47,7 @@ abstract class Formulario
      */
     protected static function createMensajeError($errores = [], $idError = '', $htmlElement = 'span', $atts = [])
     {
-        if (! isset($errores[$idError])) {
+        if (!isset($errores[$idError])) {
             return '';
         }
 
@@ -60,9 +60,10 @@ abstract class Formulario
         return $html;
     }
 
-    protected static function generaErroresCampos($campos, $errores, $htmlElement = 'span', $atts = []) {
+    protected static function generaErroresCampos($campos, $errores, $htmlElement = 'span', $atts = [])
+    {
         $erroresCampos = [];
-        foreach($campos as $campo) {
+        foreach ($campos as $campo) {
             $erroresCampos[$campo] = self::createMensajeError($errores, $campo, $htmlElement, $atts);
         }
         return $erroresCampos;
@@ -166,11 +167,11 @@ abstract class Formulario
         $opcionesPorDefecto = array('action' => null, 'method' => 'POST', 'class' => null, 'enctype' => null, 'urlRedireccion' => null, 'formId' => '');
         $opciones = array_merge($opcionesPorDefecto, $opciones);
 
-        $this->formId = $tipoFormulario.$opciones['formId'];
+        $this->formId = $tipoFormulario . $opciones['formId'];
         $this->action = $opciones['action'];
         $this->method = $opciones['method'];
         $this->classAtt = $opciones['class'];
-        $this->enctype  = $opciones['enctype'];
+        $this->enctype = $opciones['enctype'];
         $this->urlRedireccion = $opciones['urlRedireccion'];
 
         if (!$this->action) {
@@ -210,7 +211,7 @@ abstract class Formulario
         $this->procesaFormulario($datos);
         $esValido = count($this->errores) === 0;
 
-        if (! $esValido ) {
+        if (!$esValido) {
             return $this->generaFormulario($datos);
         }
 
@@ -284,3 +285,5 @@ abstract class Formulario
         return $htmlForm;
     }
 }
+
+?>

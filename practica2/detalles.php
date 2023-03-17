@@ -3,7 +3,7 @@
 require_once 'includes/config.php';
 
 $tituloPagina = 'Detalles';
-$contenidoPrincipal=<<<EOS
+$contenidoPrincipal = <<<EOS
 <h3>¿Qué es Escoli?</h3>
 
 <h4>Introduccion</h4>
@@ -49,3 +49,5 @@ $contenidoPrincipal=<<<EOS
 EOS;
 $params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];
 $app->generaVista('/plantillas/plantillaPrincipal.php', $params);
+
+?>

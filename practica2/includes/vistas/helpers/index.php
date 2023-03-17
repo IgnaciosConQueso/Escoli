@@ -16,7 +16,7 @@ function listaUniversidades()
     return $html;
 }
 
-function generaHTMLUniversidad($data)//TODO
+function generaHTMLUniversidad($data) //TODO
 {
     $url = 'universidad.php?id=' . $data->id;
     $html = '<li>';

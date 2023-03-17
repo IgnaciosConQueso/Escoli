@@ -1,7 +1,7 @@
 <?php
 
-require_once __DIR__.'/includes/config.php';
-require_once __DIR__.'/includes/vistas/helpers/facultad.php';
+require_once __DIR__ . '/includes/config.php';
+require_once __DIR__ . '/includes/vistas/helpers/facultad.php';
 
 $tituloPagina = 'Facultad';
 $contenidoPrincipal = listaValoraciones($_GET['id']);

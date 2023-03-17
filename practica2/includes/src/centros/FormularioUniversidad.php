@@ -8,10 +8,11 @@ use escoli\Formulario;
 
 class FormularioUniversidad extends Formulario
 {
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct('formUniversidad', ['urlRedireccion' => 'universidades.php']);
     }
-    
+
     protected function generaCamposFormulario(&$datos)
     {
         $nombre = $datos['nombre'] ?? '';
@@ -19,7 +20,7 @@ class FormularioUniversidad extends Formulario
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['nombre'], $this->errores, 'span', array('class' => 'error'));
 
-        
+
         $html = <<<EOF
         $htmlErroresGlobales
         <fieldset>
@@ -40,7 +41,7 @@ class FormularioUniversidad extends Formulario
 
         $nombre = trim($datos['nombre'] ?? '');
         $nombre = filter_var($nombre, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if ( ! $nombre || mb_strlen($nombre) < 5) {
+        if (!$nombre || mb_strlen($nombre) < 5) {
             $this->errores[] = "El nombre de la universidad tiene que tener una longitud de al menos 5 caracteres.";
         }
 
@@ -54,5 +55,7 @@ class FormularioUniversidad extends Formulario
             }
         }
     }
-    
+
 }
+
+?>

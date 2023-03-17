@@ -47,3 +47,5 @@ $contenidoPrincipal = <<<EOS
 EOS;
 $params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];
 $app->generaVista('/plantillas/plantillaPrincipal.php', $params);
+
+?>
