@@ -1,6 +1,7 @@
 <?php
 
 use escoli\contenido\Valoracion;
+use escoli\centros\Facultad;
 
 function listaValoraciones($id = 1, $numPorPag = 10, $pag = 1)
 {
@@ -28,6 +29,12 @@ function generaHTMLValoracion($valoracion)
     $html .= '</div>';
     $html .= '</li>';
     return $html;
+}
+
+function nombreFacultad($idFacultad)
+{
+    $facultad = Facultad::buscaPorId($idFacultad);
+    return $facultad->nombre;
 }
 
 ?>

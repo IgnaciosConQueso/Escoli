@@ -30,4 +30,9 @@ function generaHTMLFacultad($data) //TODO
     return $html;
 }
 
+function nombreUniversidad($idUniversidad)
+{
+    $universidad = Universidad::buscaPorId($idUniversidad);
+    return $universidad->nombre;
+}
 ?>

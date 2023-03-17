@@ -31,11 +31,11 @@ class Facultad
         return false;
     }
 
-    public static function buscaFacultades($idFacultad)
+    public static function buscaFacultades($idUniversidad)
     {
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM Facultades F WHERE F.idUniversidad='%d'", filter_var($idFacultad, FILTER_SANITIZE_NUMBER_INT));
+        $query = sprintf("SELECT * FROM Facultades F WHERE F.idUniversidad='%d'", filter_var($idUniversidad, FILTER_SANITIZE_NUMBER_INT));
 
         $rs = $conn->query($query);
 
@@ -56,6 +56,24 @@ class Facultad
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM Facultades WHERE nombre='%s'", $conn->real_escape_string($nombre));
+        $rs = $conn->query($query);
+        $result = false;
+        if ($rs) {
+            $fila = $rs->fetch_assoc();
+            if ($fila) {
+                $result = new Facultad($fila['nombre'], $fila['idUniversidad'], $fila['id']);
+            }
+            $rs->free();
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
+    }
+
+    public static function buscaPorId($id)
+    {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM Facultades WHERE id='%d'", filter_var($id, FILTER_SANITIZE_NUMBER_INT));
         $rs = $conn->query($query);
         $result = false;
         if ($rs) {

@@ -31,6 +31,24 @@ class Universidad
         return false;
     }
 
+    public static function buscaPorId($id)
+    {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM universidades WHERE id='%d'", filter_var($id, FILTER_SANITIZE_NUMBER_INT));
+        $rs = $conn->query($query);
+        $result = false;
+        if ($rs) {
+            $fila = $rs->fetch_assoc();
+            if ($fila) {
+                $result = new Universidad($fila['nombre'], $fila['id']);
+            }
+            $rs->free();
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
+    }
+
     //es posible que no este bien
     public static function buscaPorNombre($nombre)
     {
