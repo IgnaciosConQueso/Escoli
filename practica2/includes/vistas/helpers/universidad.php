@@ -20,7 +20,7 @@ function listaFacultades()
 function generaHTMLFacultad($data)//TODO
 {
     $html = '<li>';
-    $html .= '<div class="">';
+    $html .= '<div class="facultad">';
     $html .= '<p class="nombre-facultad">' . $data->nombre . '</p>';
     $html .= '<p class="idUniversidad">' . $data->idUniversidad . '</p>';
     $html .= '</div>';

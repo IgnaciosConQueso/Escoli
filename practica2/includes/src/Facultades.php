@@ -46,14 +46,17 @@ class Facultades{
 
     public static function buscaFacultades()
     {
+        $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM Facultades");
+        
         $rs = $conn->query($query);
-        $result = false;
-        if ($rs) {
-            $fila = $rs->fetch_assoc();
-            if ($fila) {
-                $result = new Facultades($fila['id'], $fila['nombre'], $fila['idUniversidad']);
+        
+        if ($rs){
+            $result = array();
+            while ($fila = $rs->fetch_assoc()){
+                $facultad = new Facultades($fila['id'], $fila['nombre'], $fila['idUniversidad']);
+                array_push($result, $facultad);
             }
             $rs->free();
         } else {
