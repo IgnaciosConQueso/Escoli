@@ -25,7 +25,7 @@ function generaHTMLFacultad($data)//TODO
     $html = '<li>';
     $html .= '<div class="">';
     $html .= '<p class="nombre-facultad">' . $data->nombre . '</p>';
-    $html .= '<p class="descripcion-facultad">' . $data->descripcion . '</p>';
+    $html .= '<p class="idUniversidad">' . $data->idUniversidad . '</p>';
     $html .= '</div>';
     $html .= '</li>';
     return $html;

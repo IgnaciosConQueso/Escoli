@@ -1,13 +1,10 @@
 <?php
 
 require_once __DIR__.'/includes/config.php';
+use function es\ucm\fdi\aw\listaFacultades;
 
 $tituloPagina = 'Escoli';
-$contenidoPrincipal=<<<EOS
-<h1>Universidad</h1>
-<p>Esta es la página de la universidad</p>
-<a href="facultad.php">Facultad</a>
-EOS;
+$contenidoPrincipal=listaFacultades();
 
 $params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];
 $app->generaVista('/plantillas/plantillaPrincipal.php', $params);
