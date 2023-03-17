@@ -13,11 +13,11 @@ class FormularioRegistro extends Formulario
     protected function generaCamposFormulario(&$datos)
     {
         $nombreUsuario = $datos['nombreUsuario'] ?? '';
-        $nombre = $datos['nombre'] ?? '';
+        $email = $datos['email'] ?? '';
 
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-        $erroresCampos = self::generaErroresCampos(['nombreUsuario', 'nombre', 'password', 'password2'], $this->errores, 'span', array('class' => 'error'));
+        $erroresCampos = self::generaErroresCampos(['nombreUsuario', 'email', 'password', 'password2'], $this->errores, 'span', array('class' => 'error'));
 
         $html = <<<EOF
         $htmlErroresGlobales
@@ -29,9 +29,9 @@ class FormularioRegistro extends Formulario
                 {$erroresCampos['nombreUsuario']}
             </div>
             <div>
-                <label for="nombre">Nombre:</label>
-                <input id="nombre" type="text" name="nombre" value="$nombre" />
-                {$erroresCampos['nombre']}
+                <label for="email">Email:</label>
+                <input id="email" type="text" name="email" value="$email" />
+                {$erroresCampos['email']}
             </div>
             <div>
                 <label for="password">Password:</label>
@@ -62,10 +62,10 @@ class FormularioRegistro extends Formulario
             $this->errores['nombreUsuario'] = 'El nombre de usuario tiene que tener una longitud de al menos 5 caracteres.';
         }
 
-        $nombre = trim($datos['nombre'] ?? '');
-        $nombre = filter_var($nombre, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if ( ! $nombre || mb_strlen($nombre) < 5) {
-            $this->errores['nombre'] = 'El nombre tiene que tener una longitud de al menos 5 caracteres.';
+        $email = trim($datos['email'] ?? '');
+        $email = filter_var($email, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        if ( ! $email || self::matchEmail($email)) {
+            $this->errores['email'] = 'Introduce un email válido.';
         }
 
         $password = trim($datos['password'] ?? '');
@@ -86,10 +86,17 @@ class FormularioRegistro extends Formulario
             if ($usuario) {
                 $this->errores[] = "El usuario ya existe";
             } else {
-                $usuario = Usuario::crea($nombreUsuario, $password, $nombre);
+                $usuario = Usuario::crea($nombreUsuario, $password, $email);
                 $app = Aplicacion::getInstance();
                 $app->login($usuario);
             }
         }
     }
+
+    private function matchEmail($email)
+    {
+        $pattern = '/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/';
+        return preg_match($pattern, $email);
+    }
 }
+

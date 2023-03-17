@@ -265,7 +265,7 @@ class Aplicacion
     {
         $this->compruebaInstanciaInicializada();
         $_SESSION['login'] = true;
-        $_SESSION['nombre'] = $user->getNombre();
+        $_SESSION['email'] = $user->getEmail();
         $_SESSION['idUsuario'] = $user->getId();
         $_SESSION['roles'] = $user->getRoles();
     }
@@ -275,7 +275,7 @@ class Aplicacion
         $this->compruebaInstanciaInicializada();
         //Doble seguridad: unset + destroy
         unset($_SESSION['login']);
-        unset($_SESSION['nombre']);
+        unset($_SESSION['email']);
         unset($_SESSION['idUsuario']);
         unset($_SESSION['roles']);
 
