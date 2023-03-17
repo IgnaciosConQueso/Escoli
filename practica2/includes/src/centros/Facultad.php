@@ -1,15 +1,15 @@
 <?php
 
-namespace escoli;
+namespace escoli\centros;
 
 use escoli\Aplicacion;
 use escoli\MagicProperties;
 
-class Facultades{
+class Facultad{
     use MagicProperties;
 
     public static function crea($id, $nombre, $idUniversidad){
-        $facultad = new Facultades($id, $nombre, $idUniversidad);
+        $facultad = new Facultad($id, $nombre, $idUniversidad);
         return $facultad->guarda();
     }
 
@@ -26,36 +26,19 @@ class Facultades{
         }
         return false;
     }
-    //revisar
-    public static function buscaFacultad($id){
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM Facultades F WHERE F.id='%i'", $conn->real_escape_string($id));
-        $rs = $conn->query($query);
-        $result = false;
-        if($rs){
-            $fila = $rs->fetch_assoc();
-            if($fila){
-                $result = new Facultades($fila['id'], $fila['nombre'], $fila['idUniversidad']);
-            }
-            $rs->free();
-        }else{
-            error_log("Error BD ({$conn->errno}): {$conn->error}");
-        }
-        return $result;
-    }
 
-    public static function buscaFacultades()
+    public static function buscaFacultades($idFacultad)
     {
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM Facultades");
+        $query = sprintf("SELECT * FROM Facultades F WHERE F.idUniversidad='%d'", filter_var($idFacultad, FILTER_SANITIZE_NUMBER_INT));
         
         $rs = $conn->query($query);
         
         if ($rs){
             $result = array();
             while ($fila = $rs->fetch_assoc()){
-                $facultad = new Facultades($fila['id'], $fila['nombre'], $fila['idUniversidad']);
+                $facultad = new Facultad($fila['id'], $fila['nombre'], $fila['idUniversidad']);
                 array_push($result, $facultad);
             }
             $rs->free();

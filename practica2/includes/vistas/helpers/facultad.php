@@ -1,6 +1,6 @@
 <?php
 
-use escoli\Valoracion;
+use escoli\contenido\Valoracion;
 
 function listaValoraciones($id = 1, $numPorPag = 10, $pag = 1)
 {

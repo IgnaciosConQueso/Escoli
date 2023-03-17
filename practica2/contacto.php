@@ -3,7 +3,7 @@
 require_once 'includes/config.php';
 
 $tituloPagina = 'Escoli';
-$contenidoPrincipal=<<<EOS
+$contenidoPrincipal = <<<EOS
 <form action="mailto:ignatiusconqueso@gmail.com" method="post" enctype="text/plain">
   <h2>Formulario de contacto</h2>
   <h3>Escríbenos y en breve los pondremos en contacto contigo</h3>
@@ -40,6 +40,9 @@ $contenidoPrincipal=<<<EOS
     <label for="mensaje"></label>
     <textarea id="mensaje" name="mensaje" placeholder="Escribe aquí tu comentario..." required></textarea>
   </section>
+
+  <button type="submit" name="enviar" value="Enviar formulario">Enviar</button>
+  <p><span class="obligatorio"> * </span>los campos son obligatorios.</p>
 </form>
 EOS;
 $params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];

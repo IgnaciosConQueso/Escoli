@@ -1,17 +1,17 @@
 <?php
 
-namespace escoli;
+namespace escoli\centros;
 
 use escoli\Aplicacion;
 use escoli\MagicProperties;
 
-class Universidades
+class Universidad
 {
     use MagicProperties;
 
-    public static function crea($id, $nombre)
+    public static function crea($nombre)
     {
-        $universidad = new Universidades($id, $nombre);
+        $universidad = new Universidad($nombre);
         return $universidad->guarda();
     }
 
@@ -32,16 +32,16 @@ class Universidades
     }
 
     //es posible que no este bien
-    public static function buscaUniversidad($id)
+    public static function buscaPorNombre($nombre)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM universidades WHERE id='%i'", $conn->real_escape_string($id));
+        $query = sprintf("SELECT * FROM universidades WHERE nombre='%i'", $conn->real_escape_string($nombre));
         $rs = $conn->query($query);
         $result = false;
         if ($rs) {
             $fila = $rs->fetch_assoc();
             if ($fila) {
-                $result = new Universidades($fila['id'], $fila['nombre']);
+                $result = new Universidad($fila['nombre'], $fila['id']);
             }
             $rs->free();
         } else {
@@ -53,13 +53,14 @@ class Universidades
     public static function buscaUniversidades()
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM Universidades U");
+        $query = sprintf("SELECT * FROM Universidades U ORDER BY U.nombre");
         $rs = $conn->query($query);
         $result = false;
         if ($rs) {
-            $fila = $rs->fetch_assoc();
-            if ($fila) {
-                $result = new Universidades($fila['id'], $fila['nombre']);
+            $result = array();
+            while ($fila = $rs->fetch_assoc()) {
+                $universidad = new Universidad($fila['nombre'], $fila['id']);
+                array_push($result, $universidad);
             }
             $rs->free();
         } else {
@@ -72,7 +73,7 @@ class Universidades
     private static function actualiza($universidad)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("UPDATE universidades SET nombre='%s' WHERE id='%i'", $conn->real_escape_string($universidad->nombre), $conn->real_escape_string($universidad->id));
+        $query = sprintf("UPDATE universidades SET nombre='%s' WHERE id='%d'", $conn->real_escape_string($universidad->nombre), $conn->real_escape_string($universidad->id));
         if ($conn->query($query)) {
             return true;
         } else {
@@ -110,7 +111,7 @@ class Universidades
 
     private $nombre;
 
-    private function __construct($id, $nombre)
+    private function __construct($nombre, $id=null)
     {
         $this->id = $id;
         $this->nombre = $nombre;

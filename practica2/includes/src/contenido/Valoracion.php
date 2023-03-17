@@ -1,6 +1,6 @@
 <?php
 
-namespace escoli;
+namespace escoli\contenido;
 
 use escoli\Aplicacion;
 use escoli\MagicProperties;

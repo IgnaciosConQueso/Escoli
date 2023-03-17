@@ -50,7 +50,6 @@ class FormularioRegistro extends Formulario
         EOF;
         return $html;
     }
-    
 
     protected function procesaFormulario(&$datos)
     {

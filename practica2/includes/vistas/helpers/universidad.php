@@ -1,11 +1,11 @@
 <?php
 
-use escoli\Facultades;
+use escoli\centros\Facultad;
 
-function listaFacultades()
+function listaFacultades($idFacultad)
 {
 //recibe todas las facultades de una universidad
-    $arrayFacultades = Facultades::buscaFacultades();
+    $arrayFacultades = Facultad::buscaFacultades($idFacultad);
     $html = '';
     if ($arrayFacultades) {
         $html .= '<ul class="lista-facultades">';

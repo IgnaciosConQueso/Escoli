@@ -45,6 +45,5 @@ function resuelveLocal($path = '')
     <div id="menu">
         <a href="<?= resuelveLocal('/contacto.php'); ?>">Contacto</a>
         <a href="<?= resuelveLocal('/detalles.php'); ?>">Detalles</a>
-        <a href="<?= resuelveLocal('/universidad.php'); ?>">Universidad</a>
     </div>
 </nav>
