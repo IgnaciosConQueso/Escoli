@@ -35,7 +35,7 @@ class Universidad
     public static function buscaPorNombre($nombre)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM universidades WHERE nombre='%i'", $conn->real_escape_string($nombre));
+        $query = sprintf("SELECT * FROM universidades WHERE nombre='%s'", $conn->real_escape_string($nombre));
         $rs = $conn->query($query);
         $result = false;
         if ($rs) {
@@ -73,7 +73,7 @@ class Universidad
     private static function actualiza($universidad)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("UPDATE universidades SET nombre='%s' WHERE id='%d'", $conn->real_escape_string($universidad->nombre), $conn->real_escape_string($universidad->id));
+        $query = sprintf("UPDATE universidades SET nombre='%s' WHERE id='%d'", $conn->real_escape_string($universidad->nombre), filter_var($universidad->id, FILTER_SANITIZE_NUMBER_INT));
         if ($conn->query($query)) {
             return true;
         } else {
@@ -85,7 +85,7 @@ class Universidad
     private static function inserta($universidad)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("INSERT INTO universidades (id, nombre) VALUES('%i', '%s')", $conn->real_escape_string($universidad->id), $conn->real_escape_string($universidad->nombre));
+        $query = sprintf("INSERT INTO universidades (id, nombre) VALUES('%d', '%s')", filter_var($universidad->id, FILTER_SANITIZE_NUMBER_INT), $conn->real_escape_string($universidad->nombre));
         if ($conn->query($query)) {
             $universidad->id = $conn->insert_id;
             return true;
