@@ -24,25 +24,27 @@ function mostrarSaludo()
     return $html;
 }
 
-function resuelveLocal($path = ''){ 
-    $url = '';  
-    $app = Aplicacion::getInstance(); 
+function resuelveLocal($path = '')
+{
+    $url = '';
+    $app = Aplicacion::getInstance();
     $url = $app->resuelve($path);
     return $url;
 }
 
 ?>
 <header>
-    <a href= "<?= resuelveLocal('index.php'); ?>"> <img class="logo" src="<?= resuelveLocal('/Imagenes/logo.jpg');?>" alt ="logo" title = "Escoli"></a>
+    <a href="<?= resuelveLocal('index.php'); ?>"> <img class="logo" src="<?= resuelveLocal('/Imagenes/logo.jpg'); ?>" alt="logo" title="Escoli"></a>
     <h1 id="headerTitle">Escoli</h1>
-
-</header>
-    
-<nav>
-    <a href="<?= resuelveLocal('/contacto.php'); ?>">Contacto</a>
-    <a href="<?= resuelveLocal('/detalles.php'); ?>">Detalles</a>
-    <a href="<?= resuelveLocal('/universidad.php'); ?>">Universidad</a>
-    <div class="saludo">
+    <div id="saludo">
         <?= mostrarSaludo(); ?>
+    </div>
+</header>
+
+<nav>
+    <div id="menu">
+        <a href="<?= resuelveLocal('/contacto.php'); ?>">Contacto</a>
+        <a href="<?= resuelveLocal('/detalles.php'); ?>">Detalles</a>
+        <a href="<?= resuelveLocal('/universidad.php'); ?>">Universidad</a>
     </div>
 </nav>
