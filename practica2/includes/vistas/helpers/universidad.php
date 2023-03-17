@@ -1,6 +1,7 @@
 <?php
 
 use escoli\centros\Facultad;
+use escoli\centros\Universidad;
 
 function listaFacultades($idFacultad)
 {

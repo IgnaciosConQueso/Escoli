@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/includes/config.php';
 
-$formRegistro = new \escoli\Usuarios\FormularioRegistro();
+$formRegistro = new \escoli\usuarios\FormularioRegistro();
 $formRegistro = $formRegistro->gestiona();
 
 
@@ -13,5 +13,6 @@ $contenidoPrincipal = <<<EOF
 EOF;
 
 $params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];
+$app->generaVista('/plantillas/plantillaPrincipal.php', $params);
 
 ?>

@@ -8,7 +8,7 @@ $formRegistro = $formRegistro->gestiona();
 
 $tituloPagina = 'Registro Facultad';
 $contenidoPrincipal = <<<EOF
-  	<h1>Registro de Universidad</h1>
+  	<h1>Registro de Facultad</h1>
     $formRegistro
 EOF;
 
