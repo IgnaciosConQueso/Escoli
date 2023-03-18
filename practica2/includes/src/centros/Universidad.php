@@ -116,7 +116,7 @@ class Universidad
     private static function borra($universidad)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("DELETE FROM universidades WHERE id='%i'", $conn->real_escape_string($universidad->id));
+        $query = sprintf("DELETE FROM universidades WHERE nombre='%s'", $conn->real_escape_string($universidad->nombre));
         if ($conn->query($query)) {
             return true;
         } else {
