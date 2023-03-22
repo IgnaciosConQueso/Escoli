@@ -22,12 +22,12 @@ class FormularioValoracion extends Formulario
             <legend>Valora a tu profe</legend>
             <div>
                 <label for="comentario">Comentario:</label>
-                <input id="comentario" type="text" name="comentario" value="$datos['comentario'] " />
+                <input id="comentario" type="text" name="comentario" value="$datos.['comentario']" />
                 {$erroresCampos['comentario']}
             </div>
             <div>
                 <label for="puntuacion">Puntuación:</label>
-                <input id="puntuacion" type="text" name="puntuacion" value="$datos['puntuacion']" />
+                <input id="puntuacion" type="text" name="puntuacion" value="$datos.['puntuacion']" />
                 {$erroresCampos['puntuacion']}
             <div>
                 <button type="submit" name="registro">Publicar</button>
