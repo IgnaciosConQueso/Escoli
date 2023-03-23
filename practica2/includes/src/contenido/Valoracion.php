@@ -76,7 +76,7 @@ class Valoracion
     {
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT V.* FROM `valoraciones` V
+        $query = sprintf("SELECT V.* FROM `Valoraciones` V
             JOIN `asignaturas` A ON V.idProfesor = A.idProfesor
             WHERE A.idFacultad = %d
             GROUP BY V.id ORDER BY V.fecha ASC", $idFacultad);
