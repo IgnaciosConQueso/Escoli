@@ -32,6 +32,20 @@ function resuelveLocal($path = '')
     return $url;
 }
 
+function creaBarraBusqueda()
+{
+    $html = '';
+    $app = Aplicacion::getInstance();
+    $url = $app->resuelve('/busqueda.php');
+    $html = <<<EOS
+    <form action="{$url}" method="get">
+      <input type="text" name="busqueda" placeholder="Buscar...">
+      <input type="submit" value="Buscar">
+    </form>
+  EOS;
+    return $html;
+}
+
 ?>
 <header>
     <a href="<?= resuelveLocal('index.php'); ?>"> <img class="logo" src="<?= resuelveLocal('/Imagenes/logo.jpg'); ?>"
@@ -46,5 +60,6 @@ function resuelveLocal($path = '')
     <div id="menu">
         <a href="<?= resuelveLocal('/contacto.php'); ?>">Contacto</a>
         <a href="<?= resuelveLocal('/detalles.php'); ?>">Detalles</a>
+        <?= creaBarraBusqueda(); ?>
     </div>
 </nav>

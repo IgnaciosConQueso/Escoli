@@ -39,10 +39,11 @@ nav {
 
 div#menu {
     margin: 0;
-    text-align: center;
+    text-align: left;
 }
 
-nav a {
+div#menu > *{
+    margin: 0;
     color: #e1e1e1;
     text-align: center;
     padding: 14px 16px;
