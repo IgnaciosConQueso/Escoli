@@ -6,28 +6,12 @@ body {
 }
 
 header {
-    height: 100px;
+    display: block;
     width: 100%;
-    font-size: xx-large;
-    display: flex;
-    justify-content: center;
-}
-
-header a img {
-    height: 100px;
-    position: fixed;
-    left: 0;
-}
-
-h1#headerTitle {
-    margin: 0;
-    align-self: center;
-}
-
-div#saludo {
-    margin: 0px;
-    position: fixed;
-    right: 0;
+    height: fit-content;
+    position: sticky;
+    top: 0;
+    background-color: #212327
 }
 
 nav {
@@ -37,9 +21,12 @@ nav {
     font-size: medium;
 }
 
-div#menu {
-    margin: 0;
-    text-align: left;
+div#title{
+    font-size: xx-large;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
 }
 
 div#menu > *{
@@ -49,6 +36,22 @@ div#menu > *{
     padding: 14px 16px;
     text-decoration: none;
     display: inline-block;
+}
+
+img#logo {
+    height: 100px;
+    width: 100px;
+    margin: 0;
+    padding: 0;
+}
+
+div#saludo {
+    display: flow-root;
+    font-size: smaller;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 100px;
 }
 
 nav a:hover {
