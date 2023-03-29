@@ -11,7 +11,7 @@ $linkBorraFacultad = 'borraFacultad.php';
 $botonUniversidad = '<a href=' . $linkUniversidad . '><button> Añadir universidad </button>';
 $botonBorraUniversidad = '<a href=' . $linkBorraUniversidad . '><button> Borrar universidad </button>';
 $botonFacultad = '<a href=' . $linkFacultad . '><button> Añadir facultad </button>';
-$botonBorraFacultad = '<a href=' . $linkBorraFacultad . '><button> Añadir facultad </button>';
+$botonBorraFacultad = '<a href=' . $linkBorraFacultad . '><button> Borrar facultad </button>';
 $contenidoPrincipal = listaUniversidades() . $botonUniversidad . $botonBorraUniversidad . $botonFacultad . $botonBorraFacultad;
 
 
