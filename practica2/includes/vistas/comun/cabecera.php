@@ -49,7 +49,7 @@ function creaBarraBusqueda()
 ?>
 <header>
     <div id="title">
-        <a href="<?= resuelveLocal('index.php'); ?>"> <img id="logo" src="<?= resuelveLocal('/Imagenes/logo.jpg'); ?>" alt="logo" title="Escoli"></a>
+        <a id="linkLogo" href="<?= resuelveLocal('index.php'); ?>"> <img id="logo" src="<?= resuelveLocal('/Imagenes/logo.jpg'); ?>" alt="logo" title="Escoli"></a>
         <h1 id="headerTitle">Escoli</h1>
         <div id="saludo">
             <?= mostrarSaludo(); ?>

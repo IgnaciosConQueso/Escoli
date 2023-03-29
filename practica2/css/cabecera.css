@@ -26,7 +26,7 @@ div#title{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 100px;
+    height: fit-content;
 }
 
 div#menu > *{
@@ -39,19 +39,36 @@ div#menu > *{
 }
 
 img#logo {
-    height: 100px;
-    width: 100px;
+    height: 3em;
+    width: 3em;
     margin: 0;
     padding: 0;
+    overflow: hidden;
+}
+
+a#linkLogo{
+    height: 3em;
+    width: 3em;
+}
+
+h1#headerTitle {
+    margin: 0;
 }
 
 div#saludo {
     display: flow-root;
-    font-size: smaller;
     justify-content: center;
     align-items: center;
-    height: 100px;
-    width: 100px;
+    text-align: center;
+    height: 3em;
+    width: 3em;
+}
+
+div#saludo > * {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-size: large;
 }
 
 nav a:hover {
@@ -60,11 +77,7 @@ nav a:hover {
 }
 
 @media screen and (max-width: 400px) {
-    header {
-        height: 50px;
+    div#title{
         font-size: x-large;
-    }
-    header a img {
-        height: 50px;
     }
 }
