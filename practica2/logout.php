@@ -7,7 +7,7 @@ if (strtoupper($_SERVER['REQUEST_METHOD']) !== 'POST') {
     $app->redirige('/index.php');
 }
 
-$formLogout = new \escoli\Usuarios\FormularioLogout();
+$formLogout = new \escoli\usuarios\FormularioLogout();
 $formLogout->gestiona();
 
 ?>

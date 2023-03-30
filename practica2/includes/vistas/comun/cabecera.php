@@ -1,7 +1,7 @@
 <?php
 
 use escoli\Aplicacion;
-use escoli\Usuarios\FormularioLogout;
+use escoli\usuarios\FormularioLogout;
 
 function mostrarSaludo()
 {
