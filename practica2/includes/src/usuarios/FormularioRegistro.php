@@ -1,5 +1,5 @@
 <?php
-namespace escoli\Usuarios;
+namespace escoli\usuarios;
 
 use escoli\Aplicacion;
 use escoli\Formulario;

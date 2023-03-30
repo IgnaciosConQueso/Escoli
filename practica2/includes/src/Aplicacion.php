@@ -3,7 +3,7 @@
 namespace escoli;
 
 use Exception;
-use escoli\Usuarios\Usuario;
+use escoli\usuarios\Usuario;
 
 /**
  * Clase que mantiene el estado global de la aplicación.
