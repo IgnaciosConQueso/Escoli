@@ -50,8 +50,7 @@ class FormularioBorrarUniversidad extends Formulario
             $universidad = Universidad::buscaPorNombre($nombre);
 
             if ($universidad) {
-                $universidad = Universidad::borra($universidad); /* Lanza error y creo que tiene que ver con algo que he hecho mal y peta el 
-                gestiona() de Formulario.php */
+                $universidad = Universidad::borra($universidad); 
             } else {
                 $this->errores[] = "La universidad a borrar no existe.";
             }

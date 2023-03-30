@@ -87,6 +87,19 @@ class Universidad
         return $result;
     }
 
+    //revisar
+    public static function borra($universidad)
+    {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("DELETE FROM Universidades WHERE nombre='%s'", $conn->real_escape_string($universidad->nombre));
+        if ($conn->query($query)) {
+            return true;
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+            return false;
+        }
+    }
+
     //revisar tambien
     private static function actualiza($universidad)
     {
@@ -112,18 +125,7 @@ class Universidad
             return false;
         }
     }
-    //revisar
-    private static function borra($universidad)
-    {
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("DELETE FROM Universidades WHERE nombre='%s'", $conn->real_escape_string($universidad->nombre));
-        if ($conn->query($query)) {
-            return true;
-        } else {
-            error_log("Error BD ({$conn->errno}): {$conn->error}");
-            return false;
-        }
-    }
+    
 
     private $id;
 
