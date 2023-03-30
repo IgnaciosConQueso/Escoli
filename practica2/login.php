@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/includes/config.php';
 
-$formLogin = new \escoli\Usuarios\FormularioLogin();
+$formLogin = new \escoli\usuarios\FormularioLogin();
 $formLogin = $formLogin->gestiona();
 
 
