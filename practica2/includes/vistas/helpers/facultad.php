@@ -11,6 +11,7 @@ function listaValoraciones($id = 1, $numPorPag = 10, $pag = 1)
         $html .= '<ul class="lista-valoraciones">';
         foreach ($arrayMensajes as $valoracion) {
             $html .= generaHTMLValoracion($valoracion);
+            procesaLikes($valoracion);
         }
         $html .= '</ul>';
     }
@@ -26,15 +27,31 @@ function generaHTMLValoracion($valoracion)
     $html .= '<p class="puntuacion">' . "puntuacion: " . $valoracion->puntuacion . '</p>';
     $html .= '<p class="fecha">' . "fecha: " . $valoracion->fecha . '</p>';
     $html .= '<p class="comentario">' . "comentario: " . $valoracion->comentario . '</p>';
+    $html .= '<p class="likes">' . "likes: " . $valoracion->likes . '</p>' ;
+    $html .=' <form method="post" action="">
+                <input type="submit" name="likes" value="👍">
+                <input type="submit" name="dislike" value="👎">
+              </form>';
     $html .= '</div>';
     $html .= '</li>';
     return $html;
 }
+
+function procesaLikes($valoracion)
+{
+    if (isset($_POST['likes'])) {
+        $valoracion->darLike($valoracion->id);
+    } elseif (isset($_POST['dislike'])) {
+        $valoracion->dislike($valoracion->id);
+    }
+}
+
 
 function nombreFacultad($idFacultad)
 {
     $facultad = Facultad::buscaPorId($idFacultad);
     return $facultad->nombre;
 }
+
 
 ?>

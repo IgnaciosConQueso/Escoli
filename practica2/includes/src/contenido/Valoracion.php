@@ -22,10 +22,12 @@ class Valoracion
 
     private $puntuacion;
 
-    public static function crea($idUsuario, $idProfesor, $fecha, $comentario, $puntuacion)
+    private $likes;
+
+    public static function crea($idUsuario, $idProfesor, $fecha, $comentario, $puntuacion, $likes)
     {
         $valoracion = new Valoracion
-        ($idUsuario, $idProfesor, $fecha, $comentario, $puntuacion);
+        ($idUsuario, $idProfesor, $fecha, $comentario, $puntuacion, $likes);
         return $valoracion->guarda();
     }
 
@@ -57,7 +59,8 @@ class Valoracion
             $fila = $rs->fetch_assoc();
             if ($fila) {
                 $result = new Valoracion
-                ($fila['idUsuario'], $fila['idProfesor'], $fila['fecha'], $fila['comentario'], $fila['puntuacion'], $fila['id']);
+                ($fila['idUsuario'], $fila['idProfesor'], $fila['fecha'], $fila['comentario'], $fila['puntuacion'], $fila['likes']
+                , $fila['id']);
             }
             $rs->free();
         } else {
@@ -87,7 +90,8 @@ class Valoracion
             $result = array();
             while ($fila = $rs->fetch_assoc()) {
                 $valoracion = new Valoracion(
-                    $fila['idUsuario'], $fila['idProfesor'], $fila['fecha'], $fila['comentario'], $fila['puntuacion'], $fila['id']
+                    $fila['idUsuario'], $fila['idProfesor'], $fila['fecha'], $fila['comentario'], $fila['puntuacion'], $fila['likes'],
+                    $fila['id']
                 );
                 array_push($result, $valoracion);
             }
@@ -103,11 +107,12 @@ class Valoracion
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
-            "UPDATE Valoraciones V SET idUsuario = '%i', idProfesor='%i', comentario = '%s', puntuacion = '%i' WHERE V.id=%d",
+            "UPDATE Valoraciones V SET idUsuario = '%d', idProfesor='%d', comentario = '%s', puntuacion = '%d', likes = %d WHERE V.id=%d",
             $conn->real_escape_string($Valoracion->idUsuario),
             $conn->real_escape_string($Valoracion->idProfesor),
             $conn->real_escape_string($Valoracion->comentario),
             $conn->real_escape_string($Valoracion->puntuacion),
+            $conn->real_escape_string($Valoracion->likes),
             $Valoracion->id
         );
         if (!$conn->query($query)) {
@@ -121,13 +126,14 @@ class Valoracion
     {
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("INSERT INTO Valoraciones(id, idUsuario, idProfesor, comentario, puntuacion) 
-            VALUES ('%i', '%i', '%i', '%s','%i')",
+        $query = sprintf("INSERT INTO Valoraciones(id, idUsuario, idProfesor, comentario, puntuacion, likes) 
+            VALUES ('%i', '%i', '%i', '%s','%i', '%i')",
             $Valoracion->id,
             $conn->real_escape_string($Valoracion->idUsuario),
             $conn->real_escape_string($Valoracion->idProfesor),
             $conn->real_escape_string($Valoracion->comentario),
-            $conn->real_escape_string($Valoracion->puntuacion)
+            $conn->real_escape_string($Valoracion->puntuacion),
+            $conn->real_escape_string($Valoracion->likes)
         );
         if (!$conn->query($query)) {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
@@ -160,7 +166,36 @@ class Valoracion
         return true;
     }
 
-    private function __construct($idUsuario, $idProfesor, $fecha, $comentario, $puntuacion, $id = null)
+    public static function darLike($id){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "UPDATE Valoraciones V SET V.likes++ WHERE V.id = %d"
+            ,
+            $id
+        );
+        if (!$conn->query($query)) {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+            return false;
+        }
+        return true;
+    }
+
+
+    public static function dislike($id){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "UPDATE Valoraciones V SET V.likes-1 WHERE V.id = %d"
+            ,
+            $id
+        );
+        if (!$conn->query($query)) {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+            return false;
+        }
+        return true;
+    }
+
+    private function __construct($idUsuario, $idProfesor, $fecha, $comentario, $puntuacion, $likes, $id = null)
     {
         $this->id = $id;
         $this->idUsuario = $idUsuario;
@@ -168,6 +203,7 @@ class Valoracion
         $this->fecha = $fecha;
         $this->comentario = $comentario;
         $this->puntuacion = $puntuacion;
+        $this->likes =$likes;
     }
 
     public function getId()
@@ -200,6 +236,11 @@ class Valoracion
         return $this->puntuacion;
     }
 
+    public function getLikes(){
+        return $this->likes;
+    }
+
+    
 }
 
 ?>

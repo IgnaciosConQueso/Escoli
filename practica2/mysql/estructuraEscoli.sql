@@ -63,6 +63,7 @@ CREATE TABLE IF NOT EXISTS `Valoraciones` (
     `fecha` DATE NULL DEFAULT CURRENT_TIMESTAMP,
     `comentario` VARCHAR(1000) NULL,
     `puntuacion` DECIMAL(1,0) NOT NULL,
+    `likes` INT NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
 
