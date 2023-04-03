@@ -40,9 +40,12 @@ function generaHTMLValoracion($valoracion)
 function procesaLikes($valoracion)
 {
     if (isset($_POST['likes'])) {
-        $valoracion->darLike($valoracion->id);
+        $valoracion->darLike($valoracion);
+        //hay que integrar esto con el id de las reviews para que 
+        //no se actualicen todas a la vez.
     } elseif (isset($_POST['dislike'])) {
-        $valoracion->dislike($valoracion->id);
+        $valoracion->dislike($valoracion);
+        //existe un error que: si mando un like y luego un dislike son dos likes y viceversa, probar para entender.
     }
 }
 
