@@ -70,9 +70,34 @@ class Valoracion
     }
 
     //busca todas las valoraciones de profesores pertenecientes a esa facultad
-    public static function buscaValoracionPorId($idFacultad)
+    public static function buscaValoracionPorIdProfesor($idFacultad)
     {
 
+    }
+
+    // busca todas las valoraciones de un usuario
+    public static function buscaValoracionesPorIdUsuario($idUsuario)
+    {
+        $result = false;
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("  SELECT * FROM 'Valoraciones' V 
+                            WHERE V.idUsuario='%d'", $conn->real_escape_string($idUsuario));
+
+        $rs = $conn->query($query);
+        if ($rs) {
+            $result = array();
+            while ($fila = $rs->fetch_assoc()) {
+                $valoracion = new Valoracion(
+                    $fila['idUsuario'], $fila['idProfesor'], $fila['fecha'], $fila['comentario'], $fila['puntuacion'], $fila['likes'],
+                    $fila['id']
+                );
+                array_push($result, $valoracion);
+            }
+            $rs->free();
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
     }
 
     public static function buscaUltimasValoraciones($idFacultad, $numPorPagina, $numPagina)
