@@ -268,6 +268,7 @@ class Aplicacion
         $_SESSION['email'] = $user->getEmail();
         $_SESSION['idUsuario'] = $user->getId();
         $_SESSION['roles'] = $user->getRoles();
+        $_SESSION['nombre'] = $user->getNombreUsuario();
     }
 
     public function logout()

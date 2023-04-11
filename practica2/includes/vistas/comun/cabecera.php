@@ -14,8 +14,8 @@ function mostrarSaludo()
         $htmlLogout = $formLogout->gestiona();
         $html = $htmlLogout;
 
-        $url = 'perfilAlumno.php';
-        $visitaPerfil = '<a href=' . $url . '><button>'. $nombreUsuario.'</button></a>';
+        $url = 'perfilAlumno.php?id=' . $app->idUsuario();
+        $visitaPerfil = '<a href=' . $url . '><button> Mi perfil </button></a>';
         $html .= $visitaPerfil;
     } else {
         $loginUrl = $app->resuelve('/login.php');

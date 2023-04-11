@@ -8,7 +8,7 @@ require_once __DIR__ . '/includes/vistas/helpers/valoracion.php';
 
 //TODO: Comprobar que esto imprime bien las valoraciones del usuario
 $idUser = $app->idUsuario();
-$contenidoValoraciones = listaValoracionesUsuario($idUser);
+$contenidoValoraciones = listaValoracionesUsuario($_GET['id']);
 
 $tituloPagina = 'Perfil alumno';
 $contenidoPrincipal = <<<EOF
