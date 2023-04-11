@@ -1,0 +1,32 @@
+@import url(cabecera.css);
+
+main {
+	width: 60%;
+	margin: auto;
+}
+
+aside#sideBarleft{
+	width: 20%;
+}
+
+aside#sidebarRight{
+	width: 20%;
+}
+
+footer {
+	width: 60%;
+	margin: auto;
+}
+
+@media screen and (max-width: 800px) {
+	main {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	aside#sideBarleft{
+		display: none;
+	}
+	nav#sidebarRight{
+		display: none;
+	}
+}

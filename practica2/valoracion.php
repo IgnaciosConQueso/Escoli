@@ -2,14 +2,14 @@
 
 require_once __DIR__ . '/includes/config.php';
 
-$formLogin = new \escoli\usuarios\FormularioLogin();
-$formLogin = $formLogin->gestiona();
+$formVal = new \escoli\usuarios\FormularioValoracion();
+$formVal = $formVal->gestiona();
 
 
-$tituloPagina = 'Login';
+$tituloPagina = 'Valoración';
 $contenidoPrincipal = <<<EOF
-  	<h1>Acceso al sistema</h1>
-    $formLogin
+  	<h1>NUEVA VALORACIÓN</h1>
+    $formVal
 EOF;
 
 $params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];

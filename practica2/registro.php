@@ -2,17 +2,16 @@
 
 require_once __DIR__ . '/includes/config.php';
 
-$formLogin = new \escoli\usuarios\FormularioLogin();
-$formLogin = $formLogin->gestiona();
+$formRegistro = new \escoli\usuarios\FormularioRegistro();
+$formRegistro = $formRegistro->gestiona();
 
 
-$tituloPagina = 'Login';
+$tituloPagina = 'Registro';
 $contenidoPrincipal = <<<EOF
-  	<h1>Acceso al sistema</h1>
-    $formLogin
+  	<h1>Registro de usuario</h1>
+    $formRegistro
 EOF;
 
 $params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];
 $app->generaVista('/plantillas/plantillaPrincipal.php', $params);
-
 ?>

@@ -2,14 +2,14 @@
 
 require_once __DIR__ . '/includes/config.php';
 
-$formLogin = new \escoli\usuarios\FormularioLogin();
-$formLogin = $formLogin->gestiona();
+$formRegistro = new \escoli\centros\FormularioFacultad();
+$formRegistro = $formRegistro->gestiona();
 
 
-$tituloPagina = 'Login';
+$tituloPagina = 'Registro Facultad';
 $contenidoPrincipal = <<<EOF
-  	<h1>Acceso al sistema</h1>
-    $formLogin
+  	<h1>Registro de Facultad</h1>
+    $formRegistro
 EOF;
 
 $params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];
