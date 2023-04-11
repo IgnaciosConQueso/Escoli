@@ -12,7 +12,8 @@
 <body>
     <?= $params['app']->doInclude('/includes/vistas/comun/cabecera.php'); ?>
     <main>
-	<?= $params['app']->doInclude('includes/vistas/comun/sidebarIzq.php'); ?>
+	<?= $params['contenidoSideBarIzq'] ?> <!--  TODO esto está puesto a capón pero ni idea de como hacerlo,
+                                                mañana le preguntamos a Iván en clase  -->
     <?= $params['contenidoPrincipal'] ?>
 	<?= $params['app']->doInclude('includes/vistas/comun/sidebarDer.php'); ?>
     </main>

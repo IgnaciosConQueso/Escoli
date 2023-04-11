@@ -1,9 +1,25 @@
 <?php
 
 use escoli\contenido\Valoracion;
-function listaValoracionesUsuario($id = 1)
+
+function listaValoracionesUsuario($id)
 {
     $arrayMensajes = Valoracion::buscaValoracionesPorIdUsuario($id);
+    $html = '';
+    if ($arrayMensajes) {
+        $html .= '<ul class="lista-valoraciones">';
+        foreach ($arrayMensajes as $valoracion) {
+            $html .= generaHTMLValoracion($valoracion);
+            procesaLikes($valoracion);
+        }
+        $html .= '</ul>';
+    }
+    return $html;
+}
+
+function listaTopCinco($id)
+{
+    $arrayMensajes = Valoracion::buscaTopCincoValoraciones($id);
     $html = '';
     if ($arrayMensajes) {
         $html .= '<ul class="lista-valoraciones">';
