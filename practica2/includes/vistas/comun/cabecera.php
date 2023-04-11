@@ -13,6 +13,10 @@ function mostrarSaludo()
         $formLogout = new FormularioLogout();
         $htmlLogout = $formLogout->gestiona();
         $html = $htmlLogout;
+
+        $url = 'perfilAlumno.php';
+        $visitaPerfil = '<a href=' . $url . '><button>'. $nombreUsuario.'</button></a>';
+        $html .= $visitaPerfil;
     } else {
         $loginUrl = $app->resuelve('/login.php');
         $registroUrl = $app->resuelve('/registro.php');

@@ -1,11 +1,14 @@
 <?php
 
+use escoli\Aplicacion;
+
 require_once __DIR__ . '/includes/config.php';
 require_once __DIR__ . '/includes/vistas/helpers/valoracion.php';
 
 
 //TODO: Comprobar que esto imprime bien las valoraciones del usuario
-$contenidoValoraciones = listaValoracionesUsuario($_GET['id']);
+$idUser = $app->idUsuario();
+$contenidoValoraciones = listaValoracionesUsuario($idUser);
 
 $tituloPagina = 'Perfil alumno';
 $contenidoPrincipal = <<<EOF
