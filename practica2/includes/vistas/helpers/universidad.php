@@ -35,4 +35,3 @@ function nombreUniversidad($idUniversidad)
     $universidad = Universidad::buscaPorId($idUniversidad);
     return $universidad->nombre;
 }
-?>

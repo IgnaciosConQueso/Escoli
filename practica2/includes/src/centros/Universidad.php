@@ -9,9 +9,9 @@ class Universidad
 {
     use MagicProperties;
 
-    public static function crea($nombre)
+    public static function crea($nombre, $id = null)
     {
-        $universidad = new Universidad($nombre);
+        $universidad = new Universidad($nombre, $id);
         return $universidad->guarda();
     }
 

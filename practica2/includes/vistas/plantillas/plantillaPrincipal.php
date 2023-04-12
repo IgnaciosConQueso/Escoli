@@ -13,11 +13,11 @@
 </head>
 
 <body>
-    <?= $params['app']->doInclude('/includes/vistas/comun/cabecera.php'); ?>
+    <?= $params['app']->doInclude('/includes/vistas/comun/cabecera.php', $params); ?>
     <main>
         <?= $params['contenidoPrincipal'] ?>
     </main>
-    <?= $params['app']->doInclude('includes/vistas/comun/pie.php'); ?>
+    <?= $params['app']->doInclude('includes/vistas/comun/pie.php', $params); ?>
 </body>
 
 </html>

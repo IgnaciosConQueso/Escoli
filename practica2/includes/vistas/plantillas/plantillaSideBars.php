@@ -10,14 +10,13 @@
 </head>
 
 <body>
-    <?= $params['app']->doInclude('/includes/vistas/comun/cabecera.php'); ?>
+    <?= $params['app']->doInclude('/includes/vistas/comun/cabecera.php', $params); ?>
     <main>
-	<?= $params['contenidoSideBarIzq'] ?> <!--  TODO esto está puesto a capón pero ni idea de como hacerlo,
-                                                mañana le preguntamos a Iván en clase  -->
+	<?= $params['app']->doInclude('includes/vistas/comun/sidebarIzq.php', $params); ?>
     <?= $params['contenidoPrincipal'] ?>
-	<?= $params['app']->doInclude('includes/vistas/comun/sidebarDer.php'); ?>
+	<?= $params['app']->doInclude('includes/vistas/comun/sidebarDer.php', $params); ?>
     </main>
-    <?= $params['app']->doInclude('includes/vistas/comun/pie.php'); ?>
+    <?= $params['app']->doInclude('includes/vistas/comun/pie.php', $params); ?>
 </body>
 
 </html>

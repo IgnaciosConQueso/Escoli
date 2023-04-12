@@ -16,16 +16,17 @@ class FormularioUniversidad extends Formulario
     protected function generaCamposFormulario(&$datos)
     {
         $nombre = $datos['nombre'] ?? '';
+        $id = $datos['id'] ?? '';
 
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['nombre'], $this->errores, 'span', array('class' => 'error'));
-
 
         $html = <<<EOF
         $htmlErroresGlobales
         <fieldset>
             <legend>Universidad</legend>
             <div>
+                <input type="hidden" name="id" value="$id" />
                 <label for="nombre">Nombre:</label>
                 <input id="nombre" type="text" name="nombre" value="$nombre" />
                 {$erroresCampos['nombre']}
@@ -46,15 +47,20 @@ class FormularioUniversidad extends Formulario
             $this->errores['nombre'] = "El nombre de la universidad tiene que tener una longitud de al menos 5 caracteres.";
         }
 
-        if (count($this->errores) === 0) {
-            $universidad = Universidad::buscaPorNombre($nombre);
+        $id = filter_var($datos['id'], FILTER_SANITIZE_NUMBER_INT) ?? null;
 
+        if (count($this->errores) > 0) {return;}
+
+        if (!is_null($id)) { Universidad::crea($nombre, $id); } 
+        else {
+            $universidad = Universidad::buscaPorNombre($nombre);
             if ($universidad) {
                 $this->errores[] = "La universidad ya existe.";
             } else {
                 $universidad = Universidad::crea($nombre);
             }
         }
+        
     }
 
 }

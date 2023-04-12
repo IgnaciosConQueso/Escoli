@@ -1,6 +1,8 @@
 <?php
 namespace escoli;
 
+use escoli\Aplicacion;
+
 /**
  * Clase base para la gestión de formularios.
  */
@@ -205,7 +207,7 @@ abstract class Formulario
         $this->errores = [];
 
         if (!$this->formularioEnviado($datos)) {
-            return $this->generaFormulario();
+            return $this->generaFormulario($datos);
         }
 
         $this->procesaFormulario($datos);
@@ -283,6 +285,35 @@ abstract class Formulario
         </form>
         EOS;
         return $htmlForm;
+    }
+
+    public static function buildButtonForm($url, $hiddenParams, $buttonText='Enviar', $formTagAtts = [], $method = 'POST')
+    {
+        $formTagAtts = array_merge($formTagAtts, [
+            'action' => $url,
+            'method'=> $method
+        ]);
+
+        $formAtts = Aplicacion::buildParams($formTagAtts, ' ', '"');
+        $hiddenFormParams = Formulario::buildHiddenFormParams($hiddenParams);
+        return <<<EOS
+        <form {$formAtts}>
+            {$hiddenFormParams}
+            <button type="submit">{$buttonText}</button>
+        </form>
+        EOS;
+    }
+
+    protected static function buildHiddenFormParams($params) {
+        $formParams='';
+        foreach($params as $param => $value) {
+            if ($value != null) {
+                $formParams .= <<<EOS
+                <input type="hidden" name="{$param}" value="{$value}" />
+                EOS;
+            }
+        }
+        return $formParams;
     }
 }
 

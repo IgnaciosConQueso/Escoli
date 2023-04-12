@@ -3,6 +3,8 @@
 use escoli\Aplicacion;
 use escoli\usuarios\FormularioLogout;
 
+$app = Aplicacion::getInstance();
+
 function mostrarSaludo()
 {
     $html = '';
@@ -53,8 +55,8 @@ function creaBarraBusqueda()
 ?>
 <header>
     <div id="title">
-        <a id="linkLogo" href="<?= resuelveLocal('index.php'); ?>"> <img id="logo" src="<?= resuelveLocal('/Imagenes/logo.jpg'); ?>" alt="logo" title="Escoli"></a>
-        <h1 id="headerTitle"><img id="banner" src="<?= resuelveLocal('/Imagenes/banner.png'); ?>" alt="banner" title="Escoli"></a></h1>
+        <a id="linkLogo" href="<?= $app->resuelve('index.php'); ?>"> <img id="logo" src="<?= $app->resuelve('/Imagenes/logo.jpg'); ?>" alt="logo" title="Escoli"></a>
+        <h1 id="headerTitle"><img id="banner" src="<?= $app->resuelve('/Imagenes/banner.png'); ?>" alt="banner" title="Escoli"></a></h1>
         <div id="saludo">
             <?= mostrarSaludo(); ?>
         </div>
@@ -65,6 +67,7 @@ function creaBarraBusqueda()
             <a href="<?= resuelveLocal('/contacto.php'); ?>">Contacto</a>
             <a href="<?= resuelveLocal('/detalles.php'); ?>">Detalles</a>
             <?= creaBarraBusqueda(); ?>
+            <?= $params['botonCabecera'] ?? ''?>
         </div>
     </nav>
 </header>
