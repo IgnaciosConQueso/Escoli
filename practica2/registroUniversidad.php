@@ -16,7 +16,7 @@ if (isset($_GET['id']) && !isset($_POST['id'])) {
 $formRegistro = $formRegistro->gestiona();
 
 $contenidoPrincipal = <<<EOF
-  	<h1>Registro de Universidad</h1>
+  	<h1>$tituloPagina</h1>
     $formRegistro
 EOF;
 

@@ -75,7 +75,7 @@ nav form{
     padding-right: 1em;
 }
 
-form input[type="text"]{
+nav input[type="text"]{
     width: 100%;
 }
 
