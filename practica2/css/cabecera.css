@@ -14,28 +14,12 @@ header {
     background-color: #212327
 }
 
-nav {
-    background-color: #4a5878;
-    font-size: medium;
-    display: flow-root;
-    font-size: medium;
-}
-
 div#title{
     font-size: xx-large;
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: fit-content;
-}
-
-div#menu > *{
-    margin: 0;
-    color: #e1e1e1;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    display: inline-block;
 }
 
 img#logo {
@@ -70,6 +54,49 @@ div#saludo > * {
     padding: 0;
     overflow: hidden;
     font-size: large;
+}
+
+nav {
+    background-color: #4a5878;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: medium;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    height: auto;
+}
+
+nav form{
+    flex-grow: 2;
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+form input[type="text"]{
+    width: 100%;
+}
+
+div#rightButtons{
+    float: right;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+div#menu{
+    justify-content: space-around;
+    display: flex;
+    float: left;
+    align-content: center;
+}
+
+nav a{
+    color: #e1e1e1;
+    text-decoration: none;
+    display: inline-block;
+    padding: 0.9em;
 }
 
 nav a:hover {

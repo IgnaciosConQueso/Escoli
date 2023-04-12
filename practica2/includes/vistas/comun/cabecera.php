@@ -64,10 +64,14 @@ function creaBarraBusqueda()
 
     <nav id="header">
         <div id="menu">
-            <a href="<?= resuelveLocal('/contacto.php'); ?>">Contacto</a>
-            <a href="<?= resuelveLocal('/detalles.php'); ?>">Detalles</a>
-            <?= creaBarraBusqueda(); ?>
-            <?= $params['botonCabecera'] ?? ''?>
+            <a href="<?= $app->resuelve('/contacto.php'); ?>">Contacto</a>
+            <a href="<?= $app->resuelve('/detalles.php'); ?>">Detalles</a>
+            <?= $params['menuCabecera'] ?? '' ?>
+        </div>
+        <?= creaBarraBusqueda(); ?>
+        <div id="rightButtons">
+            <a href="<?= $app->resuelve('/registroReseña.php'); ?>">Nueva reseña</a>
+            <?= $params['botonCabecera'] ?? '' ?>
         </div>
     </nav>
 </header>
