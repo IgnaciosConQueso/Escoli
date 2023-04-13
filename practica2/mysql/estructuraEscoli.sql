@@ -10,12 +10,22 @@ DROP TABLE IF EXISTS `Asignaturas`;
 DROP TABLE IF EXISTS `Valoraciones`;
 DROP TABLE IF EXISTS `Encuestas`;
 DROP TABLE IF EXISTS `CamposEncuestas`;
+DROP TABLE IF EXISTS `Imagenes`;
+
+CREATE TABLE IF NOT EXISTS `Imagenes` (
+    `id` INT(11) NOT NULL AUTO_INCREMENT,
+    `ruta` VARCHAR(20) NOT NULL,
+    `nombre` VARCHAR(30) NOT NULL,
+    `tipo` VARCHAR(30)) NOT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `Usuarios` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `nombreUsuario` CHAR(20) NOT NULL,
     `email` VARCHAR(255) NOT NULL,
     `password` VARCHAR(255) NOT NULL,
+    `idImagen` INT(11),
     PRIMARY KEY (`id`),
     UNIQUE (`nombreUsuario`),
     UNIQUE (`email`)
@@ -30,6 +40,7 @@ CREATE TABLE IF NOT EXISTS `RolesUsuario` (
 CREATE TABLE IF NOT EXISTS `Universidades` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `nombre` VARCHAR(255) NOT NULL,
+    `idImagen` INT(11),
     PRIMARY KEY (`id`),
     UNIQUE (`nombre`)
 ) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
@@ -38,6 +49,7 @@ CREATE TABLE IF NOT EXISTS `Facultades` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `idUniversidad` INT NOT NULL,
     `nombre` VARCHAR(255) NOT NULL,
+    `idImagen` INT(11),
     PRIMARY KEY (`id`),
     UNIQUE (`nombre`)
 ) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
@@ -45,6 +57,7 @@ CREATE TABLE IF NOT EXISTS `Facultades` (
 CREATE TABLE IF NOT EXISTS `Profesores` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `nombre` VARCHAR(255) NOT NULL,
+    `idImagen` INT(11),
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
 
