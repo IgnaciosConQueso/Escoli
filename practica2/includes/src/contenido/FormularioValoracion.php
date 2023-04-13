@@ -53,7 +53,7 @@ class FormularioValoracion extends Formulario
             $this->errores[] = "El comentario no puede estar vacío";
         }
         $fecha = date("Y-m-d");
-        $valoracion=Valoracion::crea($idUsuario, $idProfesor, $fecha, $puntuacion,$comentario);
+        $valoracion=Valoracion::crea($idUsuario, $idProfesor, $fecha, $puntuacion, $comentario);
     }
 }
 
