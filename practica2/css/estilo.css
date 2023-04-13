@@ -1,17 +1,27 @@
 @import url(cabecera.css);
 
-main {
-	width: 60%;
-	margin: auto;
+
+aside#sidebarIzq {
+	width: 25%;
+	float: left;
+	display: block;
+	padding-right: 5%;
 }
 
+aside#sidebarDer {
+	width: 25%;
+	float: right;
+	display: block;
+}
 
-aside{
-	width: 20%;
+main {
+	width: 50%;
+	margin: auto;
+	display: block;
 }
 
 footer {
-	width: 60%;
+	width: 50%;
 	margin: auto;
 }
 
@@ -19,10 +29,12 @@ footer {
 	main {
 		width: 100%;
 	}
-	aside#sidebarIzq{
+
+	aside#sidebarIzq {
 		display: none;
 	}
-	aside#sidebarDer{
+
+	aside#sidebarDer {
 		display: none;
 	}
 }
