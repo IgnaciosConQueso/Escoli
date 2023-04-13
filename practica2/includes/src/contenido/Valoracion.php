@@ -24,14 +24,12 @@ class Valoracion
 
     private $likes;
 
-    public static function crea($idUsuario, $idProfesor, $fecha, $comentario, $puntuacion, $likes = 0)
+    public static function crea($idUsuario, $idProfesor, $comentario, $puntuacion, $likes = 0, $id = null)
     {
         $valoracion = new Valoracion
-        ($idUsuario, $idProfesor, $fecha, $comentario, $puntuacion, $likes);
+        ($idUsuario, $idProfesor, $comentario, $puntuacion, $likes, $id);
         return $valoracion->guarda();
     }
-
-
 
     public function guarda()
     {
@@ -49,7 +47,27 @@ class Valoracion
         return false;
     }
 
-    public static function buscaValoracion($idProfesor)
+    public static function buscaValoracion($id){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM Valoraciones V WHERE V.id='%d'", $conn->real_escape_string($id));
+        $rs = $conn->query($query);
+        $result = false;
+        if ($rs) {
+            $fila = $rs->fetch_assoc();
+            if ($fila) {
+                $result = new Valoracion
+                ($fila['idUsuario'], $fila['idProfesor'], $fila['fecha'],
+                    $fila['comentario'],$fila['puntuacion'], $fila['likes'], $fila['id']);
+            }
+            $rs->free();
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
+    }
+
+    //Esto está mal
+    public static function buscaValoracionesPorIdProfesor($idProfesor)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM Valoraciones V WHERE V.idProfesor='%i'", $conn->real_escape_string($idProfesor));
@@ -69,11 +87,6 @@ class Valoracion
         return $result;
     }
 
-    //busca todas las valoraciones de profesores pertenecientes a esa facultad
-    public static function buscaValoracionPorIdProfesor($idFacultad)
-    {
-
-    }
 
     // busca todas las valoraciones de un usuario
     public static function buscaValoracionesPorIdUsuario($idUsuario)
@@ -198,9 +211,8 @@ class Valoracion
     {
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("INSERT INTO Valoraciones(id, idUsuario, idProfesor, comentario, puntuacion, likes) 
-            VALUES ('%i', '%i', '%i', '%s','%i', '%i')",
-            $Valoracion->id,
+        $query = sprintf("INSERT INTO Valoraciones(idUsuario, idProfesor, comentario, puntuacion, likes) 
+            VALUES ('%i', '%i', '%s','%i', '%i')",
             $conn->real_escape_string($Valoracion->idUsuario),
             $conn->real_escape_string($Valoracion->idProfesor),
             $conn->real_escape_string($Valoracion->comentario),

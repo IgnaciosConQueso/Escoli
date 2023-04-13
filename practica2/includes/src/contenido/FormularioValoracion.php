@@ -1,35 +1,49 @@
 <?php
-namespace escoli\usuarios;
+namespace escoli\contenido;
 
 use escoli\Aplicacion;
 use escoli\contenido\Valoracion;
 use escoli\Formulario;
+use escoli\centros\Facultad;
 
 class FormularioValoracion extends Formulario
 {
     public function __construct() {
-        parent::__construct('formValoracion', ['action' =>  Aplicacion::getInstance()->resuelve('/publicaValoracion.php'),'urlRedireccion' => Aplicacion::getInstance()->resuelve('/index.php')]);
+        parent::__construct('formValoracion', ['urlRedireccion' => Aplicacion::getInstance()->resuelve('/index.php')]);
     }
     
     protected function generaCamposFormulario(&$datos)
     {
+
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['comentario', 'puntuacion'], $this->errores, 'span', array('class' => 'error'));
+
+        $idUsuario = $datos['idUsuario'] ?? '';
+        $idProfesor = $datos['profesor'] ?? '';
+        $puntuacion = $datos['puntuacion'] ?? '';
+        $comentario = $datos['comentario'] ?? '';
 
         $html = <<<EOF
         $htmlErroresGlobales
         <fieldset>
             <legend>Valora a tu profe</legend>
             <div>
-                <label for="comentario">Comentario:</label>
-                <input id="comentario" type="text" name="comentario" value="$datos.['comentario']" />
-                {$erroresCampos['comentario']}
-            </div>
+                <label for="profesor">Profesor:</label>
+                <select id="profesor" name="idProfesor">
+                    <option value="">Selecciona un profesor</option>
+                    {$this->generaOpcionesProfesores($idProfesor)}
+                </select>
+                {$erroresCampos['profesor']}
             <div>
                 <label for="puntuacion">Puntuación:</label>
                 <input id="puntuacion" type="text" name="puntuacion" value="$datos.['puntuacion']" />
                 {$erroresCampos['puntuacion']}
+            </div>
             <div>
+            <label for="comentario">Comentario:</label>
+                <input id="comentario" type="text" name="comentario" value="$datos.['comentario']" />
+                {$erroresCampos['comentario']}
+            </div>
                 <button type="submit" name="registro">Publicar</button>
             </div>
         </fieldset>
@@ -40,20 +54,31 @@ class FormularioValoracion extends Formulario
     protected function procesaFormulario(&$datos)
     {
         $this->errores = [];
+        $app = Aplicacion::getInstance();
 
-        $idUsuario=$datos['idUsuario'];
-        $idProfesor=$datos['idProfesor'];
+        $idUsuario=$app->idUsuario();
+        $idProfesor=$datos['Profesor'];
         $puntuacion=$datos['puntuacion'];
         $comentario=$datos['comentario'];
 
-        if($puntuacion>5 || $puntuacion<0){
-            $this->errores[] = "La puntuación debe estar entre 0 y 5";
+        if($puntuacion > 5 || $puntuacion < 1){
+            $this->errores[] = "La puntuación debe estar entre 1 y 5";
         }
         if(!$comentario){
             $this->errores[] = "El comentario no puede estar vacío";
         }
-        $fecha = date("Y-m-d");
-        $valoracion=Valoracion::crea($idUsuario, $idProfesor, $fecha, $puntuacion, $comentario);
+
+        $valoracion=Valoracion::crea($idUsuario, $idProfesor, $comentario ,$puntuacion);
+    }
+
+    private function generaOpcionesProfesores($idFacultad, $idProfesor){
+        $html = '';
+        $profesores = Facultad::buscaProfesoresPorIdFacultad($idFacultad);
+        foreach($profesores as $profesor){
+            $selected = $profesor->id() == $idProfesor ? 'selected' : '';
+            $html .= '<option value="' . $profesor->id() . '" ' . $selected . '>' . $profesor->nombre() . '</option>';
+        }
+        return $html;
     }
 }
 

@@ -2,13 +2,19 @@
 
 require_once __DIR__ . '/includes/config.php';
 
-$formVal = new \escoli\usuarios\FormularioValoracion();
+$app = \escoli\Aplicacion::getInstance();
+
+if(!$app->usuarioLogueado()){
+    $app->paginaError(403, 'Error', 'Oops', 'Debe estar logueado para acceder a esta página');
+}
+
+$formVal = new \escoli\contenido\FormularioValoracion();
 $formVal = $formVal->gestiona();
 
+$tituloPagina = 'Nueva valoración';
 
-$tituloPagina = 'Valoración';
 $contenidoPrincipal = <<<EOF
-  	<h1>NUEVA VALORACIÓN</h1>
+  	<h1>$tituloPagina</h1>
     $formVal
 EOF;
 

@@ -63,5 +63,4 @@ function nombreFacultad($idFacultad)
     return $facultad->nombre;
 }
 
-
 ?>
