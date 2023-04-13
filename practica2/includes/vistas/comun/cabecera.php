@@ -70,8 +70,8 @@ function creaBarraBusqueda()
         </div>
         <?= creaBarraBusqueda(); ?>
         <div id="rightButtons">
-            <a href="<?= $app->resuelve('/registroReseña.php'); ?>">Nueva reseña</a>
-            <?= $params['botonCabecera'] ?? '' ?>
+            <a href="<?= $app->resuelve('/registroValoracion.php'); ?>">Nueva Valoración</a>
+            <?= $params['botonesCabecera'] ?? '' ?>
         </div>
     </nav>
 </header>

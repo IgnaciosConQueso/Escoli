@@ -15,8 +15,8 @@ class FormularioUniversidad extends Formulario
 
     protected function generaCamposFormulario(&$datos)
     {
-        $nombre = $datos['nombre'] ?? '';
-        $id = $datos['id'] ?? '';
+        $nombre = $datos['nombre'] ?? null;
+        $id = $datos['id'] ?? null;
 
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['nombre'], $this->errores, 'span', array('class' => 'error'));
@@ -51,7 +51,9 @@ class FormularioUniversidad extends Formulario
 
         if (count($this->errores) > 0) {return;}
 
-        if (!is_null($id)) { Universidad::crea($nombre, $id); } 
+        if ($id) { 
+            Universidad::crea($nombre, $id);
+        } 
         else {
             $universidad = Universidad::buscaPorNombre($nombre);
             if ($universidad) {

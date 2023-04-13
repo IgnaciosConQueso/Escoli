@@ -24,7 +24,7 @@ class Valoracion
 
     private $likes;
 
-    public static function crea($idUsuario, $idProfesor, $fecha, $comentario, $puntuacion, $likes)
+    public static function crea($idUsuario, $idProfesor, $fecha, $comentario, $puntuacion, $likes = 0)
     {
         $valoracion = new Valoracion
         ($idUsuario, $idProfesor, $fecha, $comentario, $puntuacion, $likes);
@@ -257,7 +257,7 @@ class Valoracion
         $this->actualiza($this); 
     }
 
-    private function __construct($idUsuario, $idProfesor, $fecha, $comentario, $puntuacion, $likes, $id = null)
+    private function __construct($idUsuario, $idProfesor, $fecha, $comentario, $puntuacion, $likes = 0, $id = null)
     {
         $this->id = $id;
         $this->idUsuario = $idUsuario;
@@ -265,7 +265,7 @@ class Valoracion
         $this->fecha = $fecha;
         $this->comentario = $comentario;
         $this->puntuacion = $puntuacion;
-        $this->likes =$likes;
+        $this->likes = $likes;
     }
 
     public function getId()
