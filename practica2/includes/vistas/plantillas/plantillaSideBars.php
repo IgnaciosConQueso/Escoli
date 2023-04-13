@@ -11,7 +11,7 @@
 
 <body>
     <?= $params['app']->doInclude('/includes/vistas/comun/cabecera.php', $params); ?>
-    <main>
+    <main> <!-- main jode el css del aside, hay que mirar como ponerlo -->
 	<?= $params['app']->doInclude('includes/vistas/comun/sidebarIzq.php', $params); ?>
     <?= $params['contenidoPrincipal'] ?>
 	<?= $params['app']->doInclude('includes/vistas/comun/sidebarDer.php', $params); ?>

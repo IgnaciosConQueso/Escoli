@@ -5,11 +5,8 @@ main {
 	margin: auto;
 }
 
-aside#sideBarleft{
-	width: 20%;
-}
 
-nav#sidebarRight{
+aside{
 	width: 20%;
 }
 
@@ -22,10 +19,10 @@ footer {
 	main {
 		width: 100%;
 	}
-	aside#sideBarleft{
+	aside#sidebarIzq{
 		display: none;
 	}
-	nav#sidebarRight{
+	aside#sidebarDer{
 		display: none;
 	}
 }
