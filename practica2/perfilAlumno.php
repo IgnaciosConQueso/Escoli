@@ -7,7 +7,9 @@ require_once __DIR__ . '/includes/vistas/helpers/valoracion.php';
 
 
 $idUser = $app->idUsuario();
+$nombreUser = $app->nombreUsuario();
 $contenidoValoraciones = listaValoracionesUsuario($idUser);
+$numLikes = listaNumeroDeLikes($idUser);
 $topCinco = listaTopCinco($idUser);
 
 $tituloPagina = 'Perfil alumno';
@@ -22,7 +24,15 @@ $contenidoPrincipal = <<<EOF
 	$contenidoValoraciones
 EOF;
 
-$params = ['tituloPagina' => $tituloPagina, 'contenidoSideBarIzq' => $contenidoSideBarIzq, 'contenidoPrincipal' => $contenidoPrincipal];
+$contenidoSideBarDer = <<<EOF
+	<h1>Nombre de usuario</h1>
+	$nombreUser
+	<h1>Numero de likes</h1>
+	$numLikes
+EOF;
+
+$params = ['tituloPagina' => $tituloPagina, 'contenidoSideBarIzq' => $contenidoSideBarIzq, 
+			'contenidoSideBarDer' => $contenidoSideBarDer, 'contenidoPrincipal' => $contenidoPrincipal];
 $app->generaVista('/plantillas/plantillaSideBars.php', $params);
 
 ?>

@@ -22,7 +22,21 @@ function listaTopCinco($id)
     $arrayMensajes = Valoracion::buscaTopCincoValoraciones($id);
     $html = '';
     if ($arrayMensajes) {
-        $html .= '<ul class="lista-valoraciones">';
+        $html .= '<ul class="lista-top5-valoraciones">';
+        foreach ($arrayMensajes as $valoracion) {
+            $html .= generaHTMLValoracion($valoracion);
+            procesaLikes($valoracion);
+        }
+        $html .= '</ul>';
+    }
+    return $html;
+}
+
+function listaNumeroDeLikes($id){
+    $arrayMensajes = Valoracion::listaNumeroDeLikes($id);
+    $html = '';
+    if ($arrayMensajes) {
+        $html .= '<ul class="lista-num-likes">';
         foreach ($arrayMensajes as $valoracion) {
             $html .= generaHTMLValoracion($valoracion);
             procesaLikes($valoracion);
