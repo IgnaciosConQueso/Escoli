@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS `Imagenes` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
     `ruta` VARCHAR(20) NOT NULL,
     `nombre` VARCHAR(30) NOT NULL,
-    `tipo` VARCHAR(30)) NOT NULL,
+    `tipo` VARCHAR(30) NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
 
