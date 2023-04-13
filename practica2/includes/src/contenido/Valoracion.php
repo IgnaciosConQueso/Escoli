@@ -238,24 +238,19 @@ class Valoracion
         return true;
     }
 
-    public static function darLike($valoracion){
-        $valoracion->aumentaLikes();
-    }
-
-    private function aumentaLikes()
+    public static function gestionaLikes($id, $likes)
     {
-        $this->likes++;
-        $this->actualiza($this); 
-    }
-
-    public static function dislike($valoracion){
-        $valoracion->quitaLikes();
-    }
-
-    private function quitaLikes()
-    {
-        $this->likes--;
-        $this->actualiza($this); 
+        $result = false;
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "UPDATE Valoraciones V SET likes = %d WHERE V.id=%d",
+           $likes,
+           $id
+        );
+        if (!$conn->query($query)) {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
     }
 
     private function __construct($idUsuario, $idProfesor, $fecha, $comentario, $puntuacion, $likes = 0, $id = null)
