@@ -10,7 +10,7 @@ $linkBorraFacultad = 'borraFacultad.php';
 $botonUniversidad = '<a href="registroUniversidad.php"> Añadir universidad</a>';
 $botonFacultad = '<a href=' . $linkFacultad . '><button> Añadir facultad </button>';
 $botonBorraFacultad = '<a href=' . $linkBorraFacultad . '><button> Borrar facultad </button>';
-$contenidoPrincipal = listaUniversidades();
+$contenidoPrincipal = listaUniversidades() . $botonFacultad;
 
 
 $params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal, 'botonesCabecera' => $botonUniversidad];

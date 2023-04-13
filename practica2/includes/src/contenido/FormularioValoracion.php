@@ -71,9 +71,14 @@ class FormularioValoracion extends Formulario
         $valoracion=Valoracion::crea($idUsuario, $idProfesor, $comentario ,$puntuacion);
     }
 
-    private function generaOpcionesProfesores($idFacultad){
+    private function generaOpcionesProfesores($idFacultad, $idProfesor){
         $html = '';
         $profesores = Facultad::buscaProfesoresPorIdFacultad($idFacultad);
+        foreach($profesores as $profesor){
+            $selected = $profesor->id() == $idProfesor ? 'selected' : '';
+            $html .= '<option value="' . $profesor->id() . '" ' . $selected . '>' . $profesor->nombre() . '</option>';
+        }
+        return $html;
     }
 }
 
