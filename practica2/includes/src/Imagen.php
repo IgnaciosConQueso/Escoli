@@ -1,21 +1,16 @@
 <?php
 
-namespace escoli\usuarios;
+namespace escoli;
 
 use escoli\Aplicacion;
 use escoli\MagicProperties;
 
 class Imagen
 {
-    const PUBLICA = 0;
 
-    const PRIVADA = 1;
-
-    const TIPOS_ACCESO = [self::PUBLICA, self::PRIVADA];
-
-    public static function crea($nombre, $mimeType, $tipoAcceso, $ruta)
+    public static function crea($nombre, $mimeType, $ruta)
     {
-        $imagen = new Imagen($ruta, $nombre, $mimeType, $tipoAcceso);
+        $imagen = new Imagen($ruta, $nombre, $mimeType);
         return $imagen;
     }
 
@@ -24,20 +19,17 @@ class Imagen
         return self::getImagenes();
     }
 
-    private static function getImagenes($tipoAcceso = null)
+    private static function getImagenes()
     {
         $result = [];
 
         $conn = BD::getInstance()->getConexionBd();
         $query = 'SELECT * FROM Imagenes';
-        if ($tipoAcceso !== null) {
-            $query = sprintf('SELECT * FROM Imagenes I WHERE tipoAcceso = %d', $tipoAcceso);
-        }
         
         $rs = $conn->query($query);
         if ($rs) {
             while ($fila = $rs->fetch_assoc()) {
-                $result[] = new Imagen($fila['ruta'], $fila['nombre'], $fila['mimeType'], $fila['tipoAcceso'], $fila['id']);
+                $result[] = new Imagen($fila['ruta'], $fila['nombre'], $fila['mimeType'], $fila['id']);
             }
             $rs->free();
         } else {
@@ -45,11 +37,6 @@ class Imagen
         }
 
         return $result;
-    }
-    
-    public static function buscaPorTipoAcceso($tipoAcceso = self::PUBLICA)
-    {
-        return self::getImagenes($tipoAcceso);
     }
 
     public static function buscaPorId($idImagen)
@@ -61,7 +48,7 @@ class Imagen
         $rs = $conn->query($query);
         if ($rs) {
             while ($fila = $rs->fetch_assoc()) {
-                $result = new Imagen($fila['ruta'], $fila['nombre'], $fila['mimeType'], $fila['tipoAcceso'], $fila['id']);
+                $result = new Imagen($fila['ruta'], $fila['nombre'], $fila['mimeType'], $fila['id']);
             }
             $rs->free();
         } else {
@@ -77,11 +64,10 @@ class Imagen
 
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(
-            "INSERT INTO Imagenes (ruta, nombre, mimeType, tipoAcceso) VALUES ('%s', '%s', '%s', %d)",
+            "INSERT INTO Imagenes (ruta, nombre, mimeType) VALUES ('%s', '%s', '%s')",
             $conn->real_escape_string($imagen->ruta),
             $conn->real_escape_string($imagen->nombre),
             $conn->real_escape_string($imagen->mimeType),
-            $imagen->tipoAcceso
         );
 
         $result = $conn->query($query);
@@ -101,11 +87,10 @@ class Imagen
 
         $conn = BD::getInstance()->getConexionBd();
         $query = sprintf(
-            "UPDATE Imagenes I SET ruta = '%s', nombre = '%s', mimeType = '%s', tipoAcceso = %d WHERE I.id = %d",
+            "UPDATE Imagenes I SET ruta = '%s', nombre = '%s', mimeType = '%s' WHERE I.id = %d",
             $conn->real_escape_string($imagen->ruta),
             $conn->real_escape_string($imagen->nombre),
             $conn->real_escape_string($imagen->mimeType),
-            $imagen->tipoAcceso,
             $imagen->id
         );
         $result = $conn->query($query);
@@ -139,8 +124,6 @@ class Imagen
         return $result;
     }
 
-    use MagicProperties;
-
     private $id;
 
     private $ruta;
@@ -149,17 +132,11 @@ class Imagen
 
     private $mimeType;
 
-    private $tipoAcceso;
-
-    private function __construct($ruta, $nombre, $mimeType, $tipoAcceso = self::PUBLICA,  $id = NULL)
+    private function __construct($ruta, $nombre, $mimeType,  $id = NULL)
     {
         $this->ruta = $ruta;
         $this->nombre = $nombre;
         $this->mimeType = $mimeType;
-        if (!in_array($tipoAcceso, self::TIPOS_ACCESO)) {
-            throw new Exception("$tipoAcceso no es un tipo de acceso válido");
-        }
-        $this->tipoAcceso = intval($tipoAcceso);
         $this->id = intval($id);
     }
 
@@ -191,11 +168,6 @@ class Imagen
     public function getMimeType()
     {
         return $this->mimeType;
-    }
-
-    public function getTipoAcceso()
-    {
-        return $this->tipoAcceso;
     }
 
     public function guarda()
