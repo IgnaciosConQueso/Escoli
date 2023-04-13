@@ -2,6 +2,8 @@
 
 use escoli\contenido\Valoracion;
 use escoli\centros\Facultad;
+use escoli\Aplicacion;
+use escoli\Formulario;
 
 function listaValoraciones($id = 1, $numPorPag = 10, $pag = 1)
 {
@@ -28,34 +30,32 @@ function generaHTMLValoracion($valoracion)
     $html .= '<p class="fecha">' . "fecha: " . $valoracion->fecha . '</p>';
     $html .= '<p class="comentario">' . "comentario: " . $valoracion->comentario . '</p>';
     $html .= '<p class="likes">' . "likes: " . $valoracion->likes . '</p>' ;
-    $html .=' <button onclick="enviarSolicitudAJAX('. $valoracion->id.',' . $valoracion->likes+1 . ')">
-                👍</button>
-              <button onclick="enviarSolicitudAJAX('. $valoracion->id.',' . $valoracion->likes-1 . ')">
-                👎</button>
-            
-            ';
+    $html .= botonLike($valoracion->getId(), $valoracion->getLikes());
+    $html .= botonDislike($valoracion->getId(), $valoracion->getLikes());
     $html .= '</div>';
     $html .= '</li>';
 
     return $html;
 }
 
-function procesaLikes($valoracion)
+
+function botonLike($id,$likes)
 {
-    if (isset($_POST['likes'])) {
-        $likes = $valoracion->getLikes();
-        $likes++;
-        $valoracion->gestionaLikes($valoracion->getId(), $likes);
-        //hay que integrar esto con el id de las reviews para que 
-        //no se actualicen todas a la vez.
-    } elseif (isset($_POST['dislike'])) {
-        $likes = $valoracion->getLikes();
-        $likes--;
-        $valoracion->gestionaLikes($valoracion->getId(), $likes);
-        //existe un error que: si mando un like y luego un dislike son dos likes y viceversa, probar para entender.
-    }
+    $likes++;
+    $idFac = $_GET['id'];
+    $app = Aplicacion::getInstance();
+    $api = $app->resuelve('/includes/src/contenido/api_likes.php');
+    return Formulario::buildButtonForm($api, ['id' => $id, 'likes' => $likes, 'idFac' => $idFac] , '👍');
 }
 
+function botonDislike($id,$likes)
+{
+    $likes--;
+    $idFac = $_GET['id'];
+    $app = Aplicacion::getInstance();
+    $api = $app->resuelve('/includes/src/contenido/api_likes.php');
+    return Formulario::buildButtonForm($api, ['id' => $id, 'likes' => $likes, 'idFac' => $idFac] , '👎');
+}
 
 function nombreFacultad($idFacultad)
 {

@@ -13,6 +13,6 @@ $contenidoPrincipal .= listaValoraciones($_GET['id']);
 $urlScript = Aplicacion :: getInstance()->resuelve('/includes/src/contenido/likeScript.js');
 
 $params = ['tituloPagina' => $tituloPagina, 'scripts' => $urlScript, 'contenidoPrincipal' => $contenidoPrincipal];
-$app->generaVista('/plantillas/plantillaPrincipalJS.php', $params);
+$app->generaVista('/plantillas/plantillaPrincipal.php', $params);
 
 ?>
