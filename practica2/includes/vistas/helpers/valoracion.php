@@ -88,7 +88,7 @@ function botonDislike($id,$likes)
     $likes--;
     $idFac = $_GET['id'];
     $app = Aplicacion::getInstance();
-    $api = $app->resuelve('/includes/src/contenido/api_likes.php');
+    $api = $app->resuelve('/includes/src/contenido/API_likes.php');
     return Formulario::buildButtonForm($api, ['id' => $id, 'likes' => $likes] , '👎');
 }
 ?>
