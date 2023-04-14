@@ -59,7 +59,7 @@ class FormularioFacultad extends Formulario
         
         $iduniversidad = filter_var($datos['universidad'], FILTER_SANITIZE_NUMBER_INT);
         if (!$iduniversidad) {
-            $this->errores['universidad'] = "La universidad no es válida.";
+            $this->errores['universidad'] = "Debes seleccionar una universidad.";
         }
 
         if (count($this->errores) === 0) {
