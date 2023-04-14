@@ -88,29 +88,6 @@ class Facultad
         return $result;
     }
 
-    //TODO Esta función hay que moverla a la clase Profesor
-    public static function buscaProfesoresPorIdFacultad($idFacultad){
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT P.id, P.nombre FROM Profesores P
-            JOIN Asignaturas A ON P.id = A.idProfesor
-            WHERE A.idFacultad = '%d'",
-            filter_var($idFacultad, FILTER_SANITIZE_NUMBER_INT));
-        
-        $rs = $conn->query($query);
-        $result = false;
-        if ($rs) {
-            $result = array();
-            while ($fila = $rs->fetch_assoc()) {
-                $profesor = new Profesor($fila['nombre'], $fila['id']);
-                array_push($result, $profesor);
-            }
-            $rs->free();
-        } else {
-            error_log("Error BD ({$conn->errno}): {$conn->error}");
-        }
-    }
-
-    //revisar
     private static function actualiza($facultad)
     {
         $result = false;
@@ -127,7 +104,6 @@ class Facultad
         return $result;
     }
 
-    //revisar
     private static function inserta($facultad)
     {
         $result = false;
@@ -143,7 +119,6 @@ class Facultad
 
     }
 
-    //revisar
     private static function borra($facultad)
     {
         $result = false;

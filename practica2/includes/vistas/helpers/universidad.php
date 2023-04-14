@@ -18,7 +18,7 @@ function listaFacultades($idFacultad)
     return $html;
 }
 
-function generaHTMLFacultad($data) //TODO
+function generaHTMLFacultad($data)
 {
     $url = 'facultad.php?id=' . $data->id;
     $html = '<li>';
