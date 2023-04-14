@@ -10,7 +10,7 @@ TRUNCATE TABLE `Asignaturas`;
 TRUNCATE TABLE `Valoraciones`;
 TRUNCATE TABLE `Encuestas`;
 TRUNCATE TABLE `CamposEncuestas`;
-
+TRUNCATE TABLE `Karma`;
 
 INSERT INTO `Profesores` (`id`, `nombre`) VALUES
 ('1', 'Walter White'),

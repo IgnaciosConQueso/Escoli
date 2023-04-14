@@ -79,7 +79,7 @@ function botonLike($origen, $id, $likes)
 {
     $valor = 1;
     $app = Aplicacion::getInstance();
-    $api = $app->resuelve('/includes/src/contenido/api_likes.php');
+    $api = $app->resuelve('/includes/vistas/helpers/api_likes.php');
     return Formulario::buildButtonForm($api, 
     ['url' => $origen, 'id' => $id, 'likes' => $likes, 'valor' => $valor],
      '👍');
@@ -89,7 +89,7 @@ function botonDislike($origen, $id, $likes)
 {
     $valor = -1;
     $app = Aplicacion::getInstance();
-    $api = $app->resuelve('/includes/src/contenido/api_likes.php');
+    $api = $app->resuelve('/includes/vistas/helpers/api_likes.php');
     return Formulario::buildButtonForm($api, 
     ['url' => $origen, 'id' => $id, 'likes' => $likes, 'valor' => $valor],
      '👎');

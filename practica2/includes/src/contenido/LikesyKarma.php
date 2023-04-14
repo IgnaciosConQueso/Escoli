@@ -99,7 +99,7 @@ class LikesyKarma
         return true;
     }
 
-    public static function checkLike($idUsuario, $idValoracion){
+    public static function checkLike($idUsuario, $idValoracion, $valor){
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM Karma K WHERE K.idUsuario='%d' AND K.idValoracion=%d",
          $conn->real_escape_string($idUsuario),
@@ -110,13 +110,31 @@ class LikesyKarma
         if ($rs) {
             $fila = $rs->fetch_assoc();
             if ($fila) {
-                $result = $fila['valor'];
+                $result = new LikesyKarma
+                ($fila['idUsuario'],$fila['idValoracion'],$fila['valor'],$fila['id']);
             }
             $rs->free();
         } else {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
         }
-        return $result;
+        if($result->id == NULL){
+            LikesyKarma :: crea($idUsuario,$idValoracion,$valor, NULL);
+            return true;
+        } else if($result->valor != $valor){ //no se por aqui esta casi casi no se que puede fallar.
+            $result->valor = $valor;
+            LikesyKarma :: actualiza($result);
+            return true;
+        }
+        return false;
+    }
+
+
+    private function __construct( $idUsuario, $idValoracion, $valor,$id = null)
+    {
+        $this->id = $id;
+        $this->idUsuario = $idUsuario;
+        $this->idValoracion = $idValoracion;
+        $this->valor = $valor;
     }
 
 }

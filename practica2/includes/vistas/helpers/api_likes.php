@@ -18,8 +18,7 @@ if(!isset($idValoracion)) {
     $app->paginaError(400, 'Error', 'Oops', 'No se ha recibido el id de la review');
 }
 
-if((!$app->idUsuario()) || (LikesyKarma ::checkLike($app->idUsuario(), $idValoracion) == $valor)
-    || ! LikesyKarma :: crea($app->idUsuario(), $idValoracion,$valor)){
+if((!$app->idUsuario()) || (LikesyKarma ::checkLike($app->idUsuario(), $idValoracion, $valor))){
     //compruebo que el que da like es un usuario. y que no le va a dar el mismo like.
     $app->redirige($app->resuelve($origen));
 }
