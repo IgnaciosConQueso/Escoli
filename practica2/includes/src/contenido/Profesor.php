@@ -35,7 +35,8 @@ class Profesor
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT P.id, P.nombre FROM Profesores P
             JOIN Asignaturas A ON P.id = A.idProfesor
-            WHERE A.idFacultad = '%d'",
+            WHERE A.idFacultad = '%d'
+            GROUP BY P.id",
             filter_var($idFacultad, FILTER_SANITIZE_NUMBER_INT));
         
         $rs = $conn->query($query);

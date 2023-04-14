@@ -15,11 +15,13 @@ class FormularioValoracion extends Formulario
     protected function generaCamposFormulario(&$datos)
     {
 
-        $idFacultad = $datos['facultad'] ?? '';
-        $nombre = $datos['nombre'] ?? '';
+        $idFacultad = $datos['idFacultad'];
+        $idProfesor = $datos['profesor'] ?? '';
+        $puntuacion = $datos['puntuacion'] ?? '';
+        $comentario = $datos['comentario'] ?? '';
 
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-        $erroresCampos = self::generaErroresCampos(['comentario', 'puntuacion'], $this->errores, 'span', array('class' => 'error'));
+        $erroresCampos = self::generaErroresCampos(['profesor', 'comentario', 'puntuacion'], $this->errores, 'span', array('class' => 'error'));
 
         $html = <<<EOF
         $htmlErroresGlobales
@@ -29,17 +31,17 @@ class FormularioValoracion extends Formulario
                 <label for="profesor">Profesor:</label>
                 <select id="profesor" name="profesor">n
                     <option value="">Selecciona un profesor</option>
-                    {$this->generaOpcionesProfesores($idFacultad)}
+                    {$this->generaOpcionesProfesores($idFacultad, $idProfesor)}
                 </select>
                 {$erroresCampos['profesor']}
             <div>
                 <label for="puntuacion">Puntuación:</label>
-                <input id="puntuacion" type="text" name="puntuacion" value="$datos.['puntuacion']" />
+                <input id="puntuacion" type="text" name="puntuacion" value="$puntuacion" />
                 {$erroresCampos['puntuacion']}
             </div>
             <div>
             <label for="comentario">Comentario:</label>
-                <input id="comentario" type="text" name="comentario" value="$datos.['comentario']" />
+                <input id="comentario" type="text" name="comentario" value="$comentario" />
                 {$erroresCampos['comentario']}
             </div>
                 <button type="submit" name="registro">Publicar</button>
@@ -55,30 +57,34 @@ class FormularioValoracion extends Formulario
         $app = Aplicacion::getInstance();
 
         $idUsuario=$app->idUsuario();
-        $idProfesor=$datos['Profesor'];
-        $puntuacion=$datos['puntuacion'];
-        $comentario=$datos['comentario'];
+        $idProfesor=filter_var($datos['profesor'], FILTER_SANITIZE_NUMBER_INT);
+        $puntuacion=filter_var($datos['puntuacion'], FILTER_SANITIZE_NUMBER_INT);
+        $comentario=filter_var($datos['comentario'], FILTER_SANITIZE_SPECIAL_CHARS);
 
         if($puntuacion > 5 || $puntuacion < 1){
-            $this->errores[] = "La puntuación debe estar entre 1 y 5";
+            $this->errores[] = "La puntuación debe estar entre 1 y 5.";
         }
-        if(!$comentario){
-            $this->errores[] = "El comentario no puede estar vacío";
+        if(mb_strlen($comentario) > 1000){
+            $this->errores[] = "El comentario no puede superar los 1000 caracteres.";
+        }
+        if(!$idProfesor){
+            $this->errores[] = "Debes seleccionar un profesor.";
         }
 
-        $valoracion=Valoracion::crea($idUsuario, $idProfesor, $comentario ,$puntuacion);
+        Valoracion::crea($idUsuario, $idProfesor, $comentario ,$puntuacion);
     }
 
-    protected function generaOpcionesProfesores($idFacultad)
-    {
+    private function generaOpcionesProfesores($idFacultad, $idProfesor){
+    
         $html = '';
         $profesores = Profesor::buscaProfesoresPorIdFacultad($idFacultad);
         foreach ($profesores as $profesor) {
-            $html .= '<option value="' . $profesor->getId() . '">' . $profesor->getNombre() . '</option>';
+            $selected = $profesor->id == $idProfesor ? 'selected' : '';
+            $html .= '<option value="' . $profesor->id . '" ' . $selected . '>' . $profesor->nombre . '</option>';
         }
         return $html;
     }
-
+    
 }
 
 ?>
