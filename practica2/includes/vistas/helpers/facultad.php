@@ -42,19 +42,19 @@ function generaHTMLValoracion($valoracion)
 function botonLike($id,$likes)
 {
     $likes++;
-    $idFac = $_GET['id'];
+    $idFac ='/facultad.php?id=' . $_GET['id'];
     $app = Aplicacion::getInstance();
     $api = $app->resuelve('/includes/src/contenido/api_likes.php');
-    return Formulario::buildButtonForm($api, ['id' => $id, 'likes' => $likes, 'idFac' => $idFac] , '👍');
+    return Formulario::buildButtonForm($api, ['id' => $id, 'likes' => $likes, 'envia' => $idFac] , '👍');
 }
 
 function botonDislike($id,$likes)
 {
     $likes--;
-    $idFac = $_GET['id'];
+    $idFac = '/facultad.php?id=' . $_GET['id'];
     $app = Aplicacion::getInstance();
     $api = $app->resuelve('/includes/src/contenido/api_likes.php');
-    return Formulario::buildButtonForm($api, ['id' => $id, 'likes' => $likes, 'idFac' => $idFac] , '👎');
+    return Formulario::buildButtonForm($api, ['id' => $id, 'likes' => $likes, 'envia' => $idFac] , '👎');
 }
 
 function nombreFacultad($idFacultad)
