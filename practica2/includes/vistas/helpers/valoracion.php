@@ -22,9 +22,23 @@ function listaTopCinco($id)
     $arrayMensajes = Valoracion::buscaTopCincoValoraciones($id);
     $html = '';
     if ($arrayMensajes) {
-        $html .= '<ul class="lista-valoraciones">';
+        $html .= '<ul class="lista-top5-valoraciones">';
         foreach ($arrayMensajes as $valoracion) {
             $html .= generaHTMLValoracion($valoracion);
+            procesaLikes($valoracion);
+        }
+        $html .= '</ul>';
+    }
+    return $html;
+}
+
+function listaNumeroDeLikes($id){
+    $arrayMensajes = Valoracion::listaNumeroDeLikes($id);
+    $html = '';
+    if ($arrayMensajes) {
+        $html .= '<ul class="lista-num-likes">';
+        foreach ($arrayMensajes as $valoracion) {
+            $html .= generaHTMLLikesTotales($valoracion);
             procesaLikes($valoracion);
         }
         $html .= '</ul>';
@@ -45,6 +59,16 @@ function generaHTMLValoracion($valoracion)
                 <input type="submit" name="likes" value="👍">
                 <input type="submit" name="dislike" value="👎">
               </form>';
+    $html .= '</div>';
+    $html .= '</li>';
+    return $html;
+}
+
+function generaHTMLLikesTotales($valoracion)
+{
+    $html = '<li>';
+    $html .= '<div class="likes">';
+    $html .= '<p class="likes">' . "likes: " . $valoracion->likes . '</p>' ;
     $html .= '</div>';
     $html .= '</li>';
     return $html;

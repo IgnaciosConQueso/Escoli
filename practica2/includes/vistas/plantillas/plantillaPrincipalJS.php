@@ -8,14 +8,14 @@
     <title>
         <?= $params['tituloPagina'] ?>
     </title>
+    <script src = <?= $params['scripts'] ?>>
+    </script>
     <link rel="stylesheet" type="text/css" href="<?= $params['app']->resuelve('/css/estilo.css') ?>" />
     <title>Document</title>
 </head>
 
 <body>
     <?= $params['app']->doInclude('/includes/vistas/comun/cabecera.php', $params); ?>
-    <?= $params['app']->doInclude('includes/vistas/comun/sidebarIzq.php', $params); ?>
-    <?= $params['app']->doInclude('includes/vistas/comun/sidebarDer.php', $params); ?>
     <main>
         <?= $params['contenidoPrincipal'] ?>
     </main>

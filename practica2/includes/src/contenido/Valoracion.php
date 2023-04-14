@@ -24,14 +24,12 @@ class Valoracion
 
     private $likes;
 
-    public static function crea($idUsuario, $idProfesor, $fecha, $comentario, $puntuacion, $likes)
+    public static function crea($idUsuario, $idProfesor, $comentario, $puntuacion, $likes = 0, $id = null)
     {
         $valoracion = new Valoracion
-        ($idUsuario, $idProfesor, $fecha, $comentario, $puntuacion, $likes);
+        ($idUsuario, $idProfesor, $comentario, $puntuacion, $likes, $id);
         return $valoracion->guarda();
     }
-
-
 
     public function guarda()
     {
@@ -49,7 +47,27 @@ class Valoracion
         return false;
     }
 
-    public static function buscaValoracion($idProfesor)
+    public static function buscaValoracion($id){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM Valoraciones V WHERE V.id='%d'", $conn->real_escape_string($id));
+        $rs = $conn->query($query);
+        $result = false;
+        if ($rs) {
+            $fila = $rs->fetch_assoc();
+            if ($fila) {
+                $result = new Valoracion
+                ($fila['idUsuario'], $fila['idProfesor'], $fila['fecha'],
+                    $fila['comentario'],$fila['puntuacion'], $fila['likes'], $fila['id']);
+            }
+            $rs->free();
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
+    }
+
+    //Esto está mal
+    public static function buscaValoracionesPorIdProfesor($idProfesor)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM Valoraciones V WHERE V.idProfesor='%i'", $conn->real_escape_string($idProfesor));
@@ -69,11 +87,6 @@ class Valoracion
         return $result;
     }
 
-    //busca todas las valoraciones de profesores pertenecientes a esa facultad
-    public static function buscaValoracionPorIdProfesor($idFacultad)
-    {
-
-    }
 
     // busca todas las valoraciones de un usuario
     public static function buscaValoracionesPorIdUsuario($idUsuario)
@@ -122,6 +135,30 @@ class Valoracion
         }
         return $result;
     }
+
+    /* Suma los likes de todas las valoraciones de un usuario */
+    public static function listaNumeroDeLikes($idUsuario)
+    {
+        $result = false;
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT SUM(V.likes) AS likes FROM Valoraciones V WHERE V.idUsuario='%d'", $conn->real_escape_string($idUsuario));
+        $rs = $conn->query($query);
+        if ($rs) {
+            $result = array();
+            while ($fila = $rs->fetch_assoc()) {
+                $valoracion = new Valoracion(
+                    $fila['idUsuario'], $fila['idProfesor'], $fila['fecha'], $fila['comentario'], $fila['puntuacion'], $fila['likes'],
+                    $fila['id']
+                );
+                array_push($result, $valoracion);
+            }
+            $rs->free();
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
+    }
+
 
     public static function buscaUltimasValoraciones($idFacultad, $numPorPagina, $numPagina)
     {
@@ -174,9 +211,8 @@ class Valoracion
     {
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("INSERT INTO Valoraciones(id, idUsuario, idProfesor, comentario, puntuacion, likes) 
-            VALUES ('%i', '%i', '%i', '%s','%i', '%i')",
-            $Valoracion->id,
+        $query = sprintf("INSERT INTO Valoraciones(idUsuario, idProfesor, comentario, puntuacion, likes) 
+            VALUES ('%i', '%i', '%s','%i', '%i')",
             $conn->real_escape_string($Valoracion->idUsuario),
             $conn->real_escape_string($Valoracion->idProfesor),
             $conn->real_escape_string($Valoracion->comentario),
@@ -214,27 +250,22 @@ class Valoracion
         return true;
     }
 
-    public static function darLike($valoracion){
-        $valoracion->aumentaLikes();
-    }
-
-    private function aumentaLikes()
+    public static function gestionaLikes($id, $likes)
     {
-        $this->likes++;
-        $this->actualiza($this); 
+        $result = false;
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "UPDATE Valoraciones V SET likes = %d WHERE V.id=%d",
+           $likes,
+           $id
+        );
+        if (!$conn->query($query)) {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
     }
 
-    public static function dislike($valoracion){
-        $valoracion->quitaLikes();
-    }
-
-    private function quitaLikes()
-    {
-        $this->likes--;
-        $this->actualiza($this); 
-    }
-
-    private function __construct($idUsuario, $idProfesor, $fecha, $comentario, $puntuacion, $likes, $id = null)
+    private function __construct($idUsuario, $idProfesor, $fecha, $comentario, $puntuacion, $likes = 0, $id = null)
     {
         $this->id = $id;
         $this->idUsuario = $idUsuario;
@@ -242,7 +273,7 @@ class Valoracion
         $this->fecha = $fecha;
         $this->comentario = $comentario;
         $this->puntuacion = $puntuacion;
-        $this->likes =$likes;
+        $this->likes = $likes;
     }
 
     public function getId()

@@ -1,3 +1,9 @@
+<?php
+use escoli\Aplicacion;
+
+$app = Aplicacion::getInstance();
+?>
+
 <aside id="sidebarDer">
-	Texto del sidebar derecho.
+	<?= $params['contenidoSideBarDer'] ?>
 </aside>
