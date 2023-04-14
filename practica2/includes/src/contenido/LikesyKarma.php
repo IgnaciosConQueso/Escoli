@@ -45,9 +45,9 @@ class LikesyKarma
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
             "UPDATE Karma K SET K.valor=%d WHERE K.idUsuario=%d AND K.idValoracion = %d",
-            $conn->real_escape_string($Karma->valor),
-            $conn->real_escape_string($Karma->idUsuario),
-            $conn->real_escape_string($Karma->idValoracion)
+            filter_var($Karma->valor),
+            filter_var($Karma->idUsuario),
+            filter_var($Karma->idValoracion)
             
         );
         if (!$conn->query($query)) {
@@ -61,13 +61,15 @@ class LikesyKarma
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("INSERT INTO Karma(idUsuario, idValoracion, valor) 
-            VALUES ('%i', '%i', '%i')",
-            $conn->real_escape_string($Karma->idUsuario),
-            $conn->real_escape_string($Karma->idValoracion),
-            $conn->real_escape_string($Karma->valor)
+            VALUES ('%d', '%d', '%d')",
+           filter_var($Karma->idUsuario),
+           filter_var($Karma->idValoracion),
+           filter_var($Karma->valor)
         );
         if (!$conn->query($query)) {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
+        } else {
+            $result = true;
         }
         return $result;
     }
@@ -95,6 +97,26 @@ class LikesyKarma
             return false;
         }
         return true;
+    }
+
+    public static function checkLike($idUsuario, $idValoracion){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM Karma K WHERE K.idUsuario='%d' AND K.idValoracion=%d",
+         $conn->real_escape_string($idUsuario),
+         $conn->real_escape_string($idValoracion)
+        );
+        $rs = $conn->query($query);
+        $result = NULL;
+        if ($rs) {
+            $fila = $rs->fetch_assoc();
+            if ($fila) {
+                $result = $fila['valor'];
+            }
+            $rs->free();
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
     }
 
 }

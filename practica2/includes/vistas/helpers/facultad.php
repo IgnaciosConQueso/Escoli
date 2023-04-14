@@ -5,8 +5,7 @@ require_once __DIR__ . '/valoracion.php';
 
 use escoli\contenido\Valoracion;
 use escoli\centros\Facultad;
-use escoli\Aplicacion;
-use escoli\Formulario;
+
 
 function listaValoraciones($id = 1, $url, $numPorPag = 10, $pag = 1)
 {

@@ -11,6 +11,7 @@ DROP TABLE IF EXISTS `Valoraciones`;
 DROP TABLE IF EXISTS `Encuestas`;
 DROP TABLE IF EXISTS `CamposEncuestas`;
 DROP TABLE IF EXISTS `Imagenes`;
+DROP TABLE IF EXISTS `Karma`;
 
 CREATE TABLE IF NOT EXISTS `Imagenes` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -94,7 +95,13 @@ CREATE TABLE IF NOT EXISTS `CamposEncuestas` (
     PRIMARY KEY (`idEncuesta`, `campo`)
 ) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
 
-
+CREATE TABLE IF NOT EXISTS `Karma` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `idUsuario` INT NOT NULL,
+    `idValoracion` INT NOT NULL,
+    `valor` INT NOT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
 
 ALTER TABLE `Facultades` ADD CONSTRAINT `Facultades_idUniversidad` FOREIGN KEY (`idUniversidad`) REFERENCES `Universidades`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
@@ -110,6 +117,11 @@ ALTER TABLE `Valoraciones` ADD CHECK (puntuacion >= 0 AND puntuacion <= 5);
 ALTER TABLE `Encuestas` ADD CONSTRAINT `Encuestas_idUsuario` FOREIGN KEY (`idUsuario`) REFERENCES `Usuarios`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `CamposEncuestas` ADD CONSTRAINT `CamposEncuestas_idEncuesta` FOREIGN KEY (`idEncuesta`) REFERENCES `Encuestas`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `Karma` ADD CONSTRAINT `Karma_idUsuario` FOREIGN KEY (`idUsuario`) REFERENCES `Usuarios`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `Karma` ADD CONSTRAINT `Karma_idValoracion` FOREIGN KEY (`idValoracion`) REFERENCES `Valoraciones`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `Karma` ADD CHECK (valor = -1 OR valor = 1);
+
 
 DELIMITER $$
 CREATE OR REPLACE TRIGGER insertar_rol_despues_de_insertar_usuario

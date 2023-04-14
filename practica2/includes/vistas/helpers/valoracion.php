@@ -77,19 +77,21 @@ function generaHTMLLikesTotales($valoracion)
 
 function botonLike($origen, $id, $likes)
 {
-    $likes++;
-    $idFac = $_GET['id'];
+    $valor = 1;
     $app = Aplicacion::getInstance();
     $api = $app->resuelve('/includes/src/contenido/api_likes.php');
-    return Formulario::buildButtonForm($api, ['url' => $origen, 'id' => $id, 'likes' => $likes], '👍');
+    return Formulario::buildButtonForm($api, 
+    ['url' => $origen, 'id' => $id, 'likes' => $likes, 'valor' => $valor],
+     '👍');
 }
 
 function botonDislike($origen, $id, $likes)
 {
-    $likes--;
-    $idFac = $_GET['id'];
+    $valor = -1;
     $app = Aplicacion::getInstance();
     $api = $app->resuelve('/includes/src/contenido/api_likes.php');
-    return Formulario::buildButtonForm($api, ['url' => $origen, 'id' => $id, 'likes' => $likes], '👎');
+    return Formulario::buildButtonForm($api, 
+    ['url' => $origen, 'id' => $id, 'likes' => $likes, 'valor' => $valor],
+     '👎');
 }
 ?>
