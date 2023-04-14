@@ -9,7 +9,7 @@ $formRegistro = $formRegistro->gestiona();
 $tituloPagina = 'Registro';
 $contenidoPrincipal = <<<EOF
   	<h1>Registro de usuario</h1>
-    $formRegistro
+   $formRegistro
 EOF;
 
 $params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];

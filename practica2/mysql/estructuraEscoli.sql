@@ -111,6 +111,7 @@ ALTER TABLE `Encuestas` ADD CONSTRAINT `Encuestas_idUsuario` FOREIGN KEY (`idUsu
 
 ALTER TABLE `CamposEncuestas` ADD CONSTRAINT `CamposEncuestas_idEncuesta` FOREIGN KEY (`idEncuesta`) REFERENCES `Encuestas`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+ALTER TABLE `Usuarios` ADD CONSTRAINT `Usuarios_idImagen` FOREIGN KEY (`idImagen`) REFERENCES `Imagenes`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 DELIMITER $$
 CREATE OR REPLACE TRIGGER insertar_rol_despues_de_insertar_usuario
 AFTER INSERT ON Usuarios

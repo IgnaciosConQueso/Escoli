@@ -11,7 +11,7 @@ class FormularioUpload extends Formulario
 
     public function __construct()
     {
-        parent::__construct('subir', ['enctype' => 'multipart/form-data', 'urlRedireccion' => 'ejemplo.php']);
+        parent::__construct('subir', ['enctype' => 'multipart/form-data', 'urlRedireccion' => Aplicacion::getInstance()->resuelve('/index.php')]);
     }
 
     protected function generaCamposFormulario(&$datos)
@@ -20,8 +20,6 @@ class FormularioUpload extends Formulario
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['archivo', 'tipo'], $this->errores, 'span', array('class' => 'error'));
 
-        $tipoAlmacenSeleccionado = $datos['tipo'] ?? null;
-        $selectorTipoAlmacen = self::generaSelectorTipoAlmacen('tipo', $tipoAlmacenSeleccionado, 'tipo');
         $html = <<<EOS
         $htmlErroresGlobales
         <fieldset>
