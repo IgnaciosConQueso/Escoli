@@ -1,7 +1,7 @@
 <?php
 
 
-require_once __DIR__ . '/includes/vistas/helpers/valoracion.php';
+require_once __DIR__ . '/valoracion.php';
 
 use escoli\contenido\Valoracion;
 use escoli\centros\Facultad;
