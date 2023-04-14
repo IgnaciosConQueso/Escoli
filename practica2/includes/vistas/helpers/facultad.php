@@ -8,14 +8,14 @@ use escoli\centros\Facultad;
 use escoli\Aplicacion;
 use escoli\Formulario;
 
-function listaValoraciones($id = 1, $numPorPag = 10, $pag = 1)
+function listaValoraciones($id = 1, $url, $numPorPag = 10, $pag = 1)
 {
     $arrayMensajes = Valoracion::buscaUltimasValoraciones($id, $numPorPag, $pag);
     $html = '';
     if ($arrayMensajes) {
         $html .= '<ul class="lista-valoraciones">';
         foreach ($arrayMensajes as $valoracion) {
-            $html .= generaHTMLValoracion($valoracion, __DIR__);  
+            $html .= generaHTMLValoracion($valoracion, $url);  
         }
         $html .= '</ul>';
        

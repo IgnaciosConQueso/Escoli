@@ -5,12 +5,13 @@ use escoli\Aplicacion;
 require_once __DIR__ . '/includes/config.php';
 require_once __DIR__ . '/includes/vistas/helpers/valoracion.php';
 
+$app = Aplicacion::getInstance();
 
 $idUser = $app->idUsuario();
 $nombreUser = $app->nombreUsuario();
-$contenidoValoraciones = listaValoracionesUsuario($idUser, __DIR__);
+$contenidoValoraciones = listaValoracionesUsuario($idUser, $app->resuelve('/perfilAlumno.php'));
 $numLikes = listaNumeroDeLikes($idUser);
-$topCinco = listaTopCinco($idUser, __DIR__);
+$topCinco = listaTopCinco($idUser, $app->resuelve('/perfilAlumno.php'));
 
 $tituloPagina = 'Perfil alumno';
 

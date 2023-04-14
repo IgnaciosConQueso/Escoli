@@ -81,7 +81,7 @@ function botonLike($origen, $id, $likes)
     $idFac = $_GET['id'];
     $app = Aplicacion::getInstance();
     $api = $app->resuelve('/includes/src/contenido/api_likes.php');
-    return Formulario::buildButtonForm($api, ['action' => $origen, 'id' => $id, 'likes' => $likes], '👍');
+    return Formulario::buildButtonForm($api, ['url' => $origen, 'id' => $id, 'likes' => $likes], '👍');
 }
 
 function botonDislike($origen, $id, $likes)
@@ -90,6 +90,6 @@ function botonDislike($origen, $id, $likes)
     $idFac = $_GET['id'];
     $app = Aplicacion::getInstance();
     $api = $app->resuelve('/includes/src/contenido/api_likes.php');
-    return Formulario::buildButtonForm($api, ['action' => $origen, 'id' => $id, 'likes' => $likes], '👎');
+    return Formulario::buildButtonForm($api, ['url' => $origen, 'id' => $id, 'likes' => $likes], '👎');
 }
 ?>
