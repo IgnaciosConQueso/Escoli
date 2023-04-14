@@ -217,7 +217,7 @@ class Valoracion
             $conn->real_escape_string($Valoracion->idProfesor),
             $conn->real_escape_string($Valoracion->comentario),
             $conn->real_escape_string($Valoracion->puntuacion),
-            $conn->real_escape_string($Valoracion->likes)
+            0//$conn->real_escape_string($Valoracion->likes)
         );
         if (!$conn->query($query)) {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
