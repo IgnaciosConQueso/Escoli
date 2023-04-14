@@ -15,7 +15,7 @@ function listaValoraciones($id = 1, $numPorPag = 10, $pag = 1)
     if ($arrayMensajes) {
         $html .= '<ul class="lista-valoraciones">';
         foreach ($arrayMensajes as $valoracion) {
-            $html .= generaHTMLValoracion($valoracion);  
+            $html .= generaHTMLValoracion($valoracion, __DIR__);  
         }
         $html .= '</ul>';
        

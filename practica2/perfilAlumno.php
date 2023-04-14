@@ -8,9 +8,9 @@ require_once __DIR__ . '/includes/vistas/helpers/valoracion.php';
 
 $idUser = $app->idUsuario();
 $nombreUser = $app->nombreUsuario();
-$contenidoValoraciones = listaValoracionesUsuario($idUser);
+$contenidoValoraciones = listaValoracionesUsuario($idUser, __DIR__);
 $numLikes = listaNumeroDeLikes($idUser);
-$topCinco = listaTopCinco($idUser);
+$topCinco = listaTopCinco($idUser, __DIR__);
 
 $tituloPagina = 'Perfil alumno';
 
