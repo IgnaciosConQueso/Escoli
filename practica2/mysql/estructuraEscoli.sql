@@ -103,6 +103,11 @@ CREATE TABLE IF NOT EXISTS `Karma` (
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
 
+ALTER TABLE `Usuarios` ADD CONSTRAINT `Usuarios_idImagen` FOREIGN KEY (`idImagen`) REFERENCES `Imagenes`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `Universidades` ADD CONSTRAINT `Universidades_idImagen` FOREIGN KEY (`idImagen`) REFERENCES `Imagenes`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `Facultades` ADD CONSTRAINT `Facultades_idImagen` FOREIGN KEY (`idImagen`) REFERENCES `Imagenes`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `Profesores` ADD CONSTRAINT `Profesores_idImagen` FOREIGN KEY (`idImagen`) REFERENCES `Imagenes`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
 ALTER TABLE `Facultades` ADD CONSTRAINT `Facultades_idUniversidad` FOREIGN KEY (`idUniversidad`) REFERENCES `Universidades`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `Asignaturas` ADD CONSTRAINT `Asignaturas_idFacultad` FOREIGN KEY (`idFacultad`) REFERENCES `Facultades`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
