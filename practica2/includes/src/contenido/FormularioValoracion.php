@@ -4,7 +4,7 @@ namespace escoli\contenido;
 use escoli\Aplicacion;
 use escoli\contenido\Valoracion;
 use escoli\Formulario;
-use escoli\centros\Facultad;
+use escoli\contenido\Profesor;
 
 class FormularioValoracion extends Formulario
 {
@@ -18,10 +18,9 @@ class FormularioValoracion extends Formulario
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['comentario', 'puntuacion'], $this->errores, 'span', array('class' => 'error'));
 
-        $idUsuario = $datos['idUsuario'] ?? '';
+        $idFacultad = $datos['facultad'] ?? '';
         $idProfesor = $datos['profesor'] ?? '';
-        $puntuacion = $datos['puntuacion'] ?? '';
-        $comentario = $datos['comentario'] ?? '';
+        $nombre = $datos['nombre'] ?? '';
 
         $html = <<<EOF
         $htmlErroresGlobales
@@ -29,9 +28,9 @@ class FormularioValoracion extends Formulario
             <legend>Valora a tu profe</legend>
             <div>
                 <label for="profesor">Profesor:</label>
-                <select id="profesor" name="idProfesor">
+                <select id="profesor" name="$nombre">n
                     <option value="">Selecciona un profesor</option>
-                    {$this->generaOpcionesProfesores($idProfesor)}
+                    {$this->generaOpcionesProfesores($idFacultad, $idProfesor)}
                 </select>
                 {$erroresCampos['profesor']}
             <div>
@@ -73,7 +72,7 @@ class FormularioValoracion extends Formulario
 
     private function generaOpcionesProfesores($idFacultad, $idProfesor){
         $html = '';
-        $profesores = Facultad::buscaProfesoresPorIdFacultad($idFacultad);
+        $profesores = Profesor::buscaProfesoresPorIdFacultad($idFacultad);
         foreach($profesores as $profesor){
             $selected = $profesor->id() == $idProfesor ? 'selected' : '';
             $html .= '<option value="' . $profesor->id() . '" ' . $selected . '>' . $profesor->nombre() . '</option>';

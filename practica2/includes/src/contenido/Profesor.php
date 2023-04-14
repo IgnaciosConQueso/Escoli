@@ -50,6 +50,7 @@ class Profesor
         } else {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
         }
+        return $result;
     }
 
     private static function actualiza($profesor)
