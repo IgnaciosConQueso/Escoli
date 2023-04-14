@@ -4,6 +4,7 @@ namespace escoli\centros;
 
 use escoli\Aplicacion;
 use escoli\Formulario;
+use escoli\FormularioUpload;
 use escoli\centros\Universidad;
 use escoli\centros\Facultad;
 

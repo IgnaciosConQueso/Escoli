@@ -1,5 +1,9 @@
 <?php
 
+namespace escoli;
+
+use escoli\Aplicacion;
+
 class FormularioUpload extends Formulario
 {
 

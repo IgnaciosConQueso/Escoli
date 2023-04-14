@@ -21,9 +21,9 @@ class Usuario
         return false;
     }
     
-    public static function crea($nombreUsuario, $password, $email)
+    public static function crea($nombreUsuario, $password, $email, $idImagen = null)
     {
-        $user = new Usuario($nombreUsuario, self::hashPassword($password), $email);
+        $user = new Usuario($nombreUsuario, self::hashPassword($password), $email, $idImagen);
         return $user->guarda();
     }
 
@@ -36,7 +36,7 @@ class Usuario
         if ($rs) {
             $fila = $rs->fetch_assoc();
             if ($fila) {
-                $result = new Usuario($fila['nombreUsuario'], $fila['password'], $fila['email'], $fila['id']);
+                $result = new Usuario($fila['nombreUsuario'], $fila['password'], $fila['email'], $fila['id'], $fila['idImagen']);
             }
             $rs->free();
         } else {
@@ -54,7 +54,7 @@ class Usuario
         if ($rs) {
             $fila = $rs->fetch_assoc();
             if ($fila) {
-                $result = new Usuario($fila['nombreUsuario'], $fila['password'], $fila['email'], $fila['id']);
+                $result = new Usuario($fila['nombreUsuario'], $fila['password'], $fila['email'], $fila['id'], $fila['idImagen']);
             }
             $rs->free();
         } else {
@@ -95,11 +95,12 @@ class Usuario
     {
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query=sprintf("INSERT INTO Usuarios(nombreUsuario, email, password)
-            VALUES ('%s', '%s', '%s')",
+        $query=sprintf("INSERT INTO Usuarios(nombreUsuario, email, password, idImagen)
+            VALUES ('%s', '%s', '%s', '%d')",
             $conn->real_escape_string($usuario->nombreUsuario),
             $conn->real_escape_string($usuario->email),
-            $conn->real_escape_string($usuario->password)
+            $conn->real_escape_string($usuario->password),
+            $conn->real_escape_string($usuario->idImagen)
         );
         if ( $conn->query($query) ) {
             $usuario->id = $conn->insert_id;
@@ -114,10 +115,11 @@ class Usuario
     {
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query=sprintf("UPDATE Usuarios U SET nombreUsuario = '%s', email='%s', password='%s' WHERE U.id=%d"
+        $query=sprintf("UPDATE Usuarios U SET nombreUsuario = '%s', email='%s', password='%s', idImagen='%d' WHERE U.id=%d"
             , $conn->real_escape_string($usuario->nombreUsuario)
             , $conn->real_escape_string($usuario->email)
             , $conn->real_escape_string($usuario->password)
+            , $conn->real_escape_string($usuario->idImagen)
             , $usuario->id
         );
         if ( $conn->query($query) ) {
@@ -176,13 +178,16 @@ class Usuario
 
     private $roles;
 
-    private function __construct($nombreUsuario, $password, $email, $id = null, $roles = [])
+    private $idImagen;
+
+    private function __construct($nombreUsuario, $password, $email, $id = null, $roles = [], $idImagen = null)
     {
         $this->id = $id;
         $this->nombreUsuario = $nombreUsuario;
         $this->password = $password;
         $this->email = $email;
         $this->roles = $roles;
+        $this->idImagen = $idImagen;
     }
 
     public function getId()

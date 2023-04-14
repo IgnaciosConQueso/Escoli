@@ -3,6 +3,7 @@ namespace escoli\usuarios;
 
 use escoli\Aplicacion;
 use escoli\Formulario;
+use escoli\FormularioUpload;
 
 class FormularioRegistro extends Formulario
 {
@@ -18,7 +19,6 @@ class FormularioRegistro extends Formulario
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['nombreUsuario', 'email', 'password', 'password2'], $this->errores, 'span', array('class' => 'error'));
-
         $html = <<<EOF
         $htmlErroresGlobales
         <fieldset>

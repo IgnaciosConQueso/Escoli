@@ -23,7 +23,7 @@ class Imagen
     {
         $result = [];
 
-        $conn = BD::getInstance()->getConexionBd();
+        $conn = Aplicacion::getInstance()->getConexionBd();
         $query = 'SELECT * FROM Imagenes';
         
         $rs = $conn->query($query);
@@ -43,7 +43,7 @@ class Imagen
     {
         $result = null;
 
-        $conn = BD::getInstance()->getConexionBd();
+        $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf('SELECT * FROM Imagenes I WHERE I.id = %d', intval($idImagen));
         $rs = $conn->query($query);
         if ($rs) {
@@ -62,7 +62,7 @@ class Imagen
     {
         $result = false;
 
-        $conn = BD::getInstance()->getConexionBd();
+        $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
             "INSERT INTO Imagenes (ruta, nombre, mimeType) VALUES ('%s', '%s', '%s')",
             $conn->real_escape_string($imagen->ruta),
@@ -85,7 +85,7 @@ class Imagen
     {
         $result = false;
 
-        $conn = BD::getInstance()->getConexionBd();
+        $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
             "UPDATE Imagenes I SET ruta = '%s', nombre = '%s', mimeType = '%s' WHERE I.id = %d",
             $conn->real_escape_string($imagen->ruta),
@@ -112,7 +112,7 @@ class Imagen
     {
         $result = false;
 
-        $conn = BD::getInstance()->getConexionBd();
+        $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("DELETE FROM Imagenes WHERE id = %d", intval($idImagen));
         $result = $conn->query($query);
         if (!$result) {
