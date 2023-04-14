@@ -12,7 +12,7 @@ class FormularioFacultad extends Formulario
 
     public function __construct()
     {
-        parent::__construct('formFacultad', ['urlRedireccion' => 'index.php']);
+        parent::__construct('formFacultad', ['urlRedireccion' => Aplicacion::getInstance()->resuelve('/index.php')]);
     }
 
     protected function generaCamposFormulario(&$datos)

@@ -4,7 +4,7 @@ namespace escoli\contenido;
 use escoli\Aplicacion;
 use escoli\contenido\Valoracion;
 use escoli\Formulario;
-use escoli\centros\Facultad;
+use escoli\contenido\Profesor;
 
 class FormularioValoracion extends Formulario
 {
@@ -15,13 +15,11 @@ class FormularioValoracion extends Formulario
     protected function generaCamposFormulario(&$datos)
     {
 
+        $idFacultad = $datos['facultad'] ?? '';
+        $nombre = $datos['nombre'] ?? '';
+
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['comentario', 'puntuacion'], $this->errores, 'span', array('class' => 'error'));
-
-        $idUsuario = $datos['idUsuario'] ?? '';
-        $idProfesor = $datos['profesor'] ?? '';
-        $puntuacion = $datos['puntuacion'] ?? '';
-        $comentario = $datos['comentario'] ?? '';
 
         $html = <<<EOF
         $htmlErroresGlobales
@@ -29,9 +27,9 @@ class FormularioValoracion extends Formulario
             <legend>Valora a tu profe</legend>
             <div>
                 <label for="profesor">Profesor:</label>
-                <select id="profesor" name="idProfesor">
+                <select id="profesor" name="profesor">n
                     <option value="">Selecciona un profesor</option>
-                    {$this->generaOpcionesProfesores($idProfesor)}
+                    {$this->generaOpcionesProfesores($idFacultad)}
                 </select>
                 {$erroresCampos['profesor']}
             <div>
@@ -71,15 +69,16 @@ class FormularioValoracion extends Formulario
         $valoracion=Valoracion::crea($idUsuario, $idProfesor, $comentario ,$puntuacion);
     }
 
-    private function generaOpcionesProfesores($idFacultad, $idProfesor){
+    protected function generaOpcionesProfesores($idFacultad)
+    {
         $html = '';
-        $profesores = Facultad::buscaProfesoresPorIdFacultad($idFacultad);
-        foreach($profesores as $profesor){
-            $selected = $profesor->id() == $idProfesor ? 'selected' : '';
-            $html .= '<option value="' . $profesor->id() . '" ' . $selected . '>' . $profesor->nombre() . '</option>';
+        $profesores = Profesor::buscaProfesoresPorIdFacultad($idFacultad);
+        foreach ($profesores as $profesor) {
+            $html .= '<option value="' . $profesor->getId() . '">' . $profesor->getNombre() . '</option>';
         }
         return $html;
     }
+
 }
 
 ?>

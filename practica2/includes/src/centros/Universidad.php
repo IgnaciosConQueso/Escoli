@@ -49,7 +49,6 @@ class Universidad
         return $result;
     }
 
-    //es posible que no este bien
     public static function buscaPorNombre($nombre)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
@@ -100,7 +99,6 @@ class Universidad
         }
     }
 
-    //revisar tambien
     private static function actualiza($universidad)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
