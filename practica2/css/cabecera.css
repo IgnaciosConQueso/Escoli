@@ -39,8 +39,13 @@ a#linkLogo{
 
 h1#headerTitle {
     margin: 0;
-    font-family: 'Roboto', sans-serif;
-    color:rgba(0, 0, 0, 0.542);
+    height: 1em;
+    overflow: hidden;
+}
+
+h1#headerTitle img {
+    margin: 0;
+    height: 1em;
     overflow: hidden;
 }
 
