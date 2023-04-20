@@ -4,6 +4,7 @@ namespace escoli\usuarios;
 use escoli\Aplicacion;
 use escoli\Formulario;
 use escoli\FormularioUpload;
+use escoli\Imagen;
 
 class FormularioRegistro extends Formulario
 {
@@ -11,7 +12,7 @@ class FormularioRegistro extends Formulario
     const EXTENSIONES_PERMITIDAS = array('gif', 'jpg', 'jpe', 'jpeg', 'png', 'webp', 'avif');
 
     public function __construct() {
-        parent::__construct('formRegistro', ['urlRedireccion' => Aplicacion::getInstance()->resuelve('/index.php')]);
+        parent::__construct('formRegistro', ['enctype' => 'multipart/form-data', 'urlRedireccion' => Aplicacion::getInstance()->resuelve('/index.php')]);
     }
     
     protected function generaCamposFormulario(&$datos)
@@ -66,7 +67,7 @@ class FormularioRegistro extends Formulario
          if (! $ok ) {
              $this->errores['archivo'] = 'Error al subir el archivo';
              return;
-         }  
+         } 
          
          $nombre = $_FILES['archivo']['name'];
          /* 1.a) Valida el nombre del archivo */
@@ -100,7 +101,7 @@ class FormularioRegistro extends Formulario
  
          $imagen = Imagen::crea($nombre, $mimeType, '');
          $imagen->guarda();
-         $fichero = "{$imagen->id}.{$extension}";
+         $fichero = "{$imagen->getId()}.{$extension}";
          $imagen->setRuta($fichero);
          $imagen->guarda();
          $ruta = implode(DIRECTORY_SEPARATOR, [RUTA_IMGS, $fichero]);

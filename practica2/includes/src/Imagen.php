@@ -29,7 +29,7 @@ class Imagen
         $rs = $conn->query($query);
         if ($rs) {
             while ($fila = $rs->fetch_assoc()) {
-                $result[] = new Imagen($fila['ruta'], $fila['nombre'], $fila['mimeType'], $fila['id']);
+                $result[] = new Imagen($fila['ruta'], $fila['nombre'], $fila['tipo'], $fila['id']);
             }
             $rs->free();
         } else {
@@ -48,7 +48,7 @@ class Imagen
         $rs = $conn->query($query);
         if ($rs) {
             while ($fila = $rs->fetch_assoc()) {
-                $result = new Imagen($fila['ruta'], $fila['nombre'], $fila['mimeType'], $fila['id']);
+                $result = new Imagen($fila['ruta'], $fila['nombre'], $fila['tipo'], $fila['id']);
             }
             $rs->free();
         } else {
@@ -64,7 +64,7 @@ class Imagen
 
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
-            "INSERT INTO Imagenes (ruta, nombre, mimeType) VALUES ('%s', '%s', '%s')",
+            "INSERT INTO Imagenes (ruta, nombre, tipo) VALUES ('%s', '%s', '%s')",
             $conn->real_escape_string($imagen->ruta),
             $conn->real_escape_string($imagen->nombre),
             $conn->real_escape_string($imagen->mimeType),
@@ -87,7 +87,7 @@ class Imagen
 
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
-            "UPDATE Imagenes I SET ruta = '%s', nombre = '%s', mimeType = '%s' WHERE I.id = %d",
+            "UPDATE Imagenes I SET ruta = '%s', nombre = '%s', tipo = '%s' WHERE I.id = %d",
             $conn->real_escape_string($imagen->ruta),
             $conn->real_escape_string($imagen->nombre),
             $conn->real_escape_string($imagen->mimeType),
