@@ -157,7 +157,7 @@ class Valoracion
     }
 
 
-    public static function buscaUltimasValoraciones($idFacultad, $numPorPagina, $numPagina)
+    public static function buscaUltimasValoracionesFacultad($idFacultad, $numPorPagina = 10, $numPagina = 1)
     {
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
@@ -167,6 +167,28 @@ class Valoracion
             GROUP BY V.id ORDER BY V.fecha DESC", $idFacultad);
         $query .= sprintf(" LIMIT %d, %d;", ($numPagina - 1) * $numPorPagina, $numPorPagina);
 
+        $rs = $conn->query($query);
+        if ($rs) {
+            $result = array();
+            while ($fila = $rs->fetch_assoc()) {
+                $valoracion = new Valoracion(
+                    $fila['idUsuario'], $fila['idProfesor'], $fila['comentario'],
+                    $fila['puntuacion'], $fila['likes'], $fila['id'], $fila['fecha']);
+                array_push($result, $valoracion);
+            }
+            $rs->free();
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
+    }
+
+    public static function buscaUltimasValoraciones($numPorPagina = 10, $numPagina = 1)
+    {
+        $result = false;
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM Valoraciones V ORDER BY V.fecha DESC");
+        $query .= sprintf(" LIMIT %d, %d;", ($numPagina - 1) * $numPorPagina, $numPorPagina);
         $rs = $conn->query($query);
         if ($rs) {
             $result = array();

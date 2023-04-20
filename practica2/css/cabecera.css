@@ -45,7 +45,7 @@ h1#headerTitle {
 
 h1#headerTitle img {
     margin: 0;
-    height: 1em;
+    height: 100%;
     overflow: hidden;
 }
 

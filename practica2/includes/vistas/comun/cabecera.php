@@ -64,8 +64,7 @@ function creaBarraBusqueda()
 
     <nav id="header">
         <div id="menu">
-            <a href="<?= $app->resuelve('/contacto.php'); ?>">Contacto</a>
-            <a href="<?= $app->resuelve('/detalles.php'); ?>">Detalles</a>
+            <a href="<?= $app->resuelve('/universidades.php'); ?>">Universidades</a>
             <?= $params['menuCabecera'] ?? '' ?>
         </div>
         <?= creaBarraBusqueda(); ?>

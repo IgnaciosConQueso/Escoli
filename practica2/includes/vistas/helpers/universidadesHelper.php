@@ -20,7 +20,7 @@ function listaUniversidades()
 
 function generaHTMLUniversidad($data)
 {
-    $url = 'universidad.php?id=' . $data->id;
+    $url = 'facultades.php?idUniversidad=' . $data->id;
     $html = '<li>';
     $html .= '<div class="universidad">';
     $html .= '<p class="nombre-universidad">';
