@@ -62,10 +62,10 @@ nav {
     display: flex;
     flex-wrap: wrap;
     font-size: medium;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: center;
     text-align: center;
     height: auto;
+    align-items: center;
 }
 
 nav form{
@@ -105,8 +105,20 @@ nav a:hover {
     color: black;
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 540px) {
     div#title{
         font-size: x-large;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    div#title{
+        font-size: large;
+    }
+}
+
+@media screen and (max-width: 300px) {
+    h1#headerTitle {
+        display: none;
     }
 }

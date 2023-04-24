@@ -65,7 +65,7 @@ function creaBarraBusqueda()
     <nav id="header">
         <div id="menu">
             <a href="<?= $app->resuelve('/universidades.php'); ?>">Universidades</a>
-            <?= $params['menuCabecera'] ?? '' ?>
+            <?= $_SESSION['linksCabecera'] ?? '' ?>
         </div>
         <?= creaBarraBusqueda(); ?>
         <div id="rightButtons">

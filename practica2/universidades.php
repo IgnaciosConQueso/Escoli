@@ -9,11 +9,13 @@ $linkUniversidad = 'registroUniversidad.php';
 $linkFacultad = 'registroFacultad.php';
 $linkBorraFacultad = 'borraFacultad.php';
 
-$botonUniversidad = '<a href='.$linkUniversidad.'> Añadir universidad</a>';
-$botonFacultad = '<a href=' . $linkFacultad . '> Añadir facultad </button>';
+$botonUniversidad = '<a href='.$linkUniversidad.'>Añadir universidad</a>';
+$botonFacultad = '<a href=' . $linkFacultad . '>Añadir facultad</a>';
+
+$menuCabecera = '';
+$_SESSION['linksCabecera'] = $menuCabecera;
 
 $botonesCab = $botonUniversidad . $botonFacultad;
-//$botonBorraFacultad = '<a href=' . $linkBorraFacultad . '><button> Borrar facultad </button>';
 $contenidoPrincipal = listaUniversidades();
 
 

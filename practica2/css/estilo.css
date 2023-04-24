@@ -24,7 +24,7 @@ aside#sidebarDer {
 
 main {
 	width: 50%;
-	min-height: 100vh;
+	min-height: calc(100vh - 228px);
 	margin: auto;
 	display: block;
 }
