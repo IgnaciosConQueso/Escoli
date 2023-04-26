@@ -30,7 +30,7 @@ class FormularioRegistro extends Formulario
             </div>
             <div>
                 <label for="email">Email:</label>
-                <input id="email" type="text" name="email" value="$email" />
+                <input type="email" id="email" name="email" value="$email" />
                 <span id = "validEmail"></span>
                 {$erroresCampos['email']}
             </div>
