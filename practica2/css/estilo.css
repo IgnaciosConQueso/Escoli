@@ -34,6 +34,31 @@ footer {
 	margin: auto;
 }
 
+
+div.universidad {
+	background-color: #5f5f5f;
+	display: flex;
+	color: #e1e1e1;
+	padding: 10px;
+	margin: 10px;
+}
+
+div.universidad a {
+	color: #e1e1e1;
+	font-size: x-large;
+	text-decoration: none;
+}
+
+div.universidad a:hover {
+	color: #1a2e5d;
+}
+
+div.universidad img {
+	height: 3em;
+    width: 3em;
+	float: left;
+}
+
 @media screen and (max-width: 800px) {
 	main {
 		width: 100%;
