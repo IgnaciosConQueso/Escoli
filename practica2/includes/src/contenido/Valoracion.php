@@ -142,14 +142,10 @@ class Valoracion
         $query = sprintf("SELECT SUM(V.likes) AS likes FROM Valoraciones V WHERE V.idUsuario='%d'", $conn->real_escape_string($idUsuario));
         $rs = $conn->query($query);
         if ($rs) {
-            $result = array();
-            while ($fila = $rs->fetch_assoc()) {
-                $valoracion = new Valoracion(
-                    $fila['idUsuario'], $fila['idProfesor'], $fila['comentario'],
-                    $fila['puntuacion'], $fila['likes'], $fila['id'], $fila['fecha']);
-                array_push($result, $valoracion);
+            $fila = $rs->fetch_assoc();
+            if ($fila) {
+                $result = $fila['likes'];
             }
-            $rs->free();
         } else {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
         }

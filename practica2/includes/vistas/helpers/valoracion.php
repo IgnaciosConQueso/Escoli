@@ -36,15 +36,10 @@ function listaTopCinco($id, $url)
 
 function listaNumeroDeLikes($id)
 {
-    $arrayMensajes = Valoracion::listaNumeroDeLikes($id);
+    $likes = Valoracion::listaNumeroDeLikes($id);
     $html = '';
-    if ($arrayMensajes) {
-        $html .= '<ul class="lista-num-likes">';
-        foreach ($arrayMensajes as $valoracion) {
-            $html .= generaHTMLLikesTotales($valoracion);
-
-        }
-        $html .= '</ul>';
+    if ($likes) {
+        $html = generaHTMLLikesTotales($likes);
     }
     return $html;
 }
@@ -65,13 +60,11 @@ function generaHTMLValoracion($valoracion, $url)
     return $html;
 }
 
-function generaHTMLLikesTotales($valoracion)
+function generaHTMLLikesTotales($likes)
 {
-    $html = '<li>';
-    $html .= '<div class="likes">';
-    $html .= '<p class="likes">' . "likes: " . $valoracion->likes . '</p>';
+    $html = '<div class="likes">';
+    $html .= '<p class="likes">' . $likes . '</p>';
     $html .= '</div>';
-    $html .= '</li>';
     return $html;
 }
 
