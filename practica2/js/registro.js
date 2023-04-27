@@ -19,16 +19,20 @@ $(document).ready(function() {
 			
 		// validación html5, porque el campo es <input type="email" ...>
 		const esCorreoValido = campo[0].checkValidity();
-		if (esCorreoValido) {//la cadena vacia le vale xd
-			//TODO
-			campo[0].setCustomValidity("");
-			//&#x2714;
-			document.getElementById('validEmail').innerHTML = "&#x2714;";
-		} else {
+		
+		//para la comprobación de cadena vacía
+		correo = document.getElementById("email").value;
+		lon = correo.length;
+
+		if (!esCorreoValido || lon <= 0) {
 			campo[0].setCustomValidity("Introduce un correo válido");
 			//&#x26a0;
 			document.getElementById('validEmail').innerHTML = "&#x26a0;";
 			return false;
+		} else {
+			campo[0].setCustomValidity("");
+			//&#x2714;
+			document.getElementById('validEmail').innerHTML = "&#x2714;";
 		}
 	});
 
