@@ -36,22 +36,16 @@ function listaTopCinco($id, $url)
 
 function listaNumeroDeLikes($id)
 {
-    $arrayMensajes = Valoracion::listaNumeroDeLikes($id);
+    $likes = Valoracion::listaNumeroDeLikes($id);
     $html = '';
-    if ($arrayMensajes) {
-        $html .= '<ul class="lista-num-likes">';
-        foreach ($arrayMensajes as $valoracion) {
-            $html .= generaHTMLLikesTotales($valoracion);
-
-        }
-        $html .= '</ul>';
+    if ($likes) {
+        $html = generaHTMLLikesTotales($likes);
     }
     return $html;
 }
 function generaHTMLValoracion($valoracion, $url)
 {
-    $html = '<li>';
-    $html .= '<div class="valoracion">';
+    $html = '<div class="valoracion">';
     $html .= '<p class="nombre-usuario">' . "idUsuario: " . $valoracion->idUsuario . '</p>';
     $html .= '<p class="nombre-profesor">' . "idProfesor: " . $valoracion->idProfesor . '</p>';
     $html .= '<p class="puntuacion">' . "puntuacion: " . $valoracion->puntuacion . '</p>';
@@ -61,17 +55,14 @@ function generaHTMLValoracion($valoracion, $url)
     $html .= botonLike($url, $valoracion->getId(), $valoracion->getLikes());
     $html .= botonDislike($url, $valoracion->getId(), $valoracion->getLikes());
     $html .= '</div>';
-    $html .= '</li>';
     return $html;
 }
 
-function generaHTMLLikesTotales($valoracion)
+function generaHTMLLikesTotales($likes)
 {
-    $html = '<li>';
-    $html .= '<div class="likes">';
-    $html .= '<p class="likes">' . "likes: " . $valoracion->likes . '</p>';
+    $html = '<div class="likes">';
+    $html .= '<p class="likes">' . $likes . '</p>';
     $html .= '</div>';
-    $html .= '</li>';
     return $html;
 }
 
