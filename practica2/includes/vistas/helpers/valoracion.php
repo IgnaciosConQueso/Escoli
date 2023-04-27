@@ -45,8 +45,7 @@ function listaNumeroDeLikes($id)
 }
 function generaHTMLValoracion($valoracion, $url)
 {
-    $html = '<li>';
-    $html .= '<div class="valoracion">';
+    $html = '<div class="valoracion">';
     $html .= '<p class="nombre-usuario">' . "idUsuario: " . $valoracion->idUsuario . '</p>';
     $html .= '<p class="nombre-profesor">' . "idProfesor: " . $valoracion->idProfesor . '</p>';
     $html .= '<p class="puntuacion">' . "puntuacion: " . $valoracion->puntuacion . '</p>';
@@ -56,7 +55,6 @@ function generaHTMLValoracion($valoracion, $url)
     $html .= botonLike($url, $valoracion->getId(), $valoracion->getLikes());
     $html .= botonDislike($url, $valoracion->getId(), $valoracion->getLikes());
     $html .= '</div>';
-    $html .= '</li>';
     return $html;
 }
 
