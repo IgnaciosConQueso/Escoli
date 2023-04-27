@@ -23,9 +23,8 @@ function generaHTMLUniversidad($data)
     $app = Aplicacion::getInstance();
     $url = 'facultades.php?idUniversidad=' . $data->id;
     $html = '<div class="universidad">';
-    $html .= '<p class="nombre-universidad">';
-    $html .= '<a href="' . $url . '">'. '<img src="' . $app->resuelveImagen('logo.png') . '" alt="imagen de la universidad" class="imagen-universidad">' . '</a>';
-    $html .= '<a href="' . $url . '">' . $data->nombre . '</a></p>';
+    $html .= '<a class="imagen"href="' . $url . '">'. '<img src="' . $app->resuelveImagen('logo.png') . '" alt="imagen de la universidad">' . '</a>';
+    $html .= '<p class="texto"> <a href="' . $url . '">' . $data->nombre . '</a></p>';
     $html .= botonBorraUniversidad($data->id);
     $html .= botonEditaUniversidad($data->id);
     $html .= '</div>';
@@ -36,13 +35,15 @@ function botonBorraUniversidad($idUniversidad)
 {
     $app = Aplicacion::getInstance();
     $borraURL = $app->resuelve('/includes/src/centros/borraUniversidad.php');
-    return Formulario::buildButtonForm($borraURL, ['id' => $idUniversidad] , 'Borrar');
+    $className = 'borra-universidad';
+    return Formulario::buildButtonForm($borraURL, $className, ['id' => $idUniversidad] , 'Borrar');
 }
 
 function botonEditaUniversidad($idUniversidad)
 {
     $app = Aplicacion::getInstance();
     $editaURL = $app->resuelve('/registroUniversidad.php');
-    return Formulario::buildButtonForm($editaURL, ['id' => $idUniversidad] , 'Editar', [], 'GET');
+    $className = 'edita-universidad';
+    return Formulario::buildButtonForm($editaURL, $className, ['id' => $idUniversidad] , 'Editar', [], 'GET');
 }
 ?>
