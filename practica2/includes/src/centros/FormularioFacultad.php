@@ -4,16 +4,16 @@ namespace escoli\centros;
 
 use escoli\Aplicacion;
 use escoli\Formulario;
-use escoli\FormularioUpload;
+use escoli\Imagen;
 use escoli\centros\Universidad;
 use escoli\centros\Facultad;
 
 class FormularioFacultad extends Formulario
 {
-
+    const EXTENSIONES_PERMITIDAS = array('gif', 'jpg', 'jpe', 'jpeg', 'png', 'webp', 'avif');
     public function __construct()
     {
-        parent::__construct('formFacultad', ['urlRedireccion' => 'index.php']);
+        parent::__construct('formFacultad', ['enctype' => 'multipart/form-data', 'urlRedireccion' => 'index.php']);
     }
 
     protected function generaCamposFormulario(&$datos)

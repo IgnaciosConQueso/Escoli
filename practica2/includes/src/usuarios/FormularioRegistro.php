@@ -3,7 +3,6 @@ namespace escoli\usuarios;
 
 use escoli\Aplicacion;
 use escoli\Formulario;
-use escoli\FormularioUpload;
 use escoli\Imagen;
 
 class FormularioRegistro extends Formulario
@@ -61,6 +60,8 @@ class FormularioRegistro extends Formulario
 
     protected function procesaFormulario(&$datos)
     {
+        $app = Aplicacion::getInstance();
+
         $this->errores = [];
          // Verificamos que la subida ha sido correcta
          $ok = $_FILES['archivo']['error'] == UPLOAD_ERR_OK && count($_FILES) == 1;
@@ -102,9 +103,9 @@ class FormularioRegistro extends Formulario
          $imagen = Imagen::crea($nombre, $mimeType, '');
          $imagen->guarda();
          $fichero = "{$imagen->getId()}.{$extension}";
-         $imagen->setRuta($fichero);
+         $imagen->setRuta('\usuarios\\'.$fichero);
          $imagen->guarda();
-         $ruta = implode(DIRECTORY_SEPARATOR, [RUTA_IMGS, $fichero]);
+         $ruta = implode(DIRECTORY_SEPARATOR, [RUTA_IMGS.'\usuarios', $fichero]);
          if (!move_uploaded_file($tmp_name, $ruta)) {
              $this->errores['archivo'] = 'Error al mover el archivo';
          }
