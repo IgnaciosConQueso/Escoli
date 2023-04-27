@@ -1,33 +1,18 @@
 $(document).ready(function() {
-	vName = false;
-	vEmail = false;
-	vPass = false;
-	vPass2 = false;
-
-	function evaluaButton(){
-		if(vName && vEmail && vPass && vPass2){
-			document.getElementById("submit").disabled = false;
-		} else {
-			document.getElementById("submit").disabled = true;
-		}
-	}
-
 	$("#nombreUsuario").change(function(){//TODO
 		//comprobar que el usuario exista en la base de datos
 		username = document.getElementById("nombreUsuario").value;
 		lon = username.length;
 
 		if(lon <5){
-			document.getElementById('validName').innerHTML = "El nombre debe tener una longitud de al menos 5";
-			vName = false;
+			document.getElementById('validName').innerHTML = "El nombre de usuario tiene que tener una longitud de al menos 5 caracteres";
+			return false;
 		} else {
 			document.getElementById('validName').innerHTML = "";
-			vName = true;
 		}
-		evaluaButton();
 	});
 
-	$("#email").change(function(){
+	$("#email").change(function(){//práctica 4
 		const campo = $("#email");
 		campo[0].setCustomValidity("");
 			
@@ -42,14 +27,12 @@ $(document).ready(function() {
 			campo[0].setCustomValidity("Introduce un correo válido");
 			//&#x26a0;
 			document.getElementById('validEmail').innerHTML = "&#x26a0;";
-			vEmail = false;
+			return false;
 		} else {
 			campo[0].setCustomValidity("");
 			//&#x2714;
 			document.getElementById('validEmail').innerHTML = "&#x2714;";
-			vEmail = true;
 		}
-		evaluaButton();
 	});
 
 	$("#password").change(function(){
@@ -57,13 +40,12 @@ $(document).ready(function() {
 		lon = pass.length;
 
 		if(lon < 5){
-			document.getElementById('validPass').innerHTML = "La contraseña debe tener una longitud de al menos 5";
-			vPass = false;
+			document.getElementById('validPass').innerHTML = "El password tiene que tener una longitud de al menos 5 caracteres";
+			return false;
 		} else {
 			document.getElementById('validPass').innerHTML = "";
-			vPass = true;
 		}
-		evaluaButton();
+
 	});
 
 	$("#password2").change(function(){
@@ -71,14 +53,10 @@ $(document).ready(function() {
 		pass2 = document.getElementById("password2").value;
 
 		if(pass != pass2){
-			document.getElementById('validPass2').innerHTML = "Las contraseñas no coinciden";
-			vPass2 = false;
+			document.getElementById('validPass2').innerHTML = "Los passwords deben coincidir";
+			return false;
 		} else {
 			document.getElementById('validPass2').innerHTML = "";
-			vPass2 = true;
 		}
-		evaluaButton();
 	});
-
-	evaluaButton();
 })

@@ -67,19 +67,19 @@ class FormularioRegistro extends Formulario
         $nombreUsuario = trim($datos['nombreUsuario'] ?? '');
         $nombreUsuario = filter_var($nombreUsuario, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if ( ! $nombreUsuario || mb_strlen($nombreUsuario) < 5) {
-            $this->errores['nombreUsuario'] = 'El nombre de usuario tiene que tener una longitud de al menos 5 caracteres.';
+            $this->errores['nombreUsuario'] = 'El nombre de usuario tiene que tener una longitud de al menos 5 caracteres';
         }
 
         $email = trim($datos['email'] ?? '');
         $email = filter_var($email, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if ( ! $email || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $this->errores['email'] = 'Introduce un email válido.';
+            $this->errores['email'] = 'Introduce un email válido';
         }
 
         $password = trim($datos['password'] ?? '');
         $password = filter_var($password, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if ( ! $password || mb_strlen($password) < 5 ) {
-            $this->errores['password'] = 'El password tiene que tener una longitud de al menos 5 caracteres.';
+            $this->errores['password'] = 'El password tiene que tener una longitud de al menos 5 caracteres';
         }
 
         $password2 = trim($datos['password2'] ?? '');
