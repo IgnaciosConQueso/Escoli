@@ -57,6 +57,7 @@ div.universidad img {
 	height: 3em;
     width: 3em;
 	float: left;
+	margin-right: 1em;
 }
 
 @media screen and (max-width: 800px) {

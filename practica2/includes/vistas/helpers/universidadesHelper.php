@@ -24,10 +24,9 @@ function generaHTMLUniversidad($data)
     $url = 'facultades.php?idUniversidad=' . $data->id;
     $html = '<div class="universidad">';
     $html .= '<p class="nombre-universidad">';
-    $html .= '<a href="' . $url . '">' . $data->nombre . '</a></p>';
     $html .= '<a href="' . $url . '">'. '<img src="' . $app->resuelveImagen('logo.png') . '" alt="imagen de la universidad" class="imagen-universidad">' . '</a>';
-
-    /* $html .= '<a href="' . $url . '">'. '<img src="' . RUTA_IMGS . $data->ruta . '" alt="imagen de la universidad" class="imagen-universidad">' . '</a>';*/$html .= botonBorraUniversidad($data->id);
+    $html .= '<a href="' . $url . '">' . $data->nombre . '</a></p>';
+    $html .= botonBorraUniversidad($data->id);
     $html .= botonEditaUniversidad($data->id);
     $html .= '</div>';
     return $html;
