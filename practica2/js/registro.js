@@ -1,10 +1,12 @@
 $(document).ready(function() {
 	
-	$("#nombreUsuario").change(function(){
+	$("#nombreUsuario").change(function(){//TODO
+		//comprobar que el usuario exista en la base de datos
 		username = document.getElementById("nombreUsuario").value;
+		lon = username.length;
 
-		if(username.lenght <5){
-			document.getElementById('validName').innerHTML = "La contraseña debe tener una longitud de al menos 5";
+		if(lon <5){
+			document.getElementById('validName').innerHTML = "El nombre debe tener una longitud de al menos 5";
 			return false;
 		} else {
 			document.getElementById('validName').innerHTML = "";
@@ -31,7 +33,8 @@ $(document).ready(function() {
 	});
 
 	$("#password").change(function(){
-		lon = document.getElementById("password").value.lenght;
+		pass = document.getElementById("password").value;
+		lon = pass.length;
 
 		if(lon < 5){
 			document.getElementById('validPass').innerHTML = "La contraseña debe tener una longitud de al menos 5";
