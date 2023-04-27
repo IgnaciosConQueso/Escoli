@@ -51,7 +51,7 @@ class FormularioRegistro extends Formulario
             </div>
             
             <div>
-                <button type="submit" name="registro">Registrar</button>
+                <button id="submit" type="submit" name="registro">Registrar</button>
             </div>
         </fieldset>
         

@@ -1,5 +1,17 @@
 $(document).ready(function() {
-	
+	vName = false;
+	vEmail = false;
+	vPass = false;
+	vPass2 = false;
+
+	function evaluaButton(){
+		if(vName && vEmail && vPass && vPass2){
+			document.getElementById("submit").disabled = false;
+		} else {
+			document.getElementById("submit").disabled = true;
+		}
+	}
+
 	$("#nombreUsuario").change(function(){//TODO
 		//comprobar que el usuario exista en la base de datos
 		username = document.getElementById("nombreUsuario").value;
@@ -7,10 +19,12 @@ $(document).ready(function() {
 
 		if(lon <5){
 			document.getElementById('validName').innerHTML = "El nombre debe tener una longitud de al menos 5";
-			return false;
+			vName = false;
 		} else {
 			document.getElementById('validName').innerHTML = "";
+			vName = true;
 		}
+		evaluaButton();
 	});
 
 	$("#email").change(function(){
@@ -28,12 +42,14 @@ $(document).ready(function() {
 			campo[0].setCustomValidity("Introduce un correo válido");
 			//&#x26a0;
 			document.getElementById('validEmail').innerHTML = "&#x26a0;";
-			return false;
+			vEmail = false;
 		} else {
 			campo[0].setCustomValidity("");
 			//&#x2714;
 			document.getElementById('validEmail').innerHTML = "&#x2714;";
+			vEmail = true;
 		}
+		evaluaButton();
 	});
 
 	$("#password").change(function(){
@@ -42,10 +58,12 @@ $(document).ready(function() {
 
 		if(lon < 5){
 			document.getElementById('validPass').innerHTML = "La contraseña debe tener una longitud de al menos 5";
-			return false;
+			vPass = false;
 		} else {
 			document.getElementById('validPass').innerHTML = "";
+			vPass = true;
 		}
+		evaluaButton();
 	});
 
 	$("#password2").change(function(){
@@ -54,9 +72,13 @@ $(document).ready(function() {
 
 		if(pass != pass2){
 			document.getElementById('validPass2').innerHTML = "Las contraseñas no coinciden";
-			return false;
+			vPass2 = false;
 		} else {
 			document.getElementById('validPass2').innerHTML = "";
+			vPass2 = true;
 		}
+		evaluaButton();
 	});
+
+	evaluaButton();
 })
