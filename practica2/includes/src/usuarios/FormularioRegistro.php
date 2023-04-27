@@ -48,7 +48,9 @@ class FormularioRegistro extends Formulario
                 <button type="submit" name="registro">Registrar</button>
             </div>
         </fieldset>
+        
         EOF;
+
         return $html;
     }
 
