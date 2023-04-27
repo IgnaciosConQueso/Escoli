@@ -44,6 +44,7 @@ class FormularioRegistro extends Formulario
                 <input id="password2" type="password" name="password2" />
                 {$erroresCampos['password2']}
             </div>
+            <div><span id = "validPass"></span></div>
             <div>
                 <button type="submit" name="registro">Registrar</button>
             </div>

@@ -16,4 +16,16 @@ $(document).ready(function() {
 			return false;
 		}
 	});
+
+	$("#password2").change(function(){
+		pass = document.getElementById("password").value;
+		pass2 = document.getElementById("password2").value;
+
+		if(pass != pass2){
+			document.getElementById('validPass').innerHTML = "Las contraseñas no coinciden";
+			return false;
+		} else {
+			document.getElementById('validPass').innerHTML = "";
+		}
+	});
 })
