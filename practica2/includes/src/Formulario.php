@@ -287,8 +287,9 @@ abstract class Formulario
         return $htmlForm;
     }
 
-    public static function buildButtonForm($url, $hiddenParams, $className = 'form', $buttonText='Enviar', $formTagAtts = [], $method = 'POST')
+    public static function buildButtonForm($url, $hiddenParams, $className=null, $buttonText='Enviar', $formTagAtts = [], $method = 'POST')
     {
+        $classAtt = $className != null ? "class=\"{$className}\"" : '';
         $formTagAtts = array_merge($formTagAtts, [
             'action' => $url,
             'method'=> $method
@@ -297,7 +298,7 @@ abstract class Formulario
         $formAtts = Aplicacion::buildParams($formTagAtts, ' ', '"');
         $hiddenFormParams = Formulario::buildHiddenFormParams($hiddenParams);
         return <<<EOS
-        <form {$formAtts} class ="$className" >
+        <form {$formAtts} {$classAtt}>
             {$hiddenFormParams}
             <button type="submit">{$buttonText}</button>
         </form>
