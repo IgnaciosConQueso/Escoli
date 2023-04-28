@@ -35,22 +35,20 @@ footer {
 }
 
 /* css para mostrar las universidades */
-
 div.universidad {
 	background-color: #5f5f5f;
 	color: #e1e1e1;
 	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	grid-template-rows: 1fr 0.25fr;
+	grid-template-columns: repeat(4, 7.8em);
+	grid-template-rows: 1fr 1.75em;
 	grid-template-areas: 
 		"img texto texto texto"
-		"img editar borrar .";
+		". editar borrar .";
 	gap: 0.5em;
 	padding: 1em;
 	margin-top: 0.5em;
 	margin-bottom: 0.5em;
 }
-
 
 div.universidad a {
 	color: #e1e1e1;
@@ -66,10 +64,12 @@ div.universidad img {
 	grid-area: img;
 	height: 3em;
 	width: 3em;
+	place-self: center end;
 }
 
 div.universidad p {
 	grid-area: texto;
+	place-self: center start;
 }
 
 div.universidad form.borra-universidad {
@@ -80,11 +80,47 @@ div.universidad form.borra-universidad {
 div.universidad form.edita-universidad{
 	grid-area: editar;
 	place-self: center;
+}
+/* fin de seccion css universidades */
 
+/* css para mostrar las facultades */
+
+div.facultad {
+	background-color: #5f5f5f;
+	color: #e1e1e1;
+	display: grid;
+	grid-template-columns: repeat(4, 7.8em);
+	grid-template-areas: 
+		"img texto texto texto";
+	gap: 0.5em;
+	padding: 1em;
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
 }
 
+div.facultad a {
+	color: #e1e1e1;
+	font-size: x-large;
+	text-decoration: none;
+}
 
-/* fin de seccion css universidades */
+div.facultad a:hover {
+	color: #1a2e5d;
+}
+
+div.facultad img {
+	grid-area: img;
+	height: 3em;
+	width: 3em;
+	place-self: center end;
+}
+
+div.facultad p {
+	grid-area: texto;
+	place-self: center start;
+}
+
+/* fin de seccion css facultades */
 
 @media screen and (max-width: 800px) {
 	main {

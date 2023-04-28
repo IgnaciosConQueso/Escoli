@@ -2,6 +2,7 @@
 
 use escoli\centros\Facultad;
 use escoli\centros\Universidad;
+use escoli\Aplicacion;
 
 function listaFacultades($idFacultad)
 {
@@ -20,10 +21,11 @@ function listaFacultades($idFacultad)
 
 function generaHTMLFacultad($data)
 {
+    $app = Aplicacion::getInstance();
     $url = 'valoraciones.php?idFacultad=' . $data->id;
     $html = '<div class="facultad">';
-    $html .= '<p class="nombre-facultad">';
-    $html .= '<a href="' . $url . '">' . $data->nombre . '</a></p>';
+    $html .= '<a class="imagen" href="' . $url . '">' . '<img src="' .  $app->resuelveImagen('logo.png') . '" alt="imagen de la facultad">' . '</a>';
+    $html .= '<p class="nombre-facultad"><a href="' . $url . '">' . $data->nombre . '</a></p>';
     $html .= '</div>';
     return $html;
 }
