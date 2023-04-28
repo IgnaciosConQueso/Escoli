@@ -10,7 +10,7 @@ TRUNCATE TABLE `Asignaturas`;
 TRUNCATE TABLE `Valoraciones`;
 TRUNCATE TABLE `Encuestas`;
 TRUNCATE TABLE `CamposEncuestas`;
-
+TRUNCATE TABLE `Karma`;
 
 INSERT INTO `Profesores` (`id`, `nombre`) VALUES
 ('1', 'Walter White'),
@@ -44,10 +44,10 @@ INSERT INTO `Asignaturas` (`id`, `idFacultad`, `idProfesor`, `nombre`) VALUES
 ('6', '4', '5', 'Cuidado de Criaturas Mágicas'),
 ('7', '5', '6', 'Herbología');
 
-INSERT INTO `Valoraciones` (`id`, `idUsuario`, `idProfesor`, `fecha`, `comentario`, `puntuacion`, `likes`) VALUES
-('1', '1', '1', current_timestamp(), 'Es un profesor maravilloso', '4', '0'),
-('2', '1', '1', current_timestamp(), 'Me gusta más que ninguno', '3', '0'),
-('3', '1', '1', current_timestamp(), 'Un profesor excepcional', '5', '0'),
-('4', '1', '4', current_timestamp(), 'Muy sabio y amable', '4', '0'),
-('5', '1', '5', current_timestamp(), 'Tiene un gran conocimiento de las criaturas mágicas', '4', '0'),
-('6', '1', '6', current_timestamp(), 'Sus clases son muy interesantes y divertidas', '5', '0');
+INSERT INTO `Valoraciones` (`idUsuario`, `idProfesor`, `fecha`, `comentario`, `puntuacion`, `likes`) VALUES
+( '1', '1', current_timestamp(), 'Es un profesor maravilloso', '4', '0'),
+( '1', '1', current_timestamp(), 'Me gusta más que ninguno', '3', '0'),
+( '1', '1', current_timestamp(), 'Un profesor excepcional', '5', '0'),
+('1', '4', current_timestamp(), 'Muy sabio y amable', '4', '0'),
+('1', '5', current_timestamp(), 'Tiene un gran conocimiento de las criaturas mágicas', '4', '0'),
+('1', '6', current_timestamp(), 'Sus clases son muy interesantes y divertidas', '5', '0');

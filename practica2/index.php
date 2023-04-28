@@ -1,19 +1,16 @@
 <?php
 
 require_once __DIR__ . '/includes/config.php';
-require_once __DIR__ . '/includes/vistas/helpers/index.php';
+require_once __DIR__ . '/includes/vistas/helpers/valoracionesHelper.php';
 
 $tituloPagina = 'Escoli';
-$linkUniversidad = 'registroUniversidad.php';
-$linkFacultad = 'registroFacultad.php';
-$linkBorraFacultad = 'borraFacultad.php';
-$botonUniversidad = '<a href="registroUniversidad.php"> Añadir universidad</a>';
-$botonFacultad = '<a href=' . $linkFacultad . '><button> Añadir facultad </button>';
-$botonBorraFacultad = '<a href=' . $linkBorraFacultad . '><button> Borrar facultad </button>';
-$contenidoPrincipal = listaUniversidades() . $botonFacultad;
+$contenidoPrincipal = "<h1>Valoraciones más recientes</h1>";
+$contenidoPrincipal .= listaValoraciones($app->resuelve('/index.php'));
 
+$menuCabecera = '';
+$_SESSION['linksCabecera'] = $menuCabecera;
 
-$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal, 'botonesCabecera' => $botonUniversidad];
+$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];
 $app->generaVista('/plantillas/plantillaPrincipal.php', $params);
 
 ?>

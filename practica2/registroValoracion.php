@@ -8,6 +8,8 @@ if(!$app->usuarioLogueado()){
     $app->paginaError(403, 'Error', 'Oops', 'Debe estar logueado para acceder a esta página');
 }
 
+$_POST['idFacultad'] = $_GET['idFacultad'];
+
 $formVal = new \escoli\contenido\FormularioValoracion();
 $formVal = $formVal->gestiona();
 

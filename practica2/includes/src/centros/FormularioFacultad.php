@@ -13,7 +13,8 @@ class FormularioFacultad extends Formulario
     const EXTENSIONES_PERMITIDAS = array('gif', 'jpg', 'jpe', 'jpeg', 'png', 'webp', 'avif');
     public function __construct()
     {
-        parent::__construct('formFacultad', ['enctype' => 'multipart/form-data', 'urlRedireccion' => 'index.php']);
+        parent::__construct('formFacultad', ['enctype' => 'multipart/form-data', 'urlRedireccion' => Aplicacion::getInstance()->resuelve('/index.php')]);
+
     }
 
     protected function generaCamposFormulario(&$datos)
@@ -113,7 +114,7 @@ class FormularioFacultad extends Formulario
         
         $iduniversidad = filter_var($datos['universidad'], FILTER_SANITIZE_NUMBER_INT);
         if (!$iduniversidad) {
-            $this->errores['universidad'] = "La universidad no es válida.";
+            $this->errores['universidad'] = "Debes seleccionar una universidad.";
         }
 
         if (count($this->errores) === 0) {

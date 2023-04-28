@@ -29,23 +29,30 @@ class FormularioRegistro extends Formulario
             <div>
                 <label for="nombreUsuario">Nombre de usuario:</label>
                 <input id="nombreUsuario" type="text" name="nombreUsuario" value="$nombreUsuario" />
+                <span id="validName"></span>
                 {$erroresCampos['nombreUsuario']}
             </div>
+            
             <div>
                 <label for="email">Email:</label>
-                <input id="email" type="text" name="email" value="$email" />
+                <input type="email" id="email" name="email" value="$email" />
+                <span id = "validEmail"></span>
                 {$erroresCampos['email']}
             </div>
             <div>
                 <label for="password">Password:</label>
                 <input id="password" type="password" name="password" />
+                <span id="validPass"></span>
                 {$erroresCampos['password']}
             </div>
+            
             <div>
                 <label for="password2">Reintroduce el password:</label>
                 <input id="password2" type="password" name="password2" />
+                <span id = "validPass2"></span>
                 {$erroresCampos['password2']}
             </div>
+            
             <div>
                 <label for="archivo">Archivo: <input type="file" name="archivo" id="archivo" /></label>
                 {$erroresCampos['archivo']}
@@ -55,6 +62,7 @@ class FormularioRegistro extends Formulario
             </div>
         </fieldset>
         EOF;    
+
         return $html;
     }
 
@@ -113,19 +121,19 @@ class FormularioRegistro extends Formulario
         $nombreUsuario = trim($datos['nombreUsuario'] ?? '');
         $nombreUsuario = filter_var($nombreUsuario, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if ( ! $nombreUsuario || mb_strlen($nombreUsuario) < 5) {
-            $this->errores['nombreUsuario'] = 'El nombre de usuario tiene que tener una longitud de al menos 5 caracteres.';
+            $this->errores['nombreUsuario'] = 'El nombre de usuario tiene que tener una longitud de al menos 5 caracteres';
         }
 
         $email = trim($datos['email'] ?? '');
         $email = filter_var($email, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if ( ! $email || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $this->errores['email'] = 'Introduce un email válido.';
+            $this->errores['email'] = 'Introduce un email válido';
         }
 
         $password = trim($datos['password'] ?? '');
         $password = filter_var($password, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if ( ! $password || mb_strlen($password) < 5 ) {
-            $this->errores['password'] = 'El password tiene que tener una longitud de al menos 5 caracteres.';
+            $this->errores['password'] = 'El password tiene que tener una longitud de al menos 5 caracteres';
         }
 
         $password2 = trim($datos['password2'] ?? '');
