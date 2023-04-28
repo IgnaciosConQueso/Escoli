@@ -123,11 +123,11 @@ ALTER TABLE `Encuestas` ADD CONSTRAINT `Encuestas_idUsuario` FOREIGN KEY (`idUsu
 
 ALTER TABLE `CamposEncuestas` ADD CONSTRAINT `CamposEncuestas_idEncuesta` FOREIGN KEY (`idEncuesta`) REFERENCES `Encuestas`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+ALTER TABLE `Usuarios` ADD CONSTRAINT `Usuarios_idImagen` FOREIGN KEY (`idImagen`) REFERENCES `Imagenes`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 ALTER TABLE `Karma` ADD CONSTRAINT `Karma_idUsuario` FOREIGN KEY (`idUsuario`) REFERENCES `Usuarios`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `Karma` ADD CONSTRAINT `Karma_idValoracion` FOREIGN KEY (`idValoracion`) REFERENCES `Valoraciones`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `Karma` ADD CHECK (valor = -1 OR valor = 1);
 ALTER TABLE `Karma` ADD CONSTRAINT `unique_Karma_idUsuario` UNIQUE (`idUsuario`, `idValoracion`);
-
 
 DELIMITER $$
 CREATE OR REPLACE TRIGGER insertar_rol_despues_de_insertar_usuario

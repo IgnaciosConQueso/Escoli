@@ -9,9 +9,9 @@ class Facultad
 {
     use MagicProperties;
 
-    public static function crea($nombre, $idUniversidad)
+    public static function crea($nombre, $idUniversidad, $idImagen = null)
     {
-        $facultad = new Facultad($nombre, $idUniversidad);
+        $facultad = new Facultad($nombre, $idUniversidad, $idImagen);
         return $facultad->guarda();
     }
 
@@ -42,7 +42,7 @@ class Facultad
         if ($rs) {
             $result = array();
             while ($fila = $rs->fetch_assoc()) {
-                $facultad = new Facultad($fila['nombre'], $fila['idUniversidad'], $fila['id']);
+                $facultad = new Facultad($fila['nombre'], $fila['idUniversidad'], $fila['id'], $fila['idImagen']);
                 array_push($result, $facultad);
             }
             $rs->free();
@@ -61,7 +61,7 @@ class Facultad
         if ($rs) {
             $fila = $rs->fetch_assoc();
             if ($fila) {
-                $result = new Facultad($fila['nombre'], $fila['idUniversidad'], $fila['id']);
+                $result = new Facultad($fila['nombre'], $fila['idUniversidad'], $fila['id'], $fila['idImagen']);
             }
             $rs->free();
         } else {
@@ -79,7 +79,7 @@ class Facultad
         if ($rs) {
             $fila = $rs->fetch_assoc();
             if ($fila) {
-                $result = new Facultad($fila['nombre'], $fila['idUniversidad'], $fila['id']);
+                $result = new Facultad($fila['nombre'], $fila['idUniversidad'], $fila['id'], $fila['idImagen']);
             }
             $rs->free();
         } else {
@@ -93,10 +93,11 @@ class Facultad
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
-            "UPDATE Facultades F SET F.nombre='%s', F.idUniversidad='%i' WHERE F.id='%i'"
+            "UPDATE Facultades F SET F.nombre='%s', F.idUniversidad='%i', F.idImagen='%d' WHERE F.id='%i'"
             , $conn->real_escape_string($facultad->nombre)
             , $conn->real_escape_string($facultad->idUniversidad)
             , $conn->real_escape_string($facultad->id)
+            , $conn->real_escape_string($facultad->idImagen)
         );
         if (!$conn->query($query)) {
             error_log("Error al actualizar la facultad: {$conn->errno} {$conn->error}");
@@ -108,9 +109,10 @@ class Facultad
     {
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("INSERT INTO Facultades (nombre, idUniversidad) VALUES('%s', '%d')",
+        $query = sprintf("INSERT INTO Facultades (nombre, idUniversidad, idImagen) VALUES('%s', '%d', '%d')",
             $conn->real_escape_string($facultad->nombre),
-            filter_var($facultad->idUniversidad, FILTER_SANITIZE_NUMBER_INT)
+            filter_var($facultad->idUniversidad, FILTER_SANITIZE_NUMBER_INT),
+            $conn->real_escape_string($facultad->idImagen)
         );
         if (!$conn->query($query)) {
             error_log("Error al insertar la facultad: {$conn->errno} {$conn->error}");
@@ -139,11 +141,15 @@ class Facultad
 
     private $idUniversidad;
 
-    private function __construct($nombre, $idUniversidad, $id = null)
+    private $idImagen;
+
+
+    private function __construct($nombre, $idUniversidad,$idImagen = null, $id = null)
     {
         $this->id = $id;
         $this->nombre = $nombre;
         $this->idUniversidad = $idUniversidad;
+        $this->idImagen = $idImagen;
     }
 
     public function getId()
@@ -159,6 +165,11 @@ class Facultad
     public function getIdUniversidad()
     {
         return $this->idUniversidad;
+    }
+
+    public function getIdImagen()
+    {
+        return $this->idImagen;
     }
 }
 
