@@ -287,7 +287,7 @@ abstract class Formulario
         return $htmlForm;
     }
 
-    public static function buildButtonForm($url, $className = 'form', $hiddenParams, $buttonText='Enviar', $formTagAtts = [], $method = 'POST')
+    public static function buildButtonForm($url, $hiddenParams, $className = 'form', $buttonText='Enviar', $formTagAtts = [], $method = 'POST')
     {
         $formTagAtts = array_merge($formTagAtts, [
             'action' => $url,
