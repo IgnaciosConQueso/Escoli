@@ -297,7 +297,7 @@ abstract class Formulario
         $formAtts = Aplicacion::buildParams($formTagAtts, ' ', '"');
         $hiddenFormParams = Formulario::buildHiddenFormParams($hiddenParams);
         return <<<EOS
-        <form class ="$className" {$formAtts}>
+        <form {$formAtts} class ="$className" >
             {$hiddenFormParams}
             <button type="submit">{$buttonText}</button>
         </form>
