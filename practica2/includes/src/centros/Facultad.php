@@ -135,8 +135,8 @@ class Facultad
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("INSERT INTO Facultades (nombre, idUniversidad, idImagen) VALUES('%s', '%d', '%d')",
             $conn->real_escape_string($facultad->nombre),
-            $conn->real_escape_string($facultad->idImagen),
-            filter_var($facultad->idUniversidad, FILTER_SANITIZE_NUMBER_INT)
+            filter_var($facultad->idUniversidad, FILTER_SANITIZE_NUMBER_INT),
+            $conn->real_escape_string($facultad->idImagen)
         );
         if (!$conn->query($query)) {
             error_log("Error al insertar la facultad: {$conn->errno} {$conn->error}");
@@ -169,7 +169,7 @@ class Facultad
     private $idImagen;
 
 
-    private function __construct($nombre, $idUniversidad, $id = null, $idImagen = null)
+    private function __construct($nombre, $idUniversidad,$idImagen = null, $id = null)
     {
         $this->id = $id;
         $this->nombre = $nombre;

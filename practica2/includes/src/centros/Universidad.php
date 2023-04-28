@@ -9,7 +9,7 @@ class Universidad
 {
     use MagicProperties;
 
-    public static function crea($nombre, $id = null, $idImagen = null)
+    public static function crea($nombre,$idImagen = null, $id = null)
     {
         $universidad = new Universidad($nombre, $id, $idImagen);
         return $universidad->guarda();
@@ -121,8 +121,8 @@ class Universidad
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("INSERT INTO Universidades (id, nombre, idImagen) VALUES('%d', '%s', '%d')",
          filter_var($universidad->id, FILTER_SANITIZE_NUMBER_INT),
-         $conn->real_escape_string($universidad->idImagen),
-         $conn->real_escape_string($universidad->nombre));
+         $conn->real_escape_string($universidad->nombre),
+         $conn->real_escape_string($universidad->idImagen));
         if ($conn->query($query)) {
             $universidad->id = $conn->insert_id;
             return true;
