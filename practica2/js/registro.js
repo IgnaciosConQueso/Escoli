@@ -1,15 +1,7 @@
 $(document).ready(function() {
-	$("#nombreUsuario").change(function(){//TODO
-		//comprobar que el usuario exista en la base de datos
-		username = document.getElementById("nombreUsuario").value;
-		lon = username.length;
-
-		if(lon <5){
-			document.getElementById('validName').innerHTML = "El nombre de usuario tiene que tener una longitud de al menos 5 caracteres";
-			return false;
-		} else {
-			document.getElementById('validName').innerHTML = "";
-		}
+	$("#nombreUsuario").change(function(){
+		var url = "comprobarUsuario.php?user=" + $("#nombreUsuario").val();
+		$.get(url,usuarioExiste);
 	});
 
 	$("#email").change(function(){//práctica 4
@@ -17,7 +9,7 @@ $(document).ready(function() {
 		campo[0].setCustomValidity("");
 			
 		// validación html5, porque el campo es <input type="email" ...>
-		const esCorreoValido = campo[0].checkValidity();
+		const esCorreoValido = campo[0].checkValidity();//va pocha, funciona con user@user por ejemplo
 		
 		//para la comprobación de cadena vacía
 		correo = document.getElementById("email").value;
@@ -59,4 +51,23 @@ $(document).ready(function() {
 			document.getElementById('validPass2').innerHTML = "";
 		}
 	});
+
+	function usuarioExiste(data,status) {//ejercicio 4
+		if (data == "true") {
+			//&#x26a0;
+			document.getElementById('validName').innerHTML = "&#x26a0;";
+			alert("USUARIO YA EXISTE");
+		}
+		else {
+			username = document.getElementById("nombreUsuario").value;
+			lon = username.length;
+			if(lon <5){
+				document.getElementById('validName').innerHTML = "El nombre de usuario tiene que tener una longitud de al menos 5 caracteres";
+				return false;
+			} else {
+				//&#x2714;
+				document.getElementById('validName').innerHTML = "&#x2714;";
+			}
+		}
+	}
 })
