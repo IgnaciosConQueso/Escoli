@@ -92,8 +92,14 @@ function generaHTMLValoracion($valoracion, $url)
     $html .= '<p class="fecha">' . "fecha: " . $valoracion->fecha . '</p>';
     $html .= '<p class="comentario">' . "comentario: " . $valoracion->comentario . '</p>';
     $html .= '<p class="likes">' . "likes: " . $valoracion->likes . '</p>';
-    $html .= botonLike($url, $valoracion->getId(), $valoracion->getLikes());
-    $html .= botonDislike($url, $valoracion->getId(), $valoracion->getLikes());
+    $html .= '<button class="like" data-idVal = "'. $valoracion->id .
+             '" data-likes = "' . $valoracion->likes.  //v Esto no se si se puede hacer de otra forma, abierto a sugerencias.
+             '" data-api = "'. Aplicacion::getInstance()->resuelve('/includes/vistas/helpers/api_likes.php').'"
+              >👍</button>';
+    $html .= '<button class="dislike"data-idVal = "'. $valoracion->id .
+             '" data-likes = "' . $valoracion->likes. '"
+              data-api = "'. Aplicacion::getInstance()->resuelve('/includes/vistas/helpers/api_likes.php').'"
+             >👎</button>';
     $html .= '</div>';
     $html .= '</li>';
     return $html;
@@ -113,19 +119,19 @@ function botonLike($origen, $id, $likes)
 {
     $valor = 1;
     $app = Aplicacion::getInstance();
-    $api = $app->resuelve('/includes/src/contenido/api_likes.php');
+    $api = $app->resuelve('/includes/vistas/helpers/api_likes.php');
     return Formulario::buildButtonForm($api, 
     ['url' => $origen, 'id' => $id, 'likes' => $likes, 'valor' => $valor],
-     '👍');
+     'like', '👍');
 }
 
 function botonDislike($origen, $id, $likes)
 {
     $valor = -1;
     $app = Aplicacion::getInstance();
-    $api = $app->resuelve('/includes/src/contenido/api_likes.php');
+    $api = $app->resuelve('/includes/vistas/helpers/api_likes.php');
     return Formulario::buildButtonForm($api, 
     ['url' => $origen, 'id' => $id, 'likes' => $likes, 'valor' => $valor],
-     '👎');
+     'dislike','👎');
 }
 ?>

@@ -8,13 +8,14 @@
     <title>
         <?= $params['tituloPagina'] ?>
     </title>
-    <script src = <?= $params['scripts'] ?>>
-    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src = <?= $params['script'] ?>></script>
     <link rel="stylesheet" type="text/css" href="<?= $params['app']->resuelve('/css/estilo.css') ?>" />
     <title>Document</title>
 </head>
 
 <body>
+    
     <?= $params['app']->doInclude('/includes/vistas/comun/cabecera.php', $params); ?>
     <main>
         <?= $params['contenidoPrincipal'] ?>

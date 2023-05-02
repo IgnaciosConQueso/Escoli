@@ -117,6 +117,7 @@ class FormularioRegistro extends Formulario
                  $usuario = Usuario::crea($nombreUsuario, $password, $email, null);
                 $app = Aplicacion::getInstance();
                 $app->login($usuario);
+                $app->redirige($app->resuelve('/index.php'));
             }
         }
     }

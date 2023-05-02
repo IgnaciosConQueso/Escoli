@@ -10,7 +10,7 @@ $contenidoPrincipal .= listaValoraciones($app->resuelve('/index.php'));
 $menuCabecera = '';
 $_SESSION['linksCabecera'] = $menuCabecera;
 
-$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];
-$app->generaVista('/plantillas/plantillaPrincipal.php', $params);
+$params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal, 'script' => $app->resuelve('/js/gestionLikes.js')];
+$app->generaVista('/plantillas/plantillaPrincipalJS.php', $params);
 
 ?>

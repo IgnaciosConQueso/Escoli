@@ -264,7 +264,7 @@ class Valoracion
         return true;
     }
 
-    public static function gestionaLikes($id, $likes)
+    public static function actualizaLikes($id, $likes)
     {
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();

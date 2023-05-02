@@ -128,6 +128,43 @@ class LikesyKarma
         return false;
     }
 
+    public static function existeLike($idUsuario, $idValoracion)
+    {
+        $salida = false;
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM Karma K WHERE K.idUsuario='%d' AND K.idValoracion=%d",
+         $conn->real_escape_string($idUsuario),
+         $conn->real_escape_string($idValoracion)
+        );
+        $rs = $conn->query($query);
+        if ($rs) {
+            $salida = true;
+            $rs->free();
+        } 
+        return $salida;
+    }
+
+    public static function valorLike($idUsuario, $idValoracion)
+    {
+        $valor = 0;
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM Karma K WHERE K.idUsuario='%d' AND K.idValoracion=%d",
+         $conn->real_escape_string($idUsuario),
+         $conn->real_escape_string($idValoracion)
+        );
+        $rs = $conn->query($query);
+        if ($rs) {
+            $fila = $rs->fetch_assoc();
+            if ($fila) {
+                $valor = $fila['valor'];
+            }
+            $rs->free();
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $valor;
+    }
+
 
     private function __construct( $idUsuario, $idValoracion, $valor,$id = null)
     {
