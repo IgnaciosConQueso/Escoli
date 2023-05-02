@@ -95,17 +95,28 @@ class Usuario
     {
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query=sprintf("INSERT INTO Usuarios(nombreUsuario, email, password, idImagen)
-            VALUES ('%s', '%s', '%s', '%d')",
+        if($usuario->idImagen == null){ //esto es por culpa de que el %d no representa nulos.
+            $query=sprintf("INSERT INTO Usuarios(nombreUsuario, email, password, idImagen)
+            VALUES ('%s', '%s', '%s', null)",
             $conn->real_escape_string($usuario->nombreUsuario),
             $conn->real_escape_string($usuario->email),
             $conn->real_escape_string($usuario->password),
-            $conn->real_escape_string($usuario->idImagen)
         );
+        } else {
+            $query=sprintf("INSERT INTO Usuarios(nombreUsuario, email, password, idImagen)
+                VALUES ('%s', '%s', '%s', '%d')",
+                $conn->real_escape_string($usuario->nombreUsuario),
+                $conn->real_escape_string($usuario->email),
+                $conn->real_escape_string($usuario->password),
+                $conn->real_escape_string($usuario->idImagen)
+            );
+        }
         if ( $conn->query($query) ) {
             $usuario->id = $conn->insert_id;
             $result = $usuario;
         } else {
+            
+            file_put_contents("falloBD.txt",$query);
             error_log("Error BD ({$conn->errno}): {$conn->error}");
         }
         return $result;

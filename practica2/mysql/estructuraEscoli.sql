@@ -1,6 +1,7 @@
 /*
   Recuerda que deshabilitar la opción "Enable foreign key checks" para evitar problemas a la hora de importar el script.
 */
+
 DROP TABLE IF EXISTS `Usuarios`;
 DROP TABLE IF EXISTS `RolesUsuario`;
 DROP TABLE IF EXISTS `Universidades`;
@@ -103,6 +104,7 @@ CREATE TABLE IF NOT EXISTS `Karma` (
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
 
+
 ALTER TABLE `Usuarios` ADD CONSTRAINT `Usuarios_idImagen` FOREIGN KEY (`idImagen`) REFERENCES `Imagenes`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 ALTER TABLE `Universidades` ADD CONSTRAINT `Universidades_idImagen` FOREIGN KEY (`idImagen`) REFERENCES `Imagenes`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 ALTER TABLE `Facultades` ADD CONSTRAINT `Facultades_idImagen` FOREIGN KEY (`idImagen`) REFERENCES `Imagenes`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
@@ -123,7 +125,6 @@ ALTER TABLE `Encuestas` ADD CONSTRAINT `Encuestas_idUsuario` FOREIGN KEY (`idUsu
 
 ALTER TABLE `CamposEncuestas` ADD CONSTRAINT `CamposEncuestas_idEncuesta` FOREIGN KEY (`idEncuesta`) REFERENCES `Encuestas`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE `Usuarios` ADD CONSTRAINT `Usuarios_idImagen` FOREIGN KEY (`idImagen`) REFERENCES `Imagenes`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 ALTER TABLE `Karma` ADD CONSTRAINT `Karma_idUsuario` FOREIGN KEY (`idUsuario`) REFERENCES `Usuarios`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `Karma` ADD CONSTRAINT `Karma_idValoracion` FOREIGN KEY (`idValoracion`) REFERENCES `Valoraciones`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `Karma` ADD CHECK (valor = -1 OR valor = 1);

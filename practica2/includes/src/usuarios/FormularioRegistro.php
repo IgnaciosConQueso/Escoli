@@ -54,7 +54,7 @@ class FormularioRegistro extends Formulario
             </div>
             
             <div>
-                <label for="archivo">Archivo: <input type="file" name="archivo" id="archivo" /></label>
+                <label for="archivo">Foto de Perfil: <input type="file" name="archivo" id="archivo" /></label>
                 {$erroresCampos['archivo']}
             </div>
             <div>
@@ -73,50 +73,14 @@ class FormularioRegistro extends Formulario
         $this->errores = [];
          // Verificamos que la subida ha sido correcta
          $ok = $_FILES['archivo']['error'] == UPLOAD_ERR_OK && count($_FILES) == 1;
-         if (! $ok ) {
-             $this->errores['archivo'] = 'Error al subir el archivo';
-             return;
-         } 
-         
-         $nombre = $_FILES['archivo']['name'];
-         /* 1.a) Valida el nombre del archivo */
-         $ok = self::check_file_uploaded_name($nombre) && $this->check_file_uploaded_length($nombre);
- 
-         /* 1.b) Sanitiza el nombre del archivo (elimina los caracteres que molestan)
-         $ok = self::sanitize_file_uploaded_name($nombre);
-         */
- 
-         /* 1.c) Utilizar un id de la base de datos como nombre de archivo */
-         // Vamos a optar por esta opción que es la que se implementa más adelante
- 
-         /* 2. comprueba si la extensión está permitida */
-         $extension = pathinfo($nombre, PATHINFO_EXTENSION);
-         $ok = $ok && in_array($extension, self::EXTENSIONES_PERMITIDAS);
- 
-         /* 3. comprueba el tipo mime del archivo corresponde a una imagen image/* */
-         $finfo = new \finfo(FILEINFO_MIME_TYPE);
-         $mimeType = $finfo->file($_FILES['archivo']['tmp_name']);
-         $ok = preg_match('/image\/*./', $mimeType);
- 
-         if (!$ok) {
-             $this->errores['archivo'] = 'El archivo tiene un nombre o tipo no soportado';
-         }
- 
-         if (count($this->errores) > 0) {
-             return;
-         }
- 
-         $tmp_name = $_FILES['archivo']['tmp_name'];
- 
-         $imagen = Imagen::crea($nombre, $mimeType, '');
-         $imagen->guarda();
-         $fichero = "{$imagen->getId()}.{$extension}";
-         $imagen->setRuta('\usuarios\\'.$fichero);
-         $imagen->guarda();
-         $ruta = implode(DIRECTORY_SEPARATOR, [RUTA_IMGS.'\usuarios', $fichero]);
-         if (!move_uploaded_file($tmp_name, $ruta)) {
-             $this->errores['archivo'] = 'Error al mover el archivo';
-         }
+         if ($ok ) {
+            $imagen = self :: procesaImagen();
+        } else {
+            $this->errores['archivo'] = 'Error al subir el archivo';
+            $imagen = null;
+        }
+        
+        
  
         $nombreUsuario = trim($datos['nombreUsuario'] ?? '');
         $nombreUsuario = filter_var($nombreUsuario, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -143,18 +107,67 @@ class FormularioRegistro extends Formulario
         }
 
        
-        if (count($this->errores) === 0) {
+        if (count($this->errores) === 0 || ($this->errores['archivo'] && !$imagen)) {
             $usuario = Usuario::buscaUsuario($nombreUsuario);
 	
             if ($usuario) {
                 $this->errores[] = "El usuario ya existe";
             } else {
-                $usuario = Usuario::crea($nombreUsuario, $password, $email, $imagen->getId());
+                ($imagen) ? $usuario = Usuario::crea($nombreUsuario, $password, $email, $imagen->getId()) :
+                 $usuario = Usuario::crea($nombreUsuario, $password, $email, null);
                 $app = Aplicacion::getInstance();
                 $app->login($usuario);
             }
         }
     }
+
+
+    private function procesaImagen(){
+
+        $nombre = $_FILES['archivo']['name'];
+         /* 1.a) Valida el nombre del archivo */
+         $ok = self::check_file_uploaded_name($nombre) && $this->check_file_uploaded_length($nombre);
+ 
+         /* 1.b) Sanitiza el nombre del archivo (elimina los caracteres que molestan)
+         $ok = self::sanitize_file_uploaded_name($nombre);
+         */
+ 
+         /* 1.c) Utilizar un id de la base de datos como nombre de archivo */
+         // Vamos a optar por esta opción que es la que se implementa más adelante
+ 
+         /* 2. comprueba si la extensión está permitida */
+         $extension = pathinfo($nombre, PATHINFO_EXTENSION);
+         $ok = $ok && in_array($extension, self::EXTENSIONES_PERMITIDAS);
+ 
+         /* 3. comprueba el tipo mime del archivo corresponde a una imagen image/* */
+         $finfo = new \finfo(FILEINFO_MIME_TYPE);
+         $mimeType = $finfo->file($_FILES['archivo']['tmp_name']);
+         $ok = preg_match('/image\/*./', $mimeType);
+ 
+         if (!$ok) {
+             $this->errores['archivo'] = 'El archivo tiene un nombre o tipo no soportado';
+         }
+
+        if (count($this->errores) > 0) {
+            return;
+        }
+
+        $tmp_name = $_FILES['archivo']['tmp_name'];
+
+        $imagen = Imagen::crea($nombre, $mimeType, '');
+        $imagen->guarda();
+        $fichero = "{$imagen->getId()}.{$extension}";
+        $imagen->setRuta('\usuarios\\'.$fichero);
+        $imagen->guarda();
+        $ruta = implode(DIRECTORY_SEPARATOR, [RUTA_IMGS.'\usuarios', $fichero]);
+        if (!move_uploaded_file($tmp_name, $ruta)) {
+            $this->errores['archivo'] = 'Error al mover el archivo';
+        }
+
+        return $imagen;
+    }
+
+
      /**
      * Check $_FILES[][name]
      *
