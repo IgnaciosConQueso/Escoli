@@ -3,14 +3,14 @@
 use escoli\Aplicacion;
 
 require_once __DIR__ . '/includes/config.php';
-require_once __DIR__ . '/includes/vistas/helpers/valoracion.php';
+require_once __DIR__ . '/includes/vistas/helpers/valoracionesHelper.php';
 
 $app = Aplicacion::getInstance();
 
 $idUser = $app->idUsuario();
 $nombreUser = $app->nombreUsuario();
 $contenidoValoraciones = listaValoracionesUsuario($idUser, $app->resuelve('/perfilAlumno.php'));
-$numLikes = listaNumeroDeLikes($idUser);
+$numLikes = muestraLikesTotales($idUser);
 $topCinco = listaTopCinco($idUser, $app->resuelve('/perfilAlumno.php'));
 
 $tituloPagina = 'Perfil alumno';
@@ -26,10 +26,12 @@ $contenidoPrincipal = <<<EOF
 EOF;
 
 $contenidoSideBarDer = <<<EOF
+	<div class="seccion-usuario">	
 	<h1>Nombre de usuario</h1>
 	$nombreUser
 	<h1>Numero de likes</h1>
-	$numLikes
+	$numLikes 
+	</div>
 EOF;
 
 $params = ['tituloPagina' => $tituloPagina, 'contenidoSideBarIzq' => $contenidoSideBarIzq, 

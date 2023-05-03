@@ -135,7 +135,7 @@ class Valoracion
     }
 
     /* Suma los likes de todas las valoraciones de un usuario */
-    public static function listaNumeroDeLikes($idUsuario)
+    public static function sumaLikes($idUsuario)
     {
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
@@ -151,7 +151,6 @@ class Valoracion
         }
         return $result;
     }
-
 
     public static function buscaUltimasValoracionesFacultad($idFacultad, $numPorPagina = 10, $numPagina = 1)
     {
