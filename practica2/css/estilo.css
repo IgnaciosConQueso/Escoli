@@ -20,6 +20,7 @@ aside#sidebarDer {
 	width: 25%;
 	float: right;
 	display: block;
+	padding-left: 5%;
 }
 
 main {
@@ -121,6 +122,36 @@ div.facultad p {
 }
 
 /* fin de seccion css facultades */
+
+/* css para mostrar las valoraciones */
+
+div.valoracion {
+	background-color: #5f5f5f;
+	color: #e1e1e1;
+	border: 0.25em solid #a1a1a1;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	margin-left: 0.5em;
+	margin-right: 0.5em;
+	padding: 0.5em;
+}
+
+div.valoracion p {
+	grid-area: texto;
+
+}
+
+/* fin de seccion css valoraciones */
+
+/* misc */
+
+div.seccion-usuario {
+	margin-top: 1.5em;
+	margin-bottom: 1em;
+	margin-left: 3em;
+	margin-right: 1em;
+}
+
 
 @media screen and (max-width: 800px) {
 	main {

@@ -54,6 +54,21 @@ class Profesor
         return $result;
     }
 
+    public static function nombreProfesorPorId($id){
+        $result = false;
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT nombre FROM Profesores WHERE id='%d'", filter_var($id, FILTER_SANITIZE_NUMBER_INT));
+        $rs = $conn->query($query);
+        if ($rs) {
+            $fila = $rs->fetch_assoc();
+            $result = $fila['nombre'];
+            $rs->free();
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
+    }
+
     private static function actualiza($profesor)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();

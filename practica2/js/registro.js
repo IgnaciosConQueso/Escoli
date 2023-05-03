@@ -1,4 +1,7 @@
 $(document).ready(function() {
+	const okIcon = "&#x2714;";
+	const errorIcon = "&#x26a0;";
+
 	$("#nombreUsuario").change(function(){
 		var url = "comprobarUsuario.php?user=" + $("#nombreUsuario").val();
 		$.get(url,usuarioExiste);
@@ -9,7 +12,7 @@ $(document).ready(function() {
 		campo[0].setCustomValidity("");
 			
 		// validación html5, porque el campo es <input type="email" ...>
-		const esCorreoValido = campo[0].checkValidity();//va pocha, funciona con user@user por ejemplo
+		const esCorreoValido = campo[0].checkValidity();//va pocha, funciona con user@user por ejemplo (cosa que luego php no admite)
 		
 		//para la comprobación de cadena vacía
 		correo = document.getElementById("email").value;
@@ -18,12 +21,12 @@ $(document).ready(function() {
 		if (!esCorreoValido || lon <= 0) {
 			campo[0].setCustomValidity("Introduce un correo válido");
 			//&#x26a0;
-			document.getElementById('validEmail').innerHTML = "&#x26a0;";
+			document.getElementById('validEmail').innerHTML = errorIcon;
 			return false;
 		} else {
 			campo[0].setCustomValidity("");
 			//&#x2714;
-			document.getElementById('validEmail').innerHTML = "&#x2714;";
+			document.getElementById('validEmail').innerHTML = okIcon;
 		}
 	});
 
@@ -55,7 +58,7 @@ $(document).ready(function() {
 	function usuarioExiste(data,status) {//ejercicio 4
 		if (data == "true") {
 			//&#x26a0;
-			document.getElementById('validName').innerHTML = "&#x26a0;";
+			document.getElementById('validName').innerHTML = errorIcon;
 			alert("USUARIO YA EXISTE");
 		}
 		else {
@@ -66,7 +69,7 @@ $(document).ready(function() {
 				return false;
 			} else {
 				//&#x2714;
-				document.getElementById('validName').innerHTML = "&#x2714;";
+				document.getElementById('validName').innerHTML = okIcon;
 			}
 		}
 	}

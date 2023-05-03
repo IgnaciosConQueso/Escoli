@@ -11,8 +11,7 @@
         echo "true";
         return;
     }
-    else{
-        echo "false";
-        return;
-    }
+    echo "false";
+
+    
 ?>

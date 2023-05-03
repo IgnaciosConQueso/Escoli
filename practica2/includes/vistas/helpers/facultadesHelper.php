@@ -11,8 +11,8 @@ function listaFacultades($idFacultad)
     $html = '';
     if ($arrayFacultades) {
         $html .= '<ul class="lista-facultades">';
-        foreach ($arrayFacultades as $facultad) {
-            $html .= generaHTMLFacultad($facultad);
+        foreach ($arrayFacultades as $data) {
+            $html .= generaHTMLFacultad($data);
         }
         $html .= '</ul>';
     }
