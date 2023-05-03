@@ -3,10 +3,12 @@
 require_once __DIR__ . '/includes/config.php';
 require_once __DIR__ . '/includes/vistas/helpers/facultadesHelper.php';
 
+$idUniversidad = $_GET['idUniversidad'];
+
 $tituloPagina = 'Escoli';
-$contenidoPrincipal = "<h1>Facultades de " . nombreUniversidad($_GET['idUniversidad']) . "</h1>";
-$contenidoPrincipal .= listaFacultades($_GET['idUniversidad']);
-$_SESSION['menuCabecera']['idUniversidad'] = '<a href="facultades.php?idUniversidad=' . $_GET['idUniversidad'] . '">Facultades</a>';
+$contenidoPrincipal = "<h1>Facultades de " . nombreUniversidad($idUniversidad) . "</h1>";
+$contenidoPrincipal .= listaFacultades($idUniversidad);
+$_SESSION['menuCabecera']['idUniversidad'] = '<a href="facultades.php?idUniversidad=' . $idUniversidad . '">Facultades</a>';
 
 $menuCabecera = '';
 foreach ($_SESSION['menuCabecera'] as $key => $link) {
