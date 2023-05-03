@@ -1,59 +1,80 @@
-const BotonesLike = document.getElementsByName("like");
-const BotonesDislike = document.getElementsByName("dislike");
-	
-    BotonesLike.forEach((like) => {
-        like.addEventListener("click", function() {
 
-            const idVal = $(this).data("idValoracion");
-            const likes = $(this).data("likes");
-            const api = $(this).data("api");
-            $.ajax({
-                url: api,
-                method: "POST",
-                data: {
-                    idVal: idVal,
-                    likes: likes,
-                    valor: 1
-                },
-                success: function(data) {  
-                    var response = JSON.parse(data);
-                    if(!response.success){
-                        alert(response.message);
-                    }
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.error(textStatus, errorThrown);
-                }
-            });
+document.addEventListener("DOMContentLoaded", () =>{
+
+    const valoraciones = document.querySelectorAll(".valoracion");
+        
+        valoraciones.forEach((valoracion) => { //cojo todas las valoraciones e itero sobre ellas
             
-        });
-    });
-    
-    BotonesDislike.forEach((dislike) =>{
-        dislike.addEventListener("click", function(){
+            const like = valoracion.querySelector(".boton-like"); //cojo los botones
+            const dislike = valoracion.querySelector(".boton-dislike");
+            var divlikes = valoracion.querySelector(".likes"); //cojo el div donde se imprimen los likes para poder actualizarlo luego
+            
+            
+            like.addEventListener("click", function() { //en cada boton
 
-            const idVal = $(this).data("idValoracion");
-            const likes = $(this).data("likes");
-            const api = $(this).data("api");
-            $.ajax({
-                url: api,
-                method: "POST",
-                data: {
-                    idVal: idVal,
-                    likes: likes,
-                    valor: -1
-                },
-                success: function(data) {  
-                    var response = JSON.parse(data);
-                    if(!response.success){
-                        alert(response.message);
+                const idVal = $(this).data("idval");
+                let numlikes = parseInt(this.dataset.likes); //cojo el numero de likes
+                const api = $(this).data("api");
+                const valor = 1;
+
+
+                $.ajax({
+                    url: api,
+                    method: "POST",
+                    data: {
+                        idValoracion: idVal, //hago un post de los valores que necesito a mi api
+                        likes: numlikes,
+                        valor: 1
+                    },
+                    success: function(data) {  
+                        var response = JSON.parse(data);
+                        if(response.succes === false){ //la api procesa la señal
+                            alert(response.message);
+                        } else { //si sale bien actualizo el valor de los likes en la pantalla y en los botones, si es un lio.
+                            numlikes += valor;
+                            divlikes.textContent ="likes: "  + numlikes;
+                            like.setAttribute("data-likes",numlikes);
+                            dislike.setAttribute("data-likes",numlikes);
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error(textStatus, errorThrown);
                     }
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.error(textStatus, errorThrown);
-                }
+                });
+                
             });
-    
+       
+            dislike.addEventListener("click", function(){
+                // lo mismo que arriba
+                const idVal = $(this).data("idval");
+                let numlikes = parseInt(this.dataset.likes);
+                const api = $(this).data("api");
+                const valor = -1; //realmente solo cambia esto y 4 cosas más de los datos y su actualizacion feo pero funciona.
+
+                $.ajax({
+                    url: api,
+                    method: "POST",
+                    data: {
+                        idValoracion: idVal,
+                        likes: numlikes,
+                        valor: -1
+                    },
+                    success: function(data) {  
+                        var response = JSON.parse(data);
+                        if(response.succes === false){
+                            alert(response.message);
+                        } else {
+                            numlikes += valor;
+                            divlikes.textContent ="likes: "  + numlikes;    
+                            dislike.setAttribute("data-likes",numlikes);
+                            like.setAttribute("data-likes",numlikes);
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error(textStatus, errorThrown);
+                    }
+                });
+        
+            });
         });
-    });
-   
+});

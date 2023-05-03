@@ -19,6 +19,7 @@ class LikesyKarma
     private $valor;
 
     public static function crea($idUsuario, $idValoracion, $valor, $id = null){
+        
         $karma = new LikesyKarma ($idUsuario, $idValoracion, $valor, $id);
         return $karma->guarda();
     }
@@ -26,7 +27,7 @@ class LikesyKarma
     public function guarda()
     {
         if ($this->id !== null) {
-            return self::actualiza($this);
+            return self::actualiza($this->idUsuario, $this->idValoracion, $this->valor);
         }
         return self::inserta($this);
     }
@@ -39,19 +40,20 @@ class LikesyKarma
         return false;
     }
 
-    private static function actualiza($Karma)
+    private static function actualiza($idUsuario, $idValoracion, $valor)
     {
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
             "UPDATE Karma K SET K.valor=%d WHERE K.idUsuario=%d AND K.idValoracion = %d",
-            filter_var($Karma->valor),
-            filter_var($Karma->idUsuario),
-            filter_var($Karma->idValoracion)
+            filter_var($valor),
+            filter_var($idUsuario),
+            filter_var($idValoracion)
             
         );
         if (!$conn->query($query)) {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
+            file_put_contents("falloBD.txt",$query);
         }
         return $result;
     }
@@ -68,8 +70,10 @@ class LikesyKarma
         );
         if (!$conn->query($query)) {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
+            file_put_contents("falloBD.txt",$query);
         } else {
             $result = true;
+            file_put_contents("falloBD.txt",$query);
         }
         return $result;
     }
@@ -99,35 +103,6 @@ class LikesyKarma
         return true;
     }
 
-    public static function checkLike($idUsuario, $idValoracion, $valor){
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM Karma K WHERE K.idUsuario='%d' AND K.idValoracion=%d",
-         $conn->real_escape_string($idUsuario),
-         $conn->real_escape_string($idValoracion)
-        );
-        $rs = $conn->query($query);
-        $result = NULL;
-        if ($rs) {
-            $fila = $rs->fetch_assoc();
-            if ($fila) {
-                $result = new LikesyKarma
-                ($fila['idUsuario'],$fila['idValoracion'],$fila['valor'],$fila['id']);
-            }
-            $rs->free();
-        } else {
-            error_log("Error BD ({$conn->errno}): {$conn->error}");
-        }
-        if($result->id == NULL){
-            LikesyKarma :: crea($idUsuario,$idValoracion,$valor, NULL);
-            return true;
-        } else if($result->valor != $valor){ //no se por aqui esta casi casi no se que puede fallar.
-            $result->valor = $valor;
-            LikesyKarma :: actualiza($result);
-            return true;
-        }
-        return false;
-    }
-
     public static function existeLike($idUsuario, $idValoracion)
     {
         $salida = false;
@@ -138,7 +113,9 @@ class LikesyKarma
         );
         $rs = $conn->query($query);
         if ($rs) {
-            $salida = true;
+            $fila = $rs->fetch_assoc();
+            if ($fila)
+                $salida = true;
             $rs->free();
         } 
         return $salida;
@@ -160,11 +137,22 @@ class LikesyKarma
             }
             $rs->free();
         } else {
+            file_put_contents("falloBD.txt",$query ."   ". $valor);
             error_log("Error BD ({$conn->errno}): {$conn->error}");
         }
         return $valor;
     }
 
+    public static function hazLike($idUsuario, $idValoracion, $valor)
+    {
+        
+        if(self :: existeLike($idUsuario, $idValoracion) === false){
+            file_put_contents("falloLyK.txt","no encuentra el like");
+            self :: crea($idUsuario,$idValoracion,$valor, NULL);
+            return;
+        }
+        self:: actualiza($idUsuario, $idValoracion, $valor);
+    }
 
     private function __construct( $idUsuario, $idValoracion, $valor,$id = null)
     {

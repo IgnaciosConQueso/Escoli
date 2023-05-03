@@ -92,11 +92,11 @@ function generaHTMLValoracion($valoracion, $url)
     $html .= '<p class="fecha">' . "fecha: " . $valoracion->fecha . '</p>';
     $html .= '<p class="comentario">' . "comentario: " . $valoracion->comentario . '</p>';
     $html .= '<p class="likes">' . "likes: " . $valoracion->likes . '</p>';
-    $html .= '<button class="like" data-idVal = "'. $valoracion->id .
+    $html .= '<button class="boton-like" data-idval = "'. $valoracion->id .
              '" data-likes = "' . $valoracion->likes.  //v Esto no se si se puede hacer de otra forma, abierto a sugerencias.
              '" data-api = "'. Aplicacion::getInstance()->resuelve('/includes/vistas/helpers/api_likes.php').'"
               >👍</button>';
-    $html .= '<button class="dislike"data-idVal = "'. $valoracion->id .
+    $html .= '<button class="boton-dislike"data-idval = "'. $valoracion->id .
              '" data-likes = "' . $valoracion->likes. '"
               data-api = "'. Aplicacion::getInstance()->resuelve('/includes/vistas/helpers/api_likes.php').'"
              >👎</button>';
