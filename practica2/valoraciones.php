@@ -12,7 +12,7 @@ $idFacultad = $_GET['idFacultad'];
 
 $tituloPagina = 'Facultad';
 $contenidoPrincipal = "<h1>Valoraciones de " . nombreFacultad($idFacultad) . "</h1>";
-$contenidoPrincipal .= listaValoracionesFacultad($_GET['idFacultad'], $app->resuelve('/facultad.php?id=' . $idFacultad));
+$contenidoPrincipal .= listaValoracionesFacultad($idFacultad, $app->resuelve('/facultad.php?id=' . $idFacultad));
 
 $linkValoracion = 'registroValoracion.php?idFacultad=' . $idFacultad;
 $botonValoracion = '<a href=' . $linkValoracion . '> Añadir valoración</a>';

@@ -144,7 +144,7 @@ class Facultad
     private $idImagen;
 
 
-    private function __construct($nombre, $idUniversidad,$idImagen = null, $id = null)
+    private function __construct($nombre, $idUniversidad, $id = null, $idImagen = null)
     {
         $this->id = $id;
         $this->nombre = $nombre;
