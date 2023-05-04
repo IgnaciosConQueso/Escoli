@@ -32,6 +32,7 @@ class FormularioUniversidad extends Formulario
                 <input type="hidden" name="id" value="$id" />
                 <label for="nombre">Nombre:</label>
                 <input id="nombre" type="text" name="nombre" value="$nombre" />
+                <span id = "validName"></span>
                 {$erroresCampos['nombre']}
             </div>
             <div>
