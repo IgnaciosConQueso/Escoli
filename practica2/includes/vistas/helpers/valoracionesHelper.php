@@ -74,12 +74,8 @@ function listaTopCinco($id, $url)
 function generaHTMLValoracion($valoracion, $url)
 {
     $usuario = Usuario::buscaPorId($valoracion->idUsuario);
-    if (isset($usuario->idImagen)) {
-        $imagen = Imagen::buscaPorId($usuario->idImagen);
-        $htmlImg = '<img class="imagen-usuario" src="' . Aplicacion::getInstance()->resuelveImagen($imagen->ruta) . '" alt = "imagen con la foto de perfil del usuario">';
-    } else {
-        $htmlImg = '<img class="imagen-usuario" src="' . Aplicacion::getInstance()->resuelveImagen('usuarios/user.png') . '"alt = "imagen con la foto de perfil del usuario">';
-    }
+    $imagen = Imagen::buscaPorId($usuario->idImagen);
+    $htmlImg = '<img class="imagen-usuario" src="' . Aplicacion::getInstance()->resuelveImagen($imagen->ruta) . '" alt = "imagen con la foto de perfil del usuario">';
 
 
     $html = '<li class="valoracion">';

@@ -23,7 +23,7 @@ class Usuario
     
     public static function crea($nombreUsuario, $password, $email, $idImagen = null)
     {
-        $user = new Usuario($nombreUsuario, self::hashPassword($password), $email, $idImagen);
+        $user = new Usuario($nombreUsuario, self::hashPassword($password), $email, null, $idImagen);
         return $user->guarda();
     }
 
@@ -97,7 +97,7 @@ class Usuario
         $conn = Aplicacion::getInstance()->getConexionBd();
         if($usuario->idImagen == null){ //esto es por culpa de que el %d no representa nulos.
             $query=sprintf("INSERT INTO Usuarios(nombreUsuario, email, password)
-            VALUES ('%s', '%s', '%s', null)",
+            VALUES ('%s', '%s', '%s')",
             $conn->real_escape_string($usuario->nombreUsuario),
             $conn->real_escape_string($usuario->email),
             $conn->real_escape_string($usuario->password),
@@ -219,6 +219,11 @@ class Usuario
     public function getRoles()
     {
         return $this->roles;
+    }
+
+    public function getIdImagen()
+    {
+        return $this->idImagen;
     }
 
     public function tieneRol($role)

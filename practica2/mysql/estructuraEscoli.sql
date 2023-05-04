@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `Usuarios` (
     `nombreUsuario` CHAR(20) NOT NULL,
     `email` VARCHAR(255) NOT NULL,
     `password` VARCHAR(255) NOT NULL,
-    `idImagen` INT(11),
+    `idImagen` INT(11) DEFAULT '1',
     PRIMARY KEY (`id`),
     UNIQUE (`nombreUsuario`),
     UNIQUE (`email`)
