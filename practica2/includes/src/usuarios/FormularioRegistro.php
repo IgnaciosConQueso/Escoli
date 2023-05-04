@@ -90,25 +90,28 @@ class FormularioRegistro extends Formulario
 
         $email = trim($datos['email'] ?? '');
         $email = filter_var($email, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if ( ! $email || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $email = ($email === '') ? null : filter_var($email, FILTER_VALIDATE_EMAIL);
+        if ( ! $email) {
             $this->errores['email'] = 'Introduce un email válido';
         }
 
         $password = trim($datos['password'] ?? '');
-        $password = filter_var($password, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $password = ($password === '') ? null : filter_var($password, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if ( ! $password || mb_strlen($password) < 5 ) {
             $this->errores['password'] = 'El password tiene que tener una longitud de al menos 5 caracteres';
         }
 
         $password2 = trim($datos['password2'] ?? '');
-        $password2 = filter_var($password2, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $password2 = ($password2 === '') ? null : filter_var($password2, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if ( ! $password2 || $password != $password2 ) {
             $this->errores['password2'] = 'Los passwords deben coincidir';
         }
 
        
         if (count($this->errores) === 0 || ($this->errores['archivo'] && !$imagen)) {
-            $usuario = Usuario::buscaUsuario($nombreUsuario);
+            $usuario = (Usuario::buscaUsuario($nombreUsuario));
+            if (!$usuario) $usuario = (Usuario::buscaPorEmail($email));
+            
 	
             if ($usuario) {
                 $this->errores[] = "El usuario ya existe";
