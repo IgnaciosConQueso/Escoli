@@ -33,8 +33,6 @@ document.addEventListener("DOMContentLoaded", () =>{
                         } else { //si sale bien actualizo el valor de los likes en la pantalla y en los botones, si es un lio.
                             numlikes += valor;
                             divlikes.textContent ="likes: "  + numlikes;
-                            like.setAttribute("data-likes",numlikes);
-                            dislike.setAttribute("data-likes",numlikes);
                         }
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
@@ -66,8 +64,6 @@ document.addEventListener("DOMContentLoaded", () =>{
                         } else {
                             numlikes += valor;
                             divlikes.textContent ="likes: "  + numlikes;    
-                            dislike.setAttribute("data-likes",numlikes);
-                            like.setAttribute("data-likes",numlikes);
                         }
                     },
                     error: function(jqXHR, textStatus, errorThrown) {

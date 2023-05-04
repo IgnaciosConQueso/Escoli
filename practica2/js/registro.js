@@ -64,7 +64,7 @@ $(document).ready(function() {
 	});
 
 	function usuarioExiste(response) {
-		if (response == "true") {
+		if (response === "true") {
 			//&#x26a0;
 			document.getElementById('validName').innerHTML = errorIcon;
 			alert("USUARIO YA EXISTE");
