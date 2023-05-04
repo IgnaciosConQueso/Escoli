@@ -70,6 +70,23 @@ class Facultad
         return $result;
     }
 
+    public static function buscaPorNombreYUniversidad($nombre, $idUniversidad){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM Facultades WHERE nombre='%s' AND idUniversidad='%d'", $conn->real_escape_string($nombre), $conn->real_escape_string($idUniversidad));
+        $rs = $conn->query($query);
+        $result = false;
+        if ($rs) {
+            $fila = $rs->fetch_assoc();
+            if ($fila) {
+                $result = new Facultad($fila['nombre'], $fila['idUniversidad'], $fila['id'], $fila['idImagen']);
+            }
+            $rs->free();
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
+    }
+
     public static function buscaPorId($id)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();

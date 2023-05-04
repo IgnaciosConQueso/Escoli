@@ -32,12 +32,13 @@ class FormularioFacultad extends Formulario
             <div>
                 <label for="nombre">Nombre:</label>
                 <input id="nombre" type="text" name="nombre" value="$nombre" />
+                <span id="validName"></span>
                 {$erroresCampos['nombre']}
             </div>
             <div>
                 <label for="universidad">Universidad:</label>
                 <select id="universidad" name="universidad">
-                    <option value="">Selecciona una universidad</option>
+                    <option value="0">Selecciona una universidad</option>
                     {$this->generaOpcionesUniversidades($iduniversidad)}
                 </select>
                 {$erroresCampos['universidad']}

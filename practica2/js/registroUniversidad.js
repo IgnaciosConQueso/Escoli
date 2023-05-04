@@ -7,8 +7,8 @@ $(document).ready(function() {
 	//funciones
 
 	function compruebaNombre() {
-			username = document.getElementById("nombre").value;
-			lon = username.length;
+			universidad = document.getElementById("nombre").value;
+			lon = universidad.length;
 			if(lon <5){
 				document.getElementById('validName').innerHTML = "El nombre de la universidad tiene que tener una longitud de al menos 5 caracteres";
 				return false;
