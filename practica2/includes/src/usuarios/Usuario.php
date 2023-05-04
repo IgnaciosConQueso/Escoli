@@ -96,7 +96,7 @@ class Usuario
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
         if($usuario->idImagen == null){ //esto es por culpa de que el %d no representa nulos.
-            $query=sprintf("INSERT INTO Usuarios(nombreUsuario, email, password, idImagen)
+            $query=sprintf("INSERT INTO Usuarios(nombreUsuario, email, password)
             VALUES ('%s', '%s', '%s', null)",
             $conn->real_escape_string($usuario->nombreUsuario),
             $conn->real_escape_string($usuario->email),

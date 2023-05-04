@@ -5,6 +5,8 @@ use escoli\contenido\Profesor;
 use escoli\centros\Facultad;
 use escoli\Aplicacion;
 use escoli\Formulario;
+use escoli\Imagen;
+use escoli\usuarios\Usuario;
 
 function listaValoraciones($url, $numPorPag = 10, $pag = 1)
 {
@@ -71,11 +73,22 @@ function listaTopCinco($id, $url)
 
 function generaHTMLValoracion($valoracion, $url)
 {
-    $html = '<div class="valoracion">';
+    $usuario = Usuario::buscaPorId($valoracion->idUsuario);
+    if(isset($usuario->idImagen)){
+        $imagen = Imagen::buscaPorId($usuario->idImagen);
+        $htmlImg = '<img class="imagen-usuario" src="' . Aplicacion::getInstance()->resuelveImagen($imagen->ruta) . '">';
+    }else{
+        $htmlImg = '<img class="imagen-usuario" src="' . Aplicacion::getInstance()->resuelveImagen('usuarios/user.png') . '">';
+    }
+
+
+    $html = '<li class="valoracion">';
     $html .= '<p class="nombre-profesor">' . "idProfesor: " . Profesor::nombreProfesorPorId($valoracion->idProfesor) . '</p>';
     $html .= '<p class="puntuacion">' . "puntuacion: " . $valoracion->puntuacion . '</p>';
     $html .= '<p class="fecha">' . "fecha: " . $valoracion->fecha . '</p>';
     $html .= '<p class="comentario">' . "comentario: " . $valoracion->comentario . '</p>';
+    $html .= '<a class="imagen-usuario" href="' . Aplicacion::getInstance()->resuelve('perfilAlumno.php?id=' . $valoracion->idUsuario) . '">' . $htmlImg . '</a>';
+    $html .= '<p class="nombre-usuario">' . "usuario: " . $usuario->nombreUsuario . '</>';
     $html .= '<p class="likes">' . "likes: " . $valoracion->likes . '</p>';
     $html .= '<button class="boton-like" data-idval = "'. $valoracion->id .
              '" data-likes = "' . $valoracion->likes.  //v Esto no se si se puede hacer de otra forma, abierto a sugerencias.
@@ -85,7 +98,7 @@ function generaHTMLValoracion($valoracion, $url)
              '" data-likes = "' . $valoracion->likes. '"
               data-api = "'. Aplicacion::getInstance()->resuelve('/includes/vistas/helpers/api_likes.php').'"
              >👎</button>';
-    $html .= '</div>';
+    $html .= '</li>';
     return $html;
 }
 

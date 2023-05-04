@@ -158,9 +158,9 @@ class FormularioRegistro extends Formulario
         $imagen = Imagen::crea($nombre, $mimeType, '');
         $imagen->guarda();
         $fichero = "{$imagen->getId()}.{$extension}";
-        $imagen->setRuta('\usuarios\\'.$fichero);
+        $imagen->setRuta('usuarios/'.$fichero);
         $imagen->guarda();
-        $ruta = implode(DIRECTORY_SEPARATOR, [RUTA_IMGS.'\usuarios', $fichero]);
+        $ruta = implode(DIRECTORY_SEPARATOR, [RUTA_IMGS.'usuarios/', $fichero]);
         if (!move_uploaded_file($tmp_name, $ruta)) {
             $this->errores['archivo'] = 'Error al mover el archivo';
         }

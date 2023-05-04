@@ -1,0 +1,2 @@
+INSERT INTO Karma(idUsuario, idValoracion, valor) 
+            VALUES ('1', '6', '1')

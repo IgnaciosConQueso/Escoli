@@ -9,8 +9,8 @@ require_once '../../config.php';
 $app = Aplicacion::getInstance();
 
 $idValoracion = filter_input(INPUT_POST, 'idValoracion', FILTER_SANITIZE_NUMBER_INT);
-$likes = filter_input(INPUT_POST, 'likes', FILTER_SANITIZE_NUMBER_INT);
 $valor = filter_input(INPUT_POST, 'valor', FILTER_SANITIZE_NUMBER_INT);
+$likesBD = Valoracion :: buscaValoracion($idValoracion)->likes;
 
 $succes = true;
 $message = "";
@@ -43,9 +43,9 @@ if(LikesyKarma :: existeLike($app->idUsuario(), $idValoracion)){
         return;
     }
 }
-$likes += $valor;
+ $likesBD += $valor;
 LikesyKarma :: hazLike( $app->idUsuario(), $idValoracion, $valor);
-Valoracion::actualizaLikes($idValoracion, $likes);
+Valoracion::actualizaLikes($idValoracion, $likesBD);
 $succes = true;
 $message = "Diste Like o diste dislike da igual porque no vas a ver esto. ;PP";
 $response = array("succes" => $succes, "message" => $message);

@@ -7,6 +7,7 @@ use escoli\MagicProperties;
 
 class Imagen
 {
+    use MagicProperties;
 
     public static function crea($nombre, $mimeType, $ruta)
     {
@@ -41,13 +42,14 @@ class Imagen
 
     public static function buscaPorId($idImagen)
     {
-        $result = null;
+        $result = false;
 
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf('SELECT * FROM Imagenes I WHERE I.id = %d', intval($idImagen));
         $rs = $conn->query($query);
         if ($rs) {
-            while ($fila = $rs->fetch_assoc()) {
+            $fila = $rs->fetch_assoc();
+            if ($fila){
                 $result = new Imagen($fila['ruta'], $fila['nombre'], $fila['tipo'], $fila['id']);
             }
             $rs->free();
