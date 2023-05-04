@@ -29,19 +29,21 @@ class FormularioValoracion extends Formulario
             <legend>Valora a tu profe</legend>
             <div>
                 <label for="profesor">Profesor:</label>
-                <select id="profesor" name="profesor">n
-                    <option value="">Selecciona un profesor</option>
+                <select id="profesor" name="profesor">
+                    <option value="0">Selecciona un profesor</option>
                     {$this->generaOpcionesProfesores($idFacultad, $idProfesor)}
                 </select>
                 {$erroresCampos['profesor']}
             <div>
                 <label for="puntuacion">Puntuación:</label>
                 <input id="puntuacion" type="text" name="puntuacion" value="$puntuacion" />
+                <span id="validPuntuacion"></span>
                 {$erroresCampos['puntuacion']}
             </div>
             <div>
             <label for="comentario">Comentario:</label>
                 <input id="comentario" type="text" name="comentario" value="$comentario" />
+                <span id="validComentario"></span>
                 {$erroresCampos['comentario']}
             </div>
                 <button type="submit" name="registro">Publicar</button>
