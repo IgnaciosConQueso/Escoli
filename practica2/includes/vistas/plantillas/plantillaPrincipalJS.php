@@ -11,6 +11,9 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src = <?= $params['script'] ?>></script>
     <link rel="stylesheet" type="text/css" href="<?= $params['app']->resuelve('/css/estilo.css') ?>" />
+
+    <link rel="icon" href=<?=$params['app']->resuelve('/Imagenes/icon.png')?> />
+
     <title>Document</title>
 </head>
 

@@ -9,6 +9,9 @@
         <?= $params['tituloPagina'] ?>
     </title>
     <link rel="stylesheet" type="text/css" href="<?= $params['app']->resuelve('/css/estilo.css') ?>" />
+    
+    <link rel="icon" href=<?=$params['app']->resuelve('/Imagenes/icon.png')?> />
+    
     <title>Document</title>
 </head>
 
