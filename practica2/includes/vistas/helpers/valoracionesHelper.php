@@ -75,25 +75,33 @@ function generaHTMLValoracion($valoracion, $url)
 {
     $usuario = Usuario::buscaPorId($valoracion->idUsuario);
     $imagen = Imagen::buscaPorId($usuario->idImagen);
-    $htmlImg = '<img class="imagen-usuario" src="' . Aplicacion::getInstance()->resuelveImagen($imagen->ruta) . '" alt = "imagen con la foto de perfil del usuario">';
+    $htmlUserImg = '<img class="imagen-perfil" src="' . Aplicacion::getInstance()->resuelveImagen($imagen->ruta) . '" alt = "foto de perfil del usuario">';
 
+    $profesor = Profesor::buscaPorId($valoracion->idProfesor);
+    $imagen = Imagen::buscaPorId($profesor->idImagen);
+    $htmlProfImg = '<img class="imagen-perfil" src="' . Aplicacion::getInstance()->resuelveImagen($imagen->ruta) . '" alt = "foto de perfil del profesor">';
 
     $html = '<li class="valoracion">';
-    $html .= '<p class="nombre-profesor">' . "idProfesor: " . Profesor::nombreProfesorPorId($valoracion->idProfesor) . '</p>';
+    $html .= '<div class="info-perfil">';
+    $html .= '<a class="imagen-perfil" href="' . Aplicacion::getInstance()->resuelve('perfilProfesor.php?id=' . $valoracion->idProfesor) . '">' . $htmlProfImg . '</a>';
+    $html .= '<p class="nombre-profesor">' . $profesor->nombre . '</p>';
+    $html .= '</div>';
     $html .= '<p class="puntuacion">' . "puntuacion: " . $valoracion->puntuacion . '</p>';
-    $html .= '<p class="fecha">' . "fecha: " . $valoracion->fecha . '</p>';
     $html .= '<p class="comentario">' . "comentario: " . $valoracion->comentario . '</p>';
-    $html .= '<a class="imagen-usuario" href="' . Aplicacion::getInstance()->resuelve('perfilAlumno.php?id=' . $valoracion->idUsuario) . '">' . $htmlImg . '</a>';
-    $html .= '<p class="nombre-usuario">' . "usuario: " . $usuario->nombreUsuario . '</>';
+    $html .= '<div class="info-perfil">';
+    $html .= '<a class="imagen-perfil" href="' . Aplicacion::getInstance()->resuelve('perfilAlumno.php?id=' . $valoracion->idUsuario) . '">' . $htmlUserImg . '</a>';
+    $html .= '<p class="nombre-usuario">' . $usuario->nombreUsuario . '</p>';
+    $html .= '</div>';
     $html .= '<p class="likes">' . "likes: " . $valoracion->likes . '</p>';
     $html .= '<button class="boton-like" data-idval = "' . $valoracion->id .
         '" data-likes = "' . $valoracion->likes . //v Esto no se si se puede hacer de otra forma, abierto a sugerencias.
-        '" data-api = "' . Aplicacion::getInstance()->resuelve('/includes/vistas/helpers/api_likes.php') . '"
-              >👍</button>';
+        '" data-api = "' . Aplicacion::getInstance()->resuelve('/includes/vistas/helpers/api_likes.php') . '">👍</button>';
+
     $html .= '<button class="boton-dislike"data-idval = "' . $valoracion->id .
-        '" data-likes = "' . $valoracion->likes . '"
-              data-api = "' . Aplicacion::getInstance()->resuelve('/includes/vistas/helpers/api_likes.php') . '"
-             >👎</button>';
+        '" data-likes = "' . $valoracion->likes .
+        '" data-api = "' . Aplicacion::getInstance()->resuelve('/includes/vistas/helpers/api_likes.php') . '">👎</button>';
+
+    $html .= '<p class="fecha">' . "fecha: " . $valoracion->fecha . '</p>';
     $html .= '</li>';
     return $html;
 }

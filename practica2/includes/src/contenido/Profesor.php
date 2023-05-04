@@ -9,9 +9,9 @@ class Profesor
 {
     use MagicProperties;
 
-    public static function crea($nombre)
+    public static function crea($nombre, $idImagen = null)
     {
-        $profesor = new Profesor($nombre);
+        $profesor = new Profesor($nombre, $idImagen);
         return $profesor->guarda();
     }
 
@@ -44,8 +44,26 @@ class Profesor
         if ($rs) {
             $result = array();
             while ($fila = $rs->fetch_assoc()) {
-                $profesor = new Profesor($fila['nombre'], $fila['id']);
+                $profesor = new Profesor($fila['nombre'], $fila['idImagen'], $fila['id']);
                 array_push($result, $profesor);
+            }
+            $rs->free();
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
+    }
+
+    public static function buscaPorId($id)
+    {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM Profesores WHERE id='%d'", filter_var($id, FILTER_SANITIZE_NUMBER_INT));
+        $rs = $conn->query($query);
+        $result = false;
+        if ($rs) {
+            if ($fila = $rs->fetch_assoc()) {
+                $profesor = new Profesor($fila['nombre'], $fila['idImagen'], $fila['id']);
+                $result = $profesor;
             }
             $rs->free();
         } else {
@@ -72,7 +90,10 @@ class Profesor
     private static function actualiza($profesor)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("UPDATE Profesores SET nombre='%s', idFacultad='%d' WHERE id='%d'", $conn->real_escape_string($profesor->nombre), filter_var($profesor->idFacultad, FILTER_SANITIZE_NUMBER_INT), filter_var($profesor->id, FILTER_SANITIZE_NUMBER_INT));
+        $query = sprintf("UPDATE Profesores SET nombre='%s', idImagen='%d' WHERE id='%d'",
+        $conn->real_escape_string($profesor->nombre),
+        filter_var($profesor->idImagen, FILTER_SANITIZE_NUMBER_INT),
+        filter_var($profesor->id, FILTER_SANITIZE_NUMBER_INT));
         if ($conn->query($query)) {
             return true;
         } else {
@@ -84,7 +105,7 @@ class Profesor
     private static function inserta($profesor)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("INSERT INTO Profesores(nombre, idFacultad) VALUES('%s', '%d')", $conn->real_escape_string($profesor->nombre), filter_var($profesor->idFacultad, FILTER_SANITIZE_NUMBER_INT));
+        $query = sprintf("INSERT INTO Profesores(nombre, idImagen) VALUES('%s', '%d')", $conn->real_escape_string($profesor->nombre), filter_var($profesor->idFacultad, FILTER_SANITIZE_NUMBER_INT));
         if ($conn->query($query)) {
             $profesor->id = $conn->insert_id;
             return true;
@@ -111,10 +132,13 @@ class Profesor
 
     private $nombre;
 
-    private function __construct($nombre, $id = null)
+    private $idImagen;
+
+    private function __construct($nombre, $idImagen = null, $id = null)
     {
         $this->id = $id;
         $this->nombre = $nombre;
+        $this->idImagen = $idImagen;
     }
 
     public function getId()
@@ -125,6 +149,11 @@ class Profesor
     public function getNombre()
     {
         return $this->nombre;
+    }
+
+    public function getIdImagen()
+    {
+        return $this->idImagen;
     }
 }
 
