@@ -233,7 +233,7 @@ class Aplicacion
         if (mb_strlen($path) > 0 && mb_substr($path, 0, 1) !== '/') {
             $path = '/' . $path;
         }
-        $path = "imagenes/" . $path;
+        $path = "imagenes" . $path;
 
         return $this->resuelve($path, NULL);
     }

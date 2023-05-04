@@ -29,7 +29,7 @@ function listaValoracionesFacultad($id, $url, $numPorPag = 10, $pag = 1)
     if ($arrayMensajes) {
         $html .= '<ul class="lista-valoraciones">';
         foreach ($arrayMensajes as $valoracion) {
-            $html .= generaHTMLValoracion($valoracion, $url);  
+            $html .= generaHTMLValoracion($valoracion, $url);
         }
         $html .= '</ul>';
     }
@@ -61,12 +61,12 @@ function listaTopCinco($id, $url)
     $arrayMensajes = Valoracion::buscaTopCincoValoraciones($id);
     $html = '';
     if ($arrayMensajes) {
-        $html .= '<div class="lista-top5-valoraciones">';
+        $html .= '<ul class="lista-top5-valoraciones">';
         foreach ($arrayMensajes as $valoracion) {
             $html .= generaHTMLValoracion($valoracion, $url);
 
         }
-        $html .= '</div>';
+        $html .= '</ul>';
     }
     return $html;
 }
@@ -74,11 +74,11 @@ function listaTopCinco($id, $url)
 function generaHTMLValoracion($valoracion, $url)
 {
     $usuario = Usuario::buscaPorId($valoracion->idUsuario);
-    if(isset($usuario->idImagen)){
+    if (isset($usuario->idImagen)) {
         $imagen = Imagen::buscaPorId($usuario->idImagen);
-        $htmlImg = '<img class="imagen-usuario" src="' . Aplicacion::getInstance()->resuelveImagen($imagen->ruta) . '">';
-    }else{
-        $htmlImg = '<img class="imagen-usuario" src="' . Aplicacion::getInstance()->resuelveImagen('usuarios/user.png') . '">';
+        $htmlImg = '<img class="imagen-usuario" src="' . Aplicacion::getInstance()->resuelveImagen($imagen->ruta) . '" alt = "imagen con la foto de perfil del usuario">';
+    } else {
+        $htmlImg = '<img class="imagen-usuario" src="' . Aplicacion::getInstance()->resuelveImagen('usuarios/user.png') . '"alt = "imagen con la foto de perfil del usuario">';
     }
 
 
@@ -90,13 +90,13 @@ function generaHTMLValoracion($valoracion, $url)
     $html .= '<a class="imagen-usuario" href="' . Aplicacion::getInstance()->resuelve('perfilAlumno.php?id=' . $valoracion->idUsuario) . '">' . $htmlImg . '</a>';
     $html .= '<p class="nombre-usuario">' . "usuario: " . $usuario->nombreUsuario . '</>';
     $html .= '<p class="likes">' . "likes: " . $valoracion->likes . '</p>';
-    $html .= '<button class="boton-like" data-idval = "'. $valoracion->id .
-             '" data-likes = "' . $valoracion->likes.  //v Esto no se si se puede hacer de otra forma, abierto a sugerencias.
-             '" data-api = "'. Aplicacion::getInstance()->resuelve('/includes/vistas/helpers/api_likes.php').'"
+    $html .= '<button class="boton-like" data-idval = "' . $valoracion->id .
+        '" data-likes = "' . $valoracion->likes . //v Esto no se si se puede hacer de otra forma, abierto a sugerencias.
+        '" data-api = "' . Aplicacion::getInstance()->resuelve('/includes/vistas/helpers/api_likes.php') . '"
               >👍</button>';
-    $html .= '<button class="boton-dislike"data-idval = "'. $valoracion->id .
-             '" data-likes = "' . $valoracion->likes. '"
-              data-api = "'. Aplicacion::getInstance()->resuelve('/includes/vistas/helpers/api_likes.php').'"
+    $html .= '<button class="boton-dislike"data-idval = "' . $valoracion->id .
+        '" data-likes = "' . $valoracion->likes . '"
+              data-api = "' . Aplicacion::getInstance()->resuelve('/includes/vistas/helpers/api_likes.php') . '"
              >👎</button>';
     $html .= '</li>';
     return $html;
@@ -115,9 +115,12 @@ function botonLike($origen, $id, $likes)
     $valor = 1;
     $app = Aplicacion::getInstance();
     $api = $app->resuelve('/includes/vistas/helpers/api_likes.php');
-    return Formulario::buildButtonForm($api, 
-    ['url' => $origen, 'id' => $id, 'likes' => $likes, 'valor' => $valor],
-     'like', '👍');
+    return Formulario::buildButtonForm(
+        $api,
+        ['url' => $origen, 'id' => $id, 'likes' => $likes, 'valor' => $valor],
+        'like',
+        '👍'
+    );
 }
 
 function botonDislike($origen, $id, $likes)
@@ -125,8 +128,11 @@ function botonDislike($origen, $id, $likes)
     $valor = -1;
     $app = Aplicacion::getInstance();
     $api = $app->resuelve('/includes/vistas/helpers/api_likes.php');
-    return Formulario::buildButtonForm($api, 
-    ['url' => $origen, 'id' => $id, 'likes' => $likes, 'valor' => $valor],
-     'dislike','👎');
+    return Formulario::buildButtonForm(
+        $api,
+        ['url' => $origen, 'id' => $id, 'likes' => $likes, 'valor' => $valor],
+        'dislike',
+        '👎'
+    );
 }
 ?>
