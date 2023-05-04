@@ -71,12 +71,14 @@ class FormularioRegistro extends Formulario
         $app = Aplicacion::getInstance();
 
         $this->errores = [];
-         // Verificamos que la subida ha sido correcta
-         $ok = $_FILES['archivo']['error'] == UPLOAD_ERR_OK && count($_FILES) == 1;
-         if ($ok ) {
-            $imagen = self :: procesaImagen();
+        // Verificamos que la subida ha sido correcta
+        if ($_FILES['archivo']['error'] != UPLOAD_ERR_NO_FILE){
+            if ($_FILES['archivo']['error'] != UPLOAD_ERR_OK) {
+                $imagen = self :: procesaImagen();
+            } else {
+                $this->errores['archivo'] = 'Error al subir el archivo';
+            }
         } else {
-            $this->errores['archivo'] = 'Error al subir el archivo';
             $imagen = null;
         }
         
@@ -103,12 +105,12 @@ class FormularioRegistro extends Formulario
 
         $password2 = trim($datos['password2'] ?? '');
         $password2 = ($password2 === '') ? null : filter_var($password2, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if ( ! $password2 || $password != $password2 ) {
+        if ( $password != $password2 ) {
             $this->errores['password2'] = 'Los passwords deben coincidir';
         }
 
        
-        if (count($this->errores) === 0 || ($this->errores['archivo'] && !$imagen)) {
+        if ((count($this->errores)) == 0) {
             $usuario = (Usuario::buscaUsuario($nombreUsuario));
             if (!$usuario) $usuario = (Usuario::buscaPorEmail($email));
             

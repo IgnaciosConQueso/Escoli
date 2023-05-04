@@ -63,7 +63,7 @@ function listaTopCinco($id, $url)
     if ($arrayMensajes) {
         $html .= '<ul class="lista-top5-valoraciones">';
         foreach ($arrayMensajes as $valoracion) {
-            $html .= generaHTMLValoracion($valoracion, $url);
+            $html .= generaHTMLValoracionReducida($valoracion);
 
         }
         $html .= '</ul>';
@@ -94,6 +94,18 @@ function generaHTMLValoracion($valoracion, $url)
         '" data-likes = "' . $valoracion->likes . '"
               data-api = "' . Aplicacion::getInstance()->resuelve('/includes/vistas/helpers/api_likes.php') . '"
              >👎</button>';
+    $html .= '</li>';
+    return $html;
+}
+
+function generaHTMLValoracionReducida($valoracion)
+{
+    $html = '<li class="valoracion">';
+    $html .= '<p class="nombre-profesor">' . "idProfesor: " . Profesor::nombreProfesorPorId($valoracion->idProfesor) . '</p>';
+    $html .= '<p class="puntuacion">' . "puntuacion: " . $valoracion->puntuacion . '</p>';
+    $html .= '<p class="fecha">' . "fecha: " . $valoracion->fecha . '</p>';
+    $html .= '<p class="comentario">' . "comentario: " . $valoracion->comentario . '</p>';
+    $html .= '<p class="likes">' . "likes: " . $valoracion->likes . '</p>';
     $html .= '</li>';
     return $html;
 }
