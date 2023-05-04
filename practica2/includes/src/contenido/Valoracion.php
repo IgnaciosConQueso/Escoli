@@ -182,7 +182,7 @@ class Valoracion
     {
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM Valoraciones V ORDER BY V.fecha ASC");
+        $query = sprintf("SELECT * FROM Valoraciones V ORDER BY V.fecha DESC");
         $query .= sprintf(" LIMIT %d, %d;", ($numPagina - 1) * $numPorPagina, $numPorPagina);
         $rs = $conn->query($query);
         if ($rs) {
