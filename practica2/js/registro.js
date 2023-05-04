@@ -3,8 +3,16 @@ $(document).ready(function() {
 	const errorIcon = "&#x26a0;";
 
 	$("#nombreUsuario").change(function(){
-		var url = "comprobarUsuario.php?user=" + $("#nombreUsuario").val();
-		$.get(url,usuarioExiste);
+		username = document.getElementById("nombreUsuario").value;
+		lon = username.length;
+		if(lon <5){
+			document.getElementById('validName').innerHTML = "El nombre de usuario tiene que tener una longitud de al menos 5 caracteres";
+			return false;
+		} else {
+			var url = "comprobarUsuario.php?user=" + $("#nombreUsuario").val();
+			$.get(url,usuarioExiste);
+		}
+		
 	});
 
 	$("#email").change(function(){//práctica 4
@@ -55,22 +63,16 @@ $(document).ready(function() {
 		}
 	});
 
-	function usuarioExiste(data,status) {//ejercicio 4
-		if (data == "true") {
+	function usuarioExiste(response) {
+		if (response === "true") {
 			//&#x26a0;
 			document.getElementById('validName').innerHTML = errorIcon;
 			alert("USUARIO YA EXISTE");
+			return false;
 		}
 		else {
-			username = document.getElementById("nombreUsuario").value;
-			lon = username.length;
-			if(lon <5){
-				document.getElementById('validName').innerHTML = "El nombre de usuario tiene que tener una longitud de al menos 5 caracteres";
-				return false;
-			} else {
-				//&#x2714;
-				document.getElementById('validName').innerHTML = okIcon;
-			}
+			//&#x2714;
+			document.getElementById('validName').innerHTML = okIcon;
 		}
 	}
 })

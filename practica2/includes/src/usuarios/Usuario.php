@@ -191,7 +191,7 @@ class Usuario
 
     private $idImagen;
 
-    private function __construct($nombreUsuario, $password, $email, $idImagen = null, $id = null, $roles = [])
+    private function __construct($nombreUsuario, $password, $email, $id = null, $idImagen = null, $roles = [])
     {
         $this->id = $id;
         $this->nombreUsuario = $nombreUsuario;
