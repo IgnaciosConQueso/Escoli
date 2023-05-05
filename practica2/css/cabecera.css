@@ -72,8 +72,7 @@ nav form{
     flex-grow: 2;
     display: flex;
     justify-content: flex-start;
-    padding-left: 1em;
-    padding-right: 1em;
+    padding: 1em;
 }
 
 nav input[type="text"]{

@@ -84,14 +84,17 @@ function generaHTMLValoracion($valoracion, $url)
     $html = '<li class="valoracion">';
     $html .= '<div class="info-perfil">';
     $html .= '<a class="imagen-perfil" href="' . Aplicacion::getInstance()->resuelve('perfilProfesor.php?id=' . $valoracion->idProfesor) . '">' . $htmlProfImg . '</a>';
+    $html .= '<div class="info-valoracion">';
     $html .= '<p class="nombre-profesor">' . $profesor->nombre . '</p>';
+    $html .= '<p class="puntuacion">' . generaPuntuacion($valoracion->puntuacion) . '</p>';
     $html .= '</div>';
-    $html .= '<p class="puntuacion">' . "puntuacion: " . $valoracion->puntuacion . '</p>';
-    $html .= '<p class="comentario">' . "comentario: " . $valoracion->comentario . '</p>';
+    $html .= '</div>';
+    $html .= '<p class="comentario">' . $valoracion->comentario . '</p>';
     $html .= '<div class="info-perfil">';
     $html .= '<a class="imagen-perfil" href="' . Aplicacion::getInstance()->resuelve('perfilAlumno.php?id=' . $valoracion->idUsuario) . '">' . $htmlUserImg . '</a>';
     $html .= '<p class="nombre-usuario">' . $usuario->nombreUsuario . '</p>';
     $html .= '</div>';
+    $html .= '<div class="footer-valoracion">';
     $html .= '<p class="likes">' . "likes: " . $valoracion->likes . '</p>';
     $html .= '<button class="boton-like" data-idval = "' . $valoracion->id .
         '" data-likes = "' . $valoracion->likes . //v Esto no se si se puede hacer de otra forma, abierto a sugerencias.
@@ -102,15 +105,23 @@ function generaHTMLValoracion($valoracion, $url)
         '" data-api = "' . Aplicacion::getInstance()->resuelve('/includes/vistas/helpers/api_likes.php') . '">👎</button>';
 
     $html .= '<p class="fecha">' . "fecha: " . $valoracion->fecha . '</p>';
+    $html .= '</div>';
     $html .= '</li>';
     return $html;
 }
 
 function generaHTMLValoracionReducida($valoracion)
 {
+    $profesor = Profesor::buscaPorId($valoracion->idProfesor);
+    $imagen = Imagen::buscaPorId($profesor->idImagen);
+    $htmlProfImg = '<img class="imagen-perfil" src="' . Aplicacion::getInstance()->resuelveImagen($imagen->ruta) . '" alt = "foto de perfil del profesor">';
+
     $html = '<li class="valoracion">';
-    $html .= '<p class="nombre-profesor">' . "idProfesor: " . Profesor::nombreProfesorPorId($valoracion->idProfesor) . '</p>';
-    $html .= '<p class="puntuacion">' . "puntuacion: " . $valoracion->puntuacion . '</p>';
+    $html .= '<div class="info-perfil">';
+    $html .= '<a class="imagen-perfil" href="' . Aplicacion::getInstance()->resuelve('perfilProfesor.php?id=' . $valoracion->idProfesor) . '">' . $htmlProfImg . '</a>';
+    $html .= '<p class="nombre-profesor">' . $profesor->nombre . '</p>';
+    $html .= '</div>';
+    $html .= '<p class="puntuacion">' . generaPuntuacion($valoracion->puntuacion) . '</p>';
     $html .= '<p class="fecha">' . "fecha: " . $valoracion->fecha . '</p>';
     $html .= '<p class="comentario">' . "comentario: " . $valoracion->comentario . '</p>';
     $html .= '<p class="likes">' . "likes: " . $valoracion->likes . '</p>';
@@ -123,6 +134,15 @@ function muestraLikesTotales($idUser)
     $html = '<div class="likes">';
     $html .= '<p class="likes">' . "likes: " . Valoracion::sumaLikes($idUser) . '</p>';
     $html .= '</div>';
+    return $html;
+}
+
+function generaPuntuacion($puntuacion)
+{
+    $html = '';
+    for ($i = 0; $i < $puntuacion; $i++) {
+        $html .= '⭐';
+    }
     return $html;
 }
 

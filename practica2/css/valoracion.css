@@ -2,6 +2,7 @@ ul.lista-valoraciones{
     list-style-type: none;
     padding: 0;
 }
+
 li.valoracion {
 	background-color: #5f5f5f;
 	color: #e1e1e1;
@@ -12,19 +13,39 @@ li.valoracion {
 	margin-right: 0.5em;
 	padding: 0.5em;
 }
+
 li.valoracion div.info-perfil{
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
 	flex-direction: row;
+	text-align: center;
 }
+
 li.valoracion div.info-perfil p{
-	margin: 0.5em;
+	margin: 0;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+	padding-top: 0.1em;
+	padding-bottom: 0.1em;
 }
+
 li.valoracion img.imagen-perfil {
     height: 3em;
-    width: auto;
+    width: 3em;
+	border-radius: 50%;
+	object-fit: cover;
 }
+
 li.valoracion a.imagen-perfil{
-	display: inline-block;
+	display: contents;
+}
+
+li.valoracion > div.info-perfil > div.info-valoracion{
+	display: flex;
+	flex-direction: column;
+}
+
+li.valoracion > div.footer-valoracion{
+	display: flex;
 }
