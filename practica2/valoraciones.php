@@ -27,8 +27,10 @@ foreach ($_SESSION['menuCabecera'] as $key => $link) {
 }
 $_SESSION['linksCabecera'] = $menuCabecera;
 
+$script = $app->resuelve("js/gestionLikes.js");
+
 $params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal,
-    'botonesCabecera' => $botonValoracion];
+    'botonesCabecera' => $botonValoracion, 'script' => $script];
 $app->generaVista('/plantillas/plantillaPrincipal.php', $params);
 
 ?>
