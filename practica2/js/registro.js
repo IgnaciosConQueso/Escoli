@@ -54,7 +54,18 @@ $(document).ready(function() {
 			document.getElementById('validEmail').innerHTML = errorIcon;
 			return false;
 		} else {
-			campo[0].setCustomValidity("");
+			var url = "comprobarEmail.php?email=" + $("#email").val();
+			$.get(url, emailExiste);
+		}
+	}
+
+	function emailExiste(response){
+		if (response === "true") {
+			document.getElementById('validEmail').innerHTML = "Este email ya está en uso";
+			alert("Este email ya está en uso");
+			return false;
+		}
+		else {
 			//&#x2714;
 			document.getElementById('validEmail').innerHTML = okIcon;
 		}
