@@ -55,8 +55,8 @@ function creaBarraBusqueda()
 ?>
 <header>
     <div id="title">
-        <a id="linkLogo" href="<?= $app->resuelve('index.php'); ?>"> <img id="logo" src="<?= $app->resuelve('/Imagenes/logo.png'); ?>" alt="logo" title="Escoli"></a>
-        <h1 id="headerTitle"><img id="banner" src="<?= $app->resuelve('/Imagenes/letras.png'); ?>" alt="banner" title="Escoli"></a></h1>
+        <a id="linkLogo" href="<?= $app->resuelve('index.php'); ?>"> <img id="logo" src="<?= $app->resuelveImagen('logo.png'); ?>" alt="logo" title="Escoli"></a>
+        <h1 id="headerTitle"><img id="banner" src="<?= $app->resuelveImagen('letras.png'); ?>" alt="banner" title="Escoli"></a></h1>
         <div id="saludo">
             <?= mostrarSaludo(); ?>
         </div>
