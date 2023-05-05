@@ -34,8 +34,10 @@ $contenidoSideBarDer = <<<EOF
 	</div>
 EOF;
 
+$script = $app->resuelve('/js/gestionLikes.js');
+
 $params = ['tituloPagina' => $tituloPagina, 'contenidoSideBarIzq' => $contenidoSideBarIzq, 
-			'contenidoSideBarDer' => $contenidoSideBarDer, 'contenidoPrincipal' => $contenidoPrincipal];
+			'contenidoSideBarDer' => $contenidoSideBarDer, 'contenidoPrincipal' => $contenidoPrincipal, 'script' => $script ];
 $app->generaVista('/plantillas/plantillaSideBars.php', $params);
 
 ?>

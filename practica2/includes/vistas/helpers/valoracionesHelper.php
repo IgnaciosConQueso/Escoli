@@ -116,7 +116,7 @@ function generaHTMLValoracionReducida($valoracion)
     $imagen = Imagen::buscaPorId($profesor->idImagen);
     $htmlProfImg = '<img class="imagen-perfil" src="' . Aplicacion::getInstance()->resuelveImagen($imagen->ruta) . '" alt = "foto de perfil del profesor">';
 
-    $html = '<li class="valoracion">';
+    $html = '<li class="valoracion-reducida">';
     $html .= '<div class="info-perfil">';
     $html .= '<a class="imagen-perfil" href="' . Aplicacion::getInstance()->resuelve('perfilProfesor.php?id=' . $valoracion->idProfesor) . '">' . $htmlProfImg . '</a>';
     $html .= '<p class="nombre-profesor">' . $profesor->nombre . '</p>';

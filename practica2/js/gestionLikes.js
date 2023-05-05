@@ -1,4 +1,5 @@
 
+
 document.addEventListener("DOMContentLoaded", () =>{
 
     const valoraciones = document.querySelectorAll(".valoracion");
@@ -34,6 +35,8 @@ document.addEventListener("DOMContentLoaded", () =>{
                             numlikes += valor;
                             divlikes.textContent ="likes: "  + numlikes;
                         }
+                        document.cookie = "scrollPos=" + window.scrollY;
+                        location.reload();
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         console.error(textStatus, errorThrown);
@@ -65,6 +68,8 @@ document.addEventListener("DOMContentLoaded", () =>{
                             numlikes += valor;
                             divlikes.textContent ="likes: "  + numlikes;    
                         }
+                        document.cookie = "scrollPos=" + window.scrollY;
+                        location.reload();
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         console.error(textStatus, errorThrown);
@@ -74,3 +79,25 @@ document.addEventListener("DOMContentLoaded", () =>{
             });
         });
 });
+
+window.onload = function() {
+
+    var scrollPos = getCookie("scrollPos");
+    if (scrollPos == null || scrollPos == undefined) {
+         scrollPos = 0;
+    } else {
+    scrollPos = parseInt(scrollPos);
+    }
+
+    // desplazar la página a la posición guardada
+    window.scrollTo(0, scrollPos);
+  
+}
+
+  
+  // función para obtener el valor de una cookie
+  function getCookie(name) {
+    var value = "; " + document.cookie;
+    var parts = value.split("; " + name + "=");
+    if (parts.length == 2) return parts.pop().split(";").shift();
+  }
