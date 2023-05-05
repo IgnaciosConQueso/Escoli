@@ -23,16 +23,12 @@ function listaFacultades($idFacultad)
 function generaHTMLFacultad($data)
 {
     $facultad = Facultad::buscaPorId($data->id);
-    if (isset($facultad->imagen)) {
-        $imagen = Imagen::buscaPorId($facultad->imagen);
-        $htmlImg  = '<img class="imagen" src="' . Aplicacion::getInstance()->resuelveImagen($imagen->ruta) . '" alt="imagen de la facultad">';
-    } else {
-        $htmlImg = '<img class="imagen" src="' . Aplicacion::getInstance()->resuelveImagen('centros/default.png') . '" alt="imagen de la facultad">';
-    }
-    $app = Aplicacion::getInstance();
+    $imagen = Imagen::buscaPorId($facultad->getIdImagen());
+    $htmlImg = '<img class="imagen-perfil" src="' . Aplicacion::getInstance()->resuelveImagen($imagen->ruta) . '" alt = "foto de la facultad">';
+    
     $url = 'valoraciones.php?idFacultad=' . $data->id;
     $html = '<div class="facultad">';
-    $html .= '<a class="imagen" href="' . Aplicacion::getInstance()->resuelve('valoraciones.php?idFacultad=' . $facultad->getId()) . '">' . '<img src="' . $htmlImg . '</a>';
+    $html .= '<a class="imagen" href="' . Aplicacion::getInstance()->resuelve('valoraciones.php?idFacultad=' . $facultad->getId()) . '">' .  $htmlImg . '</a>';
     $html .= '<p class="nombre-facultad"><a href="' . $url . '">' . $data->nombre . '</a></p>';
     $html .= '</div>';
     return $html;

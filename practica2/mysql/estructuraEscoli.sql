@@ -16,7 +16,7 @@ DROP TABLE IF EXISTS `Karma`;
 
 CREATE TABLE IF NOT EXISTS `Imagenes` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
-    `ruta` VARCHAR(20) NOT NULL,
+    `ruta` VARCHAR(100) NOT NULL,
     `nombre` VARCHAR(30) NOT NULL,
     `tipo` VARCHAR(30) NOT NULL,
     PRIMARY KEY (`id`)
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS `Facultades` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `idUniversidad` INT NOT NULL,
     `nombre` VARCHAR(255) NOT NULL,
-    `idImagen` INT(11),
+    `idImagen` INT(11) DEFAULT '3',
     PRIMARY KEY (`id`),
     UNIQUE (`nombre`)
 ) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;

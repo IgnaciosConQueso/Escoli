@@ -53,8 +53,9 @@ INSERT INTO `Valoraciones` (`idUsuario`, `idProfesor`, `comentario`, `puntuacion
 ('1', '6', 'Sus clases son muy interesantes y divertidas', '5', '0');
 
 INSERT INTO `Imagenes` (`id`, `ruta`, `nombre`, `tipo`) VALUES
-(1, 'usuarios/1.png', '1.png', 'image/png'),
-(2, 'profesores/2.png', '2.png', 'image/png');
+(1, 'usuarios/defaultUser.png', 'defaultUser.png', 'image/png'),
+(2, 'profesores/defaultProf.png', 'defaultProf.png', 'image/png'),
+(3, 'centros/defaultFacultad.png', 'defaultFacultad.png', 'image/png');
 
 INSERT INTO `Usuarios` (`id`, `nombreUsuario`, `email`, `password`, `idImagen`) VALUES
 (1, 'default', 'escoli@escoli.es', '$2y$10$3gUCohJ1fqgHP0kdhiOOkOZPaaKoMuQuV2RYGw4EWt5zty8KEiJLS', 1);
