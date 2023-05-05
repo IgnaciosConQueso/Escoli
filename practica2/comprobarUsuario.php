@@ -4,12 +4,18 @@
 
     use escoli\usuarios\Usuario;
 
-	$usuario = $_GET['user'];
-	$usuario = filter_var($usuario, FILTER_SANITIZE_SPECIAL_CHARS);
-
     $response = "false";
-    
-    $existe = Usuario::buscaUsuario($usuario);
+
+    if (isset($_GET['user'])) {
+        $usuario = $_GET['user'];
+        $usuario = filter_var($usuario, FILTER_SANITIZE_SPECIAL_CHARS);
+        $existe = Usuario::buscaUsuario($usuario);
+    }
+    else{
+        $mail = $_GET['email'];
+        $mail = filter_var($mail, FILTER_SANITIZE_EMAIL);
+        $existe = Usuario::buscaPorEmail($mail);
+    }
 
     if($existe != false){
         $response = "true";

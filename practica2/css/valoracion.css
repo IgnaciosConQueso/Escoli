@@ -28,8 +28,3 @@ li.valoracion img.imagen-perfil {
 li.valoracion a.imagen-perfil{
 	display: inline-block;
 }
-
-div.valoracion p {
-	grid-area: texto;
-
-}

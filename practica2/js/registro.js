@@ -54,7 +54,7 @@ $(document).ready(function() {
 			document.getElementById('validEmail').innerHTML = errorIcon;
 			return false;
 		} else {
-			var url = "comprobarEmail.php?email=" + $("#email").val();
+			var url = "comprobarUsuario.php?email=" + $("#email").val();
 			$.get(url, emailExiste);
 		}
 	}
