@@ -19,7 +19,7 @@ $(document).ready(function() {
 				document.getElementById('validName').innerHTML = "El nombre de usuario tiene que tener una longitud de al menos 5 caracteres";
 				return false;
 			} else {
-				var url = "comprobarUsuario.php?user=" + $("#nombreUsuario").val();
+				var url = "comprobarRegistro.php?user=" + $("#nombreUsuario").val();
 				$.get(url,usuarioExiste);
 			}
 	}
@@ -54,7 +54,7 @@ $(document).ready(function() {
 			document.getElementById('validEmail').innerHTML = errorIcon;
 			return false;
 		} else {
-			var url = "comprobarUsuario.php?email=" + $("#email").val();
+			var url = "comprobarRegistro.php?email=" + $("#email").val();
 			$.get(url, emailExiste);
 		}
 	}

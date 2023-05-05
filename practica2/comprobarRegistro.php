@@ -5,13 +5,14 @@
     use escoli\usuarios\Usuario;
 
     $response = "false";
+    $existe = false;
 
     if (isset($_GET['user'])) {
         $usuario = $_GET['user'];
         $usuario = filter_var($usuario, FILTER_SANITIZE_SPECIAL_CHARS);
         $existe = Usuario::buscaUsuario($usuario);
     }
-    else{
+    else if(isset($_GET['email'])){
         $mail = $_GET['email'];
         $mail = filter_var($mail, FILTER_SANITIZE_EMAIL);
         $existe = Usuario::buscaPorEmail($mail);

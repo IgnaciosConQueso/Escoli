@@ -22,7 +22,7 @@ $(document).ready(function() {
 		if (response === "true") {
 			//&#x26a0;
 			document.getElementById('validName').innerHTML = errorIcon;
-			alert("UNIVERSIDAD YA EXISTE");
+			alert("La universidad ya existe");
 			return false;
 		}
 		else {

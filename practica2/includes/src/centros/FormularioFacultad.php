@@ -64,7 +64,7 @@ class FormularioFacultad extends Formulario
          // Verificamos que la subida ha sido correcta
          $ok = $_FILES['archivo']['error'] == UPLOAD_ERR_OK && count($_FILES) == 1;
          if (! $ok ) {
-             $this->errores['archivo'] = 'Error al subir el archivo';
+             $this->errores['archivo'] = "Error al subir el archivo";
              return;
          } 
          
@@ -89,7 +89,7 @@ class FormularioFacultad extends Formulario
          $ok = preg_match('/image\/*./', $mimeType);
  
          if (!$ok) {
-             $this->errores['archivo'] = 'El archivo tiene un nombre o tipo no soportado';
+             $this->errores['archivo'] = "El archivo tiene un nombre o tipo no soportado";
          }
  
          if (count($this->errores) > 0) {
@@ -105,12 +105,12 @@ class FormularioFacultad extends Formulario
          $imagen->guarda();
          $ruta = implode(DIRECTORY_SEPARATOR, [RUTA_IMGS.'\facultades', $fichero]);
          if (!move_uploaded_file($tmp_name, $ruta)) {
-             $this->errores['archivo'] = 'Error al mover el archivo';
+             $this->errores['archivo'] = "Error al mover el archivo";
          }
         $nombre = trim($datos['nombre'] ?? '');
         $nombre = filter_var($nombre, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if (!$nombre || mb_strlen($nombre) < 5) {
-            $this->errores['nombre'] = "El nombre de la facultad tiene que tener una longitud de al menos 5 caracteres.";
+            $this->errores['nombre'] = "El nombre de la facultad tiene que tener una longitud de al menos 5 caracteres";
         }
         
         $iduniversidad = filter_var($datos['universidad'], FILTER_SANITIZE_NUMBER_INT);
@@ -121,7 +121,7 @@ class FormularioFacultad extends Formulario
         if (count($this->errores) === 0) {
             $facultad = Facultad::buscaPorNombre($nombre);
             if ($facultad) {
-                $this->errores[] = "La facultad ya existe.";
+                $this->errores[] = "La facultad ya existe";
             } else {
                 $facultad = Facultad::crea($nombre, $iduniversidad, $imagen->getId());
             }

@@ -64,13 +64,16 @@ class FormularioValoracion extends Formulario
         $comentario=filter_var($datos['comentario'], FILTER_SANITIZE_SPECIAL_CHARS);
 
         if($puntuacion > 5 || $puntuacion < 1){
-            $this->errores[] = "La puntuación debe estar entre 1 y 5.";
+            $this->errores[] = "La puntuación debe estar entre 1 y 5";
         }
         if(mb_strlen($comentario) > 1000){
-            $this->errores[] = "El comentario no puede superar los 1000 caracteres.";
+            $this->errores[] = "El comentario no puede superar los 1000 caracteres";
+        }
+        if(mb_strlen($comentario) <= 0){
+            $this->errores[] = "El comentario no puede estar vacío";
         }
         if(!$idProfesor){
-            $this->errores[] = "Debes seleccionar un profesor.";
+            $this->errores[] = "Debes seleccionar un profesor";
         }
 
         Valoracion::crea($idUsuario, $idProfesor, $comentario ,$puntuacion);

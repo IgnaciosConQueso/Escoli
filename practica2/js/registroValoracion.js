@@ -28,7 +28,7 @@ $(document).ready(function() {
     function compruebaPuntuacion() {
         puntuacion = document.getElementById("puntuacion").value;
         if(puntuacion<0 || puntuacion>5){
-            document.getElementById('validPuntuacion').innerHTML = "La puntuacion tiene que estar entre 0 y 5";
+            document.getElementById('validPuntuacion').innerHTML = "La puntuación debe estar entre 1 y 5";
             return false;
         } else {
             document.getElementById('validPuntuacion').innerHTML = okIcon;
@@ -39,7 +39,7 @@ $(document).ready(function() {
         comentario = document.getElementById("comentario").value;
         lon = comentario.length;
         if(lon > 1000){
-            document.getElementById('validComentario').innerHTML = "El comentario tiene que tener una longitud de máxima de 1000 caracteres";
+            document.getElementById('validComentario').innerHTML = "El comentario no puede superar los 1000 caracteres";
             return false;
         }
         else if (lon <= 0){

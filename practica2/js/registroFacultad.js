@@ -37,7 +37,7 @@ $(document).ready(function() {
 		if (response === "true") {
 			//&#x26a0;
 			document.getElementById('validName').innerHTML = errorIcon;
-			alert("FACULTAD YA EXISTE");
+			alert("La facultad ya existe");
 			return false;
 		}
 		else {
