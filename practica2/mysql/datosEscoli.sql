@@ -52,7 +52,7 @@ INSERT INTO `Valoraciones` (`idUsuario`, `idProfesor`, `comentario`, `puntuacion
 ('1', '5', 'Tiene un gran conocimiento de las criaturas mágicas', '4', '0'),
 ('1', '6', 'Sus clases son muy interesantes y divertidas', '5', '0');
 
-INSERT INTO `imagenes` (`id`, `ruta`, `nombre`, `tipo`) VALUES
+INSERT INTO `Imagenes` (`id`, `ruta`, `nombre`, `tipo`) VALUES
 (1, 'usuarios/1.png', '1.png', 'image/png'),
 (2, 'profesores/2.png', '2.png', 'image/png');
 
