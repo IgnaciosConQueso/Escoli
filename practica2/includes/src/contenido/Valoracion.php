@@ -67,10 +67,10 @@ class Valoracion
     }
 
     //Esto está mal
-    public static function buscaValoracionesPorIdProfesor($idProfesor)
+    public static function listaValoracionesProfesorRecientes($idProfesor)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM Valoraciones V WHERE V.idProfesor='%i'", $conn->real_escape_string($idProfesor));
+        $query = sprintf("SELECT * FROM Valoraciones V WHERE V.idProfesor='%d' ORDER BY V.fecha DESC", $conn->real_escape_string($idProfesor));
         $rs = $conn->query($query);
         $result = false;
         if ($rs) {

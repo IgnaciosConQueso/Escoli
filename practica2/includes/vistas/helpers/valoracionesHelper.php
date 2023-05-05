@@ -56,6 +56,20 @@ function listaValoracionesUsuario($id, $url)
     return $html;
 }
 
+function listaValoracionesProfesor($id, $url)
+{
+    $arrayMensajes = Valoracion::listaValoracionesProfesorRecientes($id);
+    $html = '';
+    if ($arrayMensajes) {
+        $html .= '<ul class="lista-valoraciones">';
+        foreach ($arrayMensajes as $valoracion) {
+            $html .= generaHTMLValoracion($valoracion, $url);
+        }
+        $html .= '</ul>';
+    }
+    return $html;
+}
+
 function listaTopCinco($id, $url)
 {
     $arrayMensajes = Valoracion::buscaTopCincoValoraciones($id);
@@ -63,7 +77,7 @@ function listaTopCinco($id, $url)
     if ($arrayMensajes) {
         $html .= '<ul class="lista-top5-valoraciones">';
         foreach ($arrayMensajes as $valoracion) {
-            $html .= generaHTMLValoracionReducida($valoracion);
+            $html .= generaHTMLValoracion($valoracion, $url);
 
         }
         $html .= '</ul>';
