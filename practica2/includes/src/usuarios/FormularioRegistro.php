@@ -82,8 +82,6 @@ class FormularioRegistro extends Formulario
             $imagen = null;
         }
         
-        
- 
         $nombreUsuario = trim($datos['nombreUsuario'] ?? '');
         $nombreUsuario = filter_var($nombreUsuario, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if ( ! $nombreUsuario || mb_strlen($nombreUsuario) < 5) {

@@ -103,8 +103,8 @@ class Universidad
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("UPDATE Universidades SET nombre='%s', idImagen='%i' WHERE id='%d'",
-         $conn->real_escape_string($universidad->nombre),
-        $conn-> real_escape_string($universidad->idImagen), 
+        $conn->real_escape_string($universidad->nombre),
+        $conn->real_escape_string($universidad->idImagen), 
         filter_var($universidad->id, FILTER_SANITIZE_NUMBER_INT));
         if ($conn->query($query)) {
             return true;
