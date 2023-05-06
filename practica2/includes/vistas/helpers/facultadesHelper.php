@@ -7,7 +7,6 @@ use escoli\Aplicacion;
 
 function listaFacultades($idFacultad)
 {
-    //recibe todas las facultades de una universidad
     $arrayFacultades = Facultad::buscaFacultades($idFacultad);
     $html = '';
     if ($arrayFacultades) {

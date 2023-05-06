@@ -18,9 +18,9 @@ function listaAsignaturasProfesor($idProfesor)
 
 function generaHTMLAsignatura($asignatura)
 {
-    $url = 'valoraciones.php?idAsignatura=' . $asignatura->getId();
+    $url = 'asignatura.php?idAsignatura=' . $asignatura->getId();
     $html = '<div class="asignatura">';
-    $html .= '<p class="nombre-asignatura">' . $asignatura->nombre . '</p>';
+    $html .= '<p class="nombre-asignatura"><a href="' . $url . '">' . $asignatura->nombre . '</a></p>';
     $html .= '</div>';
     return $html;
 }
