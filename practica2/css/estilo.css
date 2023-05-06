@@ -14,7 +14,6 @@ aside#sidebarIzq {
 	width: 25%;
 	float: left;
 	display: block;
-	padding-right: 5%;
 	margin: auto;
 }
 
@@ -22,7 +21,6 @@ aside#sidebarDer {
 	width: 25%;
 	float: right;
 	display: block;
-	padding-left: 5%;
 	margin: auto;
 }
 

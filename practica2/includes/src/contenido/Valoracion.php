@@ -4,7 +4,7 @@ namespace escoli\contenido;
 
 use escoli\Aplicacion;
 use escoli\MagicProperties;
-
+use escoli\contenido\Asignatura;
 
 class Valoracion
 {
@@ -189,6 +189,28 @@ class Valoracion
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM Valoraciones V WHERE V.idProfesor='%d' ORDER BY V.fecha DESC", $conn->real_escape_string($idProfesor));
+        $rs = $conn->query($query);
+        if ($rs) {
+            $result = array();
+            while ($fila = $rs->fetch_assoc()) {
+                $valoracion = new Valoracion(
+                    $fila['idUsuario'], $fila['idProfesor'], $fila['comentario'],
+                    $fila['puntuacion'], $fila['likes'], $fila['id'], $fila['fecha']
+                );
+                array_push($result, $valoracion);
+            }
+            $rs->free();
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
+    }
+
+    public static function ultimasValoracionesAsignatura($idAsignatura)
+    {
+        $result = false;
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM Valoraciones V WHERE V.idProfesor='%d' ORDER BY V.fecha DESC", $conn->real_escape_string($idAsignatura));
         $rs = $conn->query($query);
         if ($rs) {
             $result = array();
