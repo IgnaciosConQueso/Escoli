@@ -31,14 +31,16 @@ class Profesor
         return false;
     }
 
-    public static function buscaProfesoresPorIdFacultad($idFacultad){
+    public static function buscaProfesoresPorIdFacultad($idFacultad)
+    {
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT P.id, P.nombre FROM Profesores P
             JOIN Asignaturas A ON P.id = A.idProfesor
             WHERE A.idFacultad = '%d'
             GROUP BY P.id",
-            filter_var($idFacultad, FILTER_SANITIZE_NUMBER_INT));
-        
+            filter_var($idFacultad, FILTER_SANITIZE_NUMBER_INT)
+        );
+
         $rs = $conn->query($query);
         $result = false;
         if ($rs) {
@@ -72,7 +74,8 @@ class Profesor
         return $result;
     }
 
-    public static function nombreProfesorPorId($id){
+    public static function nombreProfesorPorId($id)
+    {
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT nombre FROM Profesores WHERE id='%d'", filter_var($id, FILTER_SANITIZE_NUMBER_INT));
@@ -90,10 +93,12 @@ class Profesor
     private static function actualiza($profesor)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("UPDATE Profesores SET nombre='%s', idImagen='%d' WHERE id='%d'",
-        $conn->real_escape_string($profesor->nombre),
-        filter_var($profesor->idImagen, FILTER_SANITIZE_NUMBER_INT),
-        filter_var($profesor->id, FILTER_SANITIZE_NUMBER_INT));
+        $query = sprintf(
+            "UPDATE Profesores SET nombre='%s', idImagen='%d' WHERE id='%d'",
+            $conn->real_escape_string($profesor->nombre),
+            filter_var($profesor->idImagen, FILTER_SANITIZE_NUMBER_INT),
+            filter_var($profesor->id, FILTER_SANITIZE_NUMBER_INT)
+        );
         if ($conn->query($query)) {
             return true;
         } else {
@@ -121,7 +126,9 @@ class Profesor
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
             "DELETE FROM Profesores WHERE id='%d'"
-            , filter_var($profesor->id, FILTER_SANITIZE_NUMBER_INT));
+            ,
+            filter_var($profesor->id, FILTER_SANITIZE_NUMBER_INT)
+        );
         if (!$conn->query($query)) {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
         }

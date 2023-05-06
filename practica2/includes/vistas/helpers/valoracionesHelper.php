@@ -22,6 +22,20 @@ function listaValoraciones($url, $numPorPag = 10, $pag = 1)
     return $html;
 }
 
+function listaValoracionesProfesor($id)
+{
+    $arrayMensajes = Valoracion::ultimasValoracionesProfesor($id);
+    $html = '';
+    if ($arrayMensajes) {
+        $html .= '<ul class="lista-valoraciones">';
+        foreach ($arrayMensajes as $valoracion) {
+            $html .= generaHTMLValoracion($valoracion, null);
+        }
+        $html .= '</ul>';
+    }
+    return $html;
+}
+
 function listaValoracionesFacultad($id, $url, $numPorPag = 10, $pag = 1)
 {
     $arrayMensajes = Valoracion::buscaUltimasValoracionesFacultad($id, $numPorPag, $pag);
@@ -45,20 +59,6 @@ function nombreFacultad($idFacultad)
 function listaValoracionesUsuario($id, $url)
 {
     $arrayMensajes = Valoracion::buscaValoracionesPorIdUsuario($id);
-    $html = '';
-    if ($arrayMensajes) {
-        $html .= '<ul class="lista-valoraciones">';
-        foreach ($arrayMensajes as $valoracion) {
-            $html .= generaHTMLValoracion($valoracion, $url);
-        }
-        $html .= '</ul>';
-    }
-    return $html;
-}
-
-function listaValoracionesProfesor($id, $url)
-{
-    $arrayMensajes = Valoracion::listaValoracionesProfesorRecientes($id);
     $html = '';
     if ($arrayMensajes) {
         $html .= '<ul class="lista-valoraciones">';
@@ -147,6 +147,14 @@ function muestraLikesTotales($idUser)
 {
     $html = '<div class="likes">';
     $html .= '<p class="likes">' . "likes: " . Valoracion::sumaLikes($idUser) . '</p>';
+    $html .= '</div>';
+    return $html;
+}
+
+function generaMediaValoraciones($idProfesor)
+{
+    $html = '<div class="media-valoraciones">';
+    $html .= '<p class="media-valoraciones">' . "media: " . Valoracion::mediaValoracionesProfesor($idProfesor) . '</p>';
     $html .= '</div>';
     return $html;
 }

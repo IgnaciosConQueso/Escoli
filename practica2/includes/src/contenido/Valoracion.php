@@ -47,7 +47,8 @@ class Valoracion
         return false;
     }
 
-    public static function buscaValoracion($id){
+    public static function buscaValoracion($id)
+    {
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT * FROM Valoraciones V WHERE V.id='%d'", $conn->real_escape_string($id));
         $rs = $conn->query($query);
@@ -57,7 +58,8 @@ class Valoracion
             if ($fila) {
                 $result = new Valoracion(
                     $fila['idUsuario'], $fila['idProfesor'], $fila['comentario'],
-                    $fila['puntuacion'], $fila['likes'], $fila['id'], $fila['fecha']);
+                    $fila['puntuacion'], $fila['likes'], $fila['id'], $fila['fecha']
+                );
             }
             $rs->free();
         } else {
@@ -65,28 +67,6 @@ class Valoracion
         }
         return $result;
     }
-
-    //Esto está mal
-    public static function listaValoracionesProfesorRecientes($idProfesor)
-    {
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM Valoraciones V WHERE V.idProfesor='%d' ORDER BY V.fecha DESC", $conn->real_escape_string($idProfesor));
-        $rs = $conn->query($query);
-        $result = false;
-        if ($rs) {
-            $fila = $rs->fetch_assoc();
-            if ($fila) {
-                $result = new Valoracion(
-                    $fila['idUsuario'], $fila['idProfesor'], $fila['comentario'],
-                    $fila['puntuacion'], $fila['likes'], $fila['id'], $fila['fecha']);
-            }
-            $rs->free();
-        } else {
-            error_log("Error BD ({$conn->errno}): {$conn->error}");
-        }
-        return $result;
-    }
-
 
     // busca todas las valoraciones de un usuario
     public static function buscaValoracionesPorIdUsuario($idUsuario)
@@ -101,7 +81,8 @@ class Valoracion
             while ($fila = $rs->fetch_assoc()) {
                 $valoracion = new Valoracion(
                     $fila['idUsuario'], $fila['idProfesor'], $fila['comentario'],
-                    $fila['puntuacion'], $fila['likes'], $fila['id'], $fila['fecha']);
+                    $fila['puntuacion'], $fila['likes'], $fila['id'], $fila['fecha']
+                );
                 array_push($result, $valoracion);
             }
             $rs->free();
@@ -124,7 +105,8 @@ class Valoracion
             while ($fila = $rs->fetch_assoc()) {
                 $valoracion = new Valoracion(
                     $fila['idUsuario'], $fila['idProfesor'], $fila['comentario'],
-                    $fila['puntuacion'], $fila['likes'], $fila['id'], $fila['fecha']);
+                    $fila['puntuacion'], $fila['likes'], $fila['id'], $fila['fecha']
+                );
                 array_push($result, $valoracion);
             }
             $rs->free();
@@ -168,7 +150,8 @@ class Valoracion
             while ($fila = $rs->fetch_assoc()) {
                 $valoracion = new Valoracion(
                     $fila['idUsuario'], $fila['idProfesor'], $fila['comentario'],
-                    $fila['puntuacion'], $fila['likes'], $fila['id'], $fila['fecha']);
+                    $fila['puntuacion'], $fila['likes'], $fila['id'], $fila['fecha']
+                );
                 array_push($result, $valoracion);
             }
             $rs->free();
@@ -190,10 +173,50 @@ class Valoracion
             while ($fila = $rs->fetch_assoc()) {
                 $valoracion = new Valoracion(
                     $fila['idUsuario'], $fila['idProfesor'], $fila['comentario'],
-                    $fila['puntuacion'], $fila['likes'], $fila['id'], $fila['fecha']);
+                    $fila['puntuacion'], $fila['likes'], $fila['id'], $fila['fecha']
+                );
                 array_push($result, $valoracion);
             }
             $rs->free();
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
+    }
+
+    public static function ultimasValoracionesProfesor($idProfesor)
+    {
+        $result = false;
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM Valoraciones V WHERE V.idProfesor='%d' ORDER BY V.fecha DESC", $conn->real_escape_string($idProfesor));
+        $rs = $conn->query($query);
+        if ($rs) {
+            $result = array();
+            while ($fila = $rs->fetch_assoc()) {
+                $valoracion = new Valoracion(
+                    $fila['idUsuario'], $fila['idProfesor'], $fila['comentario'],
+                    $fila['puntuacion'], $fila['likes'], $fila['id'], $fila['fecha']
+                );
+                array_push($result, $valoracion);
+            }
+            $rs->free();
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
+    }
+
+    public static function mediaValoracionesProfesor($idProfesor)
+    {
+        $result = false;
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT AVG(V.puntuacion) AS media FROM Valoraciones V WHERE V.idProfesor='%d'", $conn->real_escape_string($idProfesor));
+        $rs = $conn->query($query);
+        if ($rs) {
+            $fila = $rs->fetch_assoc();
+            if ($fila) {
+                $result = $fila['media'];
+            }
         } else {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
         }
@@ -230,7 +253,7 @@ class Valoracion
             $conn->real_escape_string($Valoracion->idProfesor),
             $conn->real_escape_string($Valoracion->comentario),
             $conn->real_escape_string($Valoracion->puntuacion),
-            0//$conn->real_escape_string($Valoracion->likes)
+            0 //$conn->real_escape_string($Valoracion->likes)
         );
         if (!$conn->query($query)) {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
@@ -269,8 +292,8 @@ class Valoracion
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
             "UPDATE Valoraciones V SET likes = %d WHERE V.id=%d",
-           $likes,
-           $id
+            $likes,
+            $id
         );
         if (!$conn->query($query)) {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
@@ -319,11 +342,12 @@ class Valoracion
         return $this->puntuacion;
     }
 
-    public function getLikes(){
+    public function getLikes()
+    {
         return $this->likes;
     }
 
-    
+
 }
 
 ?>

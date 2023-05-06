@@ -31,6 +31,25 @@ class Asignatura
         return false;
     }
 
+    public static function getAsignaturasProfesor($idProfesor)
+    {
+        $result = false;
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM Asignaturas WHERE idProfesor='%d'" , filter_var($idProfesor, FILTER_SANITIZE_NUMBER_INT));
+        $rs = $conn->query($query);
+        if ($rs) {
+            $result = array();
+            while ($fila = $rs->fetch_assoc()) {
+                $asignatura = new Asignatura($fila['nombre'], $fila['idProfesor'], $fila['idFacultad'], $fila['id']);    
+                array_push($result, $asignatura);
+            }
+            $rs->free();
+        } else {
+            error_log("Error al consultar en la BD: {$conn->error}");
+        }
+        return $result;
+    }
+
     private static function actualiza($asignatura)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
@@ -61,7 +80,8 @@ class Asignatura
         $query = sprintf(
             "DELETE FROM Asignaturas WHERE id='%d'"
             ,
-            filter_var($profesor->id, FILTER_SANITIZE_NUMBER_INT));
+            filter_var($profesor->id, FILTER_SANITIZE_NUMBER_INT)
+        );
         if (!$conn->query($query)) {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
         }

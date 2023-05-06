@@ -10,6 +10,6 @@ $app = Aplicacion::getInstance();
 	</div>
 	<div id="copy">
 		<p>© 2023 Escoli. All rights reserved.</p>
-		<a class="icons" href="https://github.com/IgnaciosConQueso/Escoli"> <img class="icons" src="<?= $app->resuelve('/Imagenes/github.png'); ?>" alt="github" title="Escoli"></a>
+		<a class="icons" href="https://github.com/IgnaciosConQueso/Escoli"> <img class="icons" src="<?= $app->resuelveImagen('github.png'); ?>" alt="github" title="Escoli"></a>
 	</div>
 </footer>
