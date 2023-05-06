@@ -13,7 +13,6 @@ class Aplicacion
     const ATRIBUTOS_PETICION = 'attsPeticion';
 
     private static $instancia;
-
     /**
      * Devuele una instancia de {@see Aplicacion}.
      *
