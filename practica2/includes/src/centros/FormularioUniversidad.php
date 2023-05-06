@@ -89,7 +89,7 @@ class FormularioUniversidad extends Formulario
          $imagen = Imagen::crea($nombre, $mimeType, '');
          $imagen->guarda();
          $fichero = "{$imagen->getId()}.{$extension}";
-         $imagen->setRuta('\universidades\\'.$fichero);
+         $imagen->setRuta('universidades/'.$fichero);
          $imagen->guarda();
          $ruta = implode(DIRECTORY_SEPARATOR, [RUTA_IMGS.'\universidades', $fichero]);
          if (!move_uploaded_file($tmp_name, $ruta)) {

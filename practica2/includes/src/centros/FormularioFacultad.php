@@ -101,9 +101,9 @@ class FormularioFacultad extends Formulario
          $imagen = Imagen::crea($nombre, $mimeType, '');
          $imagen->guarda();
          $fichero = "{$imagen->getId()}.{$extension}";
-         $imagen->setRuta('\facultades\\'.$fichero);
+         $imagen->setRuta('facultades/'.$fichero);
          $imagen->guarda();
-         $ruta = implode(DIRECTORY_SEPARATOR, [RUTA_IMGS.'\facultades', $fichero]);
+         $ruta = implode(DIRECTORY_SEPARATOR, [RUTA_IMGS.'/facultades', $fichero]);
          if (!move_uploaded_file($tmp_name, $ruta)) {
              $this->errores['archivo'] = "Error al mover el archivo";
          }
