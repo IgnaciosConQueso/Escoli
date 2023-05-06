@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `RolesUsuario` (
 CREATE TABLE IF NOT EXISTS `Universidades` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `nombre` VARCHAR(255) NOT NULL,
-    `idImagen` INT(11),
+    `idImagen` INT(11) DEFAULT '4',
     PRIMARY KEY (`id`),
     UNIQUE (`nombre`)
 ) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;

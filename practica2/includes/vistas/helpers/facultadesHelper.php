@@ -27,7 +27,7 @@ function generaHTMLFacultad($data)
     
     $url = 'valoraciones.php?idFacultad=' . $data->id;
     $html = '<div class="facultad">';
-    $html .= '<a class="imagen" href="' . Aplicacion::getInstance()->resuelve('valoraciones.php?idFacultad=' . $facultad->getId()) . '">' .  $htmlImg . '</a>';
+    $html .= '<a class="imagen" href="' . Aplicacion::getInstance()->resuelve($url) . '">' .  $htmlImg . '</a>';
     $html .= '<p class="nombre-facultad"><a href="' . $url . '">' . $data->nombre . '</a></p>';
     $html .= '</div>';
     return $html;

@@ -110,7 +110,7 @@ class Facultad
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
-            "UPDATE Facultades F SET F.nombre='%s', F.idUniversidad='%i', F.idImagen='%d' WHERE F.id='%i'"
+            "UPDATE Facultades F SET F.nombre='%s', F.idUniversidad='%d', F.idImagen='%d' WHERE F.id='%i'"
             , $conn->real_escape_string($facultad->nombre)
             , $conn->real_escape_string($facultad->idUniversidad)
             , $conn->real_escape_string($facultad->id)

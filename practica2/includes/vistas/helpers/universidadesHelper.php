@@ -3,6 +3,7 @@
 use escoli\centros\Universidad;
 use escoli\Formulario;
 use escoli\Aplicacion;
+use escoli\Imagen;
 
 function listaUniversidades()
 {
@@ -20,10 +21,13 @@ function listaUniversidades()
 
 function generaHTMLUniversidad($data)
 {
-    $app = Aplicacion::getInstance();
+    $universidad = Universidad::buscaPorId($data->id);
+    $imagen = Imagen::buscaPorId($universidad->getIdImagen());
+    $htmlImg = '<img class="imagen-perfil" src="' . Aplicacion::getInstance()->resuelveImagen($imagen->ruta) . '" alt = "foto de la facultad">';
+    
     $url = 'facultades.php?idUniversidad=' . $data->id;
     $html = '<div class="universidad">';
-    $html .= '<a class="imagen" href="' . $url . '">'. '<img src="' . $app->resuelveImagen('logo.png') . '" alt="imagen de la universidad">' . '</a>';
+    $html .= '<a class="imagen" href="' . Aplicacion::getInstance()->resuelve($url) . '">' .  $htmlImg . '</a>';
     $html .= '<p class="nombre-universidad"> <a href="' . $url . '">' . $data->nombre . '</a></p>';
     $html .= botonBorraUniversidad($data->id);
     $html .= botonEditaUniversidad($data->id);
