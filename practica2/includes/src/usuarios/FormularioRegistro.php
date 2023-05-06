@@ -73,7 +73,7 @@ class FormularioRegistro extends Formulario
         $this->errores = [];
         // Verificamos que la subida ha sido correcta
         if ($_FILES['archivo']['error'] != UPLOAD_ERR_NO_FILE){
-            if ($_FILES['archivo']['error'] != UPLOAD_ERR_OK) {
+            if ($_FILES['archivo']['error'] == UPLOAD_ERR_OK && count($_FILES) == 1) {
                 $imagen = self :: procesaImagen();
             } else {
                 $this->errores['archivo'] = "Error al subir el archivo";
