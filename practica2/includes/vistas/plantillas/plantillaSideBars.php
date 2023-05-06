@@ -10,7 +10,7 @@
     </title>
     <link rel="stylesheet" type="text/css" href="<?= $params['app']->resuelve('/css/estilo.css') ?>" />
 
-    <link rel="icon" href=<?=$params['app']->resuelve('/Imagenes/icon.png')?> />
+    <link rel="icon" href=<?=$params['app']->resuelveImagen('icon.png')?> />
 
     <title>Document</title>
 </head>
