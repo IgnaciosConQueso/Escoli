@@ -50,6 +50,20 @@ function listaValoracionesFacultad($id, $url, $numPorPag = 10, $pag = 1)
     return $html;
 }
 
+function listaValoracionesAsignatura($id)
+{
+    $arrayMensajes = Valoracion::ultimasValoracionesAsignatura($id);
+    $html = '';
+    if ($arrayMensajes) {
+        $html .= '<ul class="lista-valoraciones">';
+        foreach ($arrayMensajes as $valoracion) {
+            $html .= generaHTMLValoracion($valoracion, null);
+        }
+        $html .= '</ul>';
+    }
+    return $html;
+}
+
 function nombreFacultad($idFacultad)
 {
     $facultad = Facultad::buscaPorId($idFacultad);
