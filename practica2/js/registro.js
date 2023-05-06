@@ -28,7 +28,7 @@ $(document).ready(function() {
 		if (response === "true") {
 			//&#x26a0;
 			document.getElementById('validName').innerHTML = errorIcon;
-			alert("USUARIO YA EXISTE");
+			alert("Este nombre de usuario ya está en uso");
 			return false;
 		}
 		else {

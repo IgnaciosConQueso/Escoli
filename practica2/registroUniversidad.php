@@ -7,7 +7,7 @@ $formRegistro = new \escoli\centros\FormularioUniversidad();
 $scriptRegistro = $app->resuelve('js/registroUniversidad.js');
 $jQuery = $app->resuelve('js/jquery-3.6.0.min.js');//cogido del ejercicio 4
 
-$tituloPagina = 'Registro Universdad';
+$tituloPagina = 'Registro Universidad';
 
 if (isset($_GET['id']) && !isset($_POST['id'])) {
   $universidad = \escoli\centros\Universidad::buscaPorId($_GET['id']);

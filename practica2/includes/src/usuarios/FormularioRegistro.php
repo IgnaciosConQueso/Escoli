@@ -112,17 +112,20 @@ class FormularioRegistro extends Formulario
        
         if ((count($this->errores)) == 0) {
             $usuario = (Usuario::buscaUsuario($nombreUsuario));
-            if (!$usuario) $usuario = (Usuario::buscaPorEmail($email));
-            
-	
-            if ($usuario) {
-                $this->errores[] = "El usuario o el correo ya existe";
+
+            if($usuario){
+                $this->errores[] = "Este nombre de usuario ya está en uso";
             } else {
-                if ($imagen) $usuario = Usuario::crea($nombreUsuario, $password, $email, $imagen->id);
-                else $usuario = Usuario::crea($nombreUsuario, $password, $email, null);
-                $app = Aplicacion::getInstance();
-                $app->login($usuario);
-                $app->redirige($app->resuelve('/index.php'));
+                $usuario = (Usuario::buscaPorEmail($email));
+                if ($usuario) {
+                    $this->errores[] = "Este email ya está en uso";
+                } else {
+                    if ($imagen) $usuario = Usuario::crea($nombreUsuario, $password, $email, $imagen->id);
+                    else $usuario = Usuario::crea($nombreUsuario, $password, $email, null);
+                    $app = Aplicacion::getInstance();
+                    $app->login($usuario);
+                    $app->redirige($app->resuelve('/index.php'));
+                }
             }
         }
     }
