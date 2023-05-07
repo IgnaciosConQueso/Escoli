@@ -28,7 +28,7 @@ $(document).ready(function() {
     function compruebaPuntuacion() {
         puntuacion = document.getElementById("puntuacion").value;
         if(puntuacion<0 || puntuacion>5){
-            document.getElementById('validPuntuacion').innerHTML = "La puntuación debe estar entre 1 y 5";
+            document.getElementById('validPuntuacion').innerHTML = "La puntuación debe ser un número entre 1 y 5";
             return false;
         } else {
             document.getElementById('validPuntuacion').innerHTML = okIcon;

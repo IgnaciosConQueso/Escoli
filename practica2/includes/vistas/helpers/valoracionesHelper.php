@@ -4,6 +4,7 @@ use escoli\contenido\Valoracion;
 use escoli\contenido\Profesor;
 use escoli\centros\Facultad;
 use escoli\Aplicacion;
+use escoli\contenido\Asignatura;
 use escoli\Formulario;
 use escoli\Imagen;
 use escoli\usuarios\Usuario;
@@ -116,6 +117,7 @@ function generaHTMLValoracion($valoracion, $url)
     $html .= '<p class="nombre-profesor">' . $profesor->nombre . '</p>';
     $html .= '<p class="puntuacion">' . generaPuntuacion($valoracion->puntuacion) . '</p>';
     $html .= '</div>';
+    $html .= '<p class="asignatura">' . Asignatura::buscaPorId($valoracion->idAsignatura)->nombre . '</p>';
     $html .= '</div>';
     $html .= '<p class="comentario">' . $valoracion->comentario . '</p>';
     $html .= '<div class="info-perfil">';
@@ -123,7 +125,7 @@ function generaHTMLValoracion($valoracion, $url)
     $html .= '<p class="nombre-usuario">' . $usuario->nombreUsuario . '</p>';
     $html .= '</div>';
     $html .= '<div class="footer-valoracion">';
-    $html .= '<p class="likes">' . "likes: " . $valoracion->likes . '</p>';
+    $html .= '<p class="likes">' . $valoracion->likes . '</p>';
     $html .= '<button class="boton-like" data-idval = "' . $valoracion->id .
         '" data-likes = "' . $valoracion->likes . //v Esto no se si se puede hacer de otra forma, abierto a sugerencias.
         '" data-api = "' . Aplicacion::getInstance()->resuelve('/includes/vistas/helpers/api_likes.php') . '">👍</button>';
@@ -132,7 +134,7 @@ function generaHTMLValoracion($valoracion, $url)
         '" data-likes = "' . $valoracion->likes .
         '" data-api = "' . Aplicacion::getInstance()->resuelve('/includes/vistas/helpers/api_likes.php') . '">👎</button>';
 
-    $html .= '<p class="fecha">' . "fecha: " . $valoracion->fecha . '</p>';
+    $html .= '<p class="fecha">' . $valoracion->fecha . '</p>';
     $html .= '</div>';
     $html .= '</li>';
     return $html;

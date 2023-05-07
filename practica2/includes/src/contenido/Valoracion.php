@@ -11,23 +11,18 @@ class Valoracion
     use MagicProperties;
 
     private $id;
-
     private $idUsuario;
-
     private $idProfesor;
-
+    private $idAsignatura;
     private $fecha;
-
     private $comentario;
-
     private $puntuacion;
-
     private $likes;
 
-    public static function crea($idUsuario, $idProfesor, $comentario, $puntuacion, $likes = 0, $id = null)
+    public static function crea($idUsuario, $idProfesor, $idAsignatura, $comentario, $puntuacion, $likes = 0, $id = null)
     {
         $valoracion = new Valoracion
-        ($idUsuario, $idProfesor, $comentario, $puntuacion, $likes, $id);
+        ($idUsuario, $idProfesor, $idAsignatura, $comentario, $puntuacion, $likes, $id);
         return $valoracion->guarda();
     }
 
@@ -57,7 +52,7 @@ class Valoracion
             $fila = $rs->fetch_assoc();
             if ($fila) {
                 $result = new Valoracion(
-                    $fila['idUsuario'], $fila['idProfesor'], $fila['comentario'],
+                    $fila['idUsuario'], $fila['idProfesor'], $fila['idAsignatura'], $fila['comentario'],
                     $fila['puntuacion'], $fila['likes'], $fila['id'], $fila['fecha']
                 );
             }
@@ -80,7 +75,7 @@ class Valoracion
             $result = array();
             while ($fila = $rs->fetch_assoc()) {
                 $valoracion = new Valoracion(
-                    $fila['idUsuario'], $fila['idProfesor'], $fila['comentario'],
+                    $fila['idUsuario'], $fila['idProfesor'], $fila['idAsignatura'], $fila['comentario'],
                     $fila['puntuacion'], $fila['likes'], $fila['id'], $fila['fecha']
                 );
                 array_push($result, $valoracion);
@@ -104,7 +99,7 @@ class Valoracion
             $result = array();
             while ($fila = $rs->fetch_assoc()) {
                 $valoracion = new Valoracion(
-                    $fila['idUsuario'], $fila['idProfesor'], $fila['comentario'],
+                    $fila['idUsuario'], $fila['idProfesor'], $fila['idAsignatura'], $fila['comentario'],
                     $fila['puntuacion'], $fila['likes'], $fila['id'], $fila['fecha']
                 );
                 array_push($result, $valoracion);
@@ -139,7 +134,7 @@ class Valoracion
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT V.* FROM `Valoraciones` V
-            JOIN `Asignaturas` A ON V.idProfesor = A.idProfesor
+            JOIN `Asignaturas` A ON V.idProfesor = A.idProfesor AND V.idAsignatura = A.id
             WHERE A.idFacultad = %d
             GROUP BY V.id ORDER BY V.fecha DESC", $idFacultad);
         $query .= sprintf(" LIMIT %d, %d;", ($numPagina - 1) * $numPorPagina, $numPorPagina);
@@ -149,7 +144,7 @@ class Valoracion
             $result = array();
             while ($fila = $rs->fetch_assoc()) {
                 $valoracion = new Valoracion(
-                    $fila['idUsuario'], $fila['idProfesor'], $fila['comentario'],
+                    $fila['idUsuario'], $fila['idProfesor'], $fila['idAsignatura'], $fila['comentario'],
                     $fila['puntuacion'], $fila['likes'], $fila['id'], $fila['fecha']
                 );
                 array_push($result, $valoracion);
@@ -172,7 +167,7 @@ class Valoracion
             $result = array();
             while ($fila = $rs->fetch_assoc()) {
                 $valoracion = new Valoracion(
-                    $fila['idUsuario'], $fila['idProfesor'], $fila['comentario'],
+                    $fila['idUsuario'], $fila['idProfesor'], $fila['idAsignatura'], $fila['comentario'],
                     $fila['puntuacion'], $fila['likes'], $fila['id'], $fila['fecha']
                 );
                 array_push($result, $valoracion);
@@ -194,7 +189,7 @@ class Valoracion
             $result = array();
             while ($fila = $rs->fetch_assoc()) {
                 $valoracion = new Valoracion(
-                    $fila['idUsuario'], $fila['idProfesor'], $fila['comentario'],
+                    $fila['idUsuario'], $fila['idProfesor'], $fila['idAsignatura'], $fila['comentario'],
                     $fila['puntuacion'], $fila['likes'], $fila['id'], $fila['fecha']
                 );
                 array_push($result, $valoracion);
@@ -216,7 +211,7 @@ class Valoracion
             $result = array();
             while ($fila = $rs->fetch_assoc()) {
                 $valoracion = new Valoracion(
-                    $fila['idUsuario'], $fila['idProfesor'], $fila['comentario'],
+                    $fila['idUsuario'], $fila['idProfesor'], $fila['idAsignatura'], $fila['comentario'],
                     $fila['puntuacion'], $fila['likes'], $fila['id'], $fila['fecha']
                 );
                 array_push($result, $valoracion);
@@ -250,9 +245,10 @@ class Valoracion
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
-            "UPDATE Valoraciones V SET idUsuario = '%d', idProfesor='%d', comentario = '%s', puntuacion = '%d', likes = %d WHERE V.id=%d",
+            "UPDATE Valoraciones V SET idUsuario = '%d', idProfesor='%d', idAsignatura='%d', comentario = '%s', puntuacion = '%d', likes = %d WHERE V.id=%d",
             $conn->real_escape_string($Valoracion->idUsuario),
             $conn->real_escape_string($Valoracion->idProfesor),
+            $conn->real_escape_string($Valoracion->idAsignatura),
             $conn->real_escape_string($Valoracion->comentario),
             $conn->real_escape_string($Valoracion->puntuacion),
             $conn->real_escape_string($Valoracion->likes),
@@ -269,10 +265,11 @@ class Valoracion
     {
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("INSERT INTO Valoraciones(idUsuario, idProfesor, comentario, puntuacion, likes) 
-            VALUES ('%d', '%d', '%s', '%d', '%d')",
+        $query = sprintf("INSERT INTO Valoraciones(idUsuario, idProfesor, idAsignatura, comentario, puntuacion, likes) 
+            VALUES ('%d', '%d', '%d', '%s', '%d', '%d')",
             $conn->real_escape_string($Valoracion->idUsuario),
             $conn->real_escape_string($Valoracion->idProfesor),
+            $conn->real_escape_string($Valoracion->idAsignatura),
             $conn->real_escape_string($Valoracion->comentario),
             $conn->real_escape_string($Valoracion->puntuacion),
             0 //$conn->real_escape_string($Valoracion->likes)
@@ -323,51 +320,26 @@ class Valoracion
         return $result;
     }
 
-    private function __construct($idUsuario, $idProfesor, $comentario, $puntuacion, $likes = 0, $id = null, $fecha = null)
+    private function __construct($idUsuario, $idProfesor, $idAsignatura, $comentario, $puntuacion, $likes = 0, $id = null, $fecha = null)
     {
         $this->id = $id;
         $this->idUsuario = $idUsuario;
         $this->idProfesor = $idProfesor;
+        $this->idAsignatura = $idAsignatura;
         $this->fecha = $fecha;
         $this->comentario = $comentario;
         $this->puntuacion = $puntuacion;
         $this->likes = $likes;
     }
 
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function getIdUsuario()
-    {
-        return $this->idUsuario;
-    }
-
-    public function getIdProfesor()
-    {
-        return $this->idProfesor;
-    }
-
-    public function getFecha()
-    {
-        return $this->fecha;
-    }
-
-    public function getComentario()
-    {
-        return $this->comentario;
-    }
-
-    public function getPuntuacion()
-    {
-        return $this->puntuacion;
-    }
-
-    public function getLikes()
-    {
-        return $this->likes;
-    }
+    public function getId(){return $this->id;}
+    public function getIdUsuario(){return $this->idUsuario;}
+    public function getIdProfesor(){return $this->idProfesor;}
+    public function getIdAsignatura(){return $this->idAsignatura;}
+    public function getFecha(){return $this->fecha;}
+    public function getComentario(){return $this->comentario;}
+    public function getPuntuacion(){return $this->puntuacion;}
+    public function getLikes(){return $this->likes;}
 
 
 }

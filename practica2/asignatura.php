@@ -11,7 +11,7 @@ $app = Aplicacion::getInstance();
 $tituloPagina = 'Asignatura';
 
 $idAsignatura = $_GET['idAsignatura'];
-$nombreAsignatura = Asignatura::nombreAsignaturaPorId($idAsignatura);
+$nombreAsignatura = Asignatura::buscaPorId($idAsignatura)->nombre;
 
 $contenidoValoraciones = listaValoracionesAsignatura($idAsignatura);
 

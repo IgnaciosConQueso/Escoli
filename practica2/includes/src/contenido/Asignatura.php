@@ -31,21 +31,24 @@ class Asignatura
         return false;
     }
 
-    public static function nombreAsignaturaPorId($idAsignatura)
+    public static function buscaPorId($id)
     {
-        $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT nombre FROM Asignaturas WHERE id='%d'", filter_var($idAsignatura, FILTER_SANITIZE_NUMBER_INT));
+        $query = sprintf("SELECT * FROM Asignaturas WHERE id='%d'", filter_var($id, FILTER_SANITIZE_NUMBER_INT));
         $rs = $conn->query($query);
+        $result = false;
         if ($rs) {
-            $result = $rs->fetch_assoc()['nombre'];
+            if ($fila = $rs->fetch_assoc()) {
+                $result = new Asignatura($fila['nombre'], $fila['idProfesor'], $fila['idFacultad'], $fila['id']);
+            }
             $rs->free();
         } else {
-            error_log("Error al consultar en la BD: {$conn->error}");
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
         }
         return $result;
     }
 
+    //revisar
     public static function getIdProfesorAsignatura($idAsignatura)
     {
         $result = false;
@@ -57,6 +60,25 @@ class Asignatura
             $rs->free();
         } else {
             error_log("Error al consultar en la BD: {$conn->error}");
+        }
+        return $result;
+    }
+
+    public static function buscaAsignaturasPorIdFacultad($idFacultad)
+    {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM Asignaturas WHERE idFacultad='%d'", filter_var($idFacultad, FILTER_SANITIZE_NUMBER_INT));
+        $rs = $conn->query($query);
+        $result = false;
+        if ($rs) {
+            $result = array();
+            while ($fila = $rs->fetch_assoc()) {
+                $asignatura = new Asignatura($fila['nombre'], $fila['idProfesor'], $fila['idFacultad'], $fila['id']);
+                array_push($result, $asignatura);
+            }
+            $rs->free();
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
         }
         return $result;
     }

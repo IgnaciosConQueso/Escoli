@@ -75,6 +75,7 @@ CREATE TABLE IF NOT EXISTS `Valoraciones` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `idUsuario` INT NOT NULL,
     `idProfesor` INT NOT NULL,
+    `idAsignatura` INT NOT NULL,
     `fecha` DATE NULL DEFAULT CURRENT_TIMESTAMP,
     `comentario` VARCHAR(1000) NULL,
     `puntuacion` DECIMAL(1,0) NOT NULL,
@@ -119,6 +120,7 @@ ALTER TABLE `RolesUsuario` ADD CONSTRAINT `Roles_idUsuario` FOREIGN KEY (`idUsua
 
 ALTER TABLE `Valoraciones` ADD CONSTRAINT `Valoraciones_idUsuario` FOREIGN KEY (`idUsuario`) REFERENCES `Usuarios`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `Valoraciones` ADD CONSTRAINT `Valoraciones_idProfesor` FOREIGN KEY (`idProfesor`) REFERENCES `Profesores`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `Valoraciones` ADD CONSTRAINT `Valoraciones_idAsignatura` FOREIGN KEY (`idAsignatura`) REFERENCES `Asignaturas`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `Valoraciones` ADD CHECK (puntuacion >= 0 AND puntuacion <= 5);
 
 ALTER TABLE `Encuestas` ADD CONSTRAINT `Encuestas_idUsuario` FOREIGN KEY (`idUsuario`) REFERENCES `Usuarios`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;

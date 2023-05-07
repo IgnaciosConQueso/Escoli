@@ -5,6 +5,7 @@ use escoli\Aplicacion;
 use escoli\contenido\Valoracion;
 use escoli\Formulario;
 use escoli\contenido\Profesor;
+use escoli\contenido\Asignatura;
 
 class FormularioValoracion extends Formulario
 {
@@ -16,12 +17,12 @@ class FormularioValoracion extends Formulario
     {
 
         $idFacultad = $datos['idFacultad'];
-        $idProfesor = $datos['profesor'] ?? '';
+        $idAsignatura = $datos['profesorAsignatura'] ?? '';
         $puntuacion = $datos['puntuacion'] ?? '';
         $comentario = $datos['comentario'] ?? '';
 
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-        $erroresCampos = self::generaErroresCampos(['profesor', 'comentario', 'puntuacion'], $this->errores, 'span', array('class' => 'error'));
+        $erroresCampos = self::generaErroresCampos(['facultad', 'profesor', 'asignatura', 'comentario', 'puntuacion'], $this->errores, 'span', array('class' => 'error'));
 
         $html = <<<EOF
         $htmlErroresGlobales
@@ -29,12 +30,12 @@ class FormularioValoracion extends Formulario
             <legend>Valora a tu profe</legend>
             <div>
                 <label for="profesor">Profesor:</label>
-                <select id="profesor" name="profesor">
-                    <option value="0">Selecciona un profesor</option>
-                    {$this->generaOpcionesProfesores($idFacultad, $idProfesor)}
+                <select id="profesorAsignatura" name="profesorAsignatura">
+                    <option value=''>Selecciona un profesor y asignatura</option>
+                    {$this->generaOpcionesAsignaturas($idFacultad, $idAsignatura)}
                 </select>
                 {$erroresCampos['profesor']}
-            <div>
+            </div>
                 <label for="puntuacion">Puntuación:</label>
                 <input id="puntuacion" type="text" name="puntuacion" value="$puntuacion" />
                 <span id="validPuntuacion"></span>
@@ -59,33 +60,40 @@ class FormularioValoracion extends Formulario
         $app = Aplicacion::getInstance();
 
         $idUsuario=$app->idUsuario();
-        $idProfesor=filter_var($datos['profesor'], FILTER_SANITIZE_NUMBER_INT);
+        $idProfesor=Asignatura::buscaPorId($datos['profesorAsignatura'])->idProfesor;
+        $idAsignatura=filter_var($datos['profesorAsignatura'], FILTER_SANITIZE_NUMBER_INT);
         $puntuacion=filter_var($datos['puntuacion'], FILTER_SANITIZE_NUMBER_INT);
         $comentario=filter_var($datos['comentario'], FILTER_SANITIZE_SPECIAL_CHARS);
 
-        if($puntuacion > 5 || $puntuacion < 1){
-            $this->errores[] = "La puntuación debe estar entre 1 y 5";
+        if(!$idProfesor){
+            $this->errores['profesorAsignatura'] = "Debes seleccionar un profesor";
+        }
+        if(!$idAsignatura){
+            $this->errores['profesorAsignatura'] = "Debes seleccionar una asignatura";
+        }
+        if($puntuacion > 5 || $puntuacion < 1 && $puntuacion == filter_var($puntuacion, FILTER_VALIDATE_INT)){
+            $this->errores['puntuacion'] = "La puntuación debe ser un número entre 1 y 5";
         }
         if(mb_strlen($comentario) > 1000){
-            $this->errores[] = "El comentario no puede superar los 1000 caracteres";
+            $this->errores['comentario'] = "El comentario no puede superar los 1000 caracteres";
         }
         if(mb_strlen($comentario) <= 0){
-            $this->errores[] = "El comentario no puede estar vacío";
-        }
-        if(!$idProfesor){
-            $this->errores[] = "Debes seleccionar un profesor";
+            $this->errores['comentario'] = "El comentario no puede estar vacío";
         }
 
-        Valoracion::crea($idUsuario, $idProfesor, $comentario ,$puntuacion);
+        Valoracion::crea($idUsuario, $idProfesor, $idAsignatura, $comentario ,$puntuacion);
     }
 
-    private function generaOpcionesProfesores($idFacultad, $idProfesor){
+    private function generaOpcionesAsignaturas($idFacultad, $idAsignatura){
     
         $html = '';
-        $profesores = Profesor::buscaProfesoresPorIdFacultad($idFacultad);
-        foreach ($profesores as $profesor) {
-            $selected = $profesor->id == $idProfesor ? 'selected' : '';
-            $html .= '<option value="' . $profesor->id . '" ' . $selected . '>' . $profesor->nombre . '</option>';
+        $asignaturas = Asignatura::buscaAsignaturasPorIdFacultad($idFacultad);
+        foreach($asignaturas as $asignatura){
+            $id = $asignatura->id;
+            $nombre = $asignatura->nombre;
+            $selected = ($id == $idAsignatura) ? 'selected' : '';
+            $html .= "<option value='$id' $selected>".
+                Profesor::buscaPorId($asignatura->idProfesor)->nombre." - ".$nombre."</option>";
         }
         return $html;
     }

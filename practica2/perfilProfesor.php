@@ -15,7 +15,7 @@ $profesor = Profesor::buscaPorId($idProfesor);
 $imagen = Imagen::buscaPorId($profesor->idImagen);
 $htmlProfImg = '<img class="imagen-perfil" src="' . Aplicacion::getInstance()->resuelveImagen($imagen->ruta) . '" alt = "foto de perfil del profesor">';
 
-$nombreProfesor = Profesor::nombreProfesorPorId($idProfesor);
+$nombreProfesor = Profesor::buscaPorId($idProfesor)->nombre;
 $imagenProfesor = Imagen::buscaPorId($idImagenProf);
 $img = '<img class="imagen-perfil" src="' . Aplicacion::getInstance()->resuelveImagen($imagen->ruta) . '" alt = "foto de perfil del usuario">';
 $mediaValoraciones = generaMediaValoraciones($idProfesor);

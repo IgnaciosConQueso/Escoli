@@ -38,19 +38,21 @@ INSERT INTO `Facultades` (`id`, `idUniversidad`, `nombre`) VALUES
 INSERT INTO `Asignaturas` (`id`, `idFacultad`, `idProfesor`, `nombre`) VALUES
 ('1', '1', '1', 'Programacion'),
 ('2', '1', '1', 'Base de Datos'),
-('3', '2', '1', 'Anatomia'),
+('3', '2', '2', 'Anatomia'),
 ('4', '3', '3', 'Defensa Contra las Artes Oscuras'),
 ('5', '3', '4', 'Transformaciones'),
 ('6', '4', '5', 'Cuidado de Criaturas Mágicas'),
 ('7', '5', '6', 'Herbología');
 
-INSERT INTO `Valoraciones` (`idUsuario`, `idProfesor`, `comentario`, `puntuacion`, `likes`) VALUES
-( '1', '1', 'Es un profesor maravilloso', '4', '0'),
-( '1', '1', 'Me gusta más que ninguno', '3', '0'),
-( '1', '1', 'Un profesor excepcional', '5', '0'),
-('1', '4', 'Muy sabio y amable', '4', '0'),
-('1', '5', 'Tiene un gran conocimiento de las criaturas mágicas', '4', '0'),
-('1', '6', 'Sus clases son muy interesantes y divertidas', '5', '0');
+INSERT INTO `Valoraciones` (`idUsuario`, `idProfesor`, `idAsignatura`, `comentario`, `puntuacion`, `likes`) VALUES
+( '1', '1', '1', 'Es un profesor maravilloso', '4', '0'),
+( '1', '1', '2', 'Me gusta más que ninguno', '3', '0'),
+( '1', '1', '3', 'Un profesor excepcional', '5', '0'),
+('1', '4', '4', 'Muy sabio y amable', '4', '0'),
+('1', '5', '5', 'Tiene un gran conocimiento de las criaturas mágicas', '4', '0'),
+('1', '6', '6', 'Sus clases son muy interesantes y divertidas', '5', '0'),
+('1', '2', '7', 'Es un profesor muy bueno', '4', '0');
+
 
 INSERT INTO `Imagenes` (`id`, `ruta`, `nombre`, `tipo`) VALUES
 (1, 'usuarios/defaultUser.png', 'defaultUser.png', 'image/png'),

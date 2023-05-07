@@ -112,11 +112,11 @@ class FormularioRegistro extends Formulario
             $usuario = (Usuario::buscaUsuario($nombreUsuario));
 
             if($usuario){
-                $this->errores[] = "Este nombre de usuario ya está en uso";
+                $this->errores['nombreUsuario'] = "Este nombre de usuario ya está en uso";
             } else {
                 $usuario = (Usuario::buscaPorEmail($email));
                 if ($usuario) {
-                    $this->errores[] = "Este email ya está en uso";
+                    $this->errores['email'] = "Este email ya está en uso";
                 } else {
                     if ($imagen) $usuario = Usuario::crea($nombreUsuario, $password, $email, $imagen->id);
                     else $usuario = Usuario::crea($nombreUsuario, $password, $email, null);

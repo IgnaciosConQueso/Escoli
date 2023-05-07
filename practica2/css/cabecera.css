@@ -69,10 +69,12 @@ nav {
 }
 
 nav form{
+    margin: 0;
     flex-grow: 2;
     display: flex;
     justify-content: flex-start;
-    padding: 1em;
+    padding-left: 0.7em;
+    padding-right: 0.7em;
 }
 
 nav input[type="text"]{
