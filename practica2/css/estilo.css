@@ -13,7 +13,6 @@ body {
 aside#sidebarIzq {
 	width: 25%;
 	float: left;
-	display: block;
 	margin: auto;
 }
 
@@ -28,7 +27,6 @@ main {
 	width: 50%;
 	min-height: calc(100vh - 225px);
 	margin: auto;
-	display: block;
 }
 
 h1{
@@ -172,14 +170,16 @@ img.imagen-perfil {
 
 @media screen and (max-width: 850px) {
 	main {
-		width: 90%;
+		width: 100%;
 	}
 
 	aside#sidebarIzq {
-		display: none;
+		width: 100%;
+		float: none;
 	}
 
 	aside#sidebarDer {
-		display: none;
+		width: 100%;
+		float: none;
 	}
 }

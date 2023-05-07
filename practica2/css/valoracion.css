@@ -4,8 +4,6 @@ ul.lista-valoraciones{
 }
 
 li.valoracion {
-	background-color: #5f5f5f;
-	color: #e1e1e1;
 	border: 0.25em solid #a1a1a1;
 	margin-top: 1em;
 	margin-bottom: 1em;
@@ -14,14 +12,14 @@ li.valoracion {
 	padding: 0.5em;
 }
 
-li.valoracion div.info-perfil{
+li.valoracion > div.info-perfil{
 	display: flex;
+	flex-wrap: wrap;
 	justify-content: flex-start;
 	align-items: center;
-	flex-direction: row;
 }
 
-li.valoracion div.info-perfil p{
+li.valoracion > div.info-perfil p{
 	margin: 0;
 	padding-left: 0.5em;
 	padding-right: 0.5em;
@@ -29,25 +27,25 @@ li.valoracion div.info-perfil p{
 	padding-bottom: 0.1em;
 }
 
-li.valoracion div.info-perfil p.asignatura{
+li.valoracion > div.info-perfil > p.asignatura{
 	width: auto;
 	margin-left: auto;
 	margin-bottom: auto;
 	order: 2;
 }
 
-li.valoracion p.nombre-profesor{
+div.info-valoracion > p.nombre-profesor{
 	font-weight: bold;
 }
 
-li.valoracion img.imagen-perfil {
+li.valoracion > div.info-perfil img.imagen-perfil {
     height: 3em;
     width: 3em;
 	border-radius: 50%;
 	object-fit: cover;
 }
 
-li.valoracion a.imagen-perfil{
+li.valoracion > div.info-perfil a.imagen-perfil{
 	display: contents;
 }
 
@@ -56,32 +54,100 @@ li.valoracion > div.info-perfil > div.info-valoracion{
 	flex-direction: column;
 }
 
-li.valoracion > div.footer-valoracion{
+div.footer-valoracion{
 	display: flex;
+	flex-wrap: wrap;
 	align-items: center;
 	width: 100%;
 }
 
-li.valoracion > div.footer-valoracion > button{
+div.footer-valoracion > button{
 	border: none;
 	background-color: #5f5f5f;
 }
 
-li.valoracion > div.footer-valoracion > button:hover{
+div.footer-valoracion > button:hover{
 	background-color: #a1a1a1;
 }
 
-li.valoracion > div.footer-valoracion > button:active{
+div.footer-valoracion > button:active{
 	background-color: #5f5f5f;
 }
 
-li.valoracion > div.footer-valoracion > p{
+div.footer-valoracion > p{
 	width: 3em;
 	text-align: center;
 	margin: 0;
 }
 
-li.valoracion > div.footer-valoracion > p.fecha{
+div.footer-valoracion > p.fecha{
+	width: auto;
+	margin-left: auto;
+	order: 2;
+	color: #a1a1a1;
+}
+
+/* Valoraciones reducidas */
+
+li.valoracion-reducida {
+	border: 0.25em solid #a1a1a1;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	margin-left: 0.5em;
+	margin-right: 0.5em;
+	padding: 0.5em;
+}
+
+li.valoracion-reducida > div.info-perfil{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+li.valoracion-reducida > div.info-perfil p{
+	margin: 0;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+	padding-top: 0.1em;
+	padding-bottom: 0.1em;
+}
+
+li.valoracion-reducida > div.info-perfil > p.asignatura{
+	width: auto;
+	margin-left: auto;
+	margin-bottom: auto;
+	order: 2;
+}
+
+div.info-valoracion-reducida > p.nombre-profesor{
+	font-weight: bold;
+}
+
+li.valoracion-reducida > div.info-perfil img.imagen-perfil {
+    height: 3em;
+    width: 3em;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+li.valoracion-reducida > div.info-perfil a.imagen-perfil{
+	display: contents;
+}
+
+li.valoracion-reducida > div.info-perfil > div.info-valoracion{
+	display: flex;
+	flex-direction: column;
+}
+
+div.footer-valoracion-reducida{
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	width: 100%;
+}
+
+div.footer-valoracion-reducida > p.fecha{
 	width: auto;
 	margin-left: auto;
 	order: 2;

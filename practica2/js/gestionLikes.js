@@ -29,14 +29,12 @@ document.addEventListener("DOMContentLoaded", () =>{
                     },
                     success: function(data) {  
                         var response = JSON.parse(data);
-                        if(response.succes === false){ //la api procesa la señal
+                        if(response.succes === false) //la api procesa la señal
                             alert(response.message);
-                        } else { //si sale bien actualizo el valor de los likes en la pantalla y en los botones, si es un lio.
-                            numlikes += valor;
-                            divlikes.textContent ="likes: "  + numlikes;
+                        else {
+                            document.cookie = "scrollPos=" + window.scrollY;
+                            location.reload();
                         }
-                        document.cookie = "scrollPos=" + window.scrollY;
-                        location.reload();
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         console.error(textStatus, errorThrown);
@@ -64,12 +62,11 @@ document.addEventListener("DOMContentLoaded", () =>{
                         var response = JSON.parse(data);
                         if(response.succes === false){
                             alert(response.message);
-                        } else {
-                            numlikes += valor;
-                            divlikes.textContent ="likes: "  + numlikes;    
                         }
-                        document.cookie = "scrollPos=" + window.scrollY;
-                        location.reload();
+                        else {
+                            document.cookie = "scrollPos=" + window.scrollY;
+                            location.reload();
+                        }
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         console.error(textStatus, errorThrown);

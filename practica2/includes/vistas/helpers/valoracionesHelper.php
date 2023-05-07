@@ -90,9 +90,9 @@ function listaTopCinco($id, $url)
     $arrayMensajes = Valoracion::buscaTopCincoValoraciones($id);
     $html = '';
     if ($arrayMensajes) {
-        $html .= '<ul class="lista-top5-valoraciones">';
+        $html .= '<ul class="lista-valoraciones">';
         foreach ($arrayMensajes as $valoracion) {
-            $html .= generaHTMLValoracion($valoracion, $url);
+            $html .= generaHTMLValoracionReducida($valoracion, $url);
 
         }
         $html .= '</ul>';
@@ -149,12 +149,17 @@ function generaHTMLValoracionReducida($valoracion)
     $html = '<li class="valoracion-reducida">';
     $html .= '<div class="info-perfil">';
     $html .= '<a class="imagen-perfil" href="' . Aplicacion::getInstance()->resuelve('perfilProfesor.php?id=' . $valoracion->idProfesor) . '">' . $htmlProfImg . '</a>';
+    $html .= '<div class="info-valoracion">';
     $html .= '<p class="nombre-profesor">' . $profesor->nombre . '</p>';
-    $html .= '</div>';
     $html .= '<p class="puntuacion">' . generaPuntuacion($valoracion->puntuacion) . '</p>';
-    $html .= '<p class="fecha">' . "fecha: " . $valoracion->fecha . '</p>';
+    $html .= '</div>';
+    $html .= '<p class="asignatura">' . Asignatura::buscaPorId($valoracion->idAsignatura)->nombre . '</p>';
+    $html .= '</div>';
     $html .= '<p class="comentario">' . "comentario: " . $valoracion->comentario . '</p>';
+    $html .= '<div class="footer-valoracion-reducida">';    
     $html .= '<p class="likes">' . "likes: " . $valoracion->likes . '</p>';
+    $html .= '<p class="fecha">' . "fecha: " . $valoracion->fecha . '</p>';
+    $html .= '</div>';
     $html .= '</li>';
     return $html;
 }
