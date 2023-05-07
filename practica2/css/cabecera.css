@@ -75,6 +75,8 @@ nav form{
     justify-content: flex-start;
     padding-left: 0.7em;
     padding-right: 0.7em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
 }
 
 nav input[type="text"]{
