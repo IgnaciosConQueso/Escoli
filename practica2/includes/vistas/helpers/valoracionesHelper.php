@@ -92,7 +92,7 @@ function listaTopCinco($id, $url)
     if ($arrayMensajes) {
         $html .= '<ul class="lista-valoraciones">';
         foreach ($arrayMensajes as $valoracion) {
-            $html .= generaHTMLValoracionReducida($valoracion, $url);
+            $html .= generaHTMLValoracionReducida($valoracion);
 
         }
         $html .= '</ul>';
