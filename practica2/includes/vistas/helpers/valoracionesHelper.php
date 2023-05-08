@@ -9,79 +9,60 @@ use escoli\Formulario;
 use escoli\Imagen;
 use escoli\usuarios\Usuario;
 
-function listaValoraciones($url, $numPorPag = 10, $pag = 1)
+define('NUM_POR_PAG', 10);
+
+function listaUltimasValoraciones($url)
 {
-    $arrayMensajes = Valoracion::buscaUltimasValoraciones($numPorPag, $pag);
-    $html = '';
-    if ($arrayMensajes) {
-        $html .= '<ul class="lista-valoraciones">';
-        foreach ($arrayMensajes as $valoracion) {
-            $html .= generaHTMLValoracion($valoracion, $url);
-        }
-        $html .= '</ul>';
-    }
+    $pag = isset($_GET['pag']) ? $_GET['pag'] : 1;
+    $arrayMensajes = Valoracion::buscaUltimasValoraciones(NUM_POR_PAG, $pag);
+    $html = listaValoraciones($arrayMensajes, $url);
+    $masPaginas = Valoracion::buscaUltimasValoraciones(NUM_POR_PAG, $pag + 1);
+    $html .= botonesPaginacion($url, $pag, $masPaginas); 
+
     return $html;
 }
 
-function listaValoracionesProfesor($id)
+function listaValoracionesProfesor($id, $url)
 {
-    $arrayMensajes = Valoracion::ultimasValoracionesProfesor($id);
-    $html = '';
-    if ($arrayMensajes) {
-        $html .= '<ul class="lista-valoraciones">';
-        foreach ($arrayMensajes as $valoracion) {
-            $html .= generaHTMLValoracion($valoracion, null);
-        }
-        $html .= '</ul>';
-    }
+    $pag = isset($_GET['pag']) ? $_GET['pag'] : 1;
+    $arrayMensajes = Valoracion::ultimasValoracionesProfesor($id, NUM_POR_PAG, $pag);
+    $html = listaValoraciones($arrayMensajes, $url);
+    $masPaginas = Valoracion::ultimasValoracionesProfesor($id, NUM_POR_PAG, $pag + 1);
+    $html .= botonesPaginacion($url, $pag, $masPaginas);
+
     return $html;
 }
 
-function listaValoracionesFacultad($id, $url, $numPorPag = 10, $pag = 1)
+function listaValoracionesFacultad($id, $url)
 {
-    $arrayMensajes = Valoracion::buscaUltimasValoracionesFacultad($id, $numPorPag, $pag);
-    $html = '';
-    if ($arrayMensajes) {
-        $html .= '<ul class="lista-valoraciones">';
-        foreach ($arrayMensajes as $valoracion) {
-            $html .= generaHTMLValoracion($valoracion, $url);
-        }
-        $html .= '</ul>';
-    }
+    $pag = isset($_GET['pag']) ? $_GET['pag'] : 1;
+    $arrayMensajes = Valoracion::buscaUltimasValoracionesFacultad($id, NUM_POR_PAG, $pag);
+    $html = listaValoraciones($arrayMensajes, $url);
+    $masPaginas = Valoracion::buscaUltimasValoracionesFacultad($id, NUM_POR_PAG, $pag + 1);
+    $html .= botonesPaginacion($url, $pag, $masPaginas);
+
     return $html;
 }
 
-function listaValoracionesAsignatura($id)
+function listaValoracionesAsignatura($id, $url)
 {
-    $arrayMensajes = Valoracion::ultimasValoracionesAsignatura($id);
-    $html = '';
-    if ($arrayMensajes) {
-        $html .= '<ul class="lista-valoraciones">';
-        foreach ($arrayMensajes as $valoracion) {
-            $html .= generaHTMLValoracion($valoracion, null);
-        }
-        $html .= '</ul>';
-    }
-    return $html;
-}
+    $pag = isset($_GET['pag']) ? $_GET['pag'] : 1;
+    $arrayMensajes = Valoracion::ultimasValoracionesAsignatura($id, NUM_POR_PAG, $pag);
+    $html = listaValoraciones($arrayMensajes, $url);
+    $masPaginas = Valoracion::ultimasValoracionesAsignatura($id, NUM_POR_PAG, $pag + 1);
+    $html .= botonesPaginacion($url, $pag, $masPaginas);
 
-function nombreFacultad($idFacultad)
-{
-    $facultad = Facultad::buscaPorId($idFacultad);
-    return $facultad->nombre;
+    return $html;
 }
 
 function listaValoracionesUsuario($id, $url)
 {
-    $arrayMensajes = Valoracion::buscaValoracionesPorIdUsuario($id);
-    $html = '';
-    if ($arrayMensajes) {
-        $html .= '<ul class="lista-valoraciones">';
-        foreach ($arrayMensajes as $valoracion) {
-            $html .= generaHTMLValoracion($valoracion, $url);
-        }
-        $html .= '</ul>';
-    }
+    $pag = isset($_GET['pag']) ? $_GET['pag'] : 1;
+    $arrayMensajes = Valoracion::buscaUltimasValoracionesUsuario($id, NUM_POR_PAG, $pag);
+    $html = listaValoraciones($arrayMensajes, $url);
+    $masPaginas = Valoracion::buscaUltimasValoracionesUsuario($id, NUM_POR_PAG, $pag + 1);
+    $html .= botonesPaginacion($url, $pag, $masPaginas);
+
     return $html;
 }
 
@@ -90,10 +71,23 @@ function listaTopCinco($id, $url)
     $arrayMensajes = Valoracion::buscaTopCincoValoraciones($id);
     $html = '';
     if ($arrayMensajes) {
-        $html .= '<ul class="lista-valoraciones">';
+        $html .= '<ul class="lista-valoraciones-reducidas">';
         foreach ($arrayMensajes as $valoracion) {
             $html .= generaHTMLValoracionReducida($valoracion);
 
+        }
+        $html .= '</ul>';
+    }
+    return $html;
+}
+
+function listaValoraciones($valoraciones, $url)
+{
+    $html = '';
+    if ($valoraciones) {
+        $html .= '<ul class="lista-valoraciones">';
+        foreach ($valoraciones as $valoracion) {
+            $html .= generaHTMLValoracion($valoracion, $url);
         }
         $html .= '</ul>';
     }
@@ -213,5 +207,20 @@ function botonDislike($origen, $id, $likes)
         'dislike',
         '👎'
     );
+}
+
+function botonesPaginacion($url, $pagina = 1, $masPaginas = false)
+{
+    $html = '<div class="botones-paginacion">';
+    if ($pagina > 1) {
+        $urlN = Aplicacion::getInstance()->buildURL($url, ['pag' => $pagina - 1]);
+        $html .= '<a class="boton-anterior" href="' . $urlN . '">Anterior</a>';
+    }
+    if ($masPaginas) {
+        $urlN = Aplicacion::getInstance()->buildURL($url, ['pag' => $pagina + 1]);
+        $html .= '<a class="boton-siguiente" href="' . $urlN . '">Siguiente</a>';
+    }
+    $html .= '</div>';
+    return $html;
 }
 ?>

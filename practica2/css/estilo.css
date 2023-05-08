@@ -26,14 +26,13 @@ aside#sidebarDer {
 
 main {
 	width: 50%;
-	min-height: calc(100vh - 225px);
+	min-height: calc(100vh - 228px);
 	margin: auto;
 }
 
 h1{
 	text-align: center;
 	font-size: 1.5em;
-	margin: 1em;
 }
 
 footer {
@@ -89,6 +88,7 @@ img.imagen-perfil {
 	height: 6em;
     width: 6em;
 	border-radius: 50%;
+	object-fit: cover;
 }
 
 @media screen and (max-width: 850px) {

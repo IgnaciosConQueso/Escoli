@@ -17,7 +17,7 @@ $facultad = Facultad::buscaPorId($idFacultad);
 
 $linkValoracion = 'registroValoracion.php?idFacultad=' . $idFacultad;
 $listaAsignaturas = listaAsignaturasFacultad($idFacultad);
-$contenidoValoraciones .= listaValoracionesFacultad($idFacultad, $app->resuelve('/facultad.php?id=' . $idFacultad));
+$contenidoValoraciones = listaValoracionesFacultad($idFacultad, $app->resuelve('/facultad.php?id=' . $idFacultad));
 $botonValoracion = '<a href=' . $linkValoracion . '> Añadir valoración</a>';
 $_SESSION['menuCabecera']['idFacultad'] = '<a href="valoraciones.php?idFacultad=' . $idFacultad . '">Valoraciones</a>';
 

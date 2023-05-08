@@ -1,10 +1,12 @@
 ul.lista-valoraciones{
     list-style-type: none;
+	margin: auto;
     padding: 0;
 }
 
 li.valoracion {
-	border: 0.25em solid #a1a1a1;
+	border: 0.15em solid #323232;
+	border-radius: 0.5em;
 	margin-top: 1em;
 	margin-bottom: 1em;
 	margin-left: 0.5em;
@@ -87,10 +89,49 @@ div.footer-valoracion > p.fecha{
 	color: #a1a1a1;
 }
 
+/* botones paginacion */
+
+div.botones-paginacion{
+	margin: 0.5em;
+	padding: 0.5em;
+	padding-top: 0;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+div.botones-paginacion > a{
+	margin: auto;
+	text-decoration: none;
+	background-color: #5f5f5f;
+	color: #ffffff;
+}
+
+div.botones-paginacion > a:hover{
+	color: #1a2e5d;
+}
+
+div.botones-paginacion > a.boton-anterior{
+	margin-left: 0;
+	order: 1;
+}
+
+div.botones-paginacion > a.boton-siguiente{
+	margin-right: 0;
+	order: 2;
+}
+
+
 /* Valoraciones reducidas */
 
+ul.lista-valoraciones-reducidas{
+    list-style-type: none;
+    padding: 0;
+}
+
 li.valoracion-reducida {
-	border: 0.25em solid #a1a1a1;
+	border: 0.15em solid #323232;
+	border-radius: 0.5em;
 	margin-top: 1em;
 	margin-bottom: 1em;
 	margin-left: 0.5em;
