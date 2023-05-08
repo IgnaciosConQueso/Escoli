@@ -1,6 +1,7 @@
 <?php
 
 use escoli\contenido\Asignatura;
+use escoli\contenido\Profesor;
 
 function listaAsignaturasProfesor($idProfesor)
 {
@@ -16,6 +17,20 @@ function listaAsignaturasProfesor($idProfesor)
     return $html;
 }
 
+function listaProfesores($idAsignatura)
+{
+    $arrayProfesores = Profesor::getProfesoresAsignatura($idAsignatura);
+    $html = '';
+    if ($arrayProfesores) {
+        $html .= '<ul class="lista-profesores">';
+        foreach ($arrayProfesores as $profesor) {
+            $html .= generaHTMLProfesor($profesor);
+        }
+        $html .= '</ul>';
+    }
+    return $html;
+}
+
 function generaHTMLAsignatura($asignatura)
 {
     $url = 'asignatura.php?idAsignatura=' . $asignatura->getId();
@@ -24,5 +39,15 @@ function generaHTMLAsignatura($asignatura)
     $html .= '</div>';
     return $html;
 }
+
+function generaHTMLProfesor($profesor)
+{
+    $url = 'perfilProfesor.php?id=' . $profesor->getId();
+    $html = '<div class="profesor">';
+    $html .= '<p class="nombre-profesor"><a href="' . $url . '">' . $profesor->nombre . '</a></p>';
+    $html .= '</div>';
+    return $html;
+}
+
 
 ?>

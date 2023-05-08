@@ -48,22 +48,6 @@ class Asignatura
         return $result;
     }
 
-    //revisar
-    public static function getIdProfesorAsignatura($idAsignatura)
-    {
-        $result = false;
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT idProfesor FROM Asignaturas WHERE id='%d'", filter_var($idAsignatura, FILTER_SANITIZE_NUMBER_INT));
-        $rs = $conn->query($query);
-        if ($rs) {
-            $result = $rs->fetch_assoc()['idProfesor'];
-            $rs->free();
-        } else {
-            error_log("Error al consultar en la BD: {$conn->error}");
-        }
-        return $result;
-    }
-
     public static function buscaAsignaturasPorIdFacultad($idFacultad)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();

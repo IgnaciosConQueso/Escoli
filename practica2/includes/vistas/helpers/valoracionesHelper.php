@@ -167,7 +167,7 @@ function generaHTMLValoracionReducida($valoracion)
 function muestraLikesTotales($idUser)
 {
     $html = '<div class="likes">';
-    $html .= '<p class="likes">' . "likes: " . Valoracion::sumaLikes($idUser) . '</p>';
+    $html .= '<p class="likes">' . "Likes totales: ". Valoracion::sumaLikes($idUser) . '</p>';
     $html .= '</div>';
     return $html;
 }
