@@ -1,2 +1,2 @@
 INSERT INTO Karma(idUsuario, idValoracion, valor) 
-            VALUES ('1', '11', '1')
+            VALUES ('1', '16', '1')

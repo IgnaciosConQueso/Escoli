@@ -88,7 +88,8 @@ window.onload = function() {
 
     // desplazar la página a la posición guardada
     window.scrollTo(0, scrollPos);
-  
+    //borrar la cookie
+    document.cookie = "scrollPos=; max-age=0;";
 }
 
   
