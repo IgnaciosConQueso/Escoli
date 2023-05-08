@@ -5,6 +5,7 @@ use escoli\contenido\Asignatura;
 
 require_once __DIR__ . '/includes/config.php';
 require_once __DIR__ . '/includes/vistas/helpers/valoracionesHelper.php';
+require_once __DIR__ . '/includes/vistas/helpers/asignaturasHelper.php';
 
 $app = Aplicacion::getInstance();
 
@@ -14,6 +15,7 @@ $idAsignatura = $_GET['idAsignatura'];
 $nombreAsignatura = Asignatura::buscaPorId($idAsignatura)->nombre;
 
 $contenidoValoraciones = listaValoracionesAsignatura($idAsignatura);
+$listaProfesores = listaProfesores($idAsignatura);
 
 $contenidoSideBarIzq = <<<EOF
 EOF;
@@ -24,6 +26,8 @@ $contenidoValoraciones
 EOF;
 
 $contenidoSideBarDer = <<<EOF
+<h1>Profesores que la imparten</h1>
+$listaProfesores
 EOF;
 
 $script = $app->resuelve('/js/gestionLikes.js');

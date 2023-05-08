@@ -90,6 +90,24 @@ class Profesor
             return false;
         }
     }
+    public static function getProfesoresAsignatura($idAsignatura)
+    {
+        $result = false;
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM Profesores WHERE id IN (SELECT idProfesor FROM Asignaturas WHERE id='%d')", filter_var($idAsignatura, FILTER_SANITIZE_NUMBER_INT));
+        $rs = $conn->query($query);
+        if ($rs) {
+            $result = array();
+            while ($fila = $rs->fetch_assoc()) {
+                $profesor = new Profesor($fila['nombre'], $fila['apellidos'], $fila['id']);
+                array_push($result, $profesor);
+            }
+            $rs->free();
+        } else {
+            error_log("Error al consultar en la BD: {$conn->error}");
+        }
+        return $result;
+    }
 
     private static function inserta($profesor)
     {

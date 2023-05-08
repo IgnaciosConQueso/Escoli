@@ -15,8 +15,7 @@ $profesor = Profesor::buscaPorId($idProfesor);
 $imagen = Imagen::buscaPorId($profesor->idImagen);
 $htmlProfImg = '<img class="imagen-perfil" src="' . Aplicacion::getInstance()->resuelveImagen($imagen->ruta) . '" alt = "foto de perfil del profesor">';
 
-$nombreProfesor = Profesor::buscaPorId($idProfesor)->nombre;
-$imagenProfesor = Imagen::buscaPorId($idImagenProf);
+$nombreProfesor = $profesor->nombre;
 $img = '<img class="imagen-perfil" src="' . Aplicacion::getInstance()->resuelveImagen($imagen->ruta) . '" alt = "foto de perfil del usuario">';
 $mediaValoraciones = generaMediaValoraciones($idProfesor);
 $contenidoValoraciones = listaValoracionesProfesor($idProfesor);
@@ -28,8 +27,8 @@ $contenidoSideBarIzq = <<<EOF
 	<h1>Información del profesor</h1>
 	<ul class="informacion-perfil">
 	<li class="info">
-		<p>$nombreProfesor</p>
 		$img
+		<p>$nombreProfesor</p>
 		<p>$mediaValoraciones</p>
 	</li>
 	</ul>
