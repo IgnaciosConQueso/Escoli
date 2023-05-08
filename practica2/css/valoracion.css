@@ -5,7 +5,7 @@ ul.lista-valoraciones{
 }
 
 li.valoracion {
-	border: 0.15em solid #323232;
+	background-color: #323232;
 	border-radius: 0.5em;
 	margin-top: 1em;
 	margin-bottom: 1em;
@@ -65,7 +65,7 @@ div.footer-valoracion{
 
 div.footer-valoracion > button{
 	border: none;
-	background-color: #5f5f5f;
+	background-color: #323232;
 }
 
 div.footer-valoracion > button:hover{
@@ -73,7 +73,7 @@ div.footer-valoracion > button:hover{
 }
 
 div.footer-valoracion > button:active{
-	background-color: #5f5f5f;
+	background-color: #323232;
 }
 
 div.footer-valoracion > p{
@@ -103,7 +103,6 @@ div.botones-paginacion{
 div.botones-paginacion > a{
 	margin: auto;
 	text-decoration: none;
-	background-color: #5f5f5f;
 	color: #ffffff;
 }
 
@@ -130,7 +129,7 @@ ul.lista-valoraciones-reducidas{
 }
 
 li.valoracion-reducida {
-	border: 0.15em solid #323232;
+	background-color: #323232;
 	border-radius: 0.5em;
 	margin-top: 1em;
 	margin-bottom: 1em;
@@ -188,8 +187,11 @@ div.footer-valoracion-reducida{
 	width: 100%;
 }
 
+div.footer-valoracion-reducida > p{
+	margin: 0;
+}
+
 div.footer-valoracion-reducida > p.fecha{
-	width: auto;
 	margin-left: auto;
 	order: 2;
 	color: #a1a1a1;

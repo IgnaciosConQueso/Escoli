@@ -14,7 +14,7 @@ $tituloPagina = 'Asignatura';
 $idAsignatura = $_GET['idAsignatura'];
 $nombreAsignatura = Asignatura::buscaPorId($idAsignatura)->nombre;
 
-$contenidoValoraciones = listaValoracionesAsignatura($idAsignatura);
+$contenidoValoraciones = listaValoracionesAsignatura($idAsignatura, $app->resuelve('asignatura.php?idAsignatura=' . $idAsignatura));
 $listaProfesores = listaProfesores($idAsignatura);
 
 $contenidoSideBarIzq = <<<EOF

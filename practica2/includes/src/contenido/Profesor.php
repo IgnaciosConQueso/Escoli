@@ -99,7 +99,7 @@ class Profesor
         if ($rs) {
             $result = array();
             while ($fila = $rs->fetch_assoc()) {
-                $profesor = new Profesor($fila['nombre'], $fila['apellidos'], $fila['id']);
+                $profesor = new Profesor($fila['nombre'], $fila['idImagen'], $fila['id']);
                 array_push($result, $profesor);
             }
             $rs->free();

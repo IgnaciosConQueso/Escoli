@@ -28,6 +28,7 @@ div.universidad img {
 	height: 3em;
 	width: 3em;
 	place-self: center end;
+	object-fit: cover;
 }
 
 div.universidad p {

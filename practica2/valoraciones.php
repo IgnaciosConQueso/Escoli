@@ -47,6 +47,7 @@ $script = $app->resuelve('/js/gestionLikes.js');
 
 $params = [
 	'tituloPagina' => $tituloPagina,
+	'botonesCabecera' => $botonValoracion,
 	'contenidoSideBarIzq' => $contenidoSideBarIzq,
 	'contenidoSideBarDer' => $contenidoSideBarDer,
 	'contenidoPrincipal' => $contenidoPrincipal,

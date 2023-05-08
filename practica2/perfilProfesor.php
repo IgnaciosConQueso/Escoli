@@ -13,12 +13,12 @@ $app = Aplicacion::getInstance();
 $idProfesor = $_GET['id'];
 $profesor = Profesor::buscaPorId($idProfesor);
 $imagen = Imagen::buscaPorId($profesor->idImagen);
-$htmlProfImg = '<img class="imagen-perfil" src="' . Aplicacion::getInstance()->resuelveImagen($imagen->ruta) . '" alt = "foto de perfil del profesor">';
+$htmlProfImg = '<img class="imagen-perfil" src="' . $app->resuelveImagen($imagen->ruta) . '" alt = "foto de perfil del profesor">';
 
 $nombreProfesor = $profesor->nombre;
-$img = '<img class="imagen-perfil" src="' . Aplicacion::getInstance()->resuelveImagen($imagen->ruta) . '" alt = "foto de perfil del usuario">';
+$img = '<img class="imagen-perfil" src="' . $app->resuelveImagen($imagen->ruta) . '" alt = "foto de perfil del usuario">';
 $mediaValoraciones = generaMediaValoraciones($idProfesor);
-$contenidoValoraciones = listaValoracionesProfesor($idProfesor);
+$contenidoValoraciones = listaValoracionesProfesor($idProfesor, $app->resuelve('perfilProfesor.php?id=' . $idProfesor)); 
 $asignaturas = listaAsignaturasProfesor($idProfesor);
 
 $tituloPagina = 'Perfil profesor';
