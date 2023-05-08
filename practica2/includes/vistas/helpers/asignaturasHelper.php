@@ -17,6 +17,20 @@ function listaAsignaturasProfesor($idProfesor)
     return $html;
 }
 
+function listaAsignaturasFacultad($idFacultad)
+{
+    $arrayAsignaturas = Asignatura::getAsignaturasFacultad($idFacultad);
+    $html = '';
+    if ($arrayAsignaturas) {
+        $html .= '<ul class="lista-asignaturas">';
+        foreach ($arrayAsignaturas as $asignatura) {
+            $html .= generaHTMLAsignatura($asignatura);
+        }
+        $html .= '</ul>';
+    }
+    return $html;
+}
+
 function listaProfesores($idAsignatura)
 {
     $arrayProfesores = Profesor::getProfesoresAsignatura($idAsignatura);

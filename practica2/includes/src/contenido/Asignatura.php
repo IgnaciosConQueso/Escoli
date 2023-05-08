@@ -86,6 +86,25 @@ class Asignatura
         return $result;
     }
 
+    public static function getAsignaturasFacultad($idFacultad)
+    {
+        $result = false;
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM Asignaturas WHERE idFacultad='%d'" , filter_var($idFacultad, FILTER_SANITIZE_NUMBER_INT));
+        $rs = $conn->query($query);
+        if ($rs) {
+            $result = array();
+            while ($fila = $rs->fetch_assoc()) {
+                $asignatura = new Asignatura($fila['nombre'], $fila['idProfesor'], $fila['idFacultad'], $fila['id']);    
+                array_push($result, $asignatura);
+            }
+            $rs->free();
+        } else {
+            error_log("Error al consultar en la BD: {$conn->error}");
+        }
+        return $result;
+    }
+
     private static function actualiza($asignatura)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
