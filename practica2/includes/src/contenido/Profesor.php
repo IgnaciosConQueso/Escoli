@@ -9,9 +9,9 @@ class Profesor
 {
     use MagicProperties;
 
-    public static function crea($nombre, $idImagen = null)
+    public static function crea($nombre, $idImagen = null, $id = null)
     {
-        $profesor = new Profesor($nombre, $idImagen);
+        $profesor = new Profesor($nombre, $idImagen, $id);
         return $profesor->guarda();
     }
 
@@ -100,7 +100,7 @@ class Profesor
 
     public static function buscaPorNombre($nombre){
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM Profesores WHERE nombre LIKE '%%d%'", $conn->real_escape_string($nombre));
+        $query = sprintf("SELECT * FROM Profesores WHERE nombre='%d'", $conn->real_escape_string($nombre));
         $rs = $conn->query($query);
         $result = false;
         if($rs){
@@ -134,15 +134,26 @@ class Profesor
 
     private static function inserta($profesor)
     {
+        $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("INSERT INTO Profesores(nombre, idImagen) VALUES('%s', '%d')", $conn->real_escape_string($profesor->nombre), filter_var($profesor->idImagen, FILTER_SANITIZE_NUMBER_INT));
+        if(!isset($profesor->idImagen)){
+            $query = sprintf("INSERT INTO Profesores(nombre) VALUES('%s')",
+                $conn->real_escape_string($profesor->nombre)
+            );
+        }
+        else{
+            $query = sprintf("INSERT INTO Profesores(nombre, idImagen) VALUES('%s', '%d')",
+                $conn->real_escape_string($profesor->nombre),
+                filter_var($profesor->idImagen, FILTER_SANITIZE_NUMBER_INT)
+            );
+        }
         if ($conn->query($query)) {
             $profesor->id = $conn->insert_id;
-            return true;
+            $result = $profesor;
         } else {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
-            return false;
         }
+        return $result;
     }
 
     private static function borra($profesor)
@@ -150,8 +161,7 @@ class Profesor
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
-            "DELETE FROM Profesores WHERE id='%d'"
-            ,
+            "DELETE FROM Profesores WHERE id='%d'",
             filter_var($profesor->id, FILTER_SANITIZE_NUMBER_INT)
         );
         if (!$conn->query($query)) {
