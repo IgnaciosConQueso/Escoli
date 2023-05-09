@@ -44,7 +44,6 @@ $listaAsignaturas
 EOF;
 
 $script = $app->resuelve('/js/gestionLikes.js');
-
 $params = [
 	'tituloPagina' => $tituloPagina,
 	'botonesCabecera' => $botonValoracion,
