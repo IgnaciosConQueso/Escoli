@@ -19,7 +19,7 @@ function listaAsignaturasProfesor($idProfesor)
 
 function listaAsignaturasFacultad($idFacultad)
 {
-    $arrayAsignaturas = Asignatura::getAsignaturasFacultad($idFacultad);
+    $arrayAsignaturas = Asignatura::buscaAsignaturasPorIdFacultad($idFacultad);
     $html = '';
     if ($arrayAsignaturas) {
         $html .= '<ul class="lista-asignaturas">';

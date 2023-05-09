@@ -9,7 +9,7 @@ require_once __DIR__ . '/includes/vistas/helpers/valoracionesHelper.php';
 
 $app = Aplicacion::getInstance();
 
-$idUser = $app->idUsuario();
+$idUser = $_GET['id'];
 $user = Usuario::buscaPorId($idUser);
 $imagen = Imagen::buscaPorId($user->idImagen);
 
