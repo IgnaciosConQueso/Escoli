@@ -67,6 +67,24 @@ class Asignatura
         return $result;
     }
 
+    public static function buscaPorNombre($nombre){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM Asignaturas WHERE nombre='%s'", $conn->real_escape_string($nombre));
+        $rs = $conn->query($query);
+        $result = false;
+        if($rs){
+            $result = array();
+            while($fila = $rs->fetch_assoc()){
+                $asignatura = new Asignatura($fila['nombre'], $fila['idProfesor'], $fila['idFacultad'], $fila['id']);
+                array_push($result, $asignatura);
+            }
+            $rs->free();
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
+    }
+
     public static function getAsignaturasProfesor($idProfesor)
     {
         $result = false;
