@@ -9,7 +9,7 @@ class Universidad
 {
     use MagicProperties;
 
-    public static function crea($nombre,$idImagen = null, $id = null)
+    public static function crea($nombre, $idImagen = null, $id = null)
     {
         $universidad = new Universidad($nombre, $id, $idImagen);
         return $universidad->guarda();
@@ -86,11 +86,11 @@ class Universidad
         return $result;
     }
 
-    //revisar
+    
     public static function borra($universidad)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("DELETE FROM Universidades WHERE nombre='%s'", $conn->real_escape_string($universidad->nombre));
+        $query = sprintf("DELETE FROM Universidades WHERE id='%d'", filter_var($universidad->id, FILTER_SANITIZE_NUMBER_INT));
         if ($conn->query($query)) {
             return true;
         } else {
@@ -102,7 +102,7 @@ class Universidad
     private static function actualiza($universidad)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("UPDATE Universidades SET nombre='%s', idImagen='%i' WHERE id='%d'",
+        $query = sprintf("UPDATE Universidades SET nombre='%s', idImagen='%d' WHERE id='%d'",
         $conn->real_escape_string($universidad->nombre),
         $conn->real_escape_string($universidad->idImagen), 
         filter_var($universidad->id, FILTER_SANITIZE_NUMBER_INT));
@@ -113,21 +113,27 @@ class Universidad
             return false;
         }
     }
-    //revisar
+
     private static function inserta($universidad)
     {
+        $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("INSERT INTO Universidades (id, nombre, idImagen) VALUES('%d', '%s', '%d')",
-         filter_var($universidad->id, FILTER_SANITIZE_NUMBER_INT),
-         $conn->real_escape_string($universidad->nombre),
-         $conn->real_escape_string($universidad->idImagen));
+        if (!isset($universidad->idImagen)) {
+            $query = sprintf("INSERT INTO Universidades (nombre) VALUES('%s')",
+                $conn->real_escape_string($universidad->nombre));
+        }
+        else{
+            $query = sprintf("INSERT INTO Universidades (nombre, idImagen) VALUES('%s', '%d')",
+                $conn->real_escape_string($universidad->nombre),
+                filter_var($universidad->id, FILTER_SANITIZE_NUMBER_INT));
+        }
         if ($conn->query($query)) {
             $universidad->id = $conn->insert_id;
-            return true;
+            $result = $universidad;
         } else {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
-            return false;
         }
+        return $result;
     }
     
 

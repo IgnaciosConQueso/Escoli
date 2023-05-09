@@ -129,14 +129,14 @@ class Asignatura
         return false;
     }
 
-    private static function borra($profesor)
+    private static function borra($asignatura)
     {
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
             "DELETE FROM Asignaturas WHERE id='%d'"
             ,
-            filter_var($profesor->id, FILTER_SANITIZE_NUMBER_INT)
+            filter_var($asignatura->id, FILTER_SANITIZE_NUMBER_INT)
         );
         if (!$conn->query($query)) {
             error_log("Error BD ({$conn->errno}): {$conn->error}");

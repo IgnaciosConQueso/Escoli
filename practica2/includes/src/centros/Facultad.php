@@ -9,9 +9,9 @@ class Facultad
 {
     use MagicProperties;
 
-    public static function crea($nombre, $idUniversidad, $idImagen = null)
+    public static function crea($nombre, $idUniversidad, $idImagen = null, $id = null)
     {
-        $facultad = new Facultad($nombre, $idUniversidad, $idImagen);
+        $facultad = new Facultad($nombre, $idUniversidad, $id, $idImagen);
         return $facultad->guarda();
     }
 
@@ -55,7 +55,8 @@ class Facultad
     public static function buscaPorNombre($nombre)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM Facultades WHERE nombre='%s'", $conn->real_escape_string($nombre));
+        $query = sprintf("SELECT * FROM Facultades WHERE nombre LIKE '%c%s%c",
+            '%', $conn->real_escape_string($nombre), '%');
         $rs = $conn->query($query);
         $result = false;
         if ($rs) {
@@ -72,7 +73,10 @@ class Facultad
 
     public static function buscaPorNombreYUniversidad($nombre, $idUniversidad){
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM Facultades WHERE nombre='%s' AND idUniversidad='%d'", $conn->real_escape_string($nombre), $conn->real_escape_string($idUniversidad));
+        $query = sprintf("SELECT * FROM Facultades
+            WHERE nombre='%s' AND idUniversidad='%d'",
+            $conn->real_escape_string($nombre),
+            $conn->real_escape_string($idUniversidad));
         $rs = $conn->query($query);
         $result = false;
         if ($rs) {
@@ -110,7 +114,8 @@ class Facultad
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
-            "UPDATE Facultades F SET F.nombre='%s', F.idUniversidad='%d', F.idImagen='%d' WHERE F.id='%i'"
+            "UPDATE Facultades F
+                SET F.nombre='%s', F.idUniversidad='%d', F.idImagen='%d' WHERE F.id='%i'"
             , $conn->real_escape_string($facultad->nombre)
             , $conn->real_escape_string($facultad->idUniversidad)
             , $conn->real_escape_string($facultad->id)
@@ -126,12 +131,25 @@ class Facultad
     {
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("INSERT INTO Facultades (nombre, idUniversidad, idImagen) VALUES('%s', '%d', '%d')",
-            $conn->real_escape_string($facultad->nombre),
-            filter_var($facultad->idUniversidad, FILTER_SANITIZE_NUMBER_INT),
-            $conn->real_escape_string($facultad->idImagen)
-        );
-        if (!$conn->query($query)) {
+        if (!isset($facultad->idImagen)){
+            $query = sprintf("INSERT INTO Facultades (nombre, idUniversidad) VALUES('%s', '%d')",
+                $conn->real_escape_string($facultad->nombre),
+                filter_var($facultad->idUniversidad, FILTER_SANITIZE_NUMBER_INT)
+            );
+        }
+        else{
+            $query = sprintf("INSERT INTO Facultades (nombre, idUniversidad, idImagen) VALUES('%s', '%d', '%d')",
+                $conn->real_escape_string($facultad->nombre),
+                filter_var($facultad->idUniversidad, FILTER_SANITIZE_NUMBER_INT),
+                filter_var($facultad->idImagen, FILTER_SANITIZE_NUMBER_INT)
+            );
+        }
+
+        if ($conn->query($query)) {
+            $facultad->id = $conn->insert_id;
+            $result = $facultad;
+        }
+        else{
             error_log("Error al insertar la facultad: {$conn->errno} {$conn->error}");
         }
         return $result;
@@ -143,8 +161,8 @@ class Facultad
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
-            "DELETE FROM Facultades F WHERE F.id='%i'"
-            , $conn->real_escape_string($facultad->id)
+            "DELETE FROM Facultades F WHERE F.id='%d'"
+            , filter_var($facultad->id, FILTER_SANITIZE_NUMBER_INT)
         );
         if (!$conn->query($query)) {
             error_log("Error al borrar la facultad: {$conn->errno} {$conn->error}");

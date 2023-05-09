@@ -7,6 +7,10 @@ require_once '../../config.php';
 
 $app = Aplicacion::getInstance();
 
+if(!$app->usuarioEsAdmin()) {
+    $app->paginaError(403, 'Error', 'Oops', 'No tienes permiso para acceder a esta página');
+}
+
 $idUniversidad = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
 
 if(!isset($idUniversidad)) {
@@ -14,7 +18,6 @@ if(!isset($idUniversidad)) {
 }
 
 $universidad = Universidad::buscaPorId($idUniversidad);
-//TODO comprobar que el usuario es admin
 
 if(!Universidad::borra($universidad)){
     $app = Aplicacion::getInstance();
