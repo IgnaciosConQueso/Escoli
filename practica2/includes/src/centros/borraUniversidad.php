@@ -7,7 +7,7 @@ require_once '../../config.php';
 
 $app = Aplicacion::getInstance();
 
-if(!$app->usuarioEsAdmin()) {
+if(!$app->esAdmin()) {
     $app->paginaError(403, 'Error', 'Oops', 'No tienes permiso para acceder a esta página');
 }
 
@@ -24,5 +24,5 @@ if(!Universidad::borra($universidad)){
     $app->paginaError(500, 'Error', 'Oops', 'No se ha podido borrar la universidad');
 }
 
-$app->redirige($app->resuelve('/index.php'));
+$app->redirige($app->resuelve('/universidades.php'));
 ?>

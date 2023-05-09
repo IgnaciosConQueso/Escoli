@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `Facultades` (
     `nombre` VARCHAR(255) NOT NULL,
     `idImagen` INT(11) DEFAULT '3',
     PRIMARY KEY (`id`),
-    UNIQUE (`nombre`)
+    UNIQUE (`nombre`, `idUniversidad`)
 ) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `Profesores` (

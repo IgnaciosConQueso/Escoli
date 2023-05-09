@@ -19,7 +19,34 @@ function listaUniversidades()
     return $html;
 }
 
-function generaHTMLUniversidad($data)
+function listaUniversidadesAdmin()
+{
+    $arrayUniversidades = Universidad::buscaUniversidades();
+    $html = '';
+    if ($arrayUniversidades) {
+        $html .= '<ul class="lista-universidades">';
+        foreach ($arrayUniversidades as $universidad) {
+            $html .= generaHTMLUniversidadAdmin($universidad);
+        }
+        $html .= '</ul>';
+    }
+    return $html;
+}
+
+function generaHTMLUniversidad($data){
+    $universidad = Universidad::buscaPorId($data->id);
+    $imagen = Imagen::buscaPorId($universidad->getIdImagen());
+    $htmlImg = '<img class="imagen-perfil" src="' . Aplicacion::getInstance()->resuelveImagen($imagen->ruta) . '" alt = "foto de la facultad">';
+    
+    $url = 'facultades.php?idUniversidad=' . $data->id;
+    $html = '<div class="universidad">';
+    $html .= '<a class="imagen" href="' . Aplicacion::getInstance()->resuelve($url) . '">' .  $htmlImg . '</a>';
+    $html .= '<p class="nombre-universidad"> <a href="' . $url . '">' . $data->nombre . '</a></p>';
+    $html .= '</div>';
+    return $html;
+}
+
+function generaHTMLUniversidadAdmin($data)
 {
     $universidad = Universidad::buscaPorId($data->id);
     $imagen = Imagen::buscaPorId($universidad->getIdImagen());
@@ -48,6 +75,6 @@ function botonEditaUniversidad($idUniversidad)
     $app = Aplicacion::getInstance();
     $editaURL = $app->resuelve('/registroUniversidad.php');
     $className = 'edita-universidad';
-    return Formulario::buildButtonForm($editaURL, ['id' => $idUniversidad], $className , 'Editar', [], 'GET');
+    return Formulario::buildButtonForm($editaURL, ['id' => $idUniversidad], $className , 'Editar');
 }
 ?>

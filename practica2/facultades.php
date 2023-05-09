@@ -7,7 +7,14 @@ $idUniversidad = $_GET['idUniversidad'];
 
 $tituloPagina = 'Escoli';
 $contenidoPrincipal = "<h1>Facultades de " . nombreUniversidad($idUniversidad) . "</h1>";
-$contenidoPrincipal .= listaFacultades($idUniversidad);
+
+$botonesCab = '';
+if($app->esAdmin()){
+  $contenidoPrincipal .= listaFacultadesAdmin($idUniversidad);
+}
+else{
+  $contenidoPrincipal .= listaFacultades($idUniversidad);
+}
 $_SESSION['menuCabecera']['idUniversidad'] = '<a href="facultades.php?idUniversidad=' . $idUniversidad . '">Facultades</a>';
 
 $menuCabecera = '';

@@ -156,15 +156,15 @@ class Facultad
 
     }
 
-    private static function borra($facultad)
+    public static function borra($facultad)
     {
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf(
-            "DELETE FROM Facultades F WHERE F.id='%d'"
-            , filter_var($facultad->id, FILTER_SANITIZE_NUMBER_INT)
-        );
-        if (!$conn->query($query)) {
+        $query = sprintf("DELETE FROM Facultades
+            WHERE id='%d'", filter_var($facultad->id, FILTER_SANITIZE_NUMBER_INT));
+        if ($conn->query($query)) {
+            $result = true;
+        } else {
             error_log("Error al borrar la facultad: {$conn->errno} {$conn->error}");
         }
         return $result;
