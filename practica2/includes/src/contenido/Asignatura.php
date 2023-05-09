@@ -105,7 +105,7 @@ class Asignatura
         }
         return $result;
     }
-
+    
     private static function actualiza($asignatura)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();

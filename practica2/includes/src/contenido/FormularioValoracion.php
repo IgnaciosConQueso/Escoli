@@ -60,7 +60,7 @@ class FormularioValoracion extends Formulario
         $app = Aplicacion::getInstance();
 
         $idUsuario = $app->idUsuario();
-        $idProfesor = Asignatura::buscaPorId($datos['profesorAsignatura'])->idProfesor;
+        $idProfesor = Asignatura::buscaPorId($datos['profesorAsignatura'])->idProfesor; // TODO cambiar esto
         $idAsignatura = filter_var($datos['profesorAsignatura'], FILTER_SANITIZE_NUMBER_INT);
         $puntuacion = filter_var($datos['puntuacion'], FILTER_SANITIZE_NUMBER_INT);
         $comentario = filter_var($datos['comentario'], FILTER_SANITIZE_SPECIAL_CHARS);
@@ -93,7 +93,6 @@ class FormularioValoracion extends Formulario
             $id = $asignatura->id;
             $nombre = $asignatura->nombre;
             $selected = ($id == $idAsignatura) ? 'selected' : '';
-            //foreach teacher found in the subject, we show it in the select
             $profesores = Profesor::buscaProfesorQueImpartaAsignatura($id);
             foreach ($profesores as $profesor) {
                 $html .= "<option value='$id' $selected>" . $profesor->nombre . " - " . $nombre . "</option>";
