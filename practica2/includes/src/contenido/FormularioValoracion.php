@@ -4,15 +4,15 @@ namespace escoli\contenido;
 use escoli\Aplicacion;
 use escoli\contenido\Valoracion;
 use escoli\Formulario;
-use escoli\contenido\Profesor;
 use escoli\contenido\Asignatura;
 
 class FormularioValoracion extends Formulario
 {
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct('formValoracion', ['urlRedireccion' => Aplicacion::getInstance()->resuelve('/index.php')]);
     }
-    
+
     protected function generaCamposFormulario(&$datos)
     {
 
@@ -59,45 +59,49 @@ class FormularioValoracion extends Formulario
         $this->errores = [];
         $app = Aplicacion::getInstance();
 
-        $idUsuario=$app->idUsuario();
-        $idProfesor=Asignatura::buscaPorId($datos['profesorAsignatura'])->idProfesor;
-        $idAsignatura=filter_var($datos['profesorAsignatura'], FILTER_SANITIZE_NUMBER_INT);
-        $puntuacion=filter_var($datos['puntuacion'], FILTER_SANITIZE_NUMBER_INT);
-        $comentario=filter_var($datos['comentario'], FILTER_SANITIZE_SPECIAL_CHARS);
+        $idUsuario = $app->idUsuario();
+        $idProfesor = Asignatura::buscaPorId($datos['profesorAsignatura'])->idProfesor;
+        $idAsignatura = filter_var($datos['profesorAsignatura'], FILTER_SANITIZE_NUMBER_INT);
+        $puntuacion = filter_var($datos['puntuacion'], FILTER_SANITIZE_NUMBER_INT);
+        $comentario = filter_var($datos['comentario'], FILTER_SANITIZE_SPECIAL_CHARS);
 
-        if(!$idProfesor){
+        if (!$idProfesor) {
             $this->errores['profesorAsignatura'] = "Debes seleccionar un profesor";
         }
-        if(!$idAsignatura){
+        if (!$idAsignatura) {
             $this->errores['profesorAsignatura'] = "Debes seleccionar una asignatura";
         }
-        if($puntuacion > 5 || $puntuacion < 1 && $puntuacion == filter_var($puntuacion, FILTER_VALIDATE_INT)){
+        if ($puntuacion > 5 || $puntuacion < 1 && $puntuacion == filter_var($puntuacion, FILTER_VALIDATE_INT)) {
             $this->errores['puntuacion'] = "La puntuación debe ser un número entre 1 y 5";
         }
-        if(mb_strlen($comentario) > 1000){
+        if (mb_strlen($comentario) > 1000) {
             $this->errores['comentario'] = "El comentario no puede superar los 1000 caracteres";
         }
-        if(mb_strlen($comentario) <= 0){
+        if (mb_strlen($comentario) <= 0) {
             $this->errores['comentario'] = "El comentario no puede estar vacío";
         }
 
-        Valoracion::crea($idUsuario, $idProfesor, $idAsignatura, $comentario ,$puntuacion);
+        Valoracion::crea($idUsuario, $idProfesor, $idAsignatura, $comentario, $puntuacion);
     }
 
-    private function generaOpcionesAsignaturas($idFacultad, $idAsignatura){
-    
+    private function generaOpcionesAsignaturas($idFacultad, $idAsignatura)
+    {
+
         $html = '';
         $asignaturas = Asignatura::buscaAsignaturasPorIdFacultad($idFacultad);
-        foreach($asignaturas as $asignatura){
+        foreach ($asignaturas as $asignatura) {
             $id = $asignatura->id;
             $nombre = $asignatura->nombre;
             $selected = ($id == $idAsignatura) ? 'selected' : '';
-            $html .= "<option value='$id' $selected>".
-                Profesor::buscaPorId($asignatura->idProfesor)->nombre." - ".$nombre."</option>";
+            //foreach teacher found in the subject, we show it in the select
+            $profesores = Profesor::buscaProfesorQueImpartaAsignatura($id);
+            foreach ($profesores as $profesor) {
+                $html .= "<option value='$id' $selected>" . $profesor->nombre . " - " . $nombre . "</option>";
+            }
         }
         return $html;
     }
-    
+
 }
 
 ?>

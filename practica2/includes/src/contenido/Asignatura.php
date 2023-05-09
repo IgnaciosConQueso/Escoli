@@ -47,8 +47,6 @@ class Asignatura
         }
         return $result;
     }
-
-
     
     public static function buscaAsignaturasPorIdFacultad($idFacultad)
     {
@@ -93,7 +91,7 @@ class Asignatura
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("SELECT A.* FROM Imparte I 
                         JOIN Asignaturas A ON I.idAsignatura = A.Id
-                            WHERE I.idProfesor='%d'" , filter_var($idProfesor, FILTER_SANITIZE_NUMBER_INT));
+                        WHERE I.idProfesor='%d'" , filter_var($idProfesor, FILTER_SANITIZE_NUMBER_INT));
         $rs = $conn->query($query);
         if ($rs) {
             $result = array();
@@ -107,7 +105,6 @@ class Asignatura
         }
         return $result;
     }
-
 
     private static function actualiza($asignatura)
     {
