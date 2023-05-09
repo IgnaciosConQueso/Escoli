@@ -71,6 +71,12 @@ CREATE TABLE IF NOT EXISTS `Asignaturas` (
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
 
+CREATE TABLE IF NOT EXISTS `Imparte`(
+    `idProfesor` INT NOT NULL,
+    `idAsignatura` INT NOT NULL,
+    PRIMARY KEY (`idProfesor`, `idAsignatura`)
+) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+
 CREATE TABLE IF NOT EXISTS `Valoraciones` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `idUsuario` INT NOT NULL,
@@ -115,6 +121,9 @@ ALTER TABLE `Facultades` ADD CONSTRAINT `Facultades_idUniversidad` FOREIGN KEY (
 
 ALTER TABLE `Asignaturas` ADD CONSTRAINT `Asignaturas_idFacultad` FOREIGN KEY (`idFacultad`) REFERENCES `Facultades`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `Asignaturas` ADD CONSTRAINT `Asignaturas_idProfesor` FOREIGN KEY (`idProfesor`) REFERENCES `Profesores`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `Imparte` ADD CONSTRAINT `Imparte_idProfesor` FOREIGN KEY (`idProfesor`) REFERENCES `Profesores`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `Imparte` ADD CONSTRAINT `Imparte_idAsignatura` FOREIGN KEY (`idAsignatura`) REFERENCES `Asignaturas`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `RolesUsuario` ADD CONSTRAINT `Roles_idUsuario` FOREIGN KEY (`idUsuario`) REFERENCES `Usuarios`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
