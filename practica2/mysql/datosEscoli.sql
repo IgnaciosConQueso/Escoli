@@ -89,7 +89,7 @@ INSERT INTO `Valoraciones` (`idUsuario`, `idProfesor`, `idAsignatura`, `comentar
 ('1', '5', '6', 'A veces su asignatura de Cuidado de Criaturas Mágicas se hace un poco monótona', '3', '0'),
 ('1', '6', '7', 'El profesor Rubeus Hagrid es muy amable pero poco organizado en sus clases', '3', '0'),
 ('1', '6', '7', 'A veces se pierde hablando sobre criaturas que no tienen nada que ver con la asignatura', '2', '0'),
-('1', '1', '1', 'El profesor Walter White no es muy simpático y eso dificulta el aprendizaje', '2', '0'),
+('1', '1', '1', 'El profesor Walter White no es muy simpático y eso dificulta el aprendizaje', '2', '0');
 
 INSERT INTO `Imparte` (`idProfesor`, `idAsignatura`) VALUES
 ('1', '1'),
