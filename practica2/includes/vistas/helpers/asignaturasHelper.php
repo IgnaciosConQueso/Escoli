@@ -5,7 +5,7 @@ use escoli\contenido\Profesor;
 
 function listaAsignaturasProfesor($idProfesor)
 {
-    $arrayAsignaturas = Asignatura::getAsignaturasProfesor($idProfesor);
+    $arrayAsignaturas = Asignatura::buscaAsignaturasProfesor($idProfesor);
     $html = '';
     if ($arrayAsignaturas) {
         $html .= '<ul class="lista-asignaturas">';
