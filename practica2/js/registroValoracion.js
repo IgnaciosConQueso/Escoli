@@ -7,13 +7,13 @@ $(document).ready(function() {
     profesorSeleccionado();
 
     //eventos
-    $("#profesor").change(profesorSeleccionado);
+    $("#profesorAsignatura").change(profesorSeleccionado);
     $("#puntuacion").change(compruebaPuntuacion);
     $("#comentario").change(compruebaComentario);
 
     //funciones
     function profesorSeleccionado() {
-        idProfesor = $("#profesor").val();
+        idProfesor = $("#profesorAsignatura").val();
         puntuacion= document.getElementById("puntuacion");
         comentario = document.getElementById("comentario");
         if(idProfesor==0){

@@ -31,7 +31,7 @@ class FormularioValoracion extends Formulario
             <div>
                 <label for="profesor">Profesor:</label>
                 <select id="profesorAsignatura" name="profesorAsignatura">
-                    <option value=''>Selecciona un profesor y asignatura</option>
+                    <option value="0">Selecciona un profesor y asignatura</option>
                     {$this->generaOpcionesAsignaturas($idFacultad, $idAsignatura)}
                 </select>
                 {$erroresCampos['profesor']}
