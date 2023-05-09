@@ -86,7 +86,6 @@ class FormularioValoracion extends Formulario
 
     private function generaOpcionesAsignaturas($idFacultad, $idAsignatura)
     {
-
         $html = '';
         $asignaturas = Asignatura::buscaAsignaturasPorIdFacultad($idFacultad);
         foreach ($asignaturas as $asignatura) {
