@@ -100,7 +100,6 @@ class FormularioValoracion extends Formulario
         }
         return $html;
     }
-
 }
 
 ?>
