@@ -87,7 +87,7 @@ class Asignatura
         return $result;
     }
 
-    public static function getAsignaturasProfesor($idProfesor)
+    public static function buscaAsignaturasProfesor($idProfesor)
     {
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
