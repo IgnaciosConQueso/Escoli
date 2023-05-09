@@ -49,21 +49,21 @@ INSERT INTO `Facultades` (`id`, `idUniversidad`, `nombre`) VALUES
 ('11', '7', 'Facultad de Sith'),
 ('12', '7', 'Facultad de Ingeniería');
 
-INSERT INTO `Asignaturas` (`id`, `idFacultad`, `idProfesor`, `nombre`) VALUES
-('1', '1', '1', 'Programacion'),
-('2', '1', '1', 'Base de Datos'),
-('3', '2', '2', 'Anatomia'),
-('4', '3', '3', 'Defensa Contra las Artes Oscuras'),
-('5', '3', '4', 'Transformaciones'),
-('6', '4', '5', 'Cuidado de Criaturas Mágicas'),
-('7', '5', '6', 'Herbología'),
-('8', '1', '7', 'Física Cuántica'),
-('9', '2', '8', 'Karate'),
-('10', '3', '9', 'Hechicería'),
-('11', '4', '10', 'Fuerza y Sabiduría Jedi'),
-('12', '5', '11', 'Artefactos Sith'),
-('13', '6', '7', 'Programación en Python'),
-('14', '7', '8', 'Meditación');
+INSERT INTO `Asignaturas` (`id`, `idFacultad`, `nombre`) VALUES
+('1', '1', 'Programacion'),
+('2', '1', 'Base de Datos'),
+('3', '2', 'Anatomia'),
+('4', '3', 'Defensa Contra las Artes Oscuras'),
+('5', '3', 'Transformaciones'),
+('6', '4', 'Cuidado de Criaturas Mágicas'),
+('7', '5', 'Herbología'),
+('8', '1', 'Física Cuántica'),
+('9', '2', 'Karate'),
+('10', '3', 'Hechicería'),
+('11', '4', 'Fuerza y Sabiduría Jedi'),
+('12', '5', 'Artefactos Sith'),
+('13', '6', 'Programación en Python'),
+('14', '7', 'Meditación');
 
 /* 30 valoraiones distintas */
 INSERT INTO `Valoraciones` (`idUsuario`, `idProfesor`, `idAsignatura`, `comentario`, `puntuacion`, `likes`) VALUES
@@ -102,6 +102,21 @@ INSERT INTO `Valoraciones` (`idUsuario`, `idProfesor`, `idAsignatura`, `comentar
 ('1', '3', '3', 'El profesor Severus Snape es demasiado exigente en sus calificaciones', '3', '0'),
 ('1', '5', '5', 'La asignatura de Transformaciones con Albus Dumbledore es muy difícil y poco práctica', '2', '0');
 
+INSERT INTO `Imparte` (`idProfesor`, `idAsignatura`) VALUES
+('1', '1'),
+('1', '2'),
+('2', '3'),
+('3', '4'),
+('4', '5'),
+('5', '6'),
+('6', '7'),
+('7', '8'),
+('8', '9'),
+('9', '10'),
+('10', '11'),
+('11', '12'),
+('7', '13'),
+('8', '14');
 
 INSERT INTO `Imagenes` (`id`, `ruta`, `nombre`, `tipo`) VALUES
 (1, 'usuarios/defaultUser.png', 'defaultUser.png', 'image/png'),

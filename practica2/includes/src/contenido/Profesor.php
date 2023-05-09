@@ -129,7 +129,7 @@ class Profesor
     private static function inserta($profesor)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("INSERT INTO Profesores(nombre, idImagen) VALUES('%s', '%d')", $conn->real_escape_string($profesor->nombre), filter_var($profesor->idFacultad, FILTER_SANITIZE_NUMBER_INT));
+        $query = sprintf("INSERT INTO Profesores(nombre, idImagen) VALUES('%s', '%d')", $conn->real_escape_string($profesor->nombre), filter_var($profesor->idImagen, FILTER_SANITIZE_NUMBER_INT));
         if ($conn->query($query)) {
             $profesor->id = $conn->insert_id;
             return true;

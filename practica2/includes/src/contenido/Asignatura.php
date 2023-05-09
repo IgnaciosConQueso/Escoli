@@ -9,9 +9,9 @@ class Asignatura
 {
     use MagicProperties;
 
-    public static function crea($nombre, $idProfesor, $idFacultad)
+    public static function crea($nombre, $idFacultad)
     {
-        $asignatura = new Asignatura($nombre, $idProfesor, $idFacultad);
+        $asignatura = new Asignatura($nombre, $idFacultad);
         return $asignatura->guarda();
     }
 
@@ -39,7 +39,7 @@ class Asignatura
         $result = false;
         if ($rs) {
             if ($fila = $rs->fetch_assoc()) {
-                $result = new Asignatura($fila['nombre'], $fila['idProfesor'], $fila['idFacultad'], $fila['id']);
+                $result = new Asignatura($fila['nombre'], $fila['idFacultad'], $fila['id']);
             }
             $rs->free();
         } else {
@@ -48,6 +48,8 @@ class Asignatura
         return $result;
     }
 
+
+    
     public static function buscaAsignaturasPorIdFacultad($idFacultad)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
@@ -57,7 +59,7 @@ class Asignatura
         if ($rs) {
             $result = array();
             while ($fila = $rs->fetch_assoc()) {
-                $asignatura = new Asignatura($fila['nombre'], $fila['idProfesor'], $fila['idFacultad'], $fila['id']);
+                $asignatura = new Asignatura($fila['nombre'], $fila['idFacultad'], $fila['id']);
                 array_push($result, $asignatura);
             }
             $rs->free();
@@ -89,12 +91,14 @@ class Asignatura
     {
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM Asignaturas WHERE idProfesor='%d'" , filter_var($idProfesor, FILTER_SANITIZE_NUMBER_INT));
+        $query = sprintf("SELECT A.* FROM Imparte I 
+                        JOIN Asignaturas A ON I.idAsignatura = A.Id
+                            WHERE I.idProfesor='%d'" , filter_var($idProfesor, FILTER_SANITIZE_NUMBER_INT));
         $rs = $conn->query($query);
         if ($rs) {
             $result = array();
             while ($fila = $rs->fetch_assoc()) {
-                $asignatura = new Asignatura($fila['nombre'], $fila['idProfesor'], $fila['idFacultad'], $fila['id']);    
+                $asignatura = new Asignatura($fila['nombre'], $fila['idFacultad'], $fila['id']);    
                 array_push($result, $asignatura);
             }
             $rs->free();
@@ -104,24 +108,6 @@ class Asignatura
         return $result;
     }
 
-    public static function getAsignaturasFacultad($idFacultad)
-    {
-        $result = false;
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM Asignaturas WHERE idFacultad='%d'" , filter_var($idFacultad, FILTER_SANITIZE_NUMBER_INT));
-        $rs = $conn->query($query);
-        if ($rs) {
-            $result = array();
-            while ($fila = $rs->fetch_assoc()) {
-                $asignatura = new Asignatura($fila['nombre'], $fila['idProfesor'], $fila['idFacultad'], $fila['id']);    
-                array_push($result, $asignatura);
-            }
-            $rs->free();
-        } else {
-            error_log("Error al consultar en la BD: {$conn->error}");
-        }
-        return $result;
-    }
 
     private static function actualiza($asignatura)
     {
@@ -163,14 +149,12 @@ class Asignatura
 
     private $id;
     private $nombre;
-    private $idProfesor;
     private $idFacultad;
 
-    public function __construct($nombre, $idProfesor, $idFacultad, $id = null)
+    public function __construct($nombre, $idFacultad, $id = null)
     {
         $this->id = $id;
         $this->nombre = $nombre;
-        $this->idProfesor = $idProfesor;
         $this->idFacultad = $idFacultad;
     }
 
@@ -182,11 +166,6 @@ class Asignatura
     public function getNombre()
     {
         return $this->nombre;
-    }
-
-    public function getIdProfesor()
-    {
-        return $this->idProfesor;
     }
 
     public function getIdFacultad()

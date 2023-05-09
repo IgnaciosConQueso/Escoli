@@ -66,7 +66,6 @@ CREATE TABLE IF NOT EXISTS `Profesores` (
 CREATE TABLE IF NOT EXISTS `Asignaturas` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `idFacultad` INT NOT NULL,
-    `idProfesor` INT NOT NULL,
     `nombre` VARCHAR(255) NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
@@ -120,7 +119,6 @@ ALTER TABLE `Profesores` ADD CONSTRAINT `Profesores_idImagen` FOREIGN KEY (`idIm
 ALTER TABLE `Facultades` ADD CONSTRAINT `Facultades_idUniversidad` FOREIGN KEY (`idUniversidad`) REFERENCES `Universidades`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `Asignaturas` ADD CONSTRAINT `Asignaturas_idFacultad` FOREIGN KEY (`idFacultad`) REFERENCES `Facultades`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `Asignaturas` ADD CONSTRAINT `Asignaturas_idProfesor` FOREIGN KEY (`idProfesor`) REFERENCES `Profesores`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `Imparte` ADD CONSTRAINT `Imparte_idProfesor` FOREIGN KEY (`idProfesor`) REFERENCES `Profesores`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `Imparte` ADD CONSTRAINT `Imparte_idAsignatura` FOREIGN KEY (`idAsignatura`) REFERENCES `Asignaturas`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;

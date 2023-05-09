@@ -8,14 +8,16 @@ $tituloPagina = 'Universidades';
 $linkUniversidad = 'registroUniversidad.php';
 $linkFacultad = 'registroFacultad.php';
 $linkBorraFacultad = 'borraFacultad.php';
+$linkProfesor = 'registroProfesor.php';
 
 $botonUniversidad = '<a href='.$linkUniversidad.'>Añadir universidad</a>';
+$botonProfesor = '<a href='.$linkProfesor.'>Añadir profesor</a>';
 $botonFacultad = '<a href=' . $linkFacultad . '>Añadir facultad</a>';
 
 $menuCabecera = '';
 $_SESSION['linksCabecera'] = $menuCabecera;
 
-$botonesCab = $botonUniversidad . $botonFacultad;
+$botonesCab = $botonUniversidad . $botonFacultad . $botonProfesor;
 $contenidoPrincipal = listaUniversidades();
 
 
