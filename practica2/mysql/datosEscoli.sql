@@ -70,10 +70,6 @@ INSERT INTO `Valoraciones` (`idUsuario`, `idProfesor`, `idAsignatura`, `comentar
 ('1', '1', '1', 'Es un profesor maravilloso', '4', '0'),
 ('1', '1', '2', 'Me gusta más que ninguno', '3', '0'),
 ('1', '2', '3', 'Un profesor excepcional', '5', '0'),
-('1', '4', '4', 'Muy sabio y amable', '4', '0'),
-('1', '5', '5', 'Tiene un gran conocimiento de las criaturas mágicas', '4', '0'),
-('1', '6', '6', 'Sus clases son muy interesantes y divertidas', '5', '0'),
-('1', '2', '7', 'Es un profesor muy bueno', '4', '0'),
 ('1', '7', '8', 'Es uno de los mejores profesores que he tenido', '5', '0'),
 ('1', '8', '9', 'Un gran maestro, siempre aprendo mucho en sus clases', '4', '0'),
 ('1', '9', '10', 'Gandalf es un mago muy sabio y poderoso', '5', '0'),
@@ -84,7 +80,7 @@ INSERT INTO `Valoraciones` (`idUsuario`, `idProfesor`, `idAsignatura`, `comentar
 ( '1', '1', '1', 'El profesor Walter White es muy exigente pero se aprende mucho con él', '4', '0'),
 ( '1', '1', '2', 'La asignatura de Base de Datos con Walter White es muy aburrida', '2', '0'),
 ( '1', '2', '3', 'El profesor Bacterio es muy amable y siempre está dispuesto a ayudar', '5', '0'),
-('1', '2', '7', 'El profesor Bacterio tiene un acento un poco difícil de entender', '3', '0'),
+('1', '2', '3', 'El profesor Bacterio tiene un acento un poco difícil de entender', '3', '0'),
 ('1', '3', '4', 'El profesor Severus Snape es un genio en Defensa Contra las Artes Oscuras', '5', '0'),
 ('1', '3', '4', 'Pero su forma de enseñar es bastante intimidante', '3', '0'),
 ('1', '4', '5', 'El profesor Albus Dumbledore es un sabio y un líder inspirador', '5', '0'),
@@ -94,13 +90,6 @@ INSERT INTO `Valoraciones` (`idUsuario`, `idProfesor`, `idAsignatura`, `comentar
 ('1', '6', '7', 'El profesor Rubeus Hagrid es muy amable pero poco organizado en sus clases', '3', '0'),
 ('1', '6', '7', 'A veces se pierde hablando sobre criaturas que no tienen nada que ver con la asignatura', '2', '0'),
 ('1', '1', '1', 'El profesor Walter White no es muy simpático y eso dificulta el aprendizaje', '2', '0'),
-('1', '2', '2', 'La asignatura de Medicina con el profesor Bacterio es muy exigente y estresante', '3', '0'),
-('1', '3', '3', 'El profesor Severus Snape no es muy accesible y cuesta hacerle preguntas', '2', '0'),
-('1', '4', '4', 'El profesor Albus Dumbledore a veces parece no tener en cuenta las dificultades de los alumnos', '3', '0'),
-('1', '5', '5', 'La profesora Minerva McGonagall se centra demasiado en la teoría y se hace pesada', '2', '0'),
-('1', '6', '6', 'El profesor Rubeus Hagrid es un poco lento explicando y se hace difícil seguir sus clases', '2', '0'),
-('1', '3', '3', 'El profesor Severus Snape es demasiado exigente en sus calificaciones', '3', '0'),
-('1', '5', '5', 'La asignatura de Transformaciones con Albus Dumbledore es muy difícil y poco práctica', '2', '0');
 
 INSERT INTO `Imparte` (`idProfesor`, `idAsignatura`) VALUES
 ('1', '1'),
