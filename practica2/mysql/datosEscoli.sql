@@ -65,7 +65,7 @@ INSERT INTO `Asignaturas` (`id`, `idFacultad`, `nombre`) VALUES
 ('13', '6', 'Programación en Python'),
 ('14', '7', 'Meditación');
 
-/* 30 valoraiones distintas */
+
 INSERT INTO `Valoraciones` (`idUsuario`, `idProfesor`, `idAsignatura`, `comentario`, `puntuacion`, `likes`) VALUES
 ('1', '1', '1', 'Es un profesor maravilloso', '4', '0'),
 ('1', '1', '2', 'Me gusta más que ninguno', '3', '0'),

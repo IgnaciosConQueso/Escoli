@@ -31,11 +31,30 @@ class Profesor
         return false;
     }
 
+    public static function buscaPorId($id)
+    {
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM Profesores WHERE id='%d'", filter_var($id, FILTER_SANITIZE_NUMBER_INT));
+        $rs = $conn->query($query);
+        $result = false;
+        if ($rs) {
+            if ($fila = $rs->fetch_assoc()) {
+                $profesor = new Profesor($fila['nombre'], $fila['idImagen'], $fila['id']);
+                $result = $profesor;
+            }
+            $rs->free();
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
+    }
+
     public static function buscaProfesoresPorIdFacultad($idFacultad)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT P.id, P.nombre FROM Profesores P
-            JOIN Asignaturas A ON P.id = A.idProfesor
+        $query = sprintf("SELECT P.* FROM Profesores P
+            JOIN Imparte I ON P.id = I.idProfesor
+            JOIN Asignaturas A ON I.idAsignatura = A.id
             WHERE A.idFacultad = '%d'
             GROUP BY P.id",
             filter_var($idFacultad, FILTER_SANITIZE_NUMBER_INT)
@@ -56,36 +75,20 @@ class Profesor
         return $result;
     }
 
-    public static function buscaPorId($id)
-    {
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM Profesores WHERE id='%d'", filter_var($id, FILTER_SANITIZE_NUMBER_INT));
-        $rs = $conn->query($query);
-        $result = false;
-        if ($rs) {
-            if ($fila = $rs->fetch_assoc()) {
-                $profesor = new Profesor($fila['nombre'], $fila['idImagen'], $fila['id']);
-                $result = $profesor;
-            }
-            $rs->free();
-        } else {
-            error_log("Error BD ({$conn->errno}): {$conn->error}");
-        }
-        return $result;
-    }
-
-    public static function buscaProfesorQueImpartaAsignatura($idAsignatura)
+    public static function buscaProfesoresAsignatura($idAsignatura)
     {
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT P.* FROM Imparte I 
-                        JOIN Profesores P ON I.idProfesor = P.Id
-                        WHERE I.idAsignatura='%d'" , filter_var($idAsignatura, FILTER_SANITIZE_NUMBER_INT));
+        $query = sprintf("SELECT P.* FROM Profesores P
+            JOIN Imparte I ON P.id = I.idProfesor
+            WHERE I.idAsignatura = '%d'",
+            filter_var($idAsignatura, FILTER_SANITIZE_NUMBER_INT)
+        );
         $rs = $conn->query($query);
         if ($rs) {
             $result = array();
             while ($fila = $rs->fetch_assoc()) {
-                $profesor = new Profesor($fila['nombre'], $fila['idImagen'] ,$fila['id']);    
+                $profesor = new Profesor($fila['nombre'], $fila['idImagen'], $fila['id']);
                 array_push($result, $profesor);
             }
             $rs->free();
@@ -97,7 +100,7 @@ class Profesor
 
     public static function buscaPorNombre($nombre){
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM Profesores WHERE nombre='%s'", $conn->real_escape_string($nombre));
+        $query = sprintf("SELECT * FROM Profesores WHERE nombre LIKE '%%d%'", $conn->real_escape_string($nombre));
         $rs = $conn->query($query);
         $result = false;
         if($rs){
@@ -127,29 +130,6 @@ class Profesor
             error_log("Error BD ({$conn->errno}): {$conn->error}");
             return false;
         }
-    }
-    public static function getProfesoresAsignatura($idAsignatura)
-    {
-        $result = false;
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT P.id, P.nombre FROM Profesores P
-            JOIN Imparte I ON P.id = I.idProfesor
-            WHERE I.idAsignatura = '%d'
-            GROUP BY P.id",
-            filter_var($idAsignatura, FILTER_SANITIZE_NUMBER_INT)
-        );
-        $rs = $conn->query($query);
-        if ($rs) {
-            $result = array();
-            while ($fila = $rs->fetch_assoc()) {
-                $profesor = new Profesor($fila['nombre'], $fila['idImagen'], $fila['id']);
-                array_push($result, $profesor);
-            }
-            $rs->free();
-        } else {
-            error_log("Error al consultar en la BD: {$conn->error}");
-        }
-        return $result;
     }
 
     private static function inserta($profesor)

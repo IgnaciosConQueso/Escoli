@@ -33,7 +33,7 @@ function listaAsignaturasFacultad($idFacultad)
 
 function listaProfesores($idAsignatura)
 {
-    $arrayProfesores = Profesor::getProfesoresAsignatura($idAsignatura);
+    $arrayProfesores = Profesor::buscaProfesoresAsignatura($idAsignatura);
     $html = '';
     if ($arrayProfesores) {
         $html .= '<ul class="lista-profesores">';

@@ -60,8 +60,9 @@ class FormularioValoracion extends Formulario
         $app = Aplicacion::getInstance();
 
         $idUsuario = $app->idUsuario();
-        $idProfesor = Asignatura::buscaPorId($datos['profesorAsignatura'])->idProfesor; // TODO cambiar esto
-        $idAsignatura = filter_var($datos['profesorAsignatura'], FILTER_SANITIZE_NUMBER_INT);
+        $datos['profesorAsignatura'] = explode(',', $datos['profesorAsignatura']);
+        $idProfesor = filter_var($datos['profesorAsignatura'][0], FILTER_SANITIZE_NUMBER_INT);
+        $idAsignatura = filter_var($datos['profesorAsignatura'][1], FILTER_SANITIZE_NUMBER_INT);
         $puntuacion = filter_var($datos['puntuacion'], FILTER_SANITIZE_NUMBER_INT);
         $comentario = filter_var($datos['comentario'], FILTER_SANITIZE_SPECIAL_CHARS);
 
@@ -89,12 +90,15 @@ class FormularioValoracion extends Formulario
         $html = '';
         $asignaturas = Asignatura::buscaAsignaturasPorIdFacultad($idFacultad);
         foreach ($asignaturas as $asignatura) {
-            $id = $asignatura->id;
-            $nombre = $asignatura->nombre;
-            $selected = ($id == $idAsignatura) ? 'selected' : '';
-            $profesores = Profesor::buscaProfesorQueImpartaAsignatura($id);
+            $idA = $asignatura->id;
+            $nombreA = $asignatura->nombre;
+            $selected = ($idA == $idAsignatura) ? 'selected' : '';
+
+            $profesores = Profesor::buscaProfesoresAsignatura($idA);
             foreach ($profesores as $profesor) {
-                $html .= "<option value='$id' $selected>" . $profesor->nombre . " - " . $nombre . "</option>";
+                $idP = $profesor->id;
+                $nombreP = $profesor->nombre;
+                $html .= "<option value='$idP,$idA' $selected>" . $nombreP . " - " . $nombreA . "</option>";
             }
         }
         return $html;

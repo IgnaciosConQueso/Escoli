@@ -211,13 +211,15 @@ function botonDislike($origen, $id, $likes)
 
 function botonesPaginacion($url, $pagina = 1, $masPaginas = false)
 {
+    if (!$masPaginas && $pagina == 1) return '';
+    $app = Aplicacion::getInstance();
     $html = '<div class="botones-paginacion">';
     if ($pagina > 1) {
-        $urlN = Aplicacion::getInstance()->buildURL($url, ['pag' => $pagina - 1]);
+        $urlN = $app->buildURL($url, ['pag' => $pagina - 1]);
         $html .= '<a class="boton-anterior" href="' . $urlN . '">Anterior</a>';
     }
     if ($masPaginas) {
-        $urlN = Aplicacion::getInstance()->buildURL($url, ['pag' => $pagina + 1]);
+        $urlN = $app->buildURL($url, ['pag' => $pagina + 1]);
         $html .= '<a class="boton-siguiente" href="' . $urlN . '">Siguiente</a>';
     }
     $html .= '</div>';

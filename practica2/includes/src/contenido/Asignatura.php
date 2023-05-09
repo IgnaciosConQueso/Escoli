@@ -89,8 +89,8 @@ class Asignatura
     {
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT A.* FROM Imparte I 
-                        JOIN Asignaturas A ON I.idAsignatura = A.Id
+        $query = sprintf("SELECT A.* FROM Asignaturas A 
+                        JOIN Imparte I ON I.idAsignatura = A.Id
                         WHERE I.idProfesor='%d'" , filter_var($idProfesor, FILTER_SANITIZE_NUMBER_INT));
         $rs = $conn->query($query);
         if ($rs) {

@@ -132,7 +132,9 @@ class Valoracion
     {
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM Valoraciones V, Profesores P, Asignaturas A WHERE V.idProfesor=P.id AND V.idAsignatura=A.id AND A.idFacultad='%d' ORDER BY V.fecha DESC", $conn->real_escape_string($idFacultad));
+        $query = sprintf("SELECT V.* FROM Valoraciones V
+            JOIN Asignaturas A ON V.idAsignatura=A.id
+            WHERE A.idFacultad='%d' ORDER BY V.fecha DESC", $conn->real_escape_string($idFacultad));
         $query .= sprintf(" LIMIT %d, %d;", ($numPagina - 1) * $numPorPagina, $numPorPagina);
         $rs = $conn->query($query);
         if ($rs) {

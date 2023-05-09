@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `Valoraciones` (
     `idUsuario` INT NOT NULL,
     `idProfesor` INT NOT NULL,
     `idAsignatura` INT NOT NULL,
-    `fecha` DATE NULL DEFAULT CURRENT_TIMESTAMP,
+    `fecha` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
     `comentario` VARCHAR(1000) NULL,
     `puntuacion` DECIMAL(1,0) NOT NULL,
     `likes` INT NOT NULL,
