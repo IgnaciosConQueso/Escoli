@@ -140,3 +140,14 @@ BEGIN
     INSERT INTO RolesUsuario (idUsuario, rol) VALUES (NEW.id, 'user');
 END$$
 DELIMITER ;
+
+DELIMITER $$
+CREATE OR REPLACE TRIGGER cambio_rol
+AFTER UPDATE on Valoraciones
+FOR EACH ROW
+BEGIN
+    IF(SELECT rol FROM RolesUsuario WHERE idUsuario = NEW.idUsuario) <> 'admin' AND (SELECT SUM(likes) FROM Valoraciones WHERE idUsuario = NEW.idUsuario) >= 20 THEN
+        UPDATE RolesUsuario SET rol = 'mod' WHERE idUsuario = NEW.idUsuario;
+    END IF;
+END$$
+DELIMITER ;
