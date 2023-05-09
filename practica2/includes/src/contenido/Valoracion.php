@@ -132,9 +132,6 @@ class Valoracion
     {
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        /* Select all the Valoraciones V where V.idProfesor is in the list of profesores P and 
-        de las asignaturas A that are in the facultad F    
-        */
         $query = sprintf("SELECT * FROM Valoraciones V, Profesores P, Asignaturas A WHERE V.idProfesor=P.id AND V.idAsignatura=A.id AND A.idFacultad='%d' ORDER BY V.fecha DESC", $conn->real_escape_string($idFacultad));
         $query .= sprintf(" LIMIT %d, %d;", ($numPagina - 1) * $numPorPagina, $numPorPagina);
         $rs = $conn->query($query);

@@ -111,7 +111,12 @@ class Profesor
     {
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM Profesores WHERE id IN (SELECT idProfesor FROM Asignaturas WHERE id='%d')", filter_var($idAsignatura, FILTER_SANITIZE_NUMBER_INT));
+        $query = sprintf("SELECT P.id, P.nombre FROM Profesores P
+            JOIN Imparte I ON P.id = I.idProfesor
+            WHERE I.idAsignatura = '%d'
+            GROUP BY P.id",
+            filter_var($idAsignatura, FILTER_SANITIZE_NUMBER_INT)
+        );
         $rs = $conn->query($query);
         if ($rs) {
             $result = array();
