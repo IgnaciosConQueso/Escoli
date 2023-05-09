@@ -204,7 +204,7 @@ class Valoracion
     {
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM Valoraciones V WHERE V.idProfesor='%d' ORDER BY V.fecha DESC", $conn->real_escape_string($idAsignatura));
+        $query = sprintf("SELECT * FROM Valoraciones V WHERE V.idAsignatura='%d' ORDER BY V.fecha DESC", $conn->real_escape_string($idAsignatura));
         $query .= sprintf(" LIMIT %d , %d;", ($numPagina - 1) * $numPorPagina, $numPorPagina);
         $rs = $conn->query($query);
         if ($rs) {
