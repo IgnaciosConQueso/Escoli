@@ -27,7 +27,7 @@ $algunResultado = false;
         $contenidoPrincipal .= "<h1>Profesores</h1>";
         $contenidoPrincipal .= "<ul>";
         foreach($resultado as $profesor){
-            $contenidoPrincipal .= "<li><a href='" . $app->resuelve('perfilProfesor.php?id=' . $profesor->id) . "'>" . $profesor->nombre . "</a></li>";
+            $contenidoPrincipal .= "<div><a href='" . $app->resuelve('perfilProfesor.php?id=' . $profesor->id) . "'>" . $profesor->nombre . "</a></div>";
         }
         $contenidoPrincipal .= "</ul>";
     }
@@ -39,7 +39,7 @@ $algunResultado = false;
         $contenidoPrincipal .= "<h1>Asignaturas</h1>";
         $contenidoPrincipal .= "<ul>";
         foreach($resultado as $asignatura){
-            $contenidoPrincipal .= "<li><a href='" . $app->resuelve('asignatura.php?idAsignatura=' . $asignatura->id) . "'>" . $asignatura->nombre . "</a></li>";
+            $contenidoPrincipal .= "<div><a href='" . $app->resuelve('asignatura.php?idAsignatura=' . $asignatura->id) . "'>" . $asignatura->nombre . "</a></div>";
         }
         $contenidoPrincipal .= "</ul>";
     }
@@ -51,31 +51,31 @@ $algunResultado = false;
         $contenidoPrincipal .= "<h1>Facultades</h1>";
         $contenidoPrincipal .= "<ul>";
         foreach($resultado as $facultad){
-            $contenidoPrincipal .= "<li><a href='" . $app->resuelve('valoraciones.php?idFacultad=' . $facultad->id) . "'>" . $facultad->nombre . "</a></li>";
+            $contenidoPrincipal .= "<div><a href='" . $app->resuelve('valoraciones.php?idFacultad=' . $facultad->id) . "'>" . $facultad->nombre . "</a></div>";
         }
         $contenidoPrincipal .= "</ul>";
     }
 
     //universidad
-    $resultado = Universidad::buscaPorNombreSimilar($busqueda);//como buscaPorNombre pero con like, específico para este caso ya que la otra función no se podía cambiar pues tenía otras llamadas
+    $resultado = Universidad::buscaPorNombreSimilar($busqueda);
     if($resultado){
         $algunResultado = true;
         $contenidoPrincipal .= "<h1>Universidades</h1>";
         $contenidoPrincipal .= "<ul>";
         foreach($resultado as $universidad){
-            $contenidoPrincipal .= "<li><a href='" . $app->resuelve('facultades.php?idUniversidad=' . $universidad->id) . "'>" . $universidad->nombre . "</a></li>";
+            $contenidoPrincipal .= "<div><a href='" . $app->resuelve('facultades.php?idUniversidad=' . $universidad->id) . "'>" . $universidad->nombre . "</a></div>";
         }
         $contenidoPrincipal .= "</ul>";
     }
     
     //usuario
-    $resultado = Usuario::buscaPorNombreSimilar($busqueda);//al igual que con universidad
+    $resultado = Usuario::buscaPorNombreSimilar($busqueda);
     if($resultado){
         $algunResultado = true;
         $contenidoPrincipal .= "<h1>Usuarios</h1>";
         $contenidoPrincipal .= "<ul>";
         foreach($resultado as $usuario){
-            $contenidoPrincipal .= "<li><a href='" . $app->resuelve('perfilUsuario.php?id=' . $usuario->id) . "'>" . $usuario->nombre . "</a></li>";
+            $contenidoPrincipal .= "<div><a href='" . $app->resuelve('perfilUsuario.php?id=' . $usuario->id) . "'>" . $usuario->nombre . "</a></div>";
         }
         $contenidoPrincipal .= "</ul>";
     }
