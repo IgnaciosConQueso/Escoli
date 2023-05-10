@@ -1,6 +1,11 @@
 <?php
 
 require_once __DIR__ . '/includes/config.php';
+
+if(!$app->esAdmin()) {
+  $app->paginaError(403, 'Error', 'Oops', 'No tienes permiso para acceder a esta página');
+}
+
 $formRegistro = new \escoli\centros\FormularioFacultad('universidades.php');
 
 $scriptRegistro = $app->resuelve('js/registroFacultad.js');
