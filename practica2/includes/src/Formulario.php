@@ -355,7 +355,7 @@ abstract class Formulario
         $fichero = "{$imagen->id}.{$extension}";
         $imagen->setRuta($ruta.'/'.$fichero);
         $imagen->guarda();
-        $ruta = implode(DIRECTORY_SEPARATOR, [RUTA_IMGS.'centros/', $fichero]);
+        $ruta = implode(DIRECTORY_SEPARATOR, [RUTA_IMGS.$ruta.'/', $fichero]);
         if (!move_uploaded_file($tmp_name, $ruta)) {
             $this->errores['archivo'] = "Error al mover el archivo";
         }
