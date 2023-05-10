@@ -46,7 +46,7 @@ function listaAsignaturasBusqueda($resBusqueda)
 
 function generaHTMLAsignatura($asignatura)
 {
-    $url = 'asignatura.php?idAsignatura=' . $asignatura->getId();
+    $url = 'asignatura.php?idAsignatura=' . $asignatura->id;
     $html = '<div class="asignatura">';
     $html .= '<p class="nombre-asignatura"><a href="' . $url . '">' . $asignatura->nombre . '</a></p>';
     $html .= '</div>';

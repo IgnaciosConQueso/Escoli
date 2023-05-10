@@ -65,31 +65,23 @@ class FormularioAsignatura extends Formulario
             $this->errores['nombre'] = "El nombre de la asignatura tiene que tener una longitud de al menos 5 caracteres";
         }
 
-        $idProfesores = array();
-        $profesores = $datos['profesor'];
-        foreach($profesores as $profesor){
-            array_push($idProfesores, filter_var($profesor, FILTER_SANITIZE_NUMBER_INT));
-        }
-        if (!$idProfesores) {
-            $this->errores['profesor'] = "Debes seleccionar un/a profesor/a.";
-        }
+
+        $idProfesores = $datos['profesor'] ?? [];
 
         $id = filter_var($datos['id'], FILTER_SANITIZE_NUMBER_INT) ?? null;
 
         if (count($this->errores) > 0) {return;}
 
         if($id){
-            
             $asignatura = Asignatura::buscaPorId($id);
             Asignatura::crea($asignatura->nombre, $asignatura->idFacultad, $idProfesores, $id);
-            
         }
         else{
             $asignatura = Asignatura::buscaPorNombreYFacultad($nombre, $idFacultad);
             if ($asignatura) {
                 $this->errores[] = "La asignatura ya existe";
             } else {
-               Asignatura::crea($nombre, $idFacultad, $idProfesores);
+                $asignatura = Asignatura::crea($nombre, $idFacultad, $idProfesores);
             }
         }
     }
