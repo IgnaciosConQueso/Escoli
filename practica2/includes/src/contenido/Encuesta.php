@@ -11,15 +11,17 @@ class Encuesta{
     private $opciones;
     private $id;
     private $idUsuario;
+    private $titulo;
 
-    private function __construct($idUsuario, $opciones, $id = null){
+    private function __construct($idUsuario, $opciones, $id = null, $titulo){
         $this->id = $id;
         $this->idUsuario = $idUsuario;
         $this->opciones = $opciones;
+        $this->titulo = $titulo;
     }
 
-    public static function crea($idUsuario, $opciones, $id = null){
-        $encuesta = new Encuesta($idUsuario, $opciones, $id);
+    public static function crea($idUsuario, $opciones, $id = null, $titulo){
+        $encuesta = new Encuesta($idUsuario, $opciones, $id, $titulo);
         return $encuesta->guarda();
     }
 
@@ -35,8 +37,9 @@ class Encuesta{
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
-            "INSERT INTO Encuestas (idUsuario) VALUES (%d)",
-            filter_var($encuesta->idUsuario, FILTER_SANITIZE_NUMBER_INT)
+            "INSERT INTO Encuestas (idUsuario, titulo) VALUES (%d, '%s')",
+            filter_var($encuesta->idUsuario, FILTER_SANITIZE_NUMBER_INT),
+            filter_var($encuesta->titulo, FILTER_SANITIZE_STRING)
         );
         if ($conn->query($query)) {
             $encuesta->id = $conn->insert_id;
