@@ -68,8 +68,10 @@ class Asignatura
     }
 
     public static function buscaPorNombre($nombre){
+        $busqueda = "%".$nombre."%";
+
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM Asignaturas WHERE nombre='%s'", $conn->real_escape_string($nombre));
+        $query = sprintf("SELECT * FROM Asignaturas WHERE nombre LIKE '%s'", $conn->real_escape_string($busqueda));
         $rs = $conn->query($query);
         $result = false;
         if($rs){

@@ -99,17 +99,22 @@ class Profesor
     }
 
     public static function buscaPorNombre($nombre){
+        $busqueda = "%".$nombre."%";
+
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM Profesores WHERE nombre='%d'", $conn->real_escape_string($nombre));
+        $query = sprintf("SELECT * FROM Profesores
+            WHERE nombre LIKE '%s'",
+            $conn->real_escape_string($busqueda));
         $rs = $conn->query($query);
         $result = false;
         if($rs){
-            if($fila = $rs->fetch_assoc()){
+            $result = array();
+            while($fila = $rs->fetch_assoc()){
                 $profesor = new Profesor($fila['nombre'], $fila['idImagen'], $fila['id']);
-                $result = $profesor;
+                array_push($result, $profesor);
             }
             $rs->free();
-        }else{
+        } else {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
         }
         return $result;

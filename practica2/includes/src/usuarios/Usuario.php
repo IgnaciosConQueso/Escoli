@@ -45,6 +45,26 @@ class Usuario
         return $result;
     }
 
+    public static function buscaPorNombreSimilar($nombre){
+        $busqueda = "%".$nombre."%";
+
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM Usuarios U WHERE U.nombreUsuario LIKE '%s'", $conn->real_escape_string($busqueda));
+        $rs = $conn->query($query);
+        $result = false;
+        if ($rs) {
+            $result = array();
+            while ($fila = $rs->fetch_assoc()) {
+                $usuario = new Usuario($fila['nombreUsuario'], $fila['password'], $fila['email'], $fila['id'], $fila['idImagen']);
+                array_push($result, $usuario);
+            }
+            $rs->free();
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
+    }
+
     public static function buscaPorEmail($email)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
