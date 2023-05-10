@@ -9,9 +9,9 @@ class Asignatura
 {
     use MagicProperties;
 
-    public static function crea($nombre, $idFacultad, $idProfesores)
+    public static function crea($nombre, $idFacultad, $idProfesores = null, $id = null)
     {
-        $asignatura = new Asignatura($nombre, $idFacultad, $idProfesores);
+        $asignatura = new Asignatura($nombre, $idFacultad, $idProfesores, $id);
         return $asignatura->guarda();
     }
 
@@ -38,7 +38,7 @@ class Asignatura
         $result = false;
         if ($rs) {
             if ($fila = $rs->fetch_assoc()) {
-                $result = new Asignatura($fila['nombre'], $fila['idFacultad'], $fila['id']);
+                $result = new Asignatura($fila['nombre'], $fila['idFacultad'], null, $fila['id']);
             }
             $rs->free();
         } else {
@@ -56,7 +56,7 @@ class Asignatura
         if ($rs) {
             $result = array();
             while ($fila = $rs->fetch_assoc()) {
-                $asignatura = new Asignatura($fila['nombre'], $fila['idFacultad'], $fila['id']);
+                $asignatura = new Asignatura($fila['nombre'], $fila['idFacultad'], null, $fila['id']);
                 array_push($result, $asignatura);
             }
             $rs->free();
@@ -75,7 +75,7 @@ class Asignatura
         $result = false;
         if($rs){
             if($fila = $rs->fetch_assoc()){
-                $result = new Asignatura($fila['nombre'], $fila['idFacultad'], $fila['id']);
+                $result = new Asignatura($fila['nombre'], $fila['idFacultad'], null, $fila['id']);
             }
             $rs->free();
         }else{
@@ -95,7 +95,7 @@ class Asignatura
         if ($rs) {
             $result = array();
             while ($fila = $rs->fetch_assoc()) {
-                $asignatura = new Asignatura($fila['nombre'], $fila['idFacultad'], $fila['id']);    
+                $asignatura = new Asignatura($fila['nombre'], $fila['idFacultad'], null, $fila['id']);    
                 array_push($result, $asignatura);
             }
             $rs->free();
@@ -117,7 +117,7 @@ class Asignatura
         if($rs){
             $result = array();
             while($fila = $rs->fetch_assoc()){
-                $asignatura = new Asignatura($fila['nombre'], $fila['idFacultad'], $fila['id']);
+                $asignatura = new Asignatura($fila['nombre'], $fila['idFacultad'], null, $fila['id']);
                 array_push($result, $asignatura);
             }
             $rs->free();
@@ -132,7 +132,7 @@ class Asignatura
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("UPDATE Asignaturas SET nombre='%s', idFacultad='%d' WHERE id='%d'", $conn->real_escape_string($asignatura->nombre),  filter_var($asignatura->idFacultad, FILTER_SANITIZE_NUMBER_INT), filter_var($asignatura->id, FILTER_SANITIZE_NUMBER_INT));
         if ($conn->query($query)) {
-            return actualizaImparte($asignatura);
+            return self::actualizaImparte($asignatura);
         } else {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
             return false;
@@ -146,7 +146,7 @@ class Asignatura
         $query = sprintf("INSERT INTO Asignaturas(nombre, idFacultad) VALUES('%s', '%d')", $conn->real_escape_string($asignatura->nombre), filter_var($asignatura->idFacultad, FILTER_SANITIZE_NUMBER_INT));
         if ($conn->query($query)) {
             $asignatura->id = $conn->insert_id;
-            $a = actualizaImparte($asignatura);
+            self::actualizaImparte($asignatura);
             $result = $asignatura;
         } else {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
@@ -169,7 +169,7 @@ class Asignatura
         return $result;
     }
 
-    public static function actualizaImparte($asignatura){
+    private static function actualizaImparte($asignatura){
         $result = true;
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
@@ -184,7 +184,7 @@ class Asignatura
         foreach($asignatura->idProfesores as $idProfesor){
             $query = sprintf(
                 "INSERT INTO Imparte(idProfesor, idAsignatura) VALUES('%d', '%d')",
-                filter_var($idProfesore, FILTER_SANITIZE_NUMBER_INT), filter_var($asignatura->id, FILTER_SANITIZE_NUMBER_INT)
+                filter_var($idProfesor, FILTER_SANITIZE_NUMBER_INT), filter_var($asignatura->id, FILTER_SANITIZE_NUMBER_INT)
             );
             if (!$conn->query($query)) {
                 error_log("Error BD ({$conn->errno}): {$conn->error}");

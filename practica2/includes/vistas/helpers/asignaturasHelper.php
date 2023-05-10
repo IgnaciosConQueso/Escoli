@@ -47,7 +47,7 @@ function listaProfesores($idAsignatura)
 
 function generaHTMLAsignatura($asignatura)
 {
-    $url = 'asignatura.php?idAsignatura=' . $asignatura->getId();
+    $url = 'asignatura.php?idAsignatura=' . $asignatura->id;
     $html = '<div class="asignatura">';
     $html .= '<p class="nombre-asignatura"><a href="' . $url . '">' . $asignatura->nombre . '</a></p>';
     $html .= '</div>';
@@ -56,7 +56,7 @@ function generaHTMLAsignatura($asignatura)
 
 function generaHTMLProfesor($profesor)
 {
-    $url = 'perfilProfesor.php?id=' . $profesor->getId();
+    $url = 'perfilProfesor.php?id=' . $profesor->id;
     $html = '<div class="profesor">';
     $html .= '<p class="nombre-profesor"><a href="' . $url . '">' . $profesor->nombre . '</a></p>';
     $html .= '</div>';
