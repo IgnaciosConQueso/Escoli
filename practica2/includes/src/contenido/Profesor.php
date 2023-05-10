@@ -98,7 +98,7 @@ class Profesor
         return $result;
     }
 
-    public static function buscaPorNombre($nombre){
+    public static function buscaPorNombreSimilar($nombre){
         $busqueda = "%".$nombre."%";
 
         $conn = Aplicacion::getInstance()->getConexionBd();

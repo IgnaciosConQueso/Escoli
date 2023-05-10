@@ -15,16 +15,16 @@ $busqueda = filter_var($busqueda, FILTER_SANITIZE_SPECIAL_CHARS);
 
 $tituloPagina = "Buscando: " . $busqueda . "...";
 
-$contenidoPrincipal = "";
+$contenidoPrincipal = "<h1>".$tituloPagina."</h1>";
 
 
 $resultado = false;
 $algunResultado = false;
     //profesor
-    $resultado = Profesor::buscaPorNombre($busqueda);
+    $resultado = Profesor::buscaPorNombreSimilar($busqueda);
     if($resultado){
         $algunResultado = true;
-        $contenidoPrincipal .= "<h1>Profesores</h1>";
+        $contenidoPrincipal .= "<h3>Profesores</h3>";
         $contenidoPrincipal .= "<ul>";
         foreach($resultado as $profesor){
             $contenidoPrincipal .= "<div><a href='" . $app->resuelve('perfilProfesor.php?id=' . $profesor->id) . "'>" . $profesor->nombre . "</a></div>";
@@ -33,10 +33,10 @@ $algunResultado = false;
     }
 
     //asignatura
-    $resultado = Asignatura::buscaPorNombre($busqueda);
+    $resultado = Asignatura::buscaPorNombreSimilar($busqueda);
     if($resultado){
         $algunResultado = true;
-        $contenidoPrincipal .= "<h1>Asignaturas</h1>";
+        $contenidoPrincipal .= "<h3>Asignaturas</h3>";
         $contenidoPrincipal .= "<ul>";
         foreach($resultado as $asignatura){
             $contenidoPrincipal .= "<div><a href='" . $app->resuelve('asignatura.php?idAsignatura=' . $asignatura->id) . "'>" . $asignatura->nombre . "</a></div>";
@@ -45,10 +45,10 @@ $algunResultado = false;
     }
 
     //facultad
-    $resultado = Facultad::buscaPorNombre($busqueda);
+    $resultado = Facultad::buscaPorNombreSimilar($busqueda);
     if($resultado){
         $algunResultado = true;
-        $contenidoPrincipal .= "<h1>Facultades</h1>";
+        $contenidoPrincipal .= "<h3>Facultades</h3>";
         $contenidoPrincipal .= "<ul>";
         foreach($resultado as $facultad){
             $contenidoPrincipal .= "<div><a href='" . $app->resuelve('valoraciones.php?idFacultad=' . $facultad->id) . "'>" . $facultad->nombre . "</a></div>";
@@ -60,7 +60,7 @@ $algunResultado = false;
     $resultado = Universidad::buscaPorNombreSimilar($busqueda);
     if($resultado){
         $algunResultado = true;
-        $contenidoPrincipal .= "<h1>Universidades</h1>";
+        $contenidoPrincipal .= "<h3>Universidades</h3>";
         $contenidoPrincipal .= "<ul>";
         foreach($resultado as $universidad){
             $contenidoPrincipal .= "<div><a href='" . $app->resuelve('facultades.php?idUniversidad=' . $universidad->id) . "'>" . $universidad->nombre . "</a></div>";
@@ -72,7 +72,7 @@ $algunResultado = false;
     $resultado = Usuario::buscaPorNombreSimilar($busqueda);
     if($resultado){
         $algunResultado = true;
-        $contenidoPrincipal .= "<h1>Usuarios</h1>";
+        $contenidoPrincipal .= "<h3>Usuarios</h3>";
         $contenidoPrincipal .= "<ul>";
         foreach($resultado as $usuario){
             $contenidoPrincipal .= "<div><a href='" . $app->resuelve('perfilUsuario.php?id=' . $usuario->id) . "'>" . $usuario->nombre . "</a></div>";

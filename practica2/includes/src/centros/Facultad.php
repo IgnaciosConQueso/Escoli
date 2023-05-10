@@ -52,7 +52,7 @@ class Facultad
         return $result;
     }
 
-    public static function buscaPorNombre($nombre){
+    public static function buscaPorNombreSimilar($nombre){
         $busqueda = "%".$nombre."%";
 
         $conn = Aplicacion::getInstance()->getConexionBd();
@@ -62,9 +62,10 @@ class Facultad
         $rs = $conn->query($query);
         $result = false;
         if($rs){
-            $fila = $rs->fetch_assoc();
-            if($fila){
-                $result = new Facultad($fila['nombre'], $fila['idUniversidad'], $fila['id'], $fila['idImagen']);
+            $result = array();
+            while($fila = $rs->fetch_assoc()){
+                $facultad = new Facultad($fila['nombre'], $fila['idUniversidad'], $fila['id'], $fila['idImagen']);
+                array_push($result, $facultad);
             }
             $rs->free();
         }
