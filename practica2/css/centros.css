@@ -54,8 +54,10 @@ div.facultad {
 	color: #e1e1e1;
 	display: grid;
 	grid-template-columns: 5.25em 7.8em 7.8em 7.8em;
+	grid-template-rows: 1fr 1.75em;
 	grid-template-areas: 
-		"img texto texto texto";
+		"img texto texto texto"
+		". editar borrar .";
 	gap: 0.5em;
 	padding: 1em;
 	margin-top: 0.5em;
@@ -82,4 +84,14 @@ div.facultad img { /* TODO he cambiado esto */
 div.facultad p {
 	grid-area: texto;
 	place-self: center start;
+}
+
+div.facultad form.boton-borra-facultad {
+	grid-area: borrar;
+	place-self: center;
+}
+
+div.facultad form.boton-edita-facultad{
+	grid-area: editar;
+	place-self: center;
 }
