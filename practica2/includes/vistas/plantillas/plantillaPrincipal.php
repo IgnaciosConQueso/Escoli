@@ -22,7 +22,7 @@
     </main>
 
     <?= $params['app']->doInclude('includes/vistas/comun/pie.php', $params); ?>
-    <script <?=$params['app']->resuelve('js/jquery-3.6.0.min.js')?> ></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src = <?= $params['script'] ?>></script>
 </body>
 
