@@ -10,14 +10,11 @@ function mostrarSaludo()
     $html = '';
     $app = Aplicacion::getInstance();
     if ($app->usuarioLogueado()) {
-        $nombreUsuario = $app->nombreUsuario();
-
-        $formLogout = new FormularioLogout();
-        $htmlLogout = $formLogout->gestiona();
-        $html = $htmlLogout;
+        $url = $app->resuelve('/logout.php');
+        $html = '<a href=' . $url . '> Logout</a>';
 
         $url = 'perfilAlumno.php?id=' . $app->idUsuario();
-        $visitaPerfil = '<a href=' . $url . '><button> Mi perfil </button></a>';
+        $visitaPerfil = '<a href=' . $url . '> Mi perfil</a>';
         $html .= $visitaPerfil;
     } else {
         $loginUrl = $app->resuelve('/login.php');

@@ -2,12 +2,7 @@
 
 require_once __DIR__ . '/includes/config.php';
 
-
-if (strtoupper($_SERVER['REQUEST_METHOD']) !== 'POST') {
-    $app->redirige('/index.php');
-}
-
-$formLogout = new \escoli\usuarios\FormularioLogout();
-$formLogout->gestiona();
+$app->logout();
+$app->redirige($app->resuelve('/index.php'));
 
 ?>
