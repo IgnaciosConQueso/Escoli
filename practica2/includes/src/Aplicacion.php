@@ -307,6 +307,11 @@ class Aplicacion
         return $this->usuarioLogueado() && (array_search(Usuario::ADMIN_ROLE, $_SESSION['roles']) !== false);
     }
 
+    public function esModerador(){
+        $this->compruebaInstanciaInicializada();
+        return $this->usuarioLogueado() && (array_search(Usuario::MODERATOR_ROLE, $_SESSION['roles']) !== false);
+    }
+
     public function tieneRol($rol)
     {
         $this->compruebaInstanciaInicializada();

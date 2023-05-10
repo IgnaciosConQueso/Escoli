@@ -26,7 +26,7 @@ class Encuesta{
     public function guarda()
     {
         if ($this->id !== null) {
-            return self::actualiza($this);
+            return "Ya existe una encuesta con ese id";
         }
         return self::inserta($this);
     }
@@ -47,10 +47,6 @@ class Encuesta{
             file_put_contents("falloBD.txt",$query);
         }
         return $result;
-    }
-
-    public static function actualiza($encuesta){
-
     }
 
     private static function insertaOpciones($id,$opciones){
