@@ -10,7 +10,6 @@ use escoli\centros\Facultad;
 
 class FormularioFacultad extends Formulario
 {
-    const EXTENSIONES_PERMITIDAS = array('gif', 'jpg', 'jpe', 'jpeg', 'png', 'webp', 'avif');
     public function __construct($urlRedireccion = '/index.php')
     {
         parent::__construct('formFacultad', ['enctype' => 'multipart/form-data', 'urlRedireccion' => Aplicacion::getInstance()->resuelve($urlRedireccion)]);

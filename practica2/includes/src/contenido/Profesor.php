@@ -98,6 +98,25 @@ class Profesor
         return $result;
     }
 
+    
+    public static function buscaProfesores(){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM Profesores");
+        $rs = $conn->query($query);
+        $result = false;
+        if($rs){
+            $result = array();
+            while($fila = $rs->fetch_assoc()){
+                $profesor = new Profesor($fila['nombre'], $fila['idImagen'], $fila['id']);
+                array_push($result, $profesor);
+            }
+            $rs->free();
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
+    }
+
     public static function buscaPorNombreSimilar($nombre){
         $busqueda = "%".$nombre."%";
 

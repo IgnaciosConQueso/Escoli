@@ -9,9 +9,9 @@ class Asignatura
 {
     use MagicProperties;
 
-    public static function crea($nombre, $idFacultad)
+    public static function crea($nombre, $idFacultad, $idProfesores)
     {
-        $asignatura = new Asignatura($nombre, $idFacultad);
+        $asignatura = new Asignatura($nombre, $idFacultad, $idProfesores);
         return $asignatura->guarda();
     }
 
@@ -30,7 +30,6 @@ class Asignatura
         }
         return false;
     }
-
     public static function buscaPorId($id)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
@@ -111,24 +110,28 @@ class Asignatura
     private static function actualiza($asignatura)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("UPDATE Asignaturas SET nombre='%s', idProfesor='%d', idFacultad='%d' WHERE id='%d'", $conn->real_escape_string($asignatura->nombre), filter_var($asignatura->idProfesor, FILTER_SANITIZE_NUMBER_INT), filter_var($asignatura->idFacultad, FILTER_SANITIZE_NUMBER_INT), filter_var($asignatura->id, FILTER_SANITIZE_NUMBER_INT));
+        $query = sprintf("UPDATE Asignaturas SET nombre='%s', idFacultad='%d' WHERE id='%d'", $conn->real_escape_string($asignatura->nombre),  filter_var($asignatura->idFacultad, FILTER_SANITIZE_NUMBER_INT), filter_var($asignatura->id, FILTER_SANITIZE_NUMBER_INT));
         if ($conn->query($query)) {
-            return true;
+            return actualizaImparte($asignatura);
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+            return false;
         }
-        error_log("Error BD ({$conn->errno}): {$conn->error}");
-        return false;
     }
 
     private static function inserta($asignatura)
     {
+        $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("INSERT INTO Asignaturas(nombre, idProfesor, idFacultad) VALUES('%s', '%d', '%d')", $conn->real_escape_string($asignatura->nombre), filter_var($asignatura->idProfesor, FILTER_SANITIZE_NUMBER_INT), filter_var($asignatura->idFacultad, FILTER_SANITIZE_NUMBER_INT));
+        $query = sprintf("INSERT INTO Asignaturas(nombre, idFacultad) VALUES('%s', '%d', '%d')", $conn->real_escape_string($asignatura->nombre), filter_var($asignatura->idFacultad, FILTER_SANITIZE_NUMBER_INT));
         if ($conn->query($query)) {
             $asignatura->id = $conn->insert_id;
-            return true;
+            $result = $asignatura;
+            actualizaImparte($asignatura);
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
         }
-        error_log("Error BD ({$conn->errno}): {$conn->error}");
-        return false;
+        return $result;
     }
 
     private static function borra($asignatura)
@@ -146,15 +149,43 @@ class Asignatura
         return $result;
     }
 
+    public static function actualizaImparte($asignatura){
+        $result = true;
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "DELETE FROM Imparte WHERE idAsignatura='%d'"
+            ,
+            filter_var($asignatura->id, FILTER_SANITIZE_NUMBER_INT)
+        );
+        if (!$conn->query($query)) {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+            $result = false;
+        }
+        foreach($asignatura->idProfesores as $idProfesor){
+            $query = sprintf(
+                "INSERT INTO Imparte(idProfesor, idAsignatura) VALUES('%d', '%d')",
+                filter_var($idProfesore, FILTER_SANITIZE_NUMBER_INT), filter_var($asignatura->id, FILTER_SANITIZE_NUMBER_INT)
+            );
+            if (!$conn->query($query)) {
+                error_log("Error BD ({$conn->errno}): {$conn->error}");
+                $result = false;
+            }
+        }
+        
+        return $result;
+    }
+
     private $id;
     private $nombre;
     private $idFacultad;
+    private $idProfesores;
 
-    public function __construct($nombre, $idFacultad, $id = null)
+    public function __construct($nombre, $idFacultad, $idProfesores, $id = null)
     {
         $this->id = $id;
         $this->nombre = $nombre;
         $this->idFacultad = $idFacultad;
+        $this->idProfesores = $idProfesores;
     }
 
     public function getId()
