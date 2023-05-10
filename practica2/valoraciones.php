@@ -16,7 +16,6 @@ $tituloPagina = $facultad->nombre;
 
 $linkValoracion = 'registroValoracion.php?idFacultad=' . $idFacultad;
 $linkAsignatura = 'registroAsignatura.php?idFacultad=' . $idFacultad;
-$listaAsignaturas = listaAsignaturasFacultad($idFacultad);
 $contenidoValoraciones = listaValoracionesFacultad($idFacultad, $app->resuelve('/facultad.php?id=' . $idFacultad));
 $botonValoracion = '<a href=' . $linkValoracion . '> Añadir valoración</a>';
 $botonAsignatura = '<a href=' . $linkAsignatura . '> Añadir asignatura</a>';
@@ -33,9 +32,11 @@ $_SESSION['linksCabecera'] = $menuCabecera;
 
 $botonesCab = '';
 if ($app->esAdmin()) {
-  $botonesCab = $botonAsignatura;
+	$listaAsignaturas = listaAsignaturasFacultadAdmin($idFacultad);
+	$botonesCab = $botonAsignatura;
 }
 else{
+	$listaAsignaturas = listaAsignaturasFacultad($idFacultad);
 	$botonesCab = $botonValoracion;
 }
 

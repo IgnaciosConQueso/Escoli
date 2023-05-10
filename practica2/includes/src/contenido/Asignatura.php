@@ -9,9 +9,9 @@ class Asignatura
 {
     use MagicProperties;
 
-    public static function crea($nombre, $idFacultad, $idProfesores = null, $id = null)
+    public static function crea($nombre, $idFacultad, $id = null)
     {
-        $asignatura = new Asignatura($nombre, $idFacultad, $idProfesores, $id);
+        $asignatura = new Asignatura($nombre, $idFacultad, $id);
         return $asignatura->guarda();
     }
 
@@ -38,7 +38,7 @@ class Asignatura
         $result = false;
         if ($rs) {
             if ($fila = $rs->fetch_assoc()) {
-                $result = new Asignatura($fila['nombre'], $fila['idFacultad'], null, $fila['id']);
+                $result = new Asignatura($fila['nombre'], $fila['idFacultad'], $fila['id']);
             }
             $rs->free();
         } else {
@@ -56,7 +56,7 @@ class Asignatura
         if ($rs) {
             $result = array();
             while ($fila = $rs->fetch_assoc()) {
-                $asignatura = new Asignatura($fila['nombre'], $fila['idFacultad'], null, $fila['id']);
+                $asignatura = new Asignatura($fila['nombre'], $fila['idFacultad'], $fila['id']);
                 array_push($result, $asignatura);
             }
             $rs->free();
@@ -75,7 +75,7 @@ class Asignatura
         $result = false;
         if($rs){
             if($fila = $rs->fetch_assoc()){
-                $result = new Asignatura($fila['nombre'], $fila['idFacultad'], null, $fila['id']);
+                $result = new Asignatura($fila['nombre'], $fila['idFacultad'], $fila['id']);
             }
             $rs->free();
         }else{
@@ -95,7 +95,7 @@ class Asignatura
         if ($rs) {
             $result = array();
             while ($fila = $rs->fetch_assoc()) {
-                $asignatura = new Asignatura($fila['nombre'], $fila['idFacultad'], null, $fila['id']);    
+                $asignatura = new Asignatura($fila['nombre'], $fila['idFacultad'], $fila['id']);    
                 array_push($result, $asignatura);
             }
             $rs->free();
@@ -117,7 +117,7 @@ class Asignatura
         if($rs){
             $result = array();
             while($fila = $rs->fetch_assoc()){
-                $asignatura = new Asignatura($fila['nombre'], $fila['idFacultad'], null, $fila['id']);
+                $asignatura = new Asignatura($fila['nombre'], $fila['idFacultad'], $fila['id']);
                 array_push($result, $asignatura);
             }
             $rs->free();
@@ -132,7 +132,6 @@ class Asignatura
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("UPDATE Asignaturas SET nombre='%s', idFacultad='%d' WHERE id='%d'", $conn->real_escape_string($asignatura->nombre),  filter_var($asignatura->idFacultad, FILTER_SANITIZE_NUMBER_INT), filter_var($asignatura->id, FILTER_SANITIZE_NUMBER_INT));
         if ($conn->query($query)) {
-            return self::actualizaImparte($asignatura);
         } else {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
             return false;
@@ -146,7 +145,6 @@ class Asignatura
         $query = sprintf("INSERT INTO Asignaturas(nombre, idFacultad) VALUES('%s', '%d')", $conn->real_escape_string($asignatura->nombre), filter_var($asignatura->idFacultad, FILTER_SANITIZE_NUMBER_INT));
         if ($conn->query($query)) {
             $asignatura->id = $conn->insert_id;
-            self::actualizaImparte($asignatura);
             $result = $asignatura;
         } else {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
@@ -154,9 +152,9 @@ class Asignatura
         return $result;
     }
 
-    private static function borra($asignatura)
+    public static function borra($asignatura)
     {
-        $result = false;
+        $result = true;
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
             "DELETE FROM Asignaturas WHERE id='%d'"
@@ -165,26 +163,27 @@ class Asignatura
         );
         if (!$conn->query($query)) {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
+            $result = false;
         }
         return $result;
     }
 
-    private static function actualizaImparte($asignatura){
+    public static function actualizaImparte($idAsignatura, $idProfesores){
         $result = true;
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf(
             "DELETE FROM Imparte WHERE idAsignatura='%d'"
             ,
-            filter_var($asignatura->id, FILTER_SANITIZE_NUMBER_INT)
+            filter_var($idAsignatura, FILTER_SANITIZE_NUMBER_INT)
         );
         if (!$conn->query($query)) {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
             $result = false;
         }
-        foreach($asignatura->idProfesores as $idProfesor){
+        foreach($idProfesores as $idProfesor){
             $query = sprintf(
                 "INSERT INTO Imparte(idProfesor, idAsignatura) VALUES('%d', '%d')",
-                filter_var($idProfesor, FILTER_SANITIZE_NUMBER_INT), filter_var($asignatura->id, FILTER_SANITIZE_NUMBER_INT)
+                filter_var($idProfesor, FILTER_SANITIZE_NUMBER_INT), filter_var($idAsignatura, FILTER_SANITIZE_NUMBER_INT)
             );
             if (!$conn->query($query)) {
                 error_log("Error BD ({$conn->errno}): {$conn->error}");
@@ -198,14 +197,12 @@ class Asignatura
     private $id;
     private $nombre;
     private $idFacultad;
-    private $idProfesores;
 
-    public function __construct($nombre, $idFacultad, $idProfesores, $id = null)
+    public function __construct($nombre, $idFacultad, $id = null)
     {
         $this->id = $id;
         $this->nombre = $nombre;
         $this->idFacultad = $idFacultad;
-        $this->idProfesores = $idProfesores;
     }
 
     public function getId()

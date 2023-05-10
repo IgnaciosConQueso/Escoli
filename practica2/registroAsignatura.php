@@ -6,8 +6,6 @@ if(!$app->esAdmin()) {
   $app->paginaError(403, 'Error', 'Oops', 'No tienes permiso para acceder a esta página');
 }
 
-$formRegistro = new \escoli\contenido\FormularioAsignatura('valoraciones.php?idFacultad=' . $_GET['idFacultad'] ?? null);
-
 $scriptRegistro = $app->resuelve('js/registroAsignatura.js');
 $jQuery = $app->resuelve('js/jquery-3.6.0.min.js');//cogido del ejercicio 4
 
@@ -30,7 +28,7 @@ if(!$_POST['facultad']){
   $app->paginaError(400, 'Error', 'Oops', 'No se ha recibido el id de facultad');
 }
 
-
+$formRegistro = new \escoli\contenido\FormularioAsignatura('valoraciones.php?idFacultad=' . $_POST['facultad']);
 
 $formRegistro = $formRegistro->gestiona();
 

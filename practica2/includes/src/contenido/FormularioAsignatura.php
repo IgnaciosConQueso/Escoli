@@ -74,14 +74,16 @@ class FormularioAsignatura extends Formulario
 
         if($id){
             $asignatura = Asignatura::buscaPorId($id);
-            Asignatura::crea($asignatura->nombre, $asignatura->idFacultad, $idProfesores, $id);
+            Asignatura::crea($asignatura->nombre, $asignatura->idFacultad, $id);
+            Asignatura::actualizaImparte($id, $idProfesores);
         }
         else{
             $asignatura = Asignatura::buscaPorNombreYFacultad($nombre, $idFacultad);
             if ($asignatura) {
                 $this->errores[] = "La asignatura ya existe";
             } else {
-                $asignatura = Asignatura::crea($nombre, $idFacultad, $idProfesores);
+                $asignatura = Asignatura::crea($nombre, $idFacultad);
+                Asignatura::actualizaImparte($asignatura->id, $idProfesores);
             }
         }
     }
@@ -92,10 +94,19 @@ class FormularioAsignatura extends Formulario
         $html = '';
         $profesoresA = Profesor::buscaProfesoresAsignatura($id);
         foreach ($profesores as $profesor) {
-            $selected =  array_search($profesor, $profesoresA) ? 'selected' : '';
+            $selected = self::buscaProfesorArray($profesor, $profesoresA) ? 'selected' : '';
             $html .= '<option value="' . $profesor->id . '" ' . $selected . '>' . $profesor->nombre . '</option>';
         }
         return $html;
+    }
+
+    private function buscaProfesorArray($profesor, $profesores){
+        foreach($profesores as $p){
+            if($p->id == $profesor->id){
+                return true;
+            }
+        }
+        return false;
     }
 }
 
