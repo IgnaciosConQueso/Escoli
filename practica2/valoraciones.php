@@ -10,10 +10,9 @@ require_once __DIR__ . '/includes/src/Aplicacion.php';
 
 $app = Aplicacion::getInstance();
 
-$tituloPagina = 'Facultad';
-
 $idFacultad = $_GET['idFacultad'];
 $facultad = Facultad::buscaPorId($idFacultad);
+$tituloPagina = $facultad->nombre;
 
 $linkValoracion = 'registroValoracion.php?idFacultad=' . $idFacultad;
 $linkAsignatura = 'registroAsignatura.php?idFacultad=' . $idFacultad;

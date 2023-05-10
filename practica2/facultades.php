@@ -5,7 +5,7 @@ require_once __DIR__ . '/includes/vistas/helpers/facultadesHelper.php';
 
 $idUniversidad = $_GET['idUniversidad'];
 
-$tituloPagina = 'Escoli';
+$tituloPagina = nombreUniversidad($idUniversidad) ;
 $contenidoPrincipal = "<h1>Facultades de " . nombreUniversidad($idUniversidad) . "</h1>";
 
 $botonesCab = '';
