@@ -24,44 +24,52 @@ function listaUltimasValoraciones($url)
 
 function listaValoracionesProfesor($id, $url)
 {
+    $extraParams = ['id' => $id];
+
     $pag = isset($_GET['pag']) ? $_GET['pag'] : 1;
     $arrayMensajes = Valoracion::ultimasValoracionesProfesor($id, NUM_POR_PAG, $pag);
     $html = listaValoraciones($arrayMensajes, $url);
     $masPaginas = Valoracion::ultimasValoracionesProfesor($id, NUM_POR_PAG, $pag + 1);
-    $html .= botonesPaginacion($url, $pag, $masPaginas);
+    $html .= botonesPaginacion($url, $pag, $masPaginas, $extraParams);
 
     return $html;
 }
 
 function listaValoracionesFacultad($id, $url)
 {
+    $extraParams = ['idFacultad' => $id];
+
     $pag = isset($_GET['pag']) ? $_GET['pag'] : 1;
     $arrayMensajes = Valoracion::buscaUltimasValoracionesFacultad($id, NUM_POR_PAG, $pag);
     $html = listaValoraciones($arrayMensajes, $url);
     $masPaginas = Valoracion::buscaUltimasValoracionesFacultad($id, NUM_POR_PAG, $pag + 1);
-    $html .= botonesPaginacion($url, $pag, $masPaginas);
+    $html .= botonesPaginacion($url, $pag, $masPaginas, $extraParams);
 
     return $html;
 }
 
 function listaValoracionesAsignatura($id, $url)
 {
+    $extraParams = ['idAsignatura' => $id];
+
     $pag = isset($_GET['pag']) ? $_GET['pag'] : 1;
     $arrayMensajes = Valoracion::ultimasValoracionesAsignatura($id, NUM_POR_PAG, $pag);
     $html = listaValoraciones($arrayMensajes, $url);
     $masPaginas = Valoracion::ultimasValoracionesAsignatura($id, NUM_POR_PAG, $pag + 1);
-    $html .= botonesPaginacion($url, $pag, $masPaginas);
+    $html .= botonesPaginacion($url, $pag, $masPaginas, $extraParams);
 
     return $html;
 }
 
 function listaValoracionesUsuario($id, $url)
 {
+    $extraParams = ['id' => $id];
+
     $pag = isset($_GET['pag']) ? $_GET['pag'] : 1;
     $arrayMensajes = Valoracion::buscaUltimasValoracionesUsuario($id, NUM_POR_PAG, $pag);
     $html = listaValoraciones($arrayMensajes, $url);
     $masPaginas = Valoracion::buscaUltimasValoracionesUsuario($id, NUM_POR_PAG, $pag + 1);
-    $html .= botonesPaginacion($url, $pag, $masPaginas);
+    $html .= botonesPaginacion($url, $pag, $masPaginas, $extraParams);
 
     return $html;
 }
@@ -209,17 +217,22 @@ function botonDislike($origen, $id, $likes)
     );
 }
 
-function botonesPaginacion($url, $pagina = 1, $masPaginas = false)
+function botonesPaginacion($url, $pagina = 1, $masPaginas = false, $extraParams = [])
 {
     if (!$masPaginas && $pagina == 1) return '';
     $app = Aplicacion::getInstance();
     $html = '<div class="botones-paginacion">';
+    
+    $url = explode('?', $url)[0];//quitamos parámetros anteriores, de otra manera se acumulan según se cambia de página
+
     if ($pagina > 1) {
-        $urlN = $app->buildURL($url, ['pag' => $pagina - 1]);
+        $params = array_merge($extraParams, ['pag' => $pagina - 1]);
+        $urlN = $app->buildURL($url, $params);
         $html .= '<a class="boton-anterior" href="' . $urlN . '">Anterior</a>';
     }
     if ($masPaginas) {
-        $urlN = $app->buildURL($url, ['pag' => $pagina + 1]);
+        $params = array_merge($extraParams, ['pag' => $pagina + 1]);
+        $urlN = $app->buildURL($url, $params);
         $html .= '<a class="boton-siguiente" href="' . $urlN . '">Siguiente</a>';
     }
     $html .= '</div>';

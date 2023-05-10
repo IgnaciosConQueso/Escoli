@@ -13,11 +13,13 @@ $idUser = $_GET['id'];
 $user = Usuario::buscaPorId($idUser);
 $imagen = Imagen::buscaPorId($user->idImagen);
 
+$urlAlumno = $app->resuelve('/perfilAlumno.php?id=' . $idUser);
+
 $nombreUser = $user->nombreUsuario;
 $img = '<img class="imagen-perfil" src="' . Aplicacion::getInstance()->resuelveImagen($imagen->ruta) . '" alt = "foto de perfil del usuario">';
-$contenidoValoraciones = listaValoracionesUsuario($idUser, $app->resuelve('/perfilAlumno.php'));
+$contenidoValoraciones = listaValoracionesUsuario($idUser, $urlAlumno);
 $numLikes = muestraLikesTotales($idUser);
-$topCinco = listaTopCinco($idUser, $app->resuelve('/perfilAlumno.php'));
+$topCinco = listaTopCinco($idUser, $urlAlumno);
 
 $tituloPagina = 'Perfil alumno';
 

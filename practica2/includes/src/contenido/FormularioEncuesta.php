@@ -10,11 +10,6 @@ class FormularioEncuesta extends Formulario{
     }
 
     protected function generaCamposFormulario(&$datos){
-        /*$idEncuesta = $datos['idEncuesta'];
-        $pregunta = $datos['pregunta'];
-        $opciones = $datos['opciones'];
-        $idUsuario = $datos['idUsuario'];*/
-
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['pregunta', 'opciones'], $this->errores, 'span', array('class' => 'error'));
     

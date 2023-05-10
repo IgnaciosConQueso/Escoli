@@ -16,7 +16,7 @@ $tituloPagina = $facultad->nombre;
 
 $linkValoracion = 'registroValoracion.php?idFacultad=' . $idFacultad;
 $linkAsignatura = 'registroAsignatura.php?idFacultad=' . $idFacultad;
-$contenidoValoraciones = listaValoracionesFacultad($idFacultad, $app->resuelve('/facultad.php?id=' . $idFacultad));
+$contenidoValoraciones = listaValoracionesFacultad($idFacultad, $app->resuelve('/valoraciones.php?idFacultad=' . $idFacultad));
 $botonValoracion = '<a href=' . $linkValoracion . '> Añadir valoración</a>';
 $botonAsignatura = '<a href=' . $linkAsignatura . '> Añadir asignatura</a>';
 $_SESSION['menuCabecera']['idFacultad'] = '<a href="valoraciones.php?idFacultad=' . $idFacultad . '">Valoraciones</a>';
