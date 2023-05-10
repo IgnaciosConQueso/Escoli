@@ -39,7 +39,7 @@ class FormularioAsignatura extends Formulario
             <div>
                 <p>Selecciona uno o varios profesores</p>
                 <label for="profesor">Profesor:</label>
-                <select id="profesor" name="profesor" multiple>
+                <select id="profesor" name="profesor[]" multiple>
                     {$this->generaOpcionesProfesores($id)}
                 </select>
                 {$erroresCampos['profesor']}
@@ -86,7 +86,7 @@ class FormularioAsignatura extends Formulario
         }
         else{
             $asignatura = Asignatura::buscaPorNombreYFacultad($nombre, $idFacultad);
-            if ($facultad) {
+            if ($asignatura) {
                 $this->errores[] = "La asignatura ya existe";
             } else {
                Asignatura::crea($nombre, $idFacultad, $idProfesores);

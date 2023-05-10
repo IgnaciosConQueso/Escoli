@@ -66,21 +66,19 @@ class Asignatura
         return $result;
     }
 
-    public static function buscaPorNombreSimilar($nombre){
-        $busqueda = "%".$nombre."%";
-
+    public static function buscaPorNombreYFacultad($nombre, $idFacultad){
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM Asignaturas WHERE nombre LIKE '%s'", $conn->real_escape_string($busqueda));
+        $query = sprintf("SELECT * FROM Asignaturas WHERE nombre='%s' AND idFacultad='%d'", 
+            $conn->real_escape_string($nombre), filter_var($idFacultad, FILTER_SANITIZE_NUMBER_INT));
+
         $rs = $conn->query($query);
         $result = false;
         if($rs){
-            $result = array();
-            while($fila = $rs->fetch_assoc()){
-                $asignatura = new Asignatura($fila['nombre'], $fila['idProfesor'], $fila['idFacultad'], $fila['id']);
-                array_push($result, $asignatura);
+            if($fila = $rs->fetch_assoc()){
+                $result = new Asignatura($fila['nombre'], $fila['idFacultad'], $fila['id']);
             }
             $rs->free();
-        } else {
+        }else{
             error_log("Error BD ({$conn->errno}): {$conn->error}");
         }
         return $result;
@@ -106,6 +104,28 @@ class Asignatura
         }
         return $result;
     }
+
+    
+
+    public static function buscaPorNombreSimilar($nombre){
+        $busqueda = "%".$nombre."%";
+
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM Asignaturas WHERE nombre LIKE '%s'", $conn->real_escape_string($busqueda));
+        $rs = $conn->query($query);
+        $result = false;
+        if($rs){
+            $result = array();
+            while($fila = $rs->fetch_assoc()){
+                $asignatura = new Asignatura($fila['nombre'], $fila['idFacultad'], $fila['id']);
+                array_push($result, $asignatura);
+            }
+            $rs->free();
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
+    }
     
     private static function actualiza($asignatura)
     {
@@ -118,16 +138,16 @@ class Asignatura
             return false;
         }
     }
-
+    
     private static function inserta($asignatura)
     {
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("INSERT INTO Asignaturas(nombre, idFacultad) VALUES('%s', '%d', '%d')", $conn->real_escape_string($asignatura->nombre), filter_var($asignatura->idFacultad, FILTER_SANITIZE_NUMBER_INT));
+        $query = sprintf("INSERT INTO Asignaturas(nombre, idFacultad) VALUES('%s', '%d')", $conn->real_escape_string($asignatura->nombre), filter_var($asignatura->idFacultad, FILTER_SANITIZE_NUMBER_INT));
         if ($conn->query($query)) {
             $asignatura->id = $conn->insert_id;
+            $a = actualizaImparte($asignatura);
             $result = $asignatura;
-            actualizaImparte($asignatura);
         } else {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
         }
