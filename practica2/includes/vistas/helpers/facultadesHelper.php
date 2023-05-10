@@ -34,6 +34,19 @@ function listaFacultadesAdmin($idFacultad)
     return $html;
 }
 
+function listaFacultadesBusqueda($resBusqueda)
+{
+    $html = '';
+    if ($resBusqueda) {
+        $html .= '<ul class="lista-facultades">';
+        foreach ($resBusqueda as $data) {
+            $html .= generaHTMLFacultad($data);
+        }
+        $html .= '</ul>';
+    }
+    return $html;
+}
+
 function generaHTMLFacultad($data)
 {
     $facultad = Facultad::buscaPorId($data->id);

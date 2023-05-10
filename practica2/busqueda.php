@@ -1,5 +1,12 @@
 <?php
 require_once __DIR__ . '/includes/config.php';
+require_once __DIR__ . '/includes/vistas/helpers/valoracionesHelper.php';
+require_once __DIR__ . '/includes/vistas/helpers/asignaturasHelper.php';
+require_once __DIR__ . '/includes/vistas/helpers/profesoresHelper.php';
+require_once __DIR__ . '/includes/vistas/helpers/facultadesHelper.php';
+require_once __DIR__ . '/includes/vistas/helpers/universidadesHelper.php';
+require_once __DIR__ . '/includes/vistas/helpers/usuariosHelper.php';
+
 
 use escoli\Aplicacion;
 use escoli\centros\Facultad;
@@ -25,11 +32,7 @@ $algunResultado = false;
     if($resultado){
         $algunResultado = true;
         $contenidoPrincipal .= "<h3>Profesores</h3>";
-        $contenidoPrincipal .= "<ul>";
-        foreach($resultado as $profesor){
-            $contenidoPrincipal .= "<div><a href='" . $app->resuelve('perfilProfesor.php?id=' . $profesor->id) . "'>" . $profesor->nombre . "</a></div>";
-        }
-        $contenidoPrincipal .= "</ul>";
+        $contenidoPrincipal .= listaProfesoresBusqueda($resultado);
     }
 
     //asignatura
@@ -37,11 +40,7 @@ $algunResultado = false;
     if($resultado){
         $algunResultado = true;
         $contenidoPrincipal .= "<h3>Asignaturas</h3>";
-        $contenidoPrincipal .= "<ul>";
-        foreach($resultado as $asignatura){
-            $contenidoPrincipal .= "<div><a href='" . $app->resuelve('asignatura.php?idAsignatura=' . $asignatura->id) . "'>" . $asignatura->nombre . "</a></div>";
-        }
-        $contenidoPrincipal .= "</ul>";
+        $contenidoPrincipal .= listaAsignaturasBusqueda($resultado);
     }
 
     //facultad
@@ -49,11 +48,7 @@ $algunResultado = false;
     if($resultado){
         $algunResultado = true;
         $contenidoPrincipal .= "<h3>Facultades</h3>";
-        $contenidoPrincipal .= "<ul>";
-        foreach($resultado as $facultad){
-            $contenidoPrincipal .= "<div><a href='" . $app->resuelve('valoraciones.php?idFacultad=' . $facultad->id) . "'>" . $facultad->nombre . "</a></div>";
-        }
-        $contenidoPrincipal .= "</ul>";
+        $contenidoPrincipal .= listaFacultadesBusqueda($resultado);
     }
 
     //universidad
@@ -61,11 +56,7 @@ $algunResultado = false;
     if($resultado){
         $algunResultado = true;
         $contenidoPrincipal .= "<h3>Universidades</h3>";
-        $contenidoPrincipal .= "<ul>";
-        foreach($resultado as $universidad){
-            $contenidoPrincipal .= "<div><a href='" . $app->resuelve('facultades.php?idUniversidad=' . $universidad->id) . "'>" . $universidad->nombre . "</a></div>";
-        }
-        $contenidoPrincipal .= "</ul>";
+        $contenidoPrincipal .= listaUniversidadesBusqueda($resultado);
     }
     
     //usuario
@@ -73,11 +64,7 @@ $algunResultado = false;
     if($resultado){
         $algunResultado = true;
         $contenidoPrincipal .= "<h3>Usuarios</h3>";
-        $contenidoPrincipal .= "<ul>";
-        foreach($resultado as $usuario){
-            $contenidoPrincipal .= "<div><a href='" . $app->resuelve('perfilUsuario.php?id=' . $usuario->id) . "'>" . $usuario->nombre . "</a></div>";
-        }
-        $contenidoPrincipal .= "</ul>";
+        $contenidoPrincipal .= listaUsuariosBusqueda($resultado);
     }
 
 if($algunResultado){

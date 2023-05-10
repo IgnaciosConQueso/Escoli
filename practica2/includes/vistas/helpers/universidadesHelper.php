@@ -33,6 +33,19 @@ function listaUniversidadesAdmin()
     return $html;
 }
 
+function listaUniversidadesBusqueda($resBusqueda)
+{
+    $html = '';
+    if ($resBusqueda) {
+        $html .= '<ul class="lista-universidades">';
+        foreach ($resBusqueda as $data) {
+            $html .= generaHTMLUniversidad($data);
+        }
+        $html .= '</ul>';
+    }
+    return $html;
+}
+
 function generaHTMLUniversidad($data){
     $universidad = Universidad::buscaPorId($data->id);
     $imagen = Imagen::buscaPorId($universidad->getIdImagen());

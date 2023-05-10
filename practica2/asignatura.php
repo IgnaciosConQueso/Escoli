@@ -6,6 +6,8 @@ use escoli\contenido\Asignatura;
 require_once __DIR__ . '/includes/config.php';
 require_once __DIR__ . '/includes/vistas/helpers/valoracionesHelper.php';
 require_once __DIR__ . '/includes/vistas/helpers/asignaturasHelper.php';
+require_once __DIR__ . '/includes/vistas/helpers/profesoresHelper.php';
+
 
 $app = Aplicacion::getInstance();
 

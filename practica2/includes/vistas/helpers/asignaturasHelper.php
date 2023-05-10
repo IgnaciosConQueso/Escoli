@@ -31,14 +31,13 @@ function listaAsignaturasFacultad($idFacultad)
     return $html;
 }
 
-function listaProfesores($idAsignatura)
+function listaAsignaturasBusqueda($resBusqueda)
 {
-    $arrayProfesores = Profesor::buscaProfesoresAsignatura($idAsignatura);
     $html = '';
-    if ($arrayProfesores) {
-        $html .= '<ul class="lista-profesores">';
-        foreach ($arrayProfesores as $profesor) {
-            $html .= generaHTMLProfesor($profesor);
+    if ($resBusqueda) {
+        $html .= '<ul class="lista-asignaturas">';
+        foreach ($resBusqueda as $asignatura) {
+            $html .= generaHTMLAsignatura($asignatura);
         }
         $html .= '</ul>';
     }
@@ -54,14 +53,6 @@ function generaHTMLAsignatura($asignatura)
     return $html;
 }
 
-function generaHTMLProfesor($profesor)
-{
-    $url = 'perfilProfesor.php?id=' . $profesor->getId();
-    $html = '<div class="profesor">';
-    $html .= '<p class="nombre-profesor"><a href="' . $url . '">' . $profesor->nombre . '</a></p>';
-    $html .= '</div>';
-    return $html;
-}
 
 
 ?>
