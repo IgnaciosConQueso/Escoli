@@ -67,6 +67,29 @@ class Universidad
         return $result;
     }
 
+    public static function buscaPorNombreSimilar($nombre){
+        $busqueda = "%".$nombre."%";
+
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM Universidades
+            WHERE nombre LIKE '%s'",
+            $conn->real_escape_string($busqueda));
+        $rs = $conn->query($query);
+        $result = false;
+        if($rs){
+            $result = array();
+            while($fila = $rs->fetch_assoc()){
+                $universidad = new Universidad($fila['nombre'], $fila['id'], $fila['idImagen']);
+                array_push($result, $universidad);
+            }
+            $rs->free();
+        }
+        else{
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
+    }
+
     public static function buscaUniversidades()
     {
         $conn = Aplicacion::getInstance()->getConexionBd();

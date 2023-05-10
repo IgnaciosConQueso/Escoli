@@ -52,20 +52,23 @@ class Facultad
         return $result;
     }
 
-    public static function buscaPorNombre($nombre)
-    {
+    public static function buscaPorNombre($nombre){
+        $busqueda = "%".$nombre."%";
+
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM Facultades WHERE nombre LIKE '%c%s%c",
-            '%', $conn->real_escape_string($nombre), '%');
+        $query = sprintf("SELECT * FROM Facultades
+            WHERE nombre LIKE '%s'",
+            $conn->real_escape_string($busqueda));
         $rs = $conn->query($query);
         $result = false;
-        if ($rs) {
+        if($rs){
             $fila = $rs->fetch_assoc();
-            if ($fila) {
+            if($fila){
                 $result = new Facultad($fila['nombre'], $fila['idUniversidad'], $fila['id'], $fila['idImagen']);
             }
             $rs->free();
-        } else {
+        }
+        else{
             error_log("Error BD ({$conn->errno}): {$conn->error}");
         }
         return $result;
