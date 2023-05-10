@@ -11,6 +11,7 @@ $(document).ready(function() {
 			lon = universidad.length;
 			if(lon <5){
 				document.getElementById('validName').innerHTML = "El nombre de la universidad tiene que tener una longitud de al menos 5 caracteres";
+				$("#nombre").attr("invalid", true);
 				return false;
 			} else {
 				var url = "comprobarUniversidad.php?universidad=" + $("#nombre").val();
@@ -22,12 +23,14 @@ $(document).ready(function() {
 		if (response === "true") {
 			//&#x26a0;
 			document.getElementById('validName').innerHTML = errorIcon;
+			$("#nombre").attr("invalid", true);
 			alert("La universidad ya existe");
 			return false;
 		}
 		else {
 			//&#x2714;
 			document.getElementById('validName').innerHTML = okIcon;
+			$("#nombre").removeAttr("invalid");
 		}
 	}
 })

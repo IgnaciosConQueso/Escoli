@@ -11,7 +11,12 @@ $(document).ready(function() {
 			lon = profesor.length;
 			if(lon <5){
 				document.getElementById('validName').innerHTML = "El nombre del profesor/a tiene que tener una longitud de al menos 5 caracteres";
+				$("#nombre").attr("invalid", true);
 				return false;
-			} 
+			}
+			else{
+				document.getElementById('validName').innerHTML = okIcon;
+				$("#nombre").removeAttr("invalid");
+			}
 	}
 })

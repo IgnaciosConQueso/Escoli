@@ -7,6 +7,7 @@ TRUNCATE TABLE `Profesores`;
 TRUNCATE TABLE `Universidades`;
 TRUNCATE TABLE `Facultades`;
 TRUNCATE TABLE `Asignaturas`;
+TRUNCATE TABLE `Imparte`;
 TRUNCATE TABLE `Valoraciones`;
 TRUNCATE TABLE `Encuestas`;
 TRUNCATE TABLE `CamposEncuestas`;
@@ -114,9 +115,9 @@ INSERT INTO `Imagenes` (`id`, `ruta`, `nombre`, `tipo`) VALUES
 (4, 'centros/defaultUniversidad.png', 'defaultUniversidad.png', 'image/png');
 
 INSERT INTO `Usuarios` (`id`, `nombreUsuario`, `email`, `password`, `idImagen`) VALUES
-(1, 'admin', 'admin@escoli.es', '$2y$10$M44I/PdKB3F7vv4qXxRpR.R5dgye5xLtZUJMpB0tb9X9DT7Ej5kw.',1);
+(2, 'admin', 'admin@escoli.es', '$2y$10$M44I/PdKB3F7vv4qXxRpR.R5dgye5xLtZUJMpB0tb9X9DT7Ej5kw.',1);
 
 INSERT INTO `Usuarios` (`id`, `nombreUsuario`, `email`, `password`, `idImagen`) VALUES
-(2, 'default', 'escoli@escoli.es', '$2y$10$3gUCohJ1fqgHP0kdhiOOkOZPaaKoMuQuV2RYGw4EWt5zty8KEiJLS', 1);
+(1, 'default', 'escoli@escoli.es', '$2y$10$3gUCohJ1fqgHP0kdhiOOkOZPaaKoMuQuV2RYGw4EWt5zty8KEiJLS', 1);
 
-UPDATE `RolesUsuario` SET `rol` = 'admin' WHERE `RolesUsuario`.`idUsuario` = 1;
+UPDATE `RolesUsuario` SET `rol` = 'admin' WHERE `RolesUsuario`.`idUsuario` = 2;

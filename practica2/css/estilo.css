@@ -49,6 +49,14 @@ p.nombre-asignatura {
 	margin-bottom: 0.5em;
 }
 
+input:invalid {
+    background-color: lightpink;
+}
+
+input[invalid = true] {
+    background-color: lightpink;
+}
+
 
 
 @media screen and (max-width: 850px) {

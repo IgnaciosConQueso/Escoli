@@ -8,7 +8,6 @@ $(document).ready(function() {
 
     //eventos
     $("#profesorAsignatura").change(profesorSeleccionado);
-    $("#puntuacion").change(compruebaPuntuacion);
     $("#comentario").change(compruebaComentario);
 
     //funciones
@@ -25,29 +24,22 @@ $(document).ready(function() {
         }
     }
 
-    function compruebaPuntuacion() {
-        puntuacion = document.getElementById("puntuacion").value;
-        if(puntuacion<0 || puntuacion>5){
-            document.getElementById('validPuntuacion').innerHTML = "La puntuación debe ser un número entre 1 y 5";
-            return false;
-        } else {
-            document.getElementById('validPuntuacion').innerHTML = okIcon;
-        }
-    }
-
     function compruebaComentario() {
         comentario = document.getElementById("comentario").value;
         lon = comentario.length;
         if(lon > 1000){
             document.getElementById('validComentario').innerHTML = "El comentario no puede superar los 1000 caracteres";
+            $("#comentario").attr("invalid", true);
             return false;
         }
         else if (lon <= 0){
             document.getElementById('validComentario').innerHTML = "El comentario no puede estar vacio";
+            $("#comentario").attr("invalid", true);
             return false;
         }
         else {
             document.getElementById('validComentario').innerHTML = okIcon;
+            $("#comentario").removeAttr("invalid");
         }
     }
 })

@@ -37,7 +37,14 @@ class FormularioValoracion extends Formulario
                 {$erroresCampos['profesor']}
             </div>
                 <label for="puntuacion">Puntuación:</label>
-                <input id="puntuacion" type="text" name="puntuacion" value="$puntuacion" />
+                <input id="puntuacion" list="puntuaciones" type="range" min="1" max="5" step="1" name="puntuacion" value="$puntuacion" />
+                <datalist id="puntuaciones">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </datalist>
                 <span id="validPuntuacion"></span>
                 {$erroresCampos['puntuacion']}
             </div>

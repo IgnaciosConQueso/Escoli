@@ -17,6 +17,7 @@ $(document).ready(function() {
 			lon = username.length;
 			if(lon <5){
 				document.getElementById('validName').innerHTML = "El nombre de usuario tiene que tener una longitud de al menos 5 caracteres";
+				$("#nombreUsuario").attr("invalid", true);
 				return false;
 			} else {
 				var url = "comprobarRegistro.php?user=" + $("#nombreUsuario").val();
@@ -28,12 +29,14 @@ $(document).ready(function() {
 		if (response === "true") {
 			//&#x26a0;
 			document.getElementById('validName').innerHTML = errorIcon;
+			$("#nombreUsuario").attr("invalid", true);
 			alert("Este nombre de usuario ya está en uso");
 			return false;
 		}
 		else {
 			//&#x2714;
 			document.getElementById('validName').innerHTML = okIcon;
+			$("#nombreUsuario").removeAttr("invalid");
 		}
 	}
 
@@ -52,6 +55,7 @@ $(document).ready(function() {
 			campo[0].setCustomValidity("Introduce un correo válido");
 			//&#x26a0;
 			document.getElementById('validEmail').innerHTML = errorIcon;
+			$("#email").attr("invalid", true);
 			return false;
 		} else {
 			var url = "comprobarRegistro.php?email=" + $("#email").val();
@@ -62,12 +66,14 @@ $(document).ready(function() {
 	function emailExiste(response){
 		if (response === "true") {
 			document.getElementById('validEmail').innerHTML = "Este email ya está en uso";
+			$("#email").attr("invalid", true);
 			alert("Este email ya está en uso");
 			return false;
 		}
 		else {
 			//&#x2714;
 			document.getElementById('validEmail').innerHTML = okIcon;
+			$("#email").removeAttr("invalid");
 		}
 	}
 
@@ -77,9 +83,11 @@ $(document).ready(function() {
 
 		if(lon < 5){
 			document.getElementById('validPass').innerHTML = "El password tiene que tener una longitud de al menos 5 caracteres";
+			$("#password").attr("invalid", true);
 			return false;
 		} else {
 			document.getElementById('validPass').innerHTML = "";
+			$("#password").removeAttr("invalid");
 		}
 
 	}
@@ -90,9 +98,11 @@ $(document).ready(function() {
 
 		if(pass != pass2){
 			document.getElementById('validPass2').innerHTML = "Los passwords deben coincidir";
+			$("#password2").attr("invalid", true);
 			return false;
 		} else {
 			document.getElementById('validPass2').innerHTML = "";
+			$("#password2").removeAttr("invalid");
 		}
 	}
 })
