@@ -148,7 +148,7 @@ class Universidad
         else{
             $query = sprintf("INSERT INTO Universidades (nombre, idImagen) VALUES('%s', '%d')",
                 $conn->real_escape_string($universidad->nombre),
-                filter_var($universidad->id, FILTER_SANITIZE_NUMBER_INT));
+                filter_var($universidad->idImagen, FILTER_SANITIZE_NUMBER_INT));
         }
         if ($conn->query($query)) {
             $universidad->id = $conn->insert_id;
