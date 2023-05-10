@@ -17,16 +17,16 @@ use escoli\usuarios\Usuario;
 
 $app = Aplicacion::getInstance();
 
-$busqueda = $_GET['busqueda'];
-$busqueda = filter_var($busqueda, FILTER_SANITIZE_SPECIAL_CHARS);
-
-$tituloPagina = "Buscando: " . $busqueda . "...";
-
-$contenidoPrincipal = "<h1>".$tituloPagina."</h1>";
-
-
 $resultado = false;
 $algunResultado = false;
+$busqueda = $_GET['busqueda'];
+$busqueda = filter_var($busqueda, FILTER_SANITIZE_SPECIAL_CHARS);
+$lon = strlen($busqueda);
+
+if($lon > 0){
+    $tituloPagina = "Buscando: " . $busqueda . "...";
+    $contenidoPrincipal = "<h1>".$tituloPagina."</h1>";
+
     //profesor
     $resultado = Profesor::buscaPorNombreSimilar($busqueda);
     if($resultado){
@@ -66,6 +66,9 @@ $algunResultado = false;
         $contenidoPrincipal .= "<h3>Usuarios</h3>";
         $contenidoPrincipal .= listaUsuariosBusqueda($resultado);
     }
+} else{
+    $app->paginaError(403, 'Error', 'Oops', 'Introduce alguna palabra para buscar');
+}
 
 if($algunResultado){
     $params = ['tituloPagina' => $tituloPagina, 'contenidoPrincipal' => $contenidoPrincipal];
