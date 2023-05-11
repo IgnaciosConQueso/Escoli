@@ -23,12 +23,18 @@ class FormularioEncuesta extends Formulario{
         <fieldset>
             <legend>Nueva encuesta</legend>
             <div>
+            <label for="Profesor">Profesor:</label>
+            <select id="profesorAsignatura" name="profesorAsignatura">
+            <option value="0">Selecciona un profesor y asignatura</option>
+            {$this->generaOpcionesProfesores()}
+        </select>
+            </div>
+            <div>
                 <label for="pregunta">Pregunta:</label>
                 <input id="pregunta" type="text" name="pregunta" value ="$pregunta"/>
                 <span id="validPregunta"></span>
                 {$erroresCampos['pregunta']}
             </div>
-            tres opciones
             <div>
                 <label for="opciones">Opcion 1:</label>
                 <input id="opcion1" type="text" name="opciones"  value ="$opcion1"/>
