@@ -19,7 +19,7 @@ if(!isset($idUniversidad)) {
 
 $universidad = Universidad::buscaPorId($idUniversidad);
 
-if(!Universidad::borra($universidad)){
+if(!$universidad->borrate()){
     $app = Aplicacion::getInstance();
     $app->paginaError(500, 'Error', 'Oops', 'No se ha podido borrar la universidad');
 }
