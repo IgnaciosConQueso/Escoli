@@ -20,6 +20,7 @@ aside#sidebarIzq {
 
 aside#sidebarDer {
 	width: 25%;
+	min-height: calc(100vh - 228px);
 	float: right;
 	display: block;
 	margin: auto;
@@ -34,11 +35,6 @@ main {
 h1{
 	text-align: center;
 	font-size: 1.5em;
-}
-
-footer {
-	width: 100%;
-	margin: auto;	
 }
 
 /* misc */
