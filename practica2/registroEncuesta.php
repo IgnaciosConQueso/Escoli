@@ -5,7 +5,7 @@ if(!($app->esAdmin()||$app->esModerador())) {
   $app->paginaError(403, 'Error', 'Oops', 'No tienes permiso para acceder a esta página');
 }
 
-$scriptRegistro = $app->resuelve('js/registroValoracion.js');
+$scriptRegistro = $app->resuelve('js/registroEncuesta.js');
 $jQuery = $app->resuelve('js/jquery-3.6.0.min.js');
 
 $_POST['idFacultad'] = $_GET['idFacultad'];

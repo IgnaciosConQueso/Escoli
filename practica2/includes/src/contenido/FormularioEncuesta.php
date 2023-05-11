@@ -31,19 +31,17 @@ class FormularioEncuesta extends Formulario{
             <div>
                 <label for="opciones">Opcion 1:</label>
                 <input id="opcion1" type="text" name="opciones"  value ="$opcion1"/>
-                <span id="validOpcion1"></span>
-                {$erroresCampos['opciones']}
             </div>
             <div>
                 <label for="opciones">Opcion 2:</label>
                 <input id="opcion2" type="text" name="opciones"  value ="$opcion2"/>
-                <span id="validOpcion2"></span>
             </div>
             <div>
                 <label for="opciones">Opcion 3:</label>
                 <input id="opcion3" type="text" name="opciones"  value ="$opcion3"/>
-                <span id="validOpcion3"></span>
             </div>
+            {$erroresCampos['opciones']}
+            <span id="validOpciones"></span>
             <div>
                 <button type="submit" name="registro">Publicar</button>
             </div>
@@ -67,7 +65,11 @@ class FormularioEncuesta extends Formulario{
             $this->errores['pregunta'] = "La pregunta no puede estar vacía.";
         }
         if ( !$opcion1 || !$opcion2 || !$opcion3) {
-            $this->errores['opciones'] = "Las opciones no pueden estar vacías.";
+            $this->errores['opciones'] = "No puede haber opciones vacias";
+        } else {
+            if ($opcion1 == $opcion2 || $opcion1 == $opcion3 || $opcion2 == $opcion3) {
+                $this->errores['opciones'] = "No puede haber opciones iguales";
+            }
         }
 
         if (count($this->errores) > 0) {return;}
