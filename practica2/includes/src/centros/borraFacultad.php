@@ -16,7 +16,7 @@ if(!isset($idFacultad)) {
 
 $facultad = Facultad::buscaPorId($idFacultad);
 
-if(!Facultad::borra($facultad)){
+if(!$facultad->borrate()){
     $app->paginaError(500, 'Error', 'Oops', 'No se ha podido borrar la facultad');
 }
 

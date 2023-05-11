@@ -6,6 +6,7 @@ use escoli\centros\Facultad;
 require_once __DIR__ . '/includes/config.php';
 require_once __DIR__ . '/includes/vistas/helpers/valoracionesHelper.php';
 require_once __DIR__ . '/includes/vistas/helpers/asignaturasHelper.php';
+require_once __DIR__ . '/includes/vistas/helpers/encuestasHelper.php';
 require_once __DIR__ . '/includes/src/Aplicacion.php';
 
 $app = Aplicacion::getInstance();
@@ -17,6 +18,7 @@ $tituloPagina = $facultad->nombre;
 $linkValoracion = 'registroValoracion.php?idFacultad=' . $idFacultad;
 $linkAsignatura = 'registroAsignatura.php?idFacultad=' . $idFacultad;
 $contenidoValoraciones = listaValoracionesFacultad($idFacultad, $app->resuelve('/valoraciones.php?idFacultad=' . $idFacultad));
+$listaEncuestas = listaEncuestasFacultad($idFacultad, $app->resuelve('/valoraciones.php?idFacultad=' . $idFacultad));
 $botonValoracion = '<a href=' . $linkValoracion . '> Añadir valoración</a>';
 $botonAsignatura = '<a href=' . $linkAsignatura . '> Añadir asignatura</a>';
 $_SESSION['menuCabecera']['idFacultad'] = '<a href="valoraciones.php?idFacultad=' . $idFacultad . '">Valoraciones</a>';
@@ -48,6 +50,8 @@ else{
 }
 
 $contenidoSideBarIzq = <<<EOF
+	<h1>Encuestas recientes</h1>
+	$listaEncuestas
 EOF;
 
 $contenidoPrincipal = <<<EOF

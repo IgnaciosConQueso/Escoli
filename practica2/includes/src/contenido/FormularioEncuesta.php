@@ -24,21 +24,25 @@ class FormularioEncuesta extends Formulario{
             <legend>Nueva encuesta</legend>
             <div>
                 <label for="pregunta">Pregunta:</label>
-                <input id="pregunta" type="text" name="pregunta" value ="$pregunta"/>
+                <input id="pregunta" type="text" name="pregunta" value="$pregunta"/>
                 <span id="validPregunta"></span>
                 {$erroresCampos['pregunta']}
             </div>
             <div>
-                <label for="opciones">Opcion 1:</label>
-                <input id="opcion1" type="text" name="opciones"  value ="$opcion1"/>
+                <label for="opcion1">Opcion 1:</label>
+                <input id="opcion1" type="text" name="opcion1"  value="$opcion1"/>
+                <span id="validOpcion1"></span>
+                {$erroresCampos['opciones']}
             </div>
             <div>
-                <label for="opciones">Opcion 2:</label>
-                <input id="opcion2" type="text" name="opciones"  value ="$opcion2"/>
+                <label for="opcion2">Opcion 2:</label>
+                <input id="opcion2" type="text" name="opcion2"  value="$opcion2"/>
+                <span id="validOpcion2"></span>
             </div>
             <div>
-                <label for="opciones">Opcion 3:</label>
-                <input id="opcion3" type="text" name="opciones"  value ="$opcion3"/>
+                <label for="opcion3">Opcion 3:</label>
+                <input id="opcion3" type="text" name="opcion3"  value="$opcion3"/>
+                <span id="validOpcion3"></span>
             </div>
             {$erroresCampos['opciones']}
             <span id="validOpciones"></span>

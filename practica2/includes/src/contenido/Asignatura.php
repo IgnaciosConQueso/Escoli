@@ -30,6 +30,7 @@ class Asignatura
         }
         return false;
     }
+
     public static function buscaPorId($id)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
@@ -152,7 +153,7 @@ class Asignatura
         return $result;
     }
 
-    public static function borra($asignatura)
+    private static function borra($asignatura)
     {
         $result = true;
         $conn = Aplicacion::getInstance()->getConexionBd();
@@ -205,20 +206,10 @@ class Asignatura
         $this->idFacultad = $idFacultad;
     }
 
-    public function getId()
-    {
-        return $this->id;
-    }
+    public function getId(){return $this->id;}
+    public function getNombre(){return $this->nombre;}
+    public function getIdFacultad(){return $this->idFacultad;}
 
-    public function getNombre()
-    {
-        return $this->nombre;
-    }
-
-    public function getIdFacultad()
-    {
-        return $this->idFacultad;
-    }
 }
 
 ?>

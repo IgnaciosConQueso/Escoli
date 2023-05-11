@@ -160,7 +160,7 @@ class Facultad
 
     }
 
-    public static function borra($facultad)
+    private static function borra($facultad)
     {
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();

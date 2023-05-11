@@ -16,7 +16,7 @@ if (!isset($idAsignatura)) {
 
 $asignatura = Asignatura::buscaPorId($idAsignatura);
 
-if (!Asignatura::borra($asignatura)) {
+if (!$asignatura->borrate()) {
     $app->paginaError(500, 'Error', 'Oops', 'No se ha podido borrar la asignatura');
 }
 
