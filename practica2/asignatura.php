@@ -23,7 +23,7 @@ $contenidoSideBarIzq = <<<EOF
 EOF;
 
 $contenidoPrincipal = <<<EOF
-<h1>Información de la asignatura $nombreAsignatura</h1>
+<h1>Valoraciones de la asignatura de $nombreAsignatura</h1>
 $contenidoValoraciones
 EOF;
 
