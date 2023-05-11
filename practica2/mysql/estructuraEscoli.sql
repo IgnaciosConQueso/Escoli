@@ -172,3 +172,17 @@ BEGIN
     END IF;
 END$$
 DELIMITER ;
+
+DELIMITER $$
+CREATE OR REPLACE TRIGGER insertaOActualizaVotoEncuesta
+AFTER INSERT OR UPDATE ON VotosEncuesta
+FOR EACH ROW
+BEGIN
+    IF(SELECT count (*) FROM VotosEncuesta WHERE idUsuario = NEW.idUsuario AND idCampo = NEW.idCampo) = 0 THEN
+        UPDATE CamposEncuestas SET votos = votos + 1 WHERE id = NEW.idCampo;
+    ELSE
+        UPDATE CamposEncuestas SET votos = votos - 1 WHERE id = OLD.idCampo;
+        UPDATE CamposEncuestas SET votos = votos + 1 WHERE id = NEW.idCampo;
+    END IF;
+END$$
+DELIMITER ;
