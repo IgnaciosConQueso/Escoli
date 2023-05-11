@@ -21,7 +21,7 @@ $botonValoracion = '<a href=' . $linkValoracion . '> Añadir valoración</a>';
 $botonAsignatura = '<a href=' . $linkAsignatura . '> Añadir asignatura</a>';
 $_SESSION['menuCabecera']['idFacultad'] = '<a href="valoraciones.php?idFacultad=' . $idFacultad . '">Valoraciones</a>';
 
-$linkEncuesta = 'registroEncuesta.php';
+$linkEncuesta = 'registroEncuesta.php?idFacultad=' . $idFacultad;
 $botonEncuesta = '<a href=' . $linkEncuesta . '> Añadir encuesta</a>';
 
 $menuCabecera = '';
@@ -36,7 +36,7 @@ $_SESSION['linksCabecera'] = $menuCabecera;
 $botonesCab = '';
 if ($app->esAdmin()) {
 	$listaAsignaturas = listaAsignaturasFacultadAdmin($idFacultad);
-	$botonesCab = $botonAsignatura;
+	$botonesCab = $botonAsignatura . $botonEncuesta;
 }
 else if ($app->esModerador()){
 	$listaAsignaturas = listaAsignaturasFacultad($idFacultad);

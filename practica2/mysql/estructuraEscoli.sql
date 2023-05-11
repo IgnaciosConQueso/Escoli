@@ -93,6 +93,7 @@ CREATE TABLE IF NOT EXISTS `Encuestas` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `titulo` VARCHAR(100) NOT NULL,
     `idUsuario` INT NOT NULL,
+    `idFacultad` INT NOT NULL,
     `fecha` DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
@@ -133,6 +134,7 @@ ALTER TABLE `Valoraciones` ADD CONSTRAINT `Valoraciones_idAsignatura` FOREIGN KE
 ALTER TABLE `Valoraciones` ADD CHECK (puntuacion >= 0 AND puntuacion <= 5);
 
 ALTER TABLE `Encuestas` ADD CONSTRAINT `Encuestas_idUsuario` FOREIGN KEY (`idUsuario`) REFERENCES `Usuarios`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `Encuestas` ADD CONSTRAINT `Encuestas_idFacultad` FOREIGN KEY (`idFacultad`) REFERENCES `Facultades`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `CamposEncuestas` ADD CONSTRAINT `CamposEncuestas_idEncuesta` FOREIGN KEY (`idEncuesta`) REFERENCES `Encuestas`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 

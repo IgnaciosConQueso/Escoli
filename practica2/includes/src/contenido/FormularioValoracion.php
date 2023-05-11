@@ -8,9 +8,9 @@ use escoli\contenido\Asignatura;
 
 class FormularioValoracion extends Formulario
 {
-    public function __construct()
+    public function __construct($urlRedireccion = '/index.php')
     {
-        parent::__construct('formValoracion', ['urlRedireccion' => Aplicacion::getInstance()->resuelve('/index.php')]);
+        parent::__construct('formValoracion', ['urlRedireccion' => Aplicacion::getInstance()->resuelve($urlRedireccion)]);
     }
 
     protected function generaCamposFormulario(&$datos)
@@ -88,6 +88,8 @@ class FormularioValoracion extends Formulario
         if (mb_strlen($comentario) <= 0) {
             $this->errores['comentario'] = "El comentario no puede estar vacío";
         }
+
+        if (count($this->errores) > 0) {return;}
 
         Valoracion::crea($idUsuario, $idProfesor, $idAsignatura, $comentario, $puntuacion);
     }

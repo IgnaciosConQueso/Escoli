@@ -5,8 +5,8 @@ use escoli\Formulario;
 
 class FormularioEncuesta extends Formulario{
 
-    public function __construct(){
-        parent::__construct('formEncuesta', ['urlRedireccion' => Aplicacion::getInstance()->resuelve('/index.php')]);
+    public function __construct($urlRedireccion = '/index.php'){
+        parent::__construct('formEncuesta', ['urlRedireccion' => Aplicacion::getInstance()->resuelve($urlRedireccion)]);
     }
 
     protected function generaCamposFormulario(&$datos){
@@ -22,13 +22,6 @@ class FormularioEncuesta extends Formulario{
         $htmlErroresGlobales
         <fieldset>
             <legend>Nueva encuesta</legend>
-            <div>
-            <label for="Profesor">Profesor:</label>
-            <select id="profesorAsignatura" name="profesorAsignatura">
-            <option value="0">Selecciona un profesor y asignatura</option>
-            {$this->generaOpcionesProfesores()}
-        </select>
-            </div>
             <div>
                 <label for="pregunta">Pregunta:</label>
                 <input id="pregunta" type="text" name="pregunta" value ="$pregunta"/>
@@ -62,27 +55,25 @@ class FormularioEncuesta extends Formulario{
     protected function procesaFormulario(&$datos){
         $this->errores = [];
         $app = Aplicacion::getInstance();
+        $idUsuario = $app->idUsuario();
         $pregunta = $datos['pregunta'] ?? null;
+        $idFacultad = $datos['idFacultad'];
+
         $opcion1 = $datos['opcion1'] ?? null;
         $opcion2 = $datos['opcion2'] ?? null;
         $opcion3 = $datos['opcion3'] ?? null;
-        if ( empty($pregunta) ) {
+
+        if ( !$pregunta ) {
             $this->errores['pregunta'] = "La pregunta no puede estar vacía.";
         }
-        if ( empty($opcion1) ||empty($opcion2) || empty($opcion3)) {
+        if ( !$opcion1 || !$opcion2 || !$opcion3) {
             $this->errores['opciones'] = "Las opciones no pueden estar vacías.";
         }
-        if (count($this->errores) === 0) {
-            $idUser = $_SESSION['id'];
-            $opciones = array($opcion1, $opcion2, $opcion3);
-            $encuesta = Encuesta::crea($idUser, $pregunta, $opciones);
-            if ( ! $encuesta ) {
-                $this->errores['global'] = "Error al crear la encuesta";
-            } else {
-                $app->resuelve('/index.php');
-            }
-        }
-        return $this->errores;
+
+        if (count($this->errores) > 0) {return;}
+
+        $opciones = array($opcion1, $opcion2, $opcion3);
+        Encuesta::crea($idUsuario, $idFacultad, $pregunta, $opciones);
     }
 }
 ?>

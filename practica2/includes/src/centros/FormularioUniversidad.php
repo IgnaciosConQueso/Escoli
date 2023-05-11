@@ -11,9 +11,9 @@ class FormularioUniversidad extends Formulario
 {
     const EXTENSIONES_PERMITIDAS = array('gif', 'jpg', 'jpe', 'jpeg', 'png', 'webp', 'avif');
 
-    public function __construct($urlRedireccion = 'index.php')
+    public function __construct($urlRedireccion = '/index.php')
     {
-        parent::__construct('formUniversidad', ['enctype' => 'multipart/form-data', 'urlRedireccion' => $urlRedireccion]);
+        parent::__construct('formUniversidad', ['enctype' => 'multipart/form-data', 'urlRedireccion' => Aplicacion::getInstance()->resuelve($urlRedireccion)]);
     }
 
     protected function generaCamposFormulario(&$datos)

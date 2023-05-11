@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . '/includes/config.php';
 
-$app = \escoli\Aplicacion::getInstance();
 $scriptRegistro = $app->resuelve('js/registroValoracion.js');
 $jQuery = $app->resuelve('js/jquery-3.6.0.min.js');//cogido del ejercicio 4
 
@@ -11,7 +10,7 @@ if(!$app->usuarioLogueado()){
 
 $_POST['idFacultad'] = $_GET['idFacultad'];
 
-$formVal = new \escoli\contenido\FormularioValoracion();
+$formVal = new \escoli\contenido\FormularioValoracion('valoraciones.php?idFacultad=' . $_GET['idFacultad']);
 $formVal = $formVal->gestiona();
 
 $tituloPagina = 'Nueva valoración';
