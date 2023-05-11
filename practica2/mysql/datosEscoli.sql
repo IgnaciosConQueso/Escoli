@@ -78,9 +78,9 @@ INSERT INTO `Valoraciones` (`idUsuario`, `idProfesor`, `idAsignatura`, `comentar
 ('1', '11', '12', 'Lara Croft es una experta en artefactos antiguos', '4', '0'),
 ('1', '7', '13', 'Aprendí mucho sobre programación en su clase', '4', '0'),
 ('1', '8', '14', 'Las meditaciones que nos enseña son muy beneficiosas para la concentración', '5', '0'),
-( '1', '1', '1', 'El profesor Walter White es muy exigente pero se aprende mucho con él', '4', '0'),
-( '1', '1', '2', 'La asignatura de Base de Datos con Walter White es muy aburrida', '2', '0'),
-( '1', '2', '3', 'El profesor Bacterio es muy amable y siempre está dispuesto a ayudar', '5', '0'),
+('1', '1', '1', 'El profesor Walter White es muy exigente pero se aprende mucho con él', '4', '0'),
+('1', '1', '2', 'La asignatura de Base de Datos con Walter White es muy aburrida', '2', '0'),
+('1', '2', '3', 'El profesor Bacterio es muy amable y siempre está dispuesto a ayudar', '5', '0'),
 ('1', '2', '3', 'El profesor Bacterio tiene un acento un poco difícil de entender', '3', '0'),
 ('1', '3', '4', 'El profesor Severus Snape es un genio en Defensa Contra las Artes Oscuras', '5', '0'),
 ('1', '3', '4', 'Pero su forma de enseñar es bastante intimidante', '3', '0'),
@@ -90,7 +90,10 @@ INSERT INTO `Valoraciones` (`idUsuario`, `idProfesor`, `idAsignatura`, `comentar
 ('1', '5', '6', 'A veces su asignatura de Cuidado de Criaturas Mágicas se hace un poco monótona', '3', '0'),
 ('1', '6', '7', 'El profesor Rubeus Hagrid es muy amable pero poco organizado en sus clases', '3', '0'),
 ('1', '6', '7', 'A veces se pierde hablando sobre criaturas que no tienen nada que ver con la asignatura', '2', '0'),
-('1', '1', '1', 'El profesor Walter White no es muy simpático y eso dificulta el aprendizaje', '2', '0');
+('1', '1', '1', 'El profesor Walter White no es muy simpático y eso dificulta el aprendizaje', '2', '0'),
+('3', '1', '2', 'Está sobrevalorado, no da bien la materia', '2', '10'),
+('3', '7', '8', 'Enseña la fisica cuantica como si de plastica se tratase!', '5', '12'),
+('3', '8', '9', 'Es un profesor muy exigente, pero se comprende todo bien', '4', '7');
 
 INSERT INTO `Imparte` (`idProfesor`, `idAsignatura`) VALUES
 ('1', '1'),
@@ -115,9 +118,11 @@ INSERT INTO `Imagenes` (`id`, `ruta`, `nombre`, `tipo`) VALUES
 (4, 'centros/defaultUniversidad.png', 'defaultUniversidad.png', 'image/png');
 
 INSERT INTO `Usuarios` (`id`, `nombreUsuario`, `email`, `password`, `idImagen`) VALUES
-(2, 'admin', 'admin@escoli.es', '$2y$10$M44I/PdKB3F7vv4qXxRpR.R5dgye5xLtZUJMpB0tb9X9DT7Ej5kw.',1);
+(1, 'default', 'escoli@escoli.es', '$2y$10$3gUCohJ1fqgHP0kdhiOOkOZPaaKoMuQuV2RYGw4EWt5zty8KEiJLS', 1),
+(2, 'admin', 'admin@escoli.es', '$2y$10$M44I/PdKB3F7vv4qXxRpR.R5dgye5xLtZUJMpB0tb9X9DT7Ej5kw.',1),
+(3, 'moderador', 'moderador@escoli.es', '$2y$10$/P.o8PuTYQ4TmHxA1BXlo.lcYYVN4kleRJoJ1gOQkrHFZv82wr6.q',1),
+(4, 'vacio', 'void@escoli.es', '$2y$10$S95we1jmdEmZADcHoRFnHO/osrLOKI.nTMYSkvqTs.XHERUanYyoa', 1);
 
-INSERT INTO `Usuarios` (`id`, `nombreUsuario`, `email`, `password`, `idImagen`) VALUES
-(1, 'default', 'escoli@escoli.es', '$2y$10$3gUCohJ1fqgHP0kdhiOOkOZPaaKoMuQuV2RYGw4EWt5zty8KEiJLS', 1);
 
 UPDATE `RolesUsuario` SET `rol` = 'admin' WHERE `RolesUsuario`.`idUsuario` = 2;
+UPDATE `RolesUsuario` SET `rol` = 'mod' WHERE `RolesUsuario`.`idUsuario` = 3;
