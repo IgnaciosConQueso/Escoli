@@ -39,7 +39,7 @@ class Encuesta{
         $query = sprintf(
             "INSERT INTO Encuestas (idUsuario, titulo) VALUES (%d, '%s')",
             filter_var($encuesta->idUsuario, FILTER_SANITIZE_NUMBER_INT),
-            filter_var($encuesta->titulo, FILTER_SANITIZE_STRING)
+            $conn->real_escape_string($encuesta->titulo)
         );
         if ($conn->query($query)) {
             $encuesta->id = $conn->insert_id;
@@ -59,7 +59,7 @@ class Encuesta{
             $query = sprintf(
                 "INSERT INTO CampoEncuestas (idEncuesta, opcion) VALUES (%d, '%s', 0)",
                 filter_var($id, FILTER_SANITIZE_NUMBER_INT),
-                filter_var($opcion, FILTER_SANITIZE_STRING)
+                $conn->real_escape_string($opcion)
             );
             if ($conn->query($query)) {
                 $result = true;
