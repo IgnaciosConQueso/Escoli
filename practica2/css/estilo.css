@@ -3,6 +3,7 @@
 @import url(valoracion.css);
 @import url(centros.css);
 @import url(perfiles.css);
+@import url(encuestas.css);
 
 body {
 	font-family: sans-serif;

@@ -1,0 +1,90 @@
+ul.lista-encuestas{
+    list-style-type: none;
+	margin: auto;
+    padding: 0;
+}
+
+li.encuesta {
+	background-color: #323232;
+	border-radius: 0.5em;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	margin-left: 0.5em;
+	margin-right: 0.5em;
+	padding: 0.5em;
+}
+
+li.encuesta > div.header-encuesta{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+li.encuesta > div.header-encuesta img.imagen-usuario {
+    height: 3em;
+    width: 3em;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+li.encuesta > div.header-encuesta p{
+	margin: 0;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+	padding-top: 0.1em;
+	padding-bottom: 0.1em;
+}
+
+li.encuesta > p.fecha-encuesta{
+    display: flex;
+    justify-content: flex-end;
+    margin: auto;
+	color: #a1a1a1;
+}
+
+div.info-encuesta > p.titulo-encuesta{
+	font-weight: bold;
+}
+
+div.header-encuesta > div.info-encuesta{
+	display: flex;
+	flex-direction: column;
+}
+
+div.campo-encuesta{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+div.campo-encuesta > p{
+    margin: 0;
+    padding-left: 0.5em;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+}
+
+div.campo-encuesta > form{
+    width :auto;
+    margin: 0;
+    padding-right: 0.5em;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+}
+
+div.campo-encuesta > form > button{
+    margin: 0;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    color: #ffffff;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+div.campo-encuesta > form > button:hover{
+    color: #ffc83d;
+}
+
