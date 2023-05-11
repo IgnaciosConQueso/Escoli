@@ -1,5 +1,4 @@
 footer{
-    display: block;
     width: 100%;
     height: auto;
     background-color: #000000;
@@ -8,6 +7,10 @@ footer{
     font-size: 20px;
     margin-top: 20px;
     padding-bottom: auto;
+
+    bottom: 0;
+    position: auto;
+    display: grid;
 }
 
 div#links{
