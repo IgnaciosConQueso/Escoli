@@ -11,6 +11,7 @@ DROP TABLE IF EXISTS `Asignaturas`;
 DROP TABLE IF EXISTS `Valoraciones`;
 DROP TABLE IF EXISTS `Encuestas`;
 DROP TABLE IF EXISTS `CamposEncuestas`;
+DROP TABLE IF EXISTS `VotosEncuesta`;
 DROP TABLE IF EXISTS `Imagenes`;
 DROP TABLE IF EXISTS `Karma`;
 DROP TABLE IF EXISTS `Imparte`;
