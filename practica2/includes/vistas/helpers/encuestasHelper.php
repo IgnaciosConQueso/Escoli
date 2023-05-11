@@ -24,8 +24,8 @@ function generaHTMLEncuesta($encuesta, $url){
     $html .= '<p class="titulo-encuesta">' . $encuesta->titulo . '</p>';
     foreach ($campos as $campo) {
         $html .= '<div class="campo-encuesta">';
-        $html .= '<p class="campo-encuesta" value="'.$i.'">' . $campo->campo . '</p>';
-        $html .= '<p class="votos-encuesta">' . $campo->votos . '</p>';
+        $html .= '<p class="campo-encuesta" value="'.$i.'">' . $campo['campo'] . '</p>';
+        $html .= '<p class="votos-encuesta">' . $campo['votos'] . '</p>';
         $html .= '</div>';
     }
     $html .= '</li>';

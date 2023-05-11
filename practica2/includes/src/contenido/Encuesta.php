@@ -131,13 +131,14 @@ class Encuesta{
         $result = false;
         if ($rs) {
             $opciones = array();
+            $result = array();
             while($fila = $rs->fetch_assoc()){
                 $opciones['campo'] = $fila['campo'];
                 $opciones['votos'] = $fila['votos'];
+                array_push($result,$opciones);
             }
-            $this->opciones = $opciones;
+            $this->opciones = $result;
             $rs->free();
-            $result = true;
         } else {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
         }
