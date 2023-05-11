@@ -265,13 +265,14 @@ class Valoracion
     {
         $result = false;
         $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("INSERT INTO Valoraciones(idUsuario, idProfesor, idAsignatura, comentario, puntuacion) 
+        $query = sprintf("INSERT INTO Valoraciones(idUsuario, idProfesor, idAsignatura, comentario, puntuacion, likes) 
             VALUES ('%d', '%d', '%d', '%s', '%d', '%d')",
             $conn->real_escape_string($Valoracion->idUsuario),
             $conn->real_escape_string($Valoracion->idProfesor),
             $conn->real_escape_string($Valoracion->idAsignatura),
             $conn->real_escape_string($Valoracion->comentario),
             $conn->real_escape_string($Valoracion->puntuacion),
+            0
         );
         if (!$conn->query($query)) {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
