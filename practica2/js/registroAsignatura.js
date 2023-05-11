@@ -2,9 +2,7 @@ $(document).ready(function(){
     const okIcon = "&#x2714;";
 	const errorIcon = "&#x26a0;";
 
-    url = window.location.href;
-    idFacultad = url.split("idFacultad=")[1];
-    idFacultad = idFacultad.split("&")[0];//por si hubiera más parámetros en la url
+    idFacultad = getIdFacultad();
     
     $("#nombre").change(compruebaAsignatura);
 
@@ -19,18 +17,25 @@ $(document).ready(function(){
             var url = "comprobarAsignatura.php?asignatura=" + $("#nombre").val() + "&idFacultad=" + idFacultad;
             $.get(url,asignaturaExiste);
         }
+    }
 
-        function asignaturaExiste(response) {
-            if (response === "true") {
-                document.getElementById('validName').innerHTML = errorIcon;
-                $("#nombre").attr("invalid", true);
-                alert("La asignatura ya existe en esta facultad");
-                return false;
-            }
-            else {
-                document.getElementById('validName').innerHTML = okIcon;
-                $("#nombre").removeAttr("invalid");
-            }
+    function asignaturaExiste(response) {
+        if (response === "true") {
+            document.getElementById('validName').innerHTML = errorIcon;
+            $("#nombre").attr("invalid", true);
+            alert("La asignatura ya existe en esta facultad");
+            return false;
         }
+        else {
+            document.getElementById('validName').innerHTML = okIcon;
+            $("#nombre").removeAttr("invalid");
+        }
+    }
+
+    function getIdFacultad(){
+        var url = window.location.href;//cogemos la url
+        var id = url.split("idFacultad=")[1];//partimos la url por el parámetro idFacultad y nos quedamos con la segunda parte
+        id = id.split("&")[0];//por si hubiera más parámetros en la url
+        return id;
     }
 });
