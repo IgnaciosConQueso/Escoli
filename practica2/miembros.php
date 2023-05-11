@@ -51,7 +51,7 @@ $contenidoPrincipal = <<<EOS
             <p> Disfruto de los deportes de riesgo como los saltos de motos, además participo en mi tiempo libre en ayudar a los desfavorecidos en un centro de desintoxicación de menores y adopto perros ciegos y cojos. <mark> ignsan@ucm.es </mark></p> 
             </dd>
             <dd>
-            <p> Mención a Elisa Santamarina que es la diseñadora del logo y las imagenes de la cabecera, incluyendo las fotos, </p>
+            <p> Mención a Elisa Santamarina Castaño que es la diseñadora del logo y las imagenes de la cabecera, incluyendo las fotos, </p>
             </dd>
         </dl>
 EOS;
