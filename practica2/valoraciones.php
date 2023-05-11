@@ -21,6 +21,9 @@ $botonValoracion = '<a href=' . $linkValoracion . '> Añadir valoración</a>';
 $botonAsignatura = '<a href=' . $linkAsignatura . '> Añadir asignatura</a>';
 $_SESSION['menuCabecera']['idFacultad'] = '<a href="valoraciones.php?idFacultad=' . $idFacultad . '">Valoraciones</a>';
 
+$linkEncuesta = 'registroEncuesta.php';
+$botonEncuesta = '<a href=' . $linkEncuesta . '> Añadir encuesta</a>';
+
 $menuCabecera = '';
 foreach ($_SESSION['menuCabecera'] as $key => $link) {
   $menuCabecera .= $link;
@@ -34,6 +37,10 @@ $botonesCab = '';
 if ($app->esAdmin()) {
 	$listaAsignaturas = listaAsignaturasFacultadAdmin($idFacultad);
 	$botonesCab = $botonAsignatura;
+}
+else if ($app->esModerador()){
+	$listaAsignaturas = listaAsignaturasFacultad($idFacultad);
+	$botonesCab = $botonValoracion . $botonEncuesta;
 }
 else{
 	$listaAsignaturas = listaAsignaturasFacultad($idFacultad);

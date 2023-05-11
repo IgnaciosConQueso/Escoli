@@ -10,7 +10,7 @@ class Usuario
 
     public const ADMIN_ROLE = 'admin';
     public const USER_ROLE = 'user';
-    public const MODERATOR_ROLE = 'moderator';
+    public const MODERATOR_ROLE = 'mod';
 
     public static function login($nombreUsuario, $password)
     {
