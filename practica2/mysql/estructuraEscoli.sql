@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `Valoraciones` (
     `fecha` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
     `comentario` VARCHAR(1000) NULL,
     `puntuacion` DECIMAL(1,0) NOT NULL,
-    `likes` INT NOT NULL,
+    `likes` INT NOT NULL DEFAULT '0',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
 
@@ -99,10 +99,19 @@ CREATE TABLE IF NOT EXISTS `Encuestas` (
 ) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `CamposEncuestas` (
+    `id` INT NOT NULL AUTO_INCREMENT,
     `idEncuesta` INT NOT NULL,
     `campo` VARCHAR(30) NOT NULL,
     `votos` INT NOT NULL DEFAULT '0',
-    PRIMARY KEY (`idEncuesta`, `campo`)
+    PRIMARY KEY (`id`),
+    UNIQUE (`idEncuesta`, `campo`)
+) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
+
+CREATE TABLE IF NOT EXISTS `VotosEncuesta` (
+    `idUsuario` INT NOT NULL,
+    `idEncuesta` INT NOT NULL,
+    `idCampo` INT NOT NULL,
+    PRIMARY KEY (`idUsuario`, `idEncuesta`, `idCampo`)
 ) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `Karma` (

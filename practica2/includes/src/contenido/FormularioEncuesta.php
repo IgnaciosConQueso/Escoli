@@ -1,6 +1,7 @@
 <?php
 namespace escoli\contenido;
 use escoli\Aplicacion;
+use escoli\contenido\encuesta\CampoEncuesta;
 use escoli\Formulario;
 
 class FormularioEncuesta extends Formulario{
@@ -75,7 +76,11 @@ class FormularioEncuesta extends Formulario{
         if (count($this->errores) > 0) {return;}
 
         $opciones = array($opcion1, $opcion2, $opcion3);
-        Encuesta::crea($idUsuario, $idFacultad, $pregunta, $opciones);
+        $encuesta = Encuesta::crea($idUsuario, $idFacultad, $pregunta, $opciones);
+        foreach ($opciones as $opcion) {
+            $idEncuesta = $encuesta->id;
+            CampoEncuesta::crea($idEncuesta, $opcion);
+        }
     }
 }
 ?>

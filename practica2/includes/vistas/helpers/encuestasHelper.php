@@ -1,6 +1,7 @@
 <?php
 
 use escoli\contenido\Encuesta;
+use escoli\contenido\encuesta\CampoEncuesta;
 
 function listaEncuestasFacultad($id, $url){
     $arrayEncuestas = Encuesta::buscaPorFacultad($id);
@@ -17,15 +18,14 @@ function listaEncuestasFacultad($id, $url){
 }
 
 function generaHTMLEncuesta($encuesta, $url){
-    $campos = $encuesta->opciones;
-    $i = 1;
+    $campos = CampoEncuesta::buscaPorEncuesta($encuesta->id);
 
     $html = '<li class="encuesta">';
     $html .= '<p class="titulo-encuesta">' . $encuesta->titulo . '</p>';
     foreach ($campos as $campo) {
         $html .= '<div class="campo-encuesta">';
-        $html .= '<p class="campo-encuesta" value="'.$i.'">' . $campo['campo'] . '</p>';
-        $html .= '<p class="votos-encuesta">' . $campo['votos'] . '</p>';
+        $html .= '<p class="campo-encuesta">' . $campo->campo . '</p>';
+        $html .= '<p class="votos-encuesta">' . $campo->votos . '</p>';
         $html .= '</div>';
     }
     $html .= '</li>';

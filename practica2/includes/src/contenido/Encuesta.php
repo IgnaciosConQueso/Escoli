@@ -3,6 +3,7 @@
 namespace escoli\contenido;
 
 use escoli\Aplicacion;
+use escoli\contenido\Encuesta\CampoEncuesta;
 use escoli\MagicProperties;
 
 class Encuesta{
@@ -11,12 +12,11 @@ class Encuesta{
     private $id;
     private $titulo;
     private $idUsuario;
-    private $opciones;
     private $idFacultad;
     private $fecha;
 
-    public static function crea($idUsuario, $idFacultad, $titulo, $opciones, $id = null){
-        $encuesta = new Encuesta($idUsuario, $idFacultad, $titulo, $opciones, $id);
+    public static function crea($idUsuario, $idFacultad, $titulo, $id = null){
+        $encuesta = new Encuesta($idUsuario, $idFacultad, $titulo, $id);
         return $encuesta->guarda();
     }
 
@@ -45,8 +45,7 @@ class Encuesta{
         $result = false;
         if ($rs) {
             if ($fila = $rs->fetch_assoc()) {
-                $result = new Encuesta($fila['idUsuario'], $fila['idFacultad'], $fila['titulo'], null, $fila['id'], $fila['fecha']);
-                $result->rellenaOpciones();
+                $result = new Encuesta($fila['idUsuario'], $fila['idFacultad'], $fila['titulo'], $fila['id'], $fila['fecha']);
             }
             $rs->free();
         } else {
@@ -64,8 +63,7 @@ class Encuesta{
         if ($rs) {
             $result = array();
             while ($fila = $rs->fetch_assoc()) {
-                $encuesta = new Encuesta($fila['idUsuario'], $fila['idFacultad'], $fila['titulo'], null, $fila['id'], $fila['fecha']);
-                $encuesta->rellenaOpciones();
+                $encuesta = new Encuesta($fila['idUsuario'], $fila['idFacultad'], $fila['titulo'], $fila['id'], $fila['fecha']);
                 array_push($result, $encuesta);
             }
             $rs->free();
@@ -86,8 +84,7 @@ class Encuesta{
         );
         if ($conn->query($query)) {
             $encuesta->id = $conn->insert_id;
-            $result = true;
-            self::insertaOpciones($encuesta->id,$encuesta->opciones);
+            $result = $encuesta;
         } else {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
         }
@@ -106,51 +103,10 @@ class Encuesta{
         return $result;
     }
 
-    private static function insertaOpciones($id,$opciones){
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        $result = false;
-        foreach($opciones as $opcion){
-            $query = sprintf(
-                "INSERT INTO CamposEncuestas (idEncuesta, campo) VALUES (%d, '%s')",
-                filter_var($id, FILTER_SANITIZE_NUMBER_INT),
-                $conn->real_escape_string($opcion)
-            );
-            if ($conn->query($query)) {
-                $result = true;
-            } else {
-                error_log("Error BD ({$conn->errno}): {$conn->error}");
-                file_put_contents("falloBD.txt",$query);
-            }
-        }
-        return $result;
-    }
-
-    private function rellenaOpciones(){
-        $conn = Aplicacion::getInstance()->getConexionBd();
-        $query = sprintf("SELECT * FROM CamposEncuestas WHERE idEncuesta='%d'", filter_var($this->id, FILTER_SANITIZE_NUMBER_INT));
-        $rs = $conn->query($query);
-        $result = false;
-        if ($rs) {
-            $opciones = array();
-            $result = array();
-            while($fila = $rs->fetch_assoc()){
-                $opciones['campo'] = $fila['campo'];
-                $opciones['votos'] = $fila['votos'];
-                array_push($result,$opciones);
-            }
-            $this->opciones = $result;
-            $rs->free();
-        } else {
-            error_log("Error BD ({$conn->errno}): {$conn->error}");
-        }
-        return $result;
-    }
-
-    private function __construct($idUsuario, $idFacultad, $titulo, $opciones, $id, $fecha = null){
+    private function __construct($idUsuario, $idFacultad, $titulo, $id, $fecha = null){
         $this->id = $id;
         $this->idUsuario = $idUsuario;
         $this->idFacultad = $idFacultad;
-        $this->opciones = $opciones;
         $this->titulo = $titulo;
         $this->fecha = $fecha;
     }
@@ -158,8 +114,118 @@ class Encuesta{
     public function getId(){return $this->id;}
     public function getIdUsuario(){return $this->idUsuario;}
     public function getIdFacultad(){return $this->idFacultad;}
-    public function getOpciones(){return $this->opciones;}
     public function getTitulo(){return $this->titulo;}
     public function getFecha(){return $this->fecha;}
+}
+
+
+namespace escoli\contenido\encuesta;
+
+use escoli\Aplicacion;
+use escoli\MagicProperties;
+
+class CampoEncuesta{
+    use MagicProperties;
+
+    public $id;
+    public $idEncuesta;
+    public $campo;
+    public $votos;
+
+    public static function crea($idEncuesta, $campo, $votos = 0, $id = null){
+        $campoEncuesta = new CampoEncuesta($idEncuesta, $campo, $votos, $id);
+        return self::guarda($campoEncuesta);
+    }
+
+    public function guarda()
+    {
+        if ($this->id !== null) {
+            return self::actualiza($this);
+        }
+        return self::inserta($this);
+    }
+
+    public static function inserta($campoEncuesta){
+        $result = false;
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "INSERT INTO CamposEncuestas (idEncuesta, campo, votos) VALUES (%d, '%s', %d)",
+            filter_var($campoEncuesta->idEncuesta, FILTER_SANITIZE_NUMBER_INT),
+            $conn->real_escape_string($campoEncuesta->campo),
+            filter_var($campoEncuesta->votos, FILTER_SANITIZE_NUMBER_INT)
+        );
+        if ($conn->query($query)) {
+            $campoEncuesta->id = $conn->insert_id;
+            $result = $campoEncuesta;
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
+    }
+
+    public static function actualiza($campoEncuesta){
+        $result = false;
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "UPDATE CamposEncuestas SET idEncuesta='%d', campo='%s', votos='%d' WHERE id='%d'",
+            filter_var($campoEncuesta->idEncuesta, FILTER_SANITIZE_NUMBER_INT),
+            $conn->real_escape_string($campoEncuesta->campo),
+            filter_var($campoEncuesta->votos, FILTER_SANITIZE_NUMBER_INT),
+            filter_var($campoEncuesta->id, FILTER_SANITIZE_NUMBER_INT)
+        );
+        if ($conn->query($query)) {
+            $result = $campoEncuesta;
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
+    }
+
+    public static function buscaPorId($id){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM CamposEncuestas WHERE id='%d'", filter_var($id, FILTER_SANITIZE_NUMBER_INT));
+        $rs = $conn->query($query);
+        $result = false;
+        if ($rs) {
+            if ($fila = $rs->fetch_assoc()) {
+                $result = new CampoEncuesta($fila['idEncuesta'],$fila['campo'], $fila['votos'] , $fila['id']);
+            }
+            $rs->free();
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
+    }
+
+    public static function buscaPorEncuesta($idEncuesta){
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM CamposEncuestas WHERE idEncuesta='%d'", filter_var($idEncuesta, FILTER_SANITIZE_NUMBER_INT));
+        $rs = $conn->query($query);
+        $result = false;
+        if ($rs) {
+            $result = array();
+            while($fila = $rs->fetch_assoc()){
+                $campo = new CampoEncuesta($fila['idEncuesta'],$fila['campo'], $fila['votos'] , $fila['id']);
+                array_push($result, $campo);
+            }
+            $rs->free();
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
+    }
+
+    private function __construct($idEncuesta, $campo, $votos, $id = null){
+
+        $this->id = $id;
+        $this->idEncuesta = $idEncuesta;
+        $this->campo = $campo;
+        $this->votos = $votos;
+    }
+
+    public function getId(){return $this->id;}
+    public function getIdEncuesta(){return $this->idEncuesta;}
+    public function getCampo(){return $this->campo;}
+    public function getVotos(){return $this->votos;}
 }
 ?>
