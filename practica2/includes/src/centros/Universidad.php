@@ -110,7 +110,7 @@ class Universidad
     }
 
     
-    private static function borra($universidad)
+    public static function borra($universidad)
     {
         $conn = Aplicacion::getInstance()->getConexionBd();
         $query = sprintf("DELETE FROM Universidades WHERE id='%d'", filter_var($universidad->id, FILTER_SANITIZE_NUMBER_INT));
