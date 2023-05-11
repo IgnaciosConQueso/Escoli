@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `VotosEncuesta` (
     `idUsuario` INT NOT NULL,
     `idEncuesta` INT NOT NULL,
     `idCampo` INT NOT NULL,
-    PRIMARY KEY (`idUsuario`, `idEncuesta`, `idCampo`)
+    PRIMARY KEY (`idUsuario`, `idEncuesta`)
 ) ENGINE = InnoDB CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `Karma` (
