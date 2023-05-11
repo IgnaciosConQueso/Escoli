@@ -1,4 +1,4 @@
-<?
+<?php
 namespace escoli\contenido;
 use escoli\Aplicacion;
 use escoli\Formulario;

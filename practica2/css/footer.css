@@ -8,8 +8,6 @@ footer{
     margin-top: 20px;
     padding-bottom: auto;
 
-    bottom: 0;
-    position: auto;
     display: grid;
 }
 
