@@ -33,6 +33,7 @@ class Encuesta{
         if ($this->id !== null) {
             return self::borra($this);
         }
+        
         return false;
     }
 
