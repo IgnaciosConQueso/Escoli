@@ -28,7 +28,6 @@ function generaHTMLEncuesta($encuesta, $url){
         $html .= '<div class="campo-encuesta">';
         $html .= botonCampoEncuesta($encuesta, $campo, $url);
         $html .= '<p class="votos-encuesta">' . $campo->votos . '</p>';
-        
         $html .= '</div>';
     }
     $html .= '</li>';
@@ -40,6 +39,6 @@ function botonCampoEncuesta($encuesta, $campo, $url){
     $app = Aplicacion::getInstance();
     $api = $app->resuelve('/includes/vistas/helpers/api_encuestas.php');
     return Formulario::buildButtonForm(
-        $api, ['url' => $url, 'idEncuesta' => $encuesta->id, 'idCampo' => $campo->id],
+        $api, ['url' => $url, 'idEncuesta' => $encuesta->id, 'idCampo' => $campo->id, 'idFacultad' => $encuesta->idFacultad],
         'boton-votar', $campo->campo);
 }

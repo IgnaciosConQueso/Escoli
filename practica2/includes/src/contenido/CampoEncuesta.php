@@ -98,9 +98,9 @@ class CampoEncuesta{
     public static function vota($idUsuario, $idEncuesta, $idCampo){
         $voto = self::buscaPorUsuarioEncuesta($idUsuario, $idEncuesta);
         if($voto){
-            self::actualizarVoto($idUsuario, $idEncuesta, $idCampo);
+            return self::actualizarVoto($idUsuario, $idEncuesta, $idCampo);
         }else{
-            self::insertarVoto($idUsuario, $idEncuesta, $idCampo);
+            return self::insertarVoto($idUsuario, $idEncuesta, $idCampo);
         }
     }
 
@@ -113,10 +113,8 @@ class CampoEncuesta{
             filter_var($idEncuesta, FILTER_SANITIZE_NUMBER_INT),
             filter_var($idCampo, FILTER_SANITIZE_NUMBER_INT)
         );
-        $rs = $conn->query($query);
-        if ($rs) {
+        if ($conn->query($query)) {
             $result = true;
-            $rs->free();
         } else {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
         }
@@ -132,10 +130,8 @@ class CampoEncuesta{
             filter_var($idUsuario, FILTER_SANITIZE_NUMBER_INT),
             filter_var($idEncuesta, FILTER_SANITIZE_NUMBER_INT)
         );
-        $rs = $conn->query($query);
-        if ($rs) {
+        if ($conn->query($query)) {
             $result = true;
-            $rs->free();
         } else {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
         }

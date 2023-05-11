@@ -233,6 +233,7 @@ class Valoracion
             if ($fila) {
                 $result = $fila['media'];
             }
+            $rs->free();
         } else {
             error_log("Error BD ({$conn->errno}): {$conn->error}");
         }

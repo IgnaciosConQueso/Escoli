@@ -1,6 +1,5 @@
 <?php
 
-use escoli\contenido\Encuesta;
 use escoli\contenido\CampoEncuesta;
 require_once '../../config.php';
 
@@ -9,6 +8,7 @@ if(!$app->usuarioLogueado()){
 }
 
 $idEncuesta = filter_input(INPUT_POST, 'idEncuesta', FILTER_SANITIZE_NUMBER_INT);
+$idFacultad = filter_input(INPUT_POST, 'idFacultad', FILTER_SANITIZE_NUMBER_INT);
 $idCampo = filter_input(INPUT_POST, 'idCampo', FILTER_SANITIZE_NUMBER_INT);
 $idUsuario = $app->idUsuario();
 
@@ -19,8 +19,10 @@ if (!isset($idCampo)) {
     $app->paginaError(400, 'Error', 'Oops', 'No se ha recibido el id del campo');
 }
 
-if (! CampoEncuesta::vota($idUsuario, $idEncuesta, $idCampo)) {
+if ( !CampoEncuesta::vota($idUsuario, $idEncuesta, $idCampo)) {
     $app->paginaError(400, 'Error', 'Oops', 'No se ha podido votar');
 }
+
+$app->redirige($app->resuelve('/valoraciones.php?idFacultad=' . $idFacultad));
 
 ?>
