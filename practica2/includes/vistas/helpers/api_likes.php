@@ -31,13 +31,13 @@ if(LikesyKarma :: existeLike($app->idUsuario(), $idValoracion)){
     $valorBD = LikesyKarma :: valorLike($app->idUsuario(), $idValoracion);
     if($valorBD === 0){
         $succes = false;
-        $message = "Algo feo feo esta pasando en missouri. (Error en la BD)";
+        $message = "Error en la BD";
         $response = array("succes" => $succes, "message" => $message);
         echo json_encode($response);
         return;
     } else if($valorBD === $valor){
         $succes = false;
-        $message = "No puedes dar Like más de una vez chulopan.";
+        $message = "No puedes dar like más de una vez";
         $response = array("succes" => $succes, "message" => $message);
         echo json_encode($response);
         return;
@@ -47,7 +47,7 @@ if(LikesyKarma :: existeLike($app->idUsuario(), $idValoracion)){
 LikesyKarma :: hazLike( $app->idUsuario(), $idValoracion, $valor);
 Valoracion::actualizaLikes($idValoracion, $likesBD);
 $succes = true;
-$message = "Diste Like o diste dislike da igual porque no vas a ver esto. ;PP";
+$message = "LIKE/DISLIKE realizado correctamente";
 $response = array("succes" => $succes, "message" => $message);
 echo json_encode($response);
 return;

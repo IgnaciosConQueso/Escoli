@@ -20,7 +20,7 @@ class Encuesta{
         $this->titulo = $titulo;
     }
 
-    public static function crea($idUsuario, $opciones, $id = null, $titulo){
+    public static function crea($idUsuario, $titulo, $opciones, $id = null){
         $encuesta = new Encuesta($idUsuario, $opciones, $id, $titulo);
         return $encuesta->guarda();
     }
