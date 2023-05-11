@@ -134,7 +134,7 @@ class CampoEncuesta{
 
     public static function crea($idEncuesta, $campo, $votos = 0, $id = null){
         $campoEncuesta = new CampoEncuesta($idEncuesta, $campo, $votos, $id);
-        return self::guarda($campoEncuesta);
+        return $campoEncuesta->guarda($campoEncuesta);
     }
 
     public function guarda()
@@ -207,6 +207,65 @@ class CampoEncuesta{
             while($fila = $rs->fetch_assoc()){
                 $campo = new CampoEncuesta($fila['idEncuesta'],$fila['campo'], $fila['votos'] , $fila['id']);
                 array_push($result, $campo);
+            }
+            $rs->free();
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
+    }
+
+    public static function vota($idUsuario, $idEncuesta, $idCampo){
+        $voto = self::buscaPorUsuarioEncuesta($idUsuario, $idEncuesta);
+        if($voto){
+            self::actualizarVoto($idUsuario, $idEncuesta, $idCampo);
+        }else{
+            self::insertarVoto($idUsuario, $idEncuesta, $idCampo);
+        }
+    }
+
+    private static function insertarVoto($idUsuario, $idEncuesta, $idCampo){
+        $result = false;
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "INSERT INTO VotosEncuestas (idUsuario, idEncuesta, idCampo) VALUES (%d, %d, %d)",
+            filter_var($idUsuario, FILTER_SANITIZE_NUMBER_INT),
+            filter_var($idEncuesta, FILTER_SANITIZE_NUMBER_INT),
+            filter_var($idCampo, FILTER_SANITIZE_NUMBER_INT)
+        );
+        if ($conn->query($query)) {
+            $result = true;
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
+    }
+
+    private static function actualizarVoto($idUsuario, $idEncuesta, $idCampo){
+        $result = false;
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf(
+            "UPDATE VotosEncuestas SET idCampo='%d' WHERE idUsuario='%d' AND idEncuesta='%d'",
+            filter_var($idCampo, FILTER_SANITIZE_NUMBER_INT),
+            filter_var($idUsuario, FILTER_SANITIZE_NUMBER_INT),
+            filter_var($idEncuesta, FILTER_SANITIZE_NUMBER_INT)
+        );
+        if ($conn->query($query)) {
+            $result = true;
+        } else {
+            error_log("Error BD ({$conn->errno}): {$conn->error}");
+        }
+        return $result;
+    }
+
+    public static function buscaPorUsuarioEncuesta($idUsuario, $idEncuesta){
+        $result = false;
+        $conn = Aplicacion::getInstance()->getConexionBd();
+        $query = sprintf("SELECT * FROM VotosEncuestas WHERE idUsuario='%d' AND idEncuesta='%d'", filter_var($idUsuario, FILTER_SANITIZE_NUMBER_INT), filter_var($idEncuesta, FILTER_SANITIZE_NUMBER_INT));
+        $rs = $conn->query($query);
+        if ($rs) {
+            if ($fila = $rs->fetch_assoc()) {
+                $result = true;
             }
             $rs->free();
         } else {

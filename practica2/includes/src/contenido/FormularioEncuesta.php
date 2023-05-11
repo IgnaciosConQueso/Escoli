@@ -55,12 +55,17 @@ class FormularioEncuesta extends Formulario{
         $this->errores = [];
         $app = Aplicacion::getInstance();
         $idUsuario = $app->idUsuario();
-        $pregunta = filter_var($datos['pregunta'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $idFacultad = filter_var($datos['idFacultad'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $pregunta = filter_var($datos['pregunta'], FILTER_SANITIZE_SPECIAL_CHARS) ?? null;
+        $idFacultad = filter_var($datos['idFacultad'], FILTER_SANITIZE_SPECIAL_CHARS);
 
-        $opcion1 = filter_var($datos['opcion1'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $opcion2 = filter_var($datos['opcion2'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $opcion3 = filter_var($datos['opcion3'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $opcion1 = trim($datos['opcion1'] ?? '');
+        $opcion1 = filter_var($opcion1, FILTER_SANITIZE_SPECIAL_CHARS);
+
+        $opcion2 = trim($datos['opcion2'] ?? '');
+        $opcion2 = filter_var($opcion2, FILTER_SANITIZE_SPECIAL_CHARS);
+
+        $opcion3 = trim($datos['opcion3'] ?? '');
+        $opcion3 = filter_var($opcion3, FILTER_SANITIZE_SPECIAL_CHARS);
 
         if ( !$pregunta ) {
             $this->errores['pregunta'] = "La pregunta no puede estar vacía";
@@ -68,7 +73,7 @@ class FormularioEncuesta extends Formulario{
         if ( !$opcion1 || !$opcion2 || !$opcion3) {
             $this->errores['opciones'] = "No puede haber opciones vacias";
         } else {
-            if ($opcion1 == $opcion2 || $opcion1 == $opcion3 || $opcion2 == $opcion3) {
+            if ( !(strcmp($opcion1, $opcion2) || strcmp($opcion1, $opcion3) || strcmp($opcion2, $opcion3)) ) {
                 $this->errores['opciones'] = "No puede haber opciones iguales";
             }
         }
@@ -76,7 +81,7 @@ class FormularioEncuesta extends Formulario{
         if (count($this->errores) > 0) {return;}
 
         $opciones = array($opcion1, $opcion2, $opcion3);
-        $encuesta = Encuesta::crea($idUsuario, $idFacultad, $pregunta, $opciones);
+        $encuesta = Encuesta::crea($idUsuario, $idFacultad, $pregunta);
         foreach ($opciones as $opcion) {
             $idEncuesta = $encuesta->id;
             CampoEncuesta::crea($idEncuesta, $opcion);

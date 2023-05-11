@@ -79,9 +79,6 @@ class FormularioValoracion extends Formulario
         if (!$idAsignatura) {
             $this->errores['profesorAsignatura'] = "Debes seleccionar una asignatura";
         }
-        if ($puntuacion > 5 || $puntuacion < 1 && $puntuacion == filter_var($puntuacion, FILTER_VALIDATE_INT)) {
-            $this->errores['puntuacion'] = "La puntuación debe ser un número entre 1 y 5";
-        }
         if (mb_strlen($comentario) > 1000) {
             $this->errores['comentario'] = "El comentario no puede superar los 1000 caracteres";
         }
