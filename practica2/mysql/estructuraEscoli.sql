@@ -148,6 +148,10 @@ ALTER TABLE `Encuestas` ADD CONSTRAINT `Encuestas_idFacultad` FOREIGN KEY (`idFa
 
 ALTER TABLE `CamposEncuestas` ADD CONSTRAINT `CamposEncuestas_idEncuesta` FOREIGN KEY (`idEncuesta`) REFERENCES `Encuestas`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+ALTER TABLE `VotosEncuesta` ADD CONSTRAINT `VotosEncuesta_idUsuario` FOREIGN KEY (`idUsuario`) REFERENCES `Usuarios`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `VotosEncuesta` ADD CONSTRAINT `VotosEncuesta_idEncuesta` FOREIGN KEY (`idEncuesta`) REFERENCES `Encuestas`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `VotosEncuesta` ADD CONSTRAINT `VotosEncuesta_idCampo` FOREIGN KEY (`idCampo`) REFERENCES `CamposEncuestas`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
 ALTER TABLE `Karma` ADD CONSTRAINT `Karma_idUsuario` FOREIGN KEY (`idUsuario`) REFERENCES `Usuarios`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `Karma` ADD CONSTRAINT `Karma_idValoracion` FOREIGN KEY (`idValoracion`) REFERENCES `Valoraciones`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `Karma` ADD CHECK (valor = -1 OR valor = 1);
