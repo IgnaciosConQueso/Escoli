@@ -3,7 +3,6 @@
 namespace escoli\contenido;
 
 use escoli\Aplicacion;
-use escoli\contenido\Encuesta\CampoEncuesta;
 use escoli\MagicProperties;
 
 class Encuesta{
@@ -119,7 +118,7 @@ class Encuesta{
 }
 
 
-namespace escoli\contenido\encuesta;
+namespace escoli\contenido;
 
 use escoli\Aplicacion;
 use escoli\MagicProperties;

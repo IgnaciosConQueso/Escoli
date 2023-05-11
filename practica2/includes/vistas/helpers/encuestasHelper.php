@@ -1,7 +1,9 @@
 <?php
 
+use escoli\Aplicacion;
+use escoli\Formulario;
 use escoli\contenido\Encuesta;
-use escoli\contenido\encuesta\CampoEncuesta;
+use escoli\contenido\CampoEncuesta;
 
 function listaEncuestasFacultad($id, $url){
     $arrayEncuestas = Encuesta::buscaPorFacultad($id);
@@ -24,11 +26,20 @@ function generaHTMLEncuesta($encuesta, $url){
     $html .= '<p class="titulo-encuesta">' . $encuesta->titulo . '</p>';
     foreach ($campos as $campo) {
         $html .= '<div class="campo-encuesta">';
-        $html .= '<p class="campo-encuesta">' . $campo->campo . '</p>';
+        $html .= botonCampoEncuesta($encuesta, $campo, $url);
         $html .= '<p class="votos-encuesta">' . $campo->votos . '</p>';
+        
         $html .= '</div>';
     }
     $html .= '</li>';
 
     return $html;
+}
+
+function botonCampoEncuesta($encuesta, $campo, $url){
+    $app = Aplicacion::getInstance();
+    $api = $app->resuelve('/includes/vistas/helpers/api_encuestas.php');
+    return Formulario::buildButtonForm(
+        $api, ['url' => $url, 'idEncuesta' => $encuesta->id, 'idCampo' => $campo->id],
+        'boton-votar', $campo->campo);
 }

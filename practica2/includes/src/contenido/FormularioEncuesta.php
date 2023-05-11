@@ -1,7 +1,7 @@
 <?php
 namespace escoli\contenido;
 use escoli\Aplicacion;
-use escoli\contenido\encuesta\CampoEncuesta;
+use escoli\contenido\Encuesta;
 use escoli\Formulario;
 
 class FormularioEncuesta extends Formulario{
